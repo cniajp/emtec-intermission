@@ -7,11 +7,11 @@ export async function getRequest(url: string) {
         },
       });
       if (!response.ok) {
-        throw Error(`Failed to fetch speakers data: ${response.status} ${response.statusText}`);
+        throw Error(`Failed to fetch ${url} data: ${response.status} ${response.statusText}`);
       }
       return await response.json();
     } catch (error) {
-      console.error('Error fetching speakers data:', error);
+      console.error('Error fetching  data:', error);
       throw error;
     }
   }
