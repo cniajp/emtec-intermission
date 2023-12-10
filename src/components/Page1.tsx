@@ -52,10 +52,10 @@ function Body({ view }: Props) {
         </div>
       </div>
       <div className="top-[80px] left-[120px] w-[850px] relative longshadow">
-        <div className="text-center py-1 text-xl text-white bg-slate-400">
+        <div className="text-center py-1 text-xl text-white bg-slate-400 font-din-2014 font-light">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>
-        <div className="mx-10 my-5">
+        <div className="mx-10 my-5 font-ryo-gothic-plusn">
           <div className="text-center text-2xl mt-8 mb-5 font-bold">
             {talk.title}
           </div>
@@ -66,8 +66,8 @@ function Body({ view }: Props) {
             {Array.from(companies).join(', ')}
           </div>
         </div>
-        <div className="m-5 py-5">
-          <div className="text-sm text-gray-600">
+        <div className="m-5 py-5 font-ryo-gothic-plusn">
+          <div className="text-sm text-gray-600 ">
             <span className="mr-5">Category: {talk.talkCategory}</span>
             <span>Difficulty: {talk.talkDifficulty}</span>
           </div>
@@ -97,9 +97,9 @@ function Side({ view }: Props) {
   return (
     <div className="p-20">
       {hasKeynote && (
-        <div className="text-right w-[750px] bg-Hibiya-Green px-3 pt-1 pb-2 my-3">
+        <div className="text-right w-[750px] bg-Hibiya-Green px-3 pt-1 pb-2 my-3 font-ryo-gothic-plusn">
           <div className="flex flex-row">
-            <div className="text-left basis-1/2 text-white text-xs">
+            <div className="text-left basis-1/2 text-white text-xs font-din-2014 font-light">
               <span>
                 {getTimeStr(keyNoteTalks[0].startTime)} -{' '}
                 {getTimeStr(keyNoteTalks[keyNoteTalks.length - 1].endTime)} :
@@ -122,10 +122,10 @@ function Side({ view }: Props) {
       {talks.map((talk) => (
         <div
           key={talk.id}
-          className="text-right w-[750px] bg-Hibiya-Green px-3 pt-1 my-3"
+          className="text-right w-[750px] bg-Hibiya-Green px-3 pt-1 my-3 font-ryo-gothic-plusn"
         >
           <div className="flex flex-row">
-            <div className="text-left basis-1/2 text-white text-xs">
+            <div className="text-left basis-1/2 text-white text-xs font-din-2014 font-light">
               {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
             </div>
             <div className="basis-1/2 text-white text-xs">
