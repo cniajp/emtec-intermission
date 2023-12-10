@@ -183,9 +183,10 @@ export const useGetTracks = () => {
 export const useGetSpeakers = () => {
   const [_, setError] = useState()
 
-  const { data, isLoading, isError, error } = useGetApiV1SpeakersQuery({
-    eventAbbr: config.eventAbbr,
-  })
+  const { data, isLoading, isError, error } = useGetApiV1SpeakersQuery(
+    { eventAbbr: config.eventAbbr },
+    { pollingInterval: 300 * 1000 }
+  )
 
   useEffect(() => {
     if (isError) {
