@@ -42,7 +42,7 @@ function Body({ view }: Props) {
           UPCOMING SESSION
         </div>
       </div>
-      <div className="basis-1/2 ml-[100px] mt-7 text-xl font-din-2014 font-light">
+      <div className="basis-1/2 ml-[100px] mt-7 text-xl font-ryo-gothic-plusn">
         {getTimeStr(talk.startTime)}-{getTimeStr(talk.endTime)} の各セッション
       </div>
       <div className="grid grid-cols-2 gap8">
