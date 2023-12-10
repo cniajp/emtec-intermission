@@ -19,7 +19,7 @@ export default function Header({ view }: Props) {
   }
   return (
     <div className="flex flex-row items-center h-[180px] text-white font-din-2014 font-bold">
-      <div className="basis-1/3 ">
+      <div className="pl-30 basis-3/12 ">
         <div className="text-base  text-center opacity-75 font-ryo-gothic-plusn">
           トラック
         </div>
@@ -27,7 +27,16 @@ export default function Header({ view }: Props) {
           {view.selectedTrack.name}
         </div>
       </div>
-      <div className="basis-1/3">
+
+      <div className=" basis-2/12 ">
+        <div className="text-base  text-left opacity-75 font-ryo-gothic-plusn">
+          ハッシュタグ
+        </div>
+        <div className="text-2xl text-left font-din-2014">
+          {config.eventAbbr.toUpperCase()}_{view.selectedTrack.name}
+        </div>
+      </div>
+      <div className="basis-1/4">
         <div className="text-lg text-center font-din-2014 opacity-75">
           {config.eventAbbr.toUpperCase()}
         </div>
@@ -41,7 +50,7 @@ export default function Header({ view }: Props) {
         </div>
       </div>
       <div className="basis-1/4 pr-4">
-        <div className="text-lg text-left font-light">
+        <div className="text-lg text-left">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>
         <div className="text-base text-left mt-2 font-ryo-gothic-plusn ">

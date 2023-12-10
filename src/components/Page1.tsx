@@ -122,10 +122,10 @@ function Side({ view }: Props) {
       {talks.map((talk) => (
         <div
           key={talk.id}
-          className="text-right w-[750px] bg-Hibiya-Green px-3 pt-1 my-3"
+          className="text-right w-[750px] bg-Hibiya-Green px-3 pt-1 my-3 font-ryo-gothic-plusn"
         >
           <div className="flex flex-row">
-            <div className="text-left basis-1/2 text-white text-xs">
+            <div className="text-left basis-1/2 text-white text-xs font-din-2014 font-light">
               {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
             </div>
             <div className="basis-1/2 text-white text-xs">

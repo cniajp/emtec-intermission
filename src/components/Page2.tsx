@@ -36,14 +36,14 @@ function Body({ view }: Props) {
     return <></>
   }
   return (
-    <div className="my-20 font-ryo-gothic-plusn">
+    <div className=" mt-10 font-ryo-gothic-plusn">
       <div className="text-left w-[450px] bg-Magenta-2023 pr-3 py-8">
         <div className="text-right text-white font-bold font-din-2014 tracking-wide text-1.5xl">
           UPCOMING SESSION
         </div>
-      </div>
-      <div className="basis-1/2 ml-[100px] mt-7 text-xl font-ryo-gothic-plusn">
-        {getTimeStr(talk.startTime)}-{getTimeStr(talk.endTime)} の各セッション
+        <div className="text-right text-white font-bold font-din-2014 text-1.5xl">
+          {getTimeStr(talk.startTime)}-{getTimeStr(talk.endTime)}
+        </div>
       </div>
       <div className="grid grid-cols-2 gap8">
         {view.allTracks.map((track) => {
@@ -88,7 +88,9 @@ function Track({ talk, track, speakers }: TrackProps) {
         />
       </div>
       <div className="basis-2/3">
-        <div className="text-2xl my-5">Track {track.name}</div>
+        <div className="text-1.5xl my-2 w-[600px] text-black opacity-30 font-din-2014 font-bold ">
+          TRACK {track.name}
+        </div>
         <div className="text-xl font-bold">
           {talk.speakers.map((s) => s.name).join(', ')}
         </div>
