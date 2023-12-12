@@ -71,13 +71,19 @@ function TalkMenu({ view }: { view: Optional<MenuView> }) {
 }
 
 function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
+  const { query } = useRouter()
+  // @ts-ignore
+  delete query.confDay
   if (!talk) {
     return <div />
   }
   return (
     <Link
       className="col-span-1 hover:underline"
-      href={`/break/talks/${talk.id}`}
+      href={{
+        pathname: `/break/talks/${talk.id}`,
+        query,
+      }}
     >
       <div>{talk.id}</div>
       <div>{talk.title}</div>
