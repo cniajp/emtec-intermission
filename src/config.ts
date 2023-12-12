@@ -5,7 +5,7 @@ const envVars = {
   transTimePage2: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE2 ?? '24',
   transTimePage3: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE3 ?? '24',
   debug: process.env.NEXT_PUBLIC_DEBUG ?? '',
-  excludedTalks: process.env.NEXT_PUBLIC_EXCLUDED_TALKS ?? ''
+  excludedTalks: process.env.NEXT_PUBLIC_EXCLUDED_TALKS ?? '',
 }
 
 export type EnvVars = typeof envVars
@@ -43,11 +43,11 @@ function makeConfig(vars: Partial<EnvVars>): Partial<Config> {
     conf.debug = !!vars.debug
   }
   if (vars.excludedTalks) {
-    conf.excludedTalks = vars.excludedTalks.split(',').map((t) => parseInt(t)) || []
+    conf.excludedTalks =
+      vars.excludedTalks.split(',').map((t) => parseInt(t)) || []
   }
   return conf
 }
-
 
 export function extendConfig(query: Record<string, string>) {
   Object.assign(config, makeConfig(query))
