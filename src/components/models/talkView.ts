@@ -1,3 +1,4 @@
+import config from '@/config'
 import { Speaker, Talk, Track } from '@/generated/dreamkast-api.generated'
 import { getTime } from '@/utils/time'
 import { Optional } from '@/utils/types'
@@ -21,7 +22,9 @@ export class TalkView {
   }
 
   private allTalksOnTimeTable(): Talk[] {
-    return this.allTalks.filter((talk) => talk.showOnTimetable)
+    return this.allTalks.filter(
+      (talk) => talk.showOnTimetable && !config.excludedTalks.includes(talk.id)
+    )
   }
 
   private talksInTrack(trackId: number): Talk[] {
@@ -99,7 +102,9 @@ export class MenuView {
   }
 
   private allTalksOnTimeTable(): Talk[] {
-    return this.allTalks.filter((talk) => talk.showOnTimetable)
+    return this.allTalks.filter(
+      (talk) => talk.showOnTimetable && !config.excludedTalks.includes(talk.id)
+    )
   }
 
   timeSlots(): TimeSlot[] {

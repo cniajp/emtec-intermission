@@ -5,6 +5,10 @@ const config = {
   transTimePage2: parseInt(process.env.NEXT_PUBLIC_TRANS_TIME_PAGE2 ?? '24'),
   transTimePage3: parseInt(process.env.NEXT_PUBLIC_TRANS_TIME_PAGE3 ?? '24'),
   debug: !!process.env.NEXT_PUBLIC_DEBUG,
+  excludedTalks:
+    process.env.NEXT_PUBLIC_EXCLUDED_TALKS?.split(',').map((t) =>
+      parseInt(t)
+    ) || [],
 } as const
 
 export default config
