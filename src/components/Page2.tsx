@@ -77,7 +77,8 @@ function Track({ talk, track, speakers }: TrackProps) {
     return <></>
   }
   const companies = new Set(speakers.map((s) => s.company))
-  const avatarUrl = speakers[0].avatarUrl || '/cndt2023/trademark.png'
+  const re = /https:\/\/.*/
+  const avatarUrl = re.test(speakers[0].avatarUrl || '') ? speakers[0].avatarUrl! : '/cndt2023/trademark.png'
   return (
     <div className="flex flex-row items-center text-gray-800 w-[900px] h-[300px]">
       <div className="basis-1/3">
