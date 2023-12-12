@@ -1,5 +1,5 @@
 const envVars = {
-  baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL ?? '',
+  apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL ?? '',
   eventAbbr: process.env.NEXT_PUBLIC_EVENT_ABBR ?? '',
   transTimePage1: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE1 ?? '24',
   transTimePage2: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE2 ?? '24',
@@ -11,7 +11,7 @@ const envVars = {
 export type EnvVars = typeof envVars
 
 export type Config = {
-  baseUrl: string
+  apiBaseUrl: string
   eventAbbr: string
   transTimePage1: number
   transTimePage2: number
@@ -24,8 +24,8 @@ const config = makeConfig(envVars) as Config
 
 function makeConfig(vars: Partial<EnvVars>): Partial<Config> {
   const conf: Partial<Config> = {}
-  if (vars.baseUrl) {
-    conf.baseUrl = vars.baseUrl
+  if (vars.apiBaseUrl) {
+    conf.apiBaseUrl = vars.apiBaseUrl
   }
   if (vars.eventAbbr) {
     conf.eventAbbr = vars.eventAbbr
