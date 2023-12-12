@@ -72,7 +72,6 @@ function TalkMenu({ view }: { view: Optional<MenuView> }) {
 
 function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
   const { query } = useRouter()
-  // @ts-ignore
   delete query.confDay
   if (!talk) {
     return <div />
