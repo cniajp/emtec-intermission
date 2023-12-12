@@ -5,13 +5,16 @@ import Page3 from '@/components/Page3'
 import Page4 from '@/components/Page4'
 import { useGetTalksAndTracks } from '@/components/hooks/useGetTalksAndTracks'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
-import config from '@/config'
+import config, { extendConfig } from '@/config'
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 
 function Pages() {
   const router = useRouter()
   const { talkId } = router.query
+  useEffect(() => {
+    extendConfig(router.query as Record<string, string>)
+  }, [router.query])
 
   const { current, setTotalPage, goNextPage } = useContext(PageCtx)
   const { isLoading, view } = useGetTalksAndTracks(talkId as string | null)

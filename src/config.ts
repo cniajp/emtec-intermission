@@ -1,14 +1,56 @@
-const config = {
+const envVars = {
   baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL ?? '',
   eventAbbr: process.env.NEXT_PUBLIC_EVENT_ABBR ?? '',
-  transTimePage1: parseInt(process.env.NEXT_PUBLIC_TRANS_TIME_PAGE1 ?? '24'),
-  transTimePage2: parseInt(process.env.NEXT_PUBLIC_TRANS_TIME_PAGE2 ?? '24'),
-  transTimePage3: parseInt(process.env.NEXT_PUBLIC_TRANS_TIME_PAGE3 ?? '24'),
-  debug: !!process.env.NEXT_PUBLIC_DEBUG,
-  excludedTalks:
-    process.env.NEXT_PUBLIC_EXCLUDED_TALKS?.split(',').map((t) =>
-      parseInt(t)
-    ) || [],
-} as const
+  transTimePage1: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE1 ?? '24',
+  transTimePage2: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE2 ?? '24',
+  transTimePage3: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE3 ?? '24',
+  debug: process.env.NEXT_PUBLIC_DEBUG ?? '',
+  excludedTalks: process.env.NEXT_PUBLIC_EXCLUDED_TALKS ?? ''
+}
+
+export type EnvVars = typeof envVars
+
+export type Config = {
+  baseUrl: string
+  eventAbbr: string
+  transTimePage1: number
+  transTimePage2: number
+  transTimePage3: number
+  debug: boolean
+  excludedTalks: number[]
+}
+
+const config = makeConfig(envVars) as Config
+
+function makeConfig(vars: Partial<EnvVars>): Partial<Config> {
+  const conf: Partial<Config> = {}
+  if (vars.baseUrl) {
+    conf.baseUrl = vars.baseUrl
+  }
+  if (vars.eventAbbr) {
+    conf.eventAbbr = vars.eventAbbr
+  }
+  if (vars.transTimePage1) {
+    conf.transTimePage1 = parseFloat(vars.transTimePage1)
+  }
+  if (vars.transTimePage2) {
+    conf.transTimePage2 = parseFloat(vars.transTimePage2)
+  }
+  if (vars.transTimePage3) {
+    conf.transTimePage3 = parseFloat(vars.transTimePage3)
+  }
+  if (vars.debug) {
+    conf.debug = !!vars.debug
+  }
+  if (vars.excludedTalks) {
+    conf.excludedTalks = vars.excludedTalks.split(',').map((t) => parseInt(t)) || []
+  }
+  return conf
+}
+
+
+export function extendConfig(query: Record<string, string>) {
+  Object.assign(config, makeConfig(query))
+}
 
 export default config

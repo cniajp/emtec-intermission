@@ -1,15 +1,19 @@
 import { useGetTalksAndTracksForMenu } from '@/components/hooks/useGetTalksAndTracks'
 import { MenuView } from '@/components/models/talkView'
-import config from '@/config'
+import config, { extendConfig } from '@/config'
 import { Talk } from '@/generated/dreamkast-api.generated'
 import { getTimeStr } from '@/utils/time'
 import { Optional } from '@/utils/types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export default function Index() {
   const router = useRouter()
   const { confDay } = router.query
+  useEffect(() => {
+    extendConfig(router.query as Record<string, string>)
+  }, [router.query])
   const { eventAbbr } = config
 
   const { isLoading, view } = useGetTalksAndTracksForMenu(
