@@ -9,6 +9,12 @@ import config, { extendConfig } from '@/config'
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 
+function updateCache() {
+  if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({ type: 'UPDATE_CACHE' })
+  }
+}
+
 function Pages() {
   const router = useRouter()
   const { talkId } = router.query
@@ -43,6 +49,12 @@ function Pages() {
       </div>
       {config.debug && (
         <>
+          <button
+            onClick={updateCache}
+            className="font-bold py-0 px-4 mx-2 my-2 rounded bg-yellow-300 items-right"
+          >
+            Update Video Cache
+          </button>
           <button
             onClick={goNextPage}
             className="font-bold py-0 px-4 mx-2 my-2 rounded bg-blue-300 items-right"
