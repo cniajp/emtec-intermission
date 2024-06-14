@@ -37,7 +37,7 @@ function Body({ view }: Props) {
   }
   return (
     <div className=" mt-10 font-ryo-gothic-plusn">
-      <div className="text-left w-[450px] bg-Magenta-2023 pr-3 py-8">
+      <div className="text-left w-[450px] bg-Orange-2024 pr-3 py-8">
         <div className="text-right text-white font-bold font-din-2014 tracking-wide text-1.5xl">
           UPCOMING SESSION
         </div>
@@ -80,7 +80,7 @@ function Track({ talk, track, speakers }: TrackProps) {
   const re = /https:\/\/.*/
   const avatarUrl = re.test(speakers[0].avatarUrl || '')
     ? speakers[0].avatarUrl!
-    : '/cndt2023/trademark.png'
+    : '/cnds2024/trademark.png'
   return (
     <div className="flex flex-row items-center text-gray-800 w-[900px] h-[300px]">
       <div className="basis-1/3">
@@ -121,7 +121,7 @@ export function AvatarPreLoader({ view }: Props) {
           return <></>
         }
         const speakers = view.speakersOf(talk.id)
-        const avatarUrl = speakers[0].avatarUrl || '/cndt2023/trademark.png'
+        const avatarUrl = speakers[0].avatarUrl || '/cnds2024/trademark.png'
         return <img key={i} rel="preload" src={avatarUrl} alt="for preload" />
       })}
     </div>
