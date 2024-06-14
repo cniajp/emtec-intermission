@@ -91,7 +91,7 @@ const RotatingBunny: React.FC<ContentProperties> = (
   }, [props.talkData, props.speakersData])
 
   if (!sound.exists('bgm'))
-    sound.add('bgm', '/cndt2023/CNDT2023_intermission.mp3')
+    sound.add('bgm', '/cnds2024/cnds2024_intermission.mp3')
 
   const style_clock = new PIXI.TextStyle({
     align: 'center',

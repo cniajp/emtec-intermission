@@ -1,5 +1,5 @@
 // eventAbbrはイベント毎に変更する.
-const eventAbbr = 'cndt2023'
+const eventAbbr = 'cnds2024'
 
 // export const apiConfig = {
 //     talksEndpoint: `https://event.cloudnativedays.jp/api/v1/talks?eventAbbr=${eventAbbr}`,

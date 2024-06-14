@@ -35,7 +35,7 @@ function Pages() {
     setTotalPage(pages.length)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const audioSrc = '/cndt2023/CNDT2023_intermission.mp3'
+  const audioSrc = '/cnds2024/cnds2024_intermission.mp3'
   const shouldPlayAudio = current !== pages.length - 1
 
   if (isLoading) {
@@ -65,7 +65,7 @@ function Pages() {
       )}
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view}></AvatarPreLoader>
-      <div className="w-[1920px] h-[1080px] bg-[url('/cndt2023/background.png')]">
+      <div className="w-[1920px] h-[1080px] bg-[url('/cnds2024/background.png')]">
         {pages[current]}
       </div>
       <div className="w-[1280px] h-[300px] bg-black relative"></div>

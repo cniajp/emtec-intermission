@@ -14,9 +14,9 @@ const config: Config = {
         'ryo-gothic-plusn': ['ryo-gothic-plusn', 'sans-serif'],
       },
       colors: {
-        'Magenta-2023': '#BE3455',
-        'Solacity-Blue': '#195B73',
-        'Hibiya-Green': '#268A69',
+        'Orange-2024': '#FF7900',
+        'Blue-2024': '#00A6E1',
+        'Teal-2024': '#028E9B',
       },
     },
     fontSize: {

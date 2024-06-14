@@ -46,7 +46,7 @@ function Body({ view }: Props) {
 
   return (
     <div className="my-20">
-      <div className="text-left w-[450px] bg-Magenta-2023 pr-3 py-8">
+      <div className="text-left w-[450px] bg-Orange-2024 pr-3 py-8">
         <div className="text-right text-white font-bold font-din-2014 tracking-wide text-1.5xl">
           UPCOMING SESSION
         </div>
@@ -97,7 +97,7 @@ function Side({ view }: Props) {
   return (
     <div className="p-20">
       {hasKeynote && (
-        <div className="text-right w-[750px] bg-Hibiya-Green px-3 pt-1 pb-2 my-3 font-ryo-gothic-plusn">
+        <div className="text-right w-[750px] bg-Teal-2024 px-3 pt-1 pb-2 my-3 font-ryo-gothic-plusn">
           <div className="flex flex-row">
             <div className="text-left basis-1/2 text-white text-xs font-din-2014 font-light">
               <span>
@@ -122,7 +122,7 @@ function Side({ view }: Props) {
       {talks.map((talk) => (
         <div
           key={talk.id}
-          className="text-right w-[750px] bg-Hibiya-Green px-3 pt-1 my-3 font-ryo-gothic-plusn"
+          className="text-right w-[750px] bg-Teal-2024 px-3 pt-1 my-3 font-ryo-gothic-plusn"
         >
           <div className="flex flex-row">
             <div className="text-left basis-1/2 text-white text-xs font-din-2014 font-light">
