@@ -10,7 +10,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2024/cm1.mov',
+        src: 'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2024/cm1.mp4',
         type: 'video/mp4',
       },
     ],
@@ -18,7 +18,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2024/cm2.mov',
+        src: 'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2024/cm2.mp4',
         type: 'video/mp4',
       },
     ],
