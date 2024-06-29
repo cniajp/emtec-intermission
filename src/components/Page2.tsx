@@ -3,7 +3,7 @@ import { TalkView } from './models/talkView'
 import { useContext, useEffect } from 'react'
 import { PageCtx } from './models/pageContext'
 import config from '@/config'
-import { Speaker, Talk, Track } from '@/generated/dreamkast-api.generated'
+import type { Speaker, Talk, Track } from '@/data/types'
 import PageHeader from './PageHeader'
 import { getTimeStr } from '@/utils/time'
 
