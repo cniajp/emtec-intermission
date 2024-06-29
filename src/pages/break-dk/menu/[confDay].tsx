@@ -1,7 +1,7 @@
 import { useGetTalksAndTracksForMenu } from '@/components/hooks/useGetTalksAndTracks'
 import { MenuView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
-import { Talk } from '@/generated/dreamkast-api.generated'
+import type { Talk } from '@/data/types'
 import { getTimeStr } from '@/utils/time'
 import { Optional } from '@/utils/types'
 import Link from 'next/link'

@@ -3,11 +3,14 @@ import Page1 from '@/components/Page1'
 import Page2, { AvatarPreLoader } from '@/components/Page2'
 import Page3 from '@/components/Page3'
 import Page4 from '@/components/Page4'
-import { useGetTalksAndTracks } from '@/components/hooks/useGetTalksAndTracks'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
+import { TalkView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
+import { speakers } from '@/data/speakers'
+import { talks } from '@/data/talks'
+import { tracks } from '@/data/tracks'
 import { useRouter } from 'next/router'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
@@ -23,7 +26,13 @@ function Pages() {
   }, [router.query])
 
   const { current, setTotalPage, goNextPage } = useContext(PageCtx)
-  const { isLoading, view } = useGetTalksAndTracks(talkId as string | null)
+
+  const view = useMemo(() => {
+    if (!talkId) {
+      return null
+    }
+    return TalkView.withoutDk(talkId as string, talks, tracks, speakers)
+  }, [talkId])
 
   const pages = [
     <Page1 key={1} view={view} />,
@@ -38,7 +47,7 @@ function Pages() {
   const audioSrc = '/cnds2024/cnds2024_intermission.mp3'
   const shouldPlayAudio = current !== pages.length - 1
 
-  if (isLoading) {
+  if (!view) {
     return <div className="text-white">Loading...</div>
   }
   return (
