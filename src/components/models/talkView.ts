@@ -1,5 +1,5 @@
 import config from '@/config'
-import { Speaker, Talk, Track } from '@/generated/dreamkast-api.generated'
+import type { Speaker, Talk, Track } from '@/data/types'
 import { getTime } from '@/utils/time'
 import { Optional } from '@/utils/types'
 import dayjs, { Dayjs } from 'dayjs'
@@ -19,6 +19,27 @@ export class TalkView {
     this.selectedTrack = this.allTracks.find(
       (track) => track.id === talk.trackId
     )!
+  }
+
+  static withoutDk(
+    talkId: string,
+    talks: Talk[],
+    tracks: Track[],
+    speakers: Speaker[]
+  ): TalkView {
+    const selectedTalk = talks.find((talk) => talk.id.toString() === talkId)
+    if (!selectedTalk) {
+      throw new Error(`Talk not found: ${talkId}`)
+    }
+    const dayId = selectedTalk.conferenceDayId
+    return new TalkView(
+      selectedTalk,
+      talks
+        .filter((t) => t.conferenceDayId && t.conferenceDayId === dayId)
+        .map((t) => ({ ...t, showOnTimetable: true })),
+      tracks,
+      speakers
+    )
   }
 
   private allTalksOnTimeTable(): Talk[] {
@@ -99,6 +120,23 @@ export class MenuView {
     this.allTalks = Array.from(talks).sort((a, b) => a.id - b.id)
     this.allTracks = Array.from(tracks).sort((a, b) => a.id - b.id)
     this.speakers = Array.from(speakers).sort((a, b) => a.id - b.id)
+  }
+
+  static withoutDk(
+    dayId: string,
+    talks: Talk[],
+    tracks: Track[],
+    speakers: Speaker[]
+  ): MenuView {
+    return new MenuView(
+      talks
+        .filter(
+          (t) => t.conferenceDayId && t.conferenceDayId.toString() === dayId
+        )
+        .map((t) => ({ ...t, showOnTimetable: true })),
+      tracks,
+      speakers
+    )
   }
 
   private allTalksOnTimeTable(): Talk[] {

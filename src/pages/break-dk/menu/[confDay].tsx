@@ -1,3 +1,4 @@
+import { useGetTalksAndTracksForMenu } from '@/components/hooks/useGetTalksAndTracks'
 import { MenuView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
 import type { Talk } from '@/data/types'
@@ -6,9 +7,6 @@ import { Optional } from '@/utils/types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { talks } from '@/data/talks'
-import { tracks } from '@/data/tracks'
-import { speakers } from '@/data/speakers'
 
 export default function Index() {
   const router = useRouter()
@@ -18,8 +16,14 @@ export default function Index() {
   }, [router.query])
   const { eventAbbr } = config
 
-  const view = MenuView.withoutDk(confDay as string, talks, tracks, speakers)
+  const { isLoading, view } = useGetTalksAndTracksForMenu(
+    eventAbbr as Optional<string>,
+    confDay as Optional<string>
+  )
 
+  if (isLoading) {
+    return <div className="text-white">Loading...</div>
+  }
   return (
     <div>
       <div className="text-3xl text-white text-center w-full my-5">
@@ -76,7 +80,7 @@ function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
     <Link
       className="col-span-1 hover:underline"
       href={{
-        pathname: `/break/talks/${talk.id}`,
+        pathname: `/break-dk/talks/${talk.id}`,
         query,
       }}
     >

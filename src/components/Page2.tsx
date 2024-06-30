@@ -3,7 +3,7 @@ import { TalkView } from './models/talkView'
 import { useContext, useEffect } from 'react'
 import { PageCtx } from './models/pageContext'
 import config from '@/config'
-import { Speaker, Talk, Track } from '@/generated/dreamkast-api.generated'
+import type { Speaker, Talk, Track } from '@/data/types'
 import PageHeader from './PageHeader'
 import { getTimeStr } from '@/utils/time'
 
@@ -80,15 +80,21 @@ function Track({ talk, track, speakers }: TrackProps) {
   const re = /https:\/\/.*/
   const avatarUrl = re.test(speakers[0].avatarUrl || '')
     ? speakers[0].avatarUrl!
-    : '/cnds2024/trademark.png'
+    : null
   return (
     <div className="flex flex-row items-center text-gray-800 w-[900px] h-[300px]">
       <div className="basis-1/3">
-        <img
-          src={avatarUrl}
-          alt={'avatar'}
-          className="w-[180px] h-[180px] ml-auto mr-5 rounded-full"
-        />
+        {avatarUrl ? (
+          <img
+            src={avatarUrl}
+            alt={'avatar'}
+            className="w-[180px] h-[180px] ml-auto mr-5 rounded-full"
+          />
+        ) : (
+          <div className="w-[180px] h-[180px] ml-auto mr-5 rounded-full bg-gray-400 flex items-center justify-center">
+            <span className="text-4xl font-bold text-white">{track.name}</span>
+          </div>
+        )}
       </div>
       <div className="basis-2/3">
         <div className="text-1.5xl my-2 w-[600px] text-black opacity-30 font-din-2014 font-bold ">
@@ -121,8 +127,12 @@ export function AvatarPreLoader({ view }: Props) {
           return <></>
         }
         const speakers = view.speakersOf(talk.id)
-        const avatarUrl = speakers[0].avatarUrl || '/cnds2024/trademark.png'
-        return <img key={i} rel="preload" src={avatarUrl} alt="for preload" />
+        const avatarUrl = speakers[0].avatarUrl
+        return avatarUrl ? (
+          <img key={i} rel="preload" src={avatarUrl} alt="for preload" />
+        ) : (
+          <></>
+        )
       })}
     </div>
   )
