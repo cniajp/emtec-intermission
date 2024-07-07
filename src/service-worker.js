@@ -5,9 +5,11 @@ precacheAndRoute(self.__WB_MANIFEST)
 
 const CACHE_NAME = 'video-cache'
 const VIDEO_URL = [
-  'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2024/cm1.mp4',
-  'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2024/cm2.mp4',
-  'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2024/cm3.mov',
+  'https://web-intermission.s3.isk01.sakurastorage.jp/pek2024/cm1.mp4',
+  'https://web-intermission.s3.isk01.sakurastorage.jp/pek2024/cm2.mp4',
+  'https://web-intermission.s3.isk01.sakurastorage.jp/pek2024/cm3.mp4',
+  'https://web-intermission.s3.isk01.sakurastorage.jp/pek2024/cm4.mp4',
+  'https://web-intermission.s3.isk01.sakurastorage.jp/pek2024/cm5.mp4',
 ]
 
 async function updateCache() {

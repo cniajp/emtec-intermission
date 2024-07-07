@@ -10,15 +10,15 @@ type Props = { view: Optional<TalkView> }
 
 const images = [
   '/cnds2024/info1.png',
-  '/cnds2024/info2.png',
-  '/cnds2024/info3.png',
-  '/cnds2024/info4.png',
-  '/cnds2024/info5.png',
-  '/cnds2024/info6.png',
-  '/cnds2024/info7.png',
-  '/cnds2024/info8.png',
-  '/cnds2024/info9.png',
-  '/cnds2024/info10.png',
+  // '/cnds2024/info2.png',
+  // '/cnds2024/info3.png',
+  // '/cnds2024/info4.png',
+  // '/cnds2024/info5.png',
+  // '/cnds2024/info6.png',
+  // '/cnds2024/info7.png',
+  // '/cnds2024/info8.png',
+  // '/cnds2024/info9.png',
+  // '/cnds2024/info10.png',
 ]
 
 export default function Page({ view }: Props) {
