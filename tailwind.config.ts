@@ -14,12 +14,14 @@ const config: Config = {
         'ryo-gothic-plusn': ['ryo-gothic-plusn', 'sans-serif'],
       },
       colors: {
-        'Orange-2024': '#FF7900',
+        'Orange-2024': '#006FB8',
         'Blue-2024': '#00A6E1',
-        'Teal-2024': '#028E9B',
+        'Teal-2024': '#5F5F9D',
       },
     },
     fontSize: {
+      xxs: ['11px', '16px'],
+      semi: ['18px', '22px'],
       sm: ['20px', '24px'],
       base: ['24px', '30px'],
       lg: ['28px', '34px'],
