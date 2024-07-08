@@ -18,7 +18,7 @@ export default function Header({ view }: Props) {
     return <div>No talks left.</div>
   }
   return (
-    <div className="flex flex-row items-center h-[180px] text-white font-din-2014 font-bold">
+    <div className="flex flex-row items-center h-[140px] text-white font-din-2014 font-bold">
       <div className="pl-30 basis-3/12 ">
         <div className="text-base  text-center opacity-75 font-ryo-gothic-plusn">
           トラック

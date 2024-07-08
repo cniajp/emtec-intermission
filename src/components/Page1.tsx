@@ -95,23 +95,23 @@ function Side({ view }: Props) {
     .talksInSameTrack()
     .filter((t) => t.talkCategory === 'Keynote')
   return (
-    <div className="p-20">
+    <div className="p-14">
       {hasKeynote && (
         <div className="text-right w-[750px] bg-Teal-2024 px-3 pt-1 pb-2 my-3 font-ryo-gothic-plusn">
           <div className="flex flex-row">
-            <div className="text-left basis-1/2 text-white text-xs font-din-2014 font-light">
+            <div className="text-left basis-1/2 text-white text-xxs font-din-2014 font-light">
               <span>
                 {getTimeStr(keyNoteTalks[0].startTime)} -{' '}
                 {getTimeStr(keyNoteTalks[keyNoteTalks.length - 1].endTime)} :
               </span>
               <span className="ml-2">Keynote</span>
             </div>
-            <div className="basis-1/2 text-white text-xs" />
+            <div className="basis-1/2 text-white text-xxs" />
           </div>
           {keyNoteTalks.map((talk) => (
             <div
               key={talk.id}
-              className="text-center text-white text-sm h-min-[30px] font-bold"
+              className="text-center text-white text-semi h-min-[30px] font-bold"
             >
               {trim(talk.title, 80)}
             </div>
@@ -122,17 +122,17 @@ function Side({ view }: Props) {
       {talks.map((talk) => (
         <div
           key={talk.id}
-          className="text-right w-[750px] bg-Teal-2024 px-3 pt-1 my-3 font-ryo-gothic-plusn"
+          className="text-right w-[750px] bg-Teal-2024 px-3 pt-2 my-3 font-ryo-gothic-plusn"
         >
           <div className="flex flex-row">
-            <div className="text-left basis-1/2 text-white text-xs font-din-2014 font-light">
+            <div className="text-left basis-1/2 text-white text-xxs font-din-2014 font-light">
               {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
             </div>
-            <div className="basis-1/2 text-white text-xs">
+            <div className="basis-1/2 text-white text-xxs">
               {talk.speakers.map((t) => t.name).join(', ')}
             </div>
           </div>
-          <div className="text-center text-white text-sm h-[60px] font-bold">
+          <div className="text-center text-white text-semi h-[60px] font-bold">
             {trim(talk.title, 80)}
           </div>
         </div>
