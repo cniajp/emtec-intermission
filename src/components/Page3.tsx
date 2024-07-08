@@ -9,7 +9,7 @@ import Image from 'next/image'
 type Props = { view: Optional<TalkView> }
 
 const images = [
-  '/cnds2024/info1.png',
+  '/pek2024/info1.png',
   // '/cnds2024/info2.png',
   // '/cnds2024/info3.png',
   // '/cnds2024/info4.png',
