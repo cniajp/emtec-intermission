@@ -59,7 +59,8 @@ export const speakers: Speaker[] = [
   {
     id: 9,
     name: '石川諒(ishikawa-pro)',
-    company:
+    company: '株式会社サイバーエージェント/株式会社CAM',
+    avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2024/speaker/d491205d-ead6-454a-93db-e63b3116b927.jpg',
   },
   {
