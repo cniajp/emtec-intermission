@@ -115,7 +115,7 @@ export const speakers: Speaker[] = [
   {
     id: 17,
     name: '八重樫 剛史',
-    company: '',
+    company: '株式会社バンダイナムコスタジオ',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2024/speaker/b943c01b-5051-4a07-a0fe-6fceb3c9f658.jpg',
   },
