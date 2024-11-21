@@ -9,16 +9,16 @@ import Image from 'next/image'
 type Props = { view: Optional<TalkView> }
 
 const images = [
-  '/pek2024/info1.png',
-  '/pek2024/info2.png',
-  '/pek2024/info3.png',
-  '/pek2024/info4.png',
-  '/pek2024/info5.png',
-  '/pek2024/info6.png',
-  '/pek2024/info7.png',
-  // '/cnds2024/info8.png',
-  // '/cnds2024/info9.png',
-  // '/cnds2024/info10.png',
+  '/cndw2024/info1.png',
+  '/cndw2024/info2.png',
+  '/cndw2024/info3.png',
+  '/cndw2024/info4.png',
+  '/cndw2024/info5.png',
+  '/cndw2024/info6.png',
+  '/cndw2024/info7.png',
+  '/cndw2024/info8.png',
+  '/cndw2024/info9.png',
+  // '/cndw2024/info10.png',
 ]
 
 export default function Page({ view }: Props) {
@@ -36,8 +36,8 @@ export default function Page({ view }: Props) {
       <Image
         src={images[count]}
         alt={'information'}
-        width={1920}
-        height={1080}
+        width={1671}
+        height={940}
         className="m-auto"
       />
     </div>

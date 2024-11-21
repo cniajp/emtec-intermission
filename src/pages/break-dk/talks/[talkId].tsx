@@ -29,14 +29,18 @@ function Pages() {
     <Page1 key={1} view={view} />,
     <Page2 key={2} view={view} />,
     <Page3 key={3} view={view} />,
-    <Page4 key={4} view={view} />,
+    // CM スポンサーなしのためコメントアウト (下のshouldPlayAudioも編集が必要)
+    // <Page4 key={4} view={view} />,
   ]
   useEffect(() => {
     setTotalPage(pages.length)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const audioSrc = '/pek2024/pek2024_intermission.mp3'
-  const shouldPlayAudio = current !== pages.length - 1
+  const audioSrc = '/cndw2024/cndw2024_intermission.mp3'
+  // CM ありの場合
+  // const shouldPlayAudio = current !== pages.length - 1
+  // CM なしの場合
+  const shouldPlayAudio = true
 
   if (isLoading) {
     return <div className="text-white">Loading...</div>
@@ -65,7 +69,7 @@ function Pages() {
       )}
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view}></AvatarPreLoader>
-      <div className="w-[1920px] h-[1080px] bg-[url('/cnds2024/background.png')]">
+      <div className="w-[1920px] h-[1080px] bg-[url('/cndw2024/background.png')]">
         {pages[current]}
       </div>
       <div className="w-[1280px] h-[300px] bg-black relative"></div>
