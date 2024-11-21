@@ -14,9 +14,8 @@ const config: Config = {
         'ryo-gothic-plusn': ['ryo-gothic-plusn', 'sans-serif'],
       },
       colors: {
-        'Orange-2024': '#006FB8',
-        'Blue-2024': '#00A6E1',
-        'Teal-2024': '#5F5F9D',
+        'COLOR-UPCOMING-SESSION-LABEL': '#ae291b',
+        'COLOR-TIMETABLE-Box': '#008f9e',
       },
     },
     fontSize: {
