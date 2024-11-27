@@ -9,17 +9,15 @@ import Image from 'next/image'
 type Props = { view: Optional<TalkView> }
 
 const images = [
-  '/cndw2024/info1.png',
-  '/cndw2024/info2.png',
-  '/cndw2024/info3.png',
-  '/cndw2024/info4.png',
-  '/cndw2024/info5.png',
-  '/cndw2024/info6.png',
-  '/cndw2024/info7.png',
+  '/cndw2024/info1.jpeg',
+  '/cndw2024/info2.jpeg',
+  '/cndw2024/info3.jpeg',
+  '/cndw2024/info4.jpeg',
+  '/cndw2024/info5.jpeg',
+  '/cndw2024/info6.jpeg',
+  '/cndw2024/info7.jpeg',
   // せわしないので8以降はコメントアウト
-  // '/cndw2024/info8.png',
-  // '/cndw2024/info9.png',
-  '/cndw2024/info10.png',
+  '/cndw2024/info10.jpeg',
 ]
 
 export default function Page({ view }: Props) {
