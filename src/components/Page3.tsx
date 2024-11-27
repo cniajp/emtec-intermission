@@ -19,6 +19,7 @@ const images = [
   // せわしないので8以降はコメントアウト
   // '/cndw2024/info8.png',
   // '/cndw2024/info9.png',
+  '/cndw2024/info10.png',
 ]
 
 export default function Page({ view }: Props) {
