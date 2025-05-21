@@ -29,18 +29,18 @@ function Pages() {
     <Page1 key={1} view={view} />,
     <Page2 key={2} view={view} />,
     <Page3 key={3} view={view} />,
-    // CM スポンサーなしのためコメントアウト (下のshouldPlayAudioも編集が必要)
-    // <Page4 key={4} view={view} />,
+    // CM スポンサーなしの場合は page 4 はコメントアウトする (下のshouldPlayAudioも編集が必要)
+    <Page4 key={4} view={view} />,
   ]
   useEffect(() => {
     setTotalPage(pages.length)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const audioSrc = '/cndw2024/cndw2024_intermission.mp3'
+  const audioSrc = '/cnds2025/cnds2025_intermission.mp3'
   // CM ありの場合
-  // const shouldPlayAudio = current !== pages.length - 1
+  const shouldPlayAudio = current !== pages.length - 1
   // CM なしの場合
-  const shouldPlayAudio = true
+  // const shouldPlayAudio = true
 
   if (isLoading) {
     return <div className="text-white">Loading...</div>
