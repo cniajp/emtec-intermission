@@ -5,10 +5,9 @@ precacheAndRoute(self.__WB_MANIFEST)
 
 const CACHE_NAME = 'video-cache'
 const VIDEO_URL = [
-  // CNDW2024 は CM スポンサーなしのためコメントアウト
-  // 'https://web-intermission.s3.isk01.sakurastorage.jp/cndw2024/cm1.mp4',
-  // 'https://web-intermission.s3.isk01.sakurastorage.jp/cndw2024/cm2.mp4',
-  // 'https://web-intermission.s3.isk01.sakurastorage.jp/cndw2024/cm3.mp4',
+  'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2025/cm1.mp4',
+  'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2025/cm2.mp4',
+  'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2025/cm3.mp4',
   // 'https://web-intermission.s3.isk01.sakurastorage.jp/cndw2024/cm4.mp4',
   // 'https://web-intermission.s3.isk01.sakurastorage.jp/cndw2024/cm5.mp4',
 ]
