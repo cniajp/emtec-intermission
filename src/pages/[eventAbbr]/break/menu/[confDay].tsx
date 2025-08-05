@@ -67,10 +67,9 @@ function TalkMenu({ view }: { view: Optional<MenuView> }) {
 }
 
 function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
-  const { query } = useRouter()
-  const { eventAbbr } = query
-  delete query.confDay
-  delete query.eventAbbr
+  const router = useRouter()
+  const { eventAbbr } = router.query
+  delete router.query.confDay
   if (!talk) {
     return <div />
   }
@@ -79,7 +78,7 @@ function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
       className="col-span-1 hover:underline"
       href={{
         pathname: `/${eventAbbr}/break/talks/${talk.id}`,
-        query,
+        query: router.query,
       }}
     >
       <div>{talk.id}</div>
