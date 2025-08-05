@@ -44,7 +44,7 @@ function Pages() {
     setTotalPage(pages.length)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const audioSrc = '/cndw2024/cndw2024_intermission.mp3'
+  const audioSrc = '/pek2024/pek2024_intermission.mp3'
   const shouldPlayAudio = current !== pages.length - 1
 
   if (!view) {
