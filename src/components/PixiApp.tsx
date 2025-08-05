@@ -91,7 +91,7 @@ const RotatingBunny: React.FC<ContentProperties> = (
   }, [props.talkData, props.speakersData])
 
   if (!sound.exists('bgm'))
-    sound.add('bgm', '/cnds2025/cnds2025_intermission.mp3')
+    sound.add('bgm', `/${props.eventAbbr}/${props.eventAbbr}_intermission.mp3`)
 
   const style_clock = new PIXI.TextStyle({
     align: 'center',
@@ -279,6 +279,7 @@ const PixiApp: React.FC<ContentProperties> = (props: ContentProperties) => {
       <Container position={[0, 0]}>
         <RotatingBunny
           onEnded={props.onEnded}
+          eventAbbr={props.eventAbbr || 'cnds2025'}
           talkData={props.talkData}
           speakersData={props.speakersData}
         />
