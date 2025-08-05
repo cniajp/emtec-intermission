@@ -78,7 +78,6 @@ function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
       className="col-span-1 hover:underline"
       href={{
         pathname: `/${eventAbbr}/break/talks/${talk.id}`,
-        query: router.query,
       }}
     >
       <div>{talk.id}</div>
