@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { Stage, Container, Sprite, useTick, Text } from '@pixi/react'
 import * as PIXI from 'pixi.js'
 import { sound } from '@pixi/sound'
@@ -55,6 +56,8 @@ const RotatingBunny: React.FC<ContentProperties> = (
   props: ContentProperties
 ) => {
   const duration = 15 // 単位: 秒 これが animation パートの長さ TODO: 実際に必要な長さにする
+  const router = useRouter()
+  const { eventAbbr = 'cnds2025' } = router.query
 
   const [time, setTime] = useState(new Date().toLocaleTimeString())
   const [count, setCount] = useState(duration)
@@ -91,7 +94,7 @@ const RotatingBunny: React.FC<ContentProperties> = (
   }, [props.talkData, props.speakersData])
 
   if (!sound.exists('bgm'))
-    sound.add('bgm', `/${props.eventAbbr}/${props.eventAbbr}_intermission.mp3`)
+    sound.add('bgm', `/${eventAbbr}/${eventAbbr}_intermission.mp3`)
 
   const style_clock = new PIXI.TextStyle({
     align: 'center',
@@ -279,7 +282,6 @@ const PixiApp: React.FC<ContentProperties> = (props: ContentProperties) => {
       <Container position={[0, 0]}>
         <RotatingBunny
           onEnded={props.onEnded}
-          eventAbbr={props.eventAbbr || 'cnds2025'}
           talkData={props.talkData}
           speakersData={props.speakersData}
         />
