@@ -10,7 +10,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 1, name: '運営チーム' }],
     startTime: '2025-09-18T10:10:00.000+09:00',
     endTime: '2025-09-18T10:20:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Keynote',
   },
   {
@@ -24,7 +23,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 2, name: 'Nicki Watt' }],
     startTime: '2025-09-18T10:20:00.000+09:00',
     endTime: '2025-09-18T11:10:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Keynote',
   },
   {
@@ -38,7 +36,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 3, name: '服部佑樹 (Yuki Hattori)' }],
     startTime: '2025-09-18T11:10:00.000+09:00',
     endTime: '2025-09-18T11:50:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Culture（開発者にプラットフォームを定着させる文化）',
   },
   {
@@ -50,7 +47,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 4, name: 'スポンサー' }],
     startTime: '2025-09-18T12:00:00.000+09:00',
     endTime: '2025-09-18T13:00:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: '',
   },
   {
@@ -64,7 +60,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 5, name: '池添 明宏 （共同登壇者： 山田 高大）' }],
     startTime: '2025-09-18T13:00:00.000+09:00',
     endTime: '2025-09-18T13:30:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Blueprints（プラットフォームの構想や全体像）',
   },
   {
@@ -76,7 +71,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 6, name: 'スポンサー' }],
     startTime: '2025-09-18T13:45:00.000+09:00',
     endTime: '2025-09-18T14:15:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: '',
   },
   {
@@ -90,7 +84,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 7, name: 'Kumo Ishikawa' }],
     startTime: '2025-09-18T14:30:00.000+09:00',
     endTime: '2025-09-18T15:00:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Tech（課題を解決する個別技術）',
   },
   {
@@ -102,7 +95,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 8, name: 'スポンサー' }],
     startTime: '2025-09-18T15:15:00.000+09:00',
     endTime: '2025-09-18T15:45:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: '',
   },
   {
@@ -121,7 +113,6 @@ export const talks: Talk[] = [
     ],
     startTime: '2025-09-18T16:00:00.000+09:00',
     endTime: '2025-09-18T16:30:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Stories（プラットフォームエンジニアリングの実践事例）',
   },
   {
@@ -133,7 +124,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 10, name: 'スポンサー' }],
     startTime: '2025-09-18T16:45:00.000+09:00',
     endTime: '2025-09-18T17:15:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: '',
   },
   {
@@ -147,7 +137,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 11, name: 'Toshinori Sugita' }],
     startTime: '2025-09-18T17:30:00.000+09:00',
     endTime: '2025-09-18T18:00:00.000+09:00',
-    talkCategory: '',
     talkDifficulty: 'Stories（プラットフォームエンジニアリングの実践事例）',
   },
   {
@@ -159,7 +148,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 1, name: '運営チーム' }],
     startTime: '2025-09-18T18:00:00.000+09:00',
     endTime: '2025-09-18T18:10:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: '',
   },
   {
@@ -173,7 +161,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 12, name: '岡　麦' }],
     startTime: '2025-09-18T13:00:00.000+09:00',
     endTime: '2025-09-18T13:30:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Blueprints（プラットフォームの構想や全体像）',
   },
   {
@@ -185,7 +172,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 13, name: 'スポンサー' }],
     startTime: '2025-09-18T13:45:00.000+09:00',
     endTime: '2025-09-18T14:15:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: '',
   },
   {
@@ -199,7 +185,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 14, name: '五反田 正太郎' }],
     startTime: '2025-09-18T14:30:00.000+09:00',
     endTime: '2025-09-18T15:00:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Stories（プラットフォームエンジニアリングの実践事例）',
   },
   {
@@ -211,7 +196,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 15, name: 'スポンサー' }],
     startTime: '2025-09-18T15:15:00.000+09:00',
     endTime: '2025-09-18T15:45:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: '',
   },
   {
@@ -225,7 +209,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 16, name: '吉瀬 淳一' }],
     startTime: '2025-09-18T16:00:00.000+09:00',
     endTime: '2025-09-18T16:30:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Tech（課題を解決する個別技術）',
   },
   {
@@ -237,7 +220,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 17, name: 'スポンサー' }],
     startTime: '2025-09-18T16:45:00.000+09:00',
     endTime: '2025-09-18T17:15:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: '',
   },
   {
@@ -251,7 +233,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 18, name: 'oguma' }],
     startTime: '2025-09-18T17:30:00.000+09:00',
     endTime: '2025-09-18T18:00:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Stories（プラットフォームエンジニアリングの実践事例）',
   },
   {
@@ -264,7 +245,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 19, name: 'Makoto Shiga' }],
     startTime: '2025-09-18T13:00:00.000+09:00',
     endTime: '2025-09-18T13:30:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Stories（プラットフォームエンジニアリングの実践事例）',
   },
   {
@@ -276,7 +256,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 20, name: 'スポンサー' }],
     startTime: '2025-09-18T13:45:00.000+09:00',
     endTime: '2025-09-18T14:15:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: '',
   },
   {
@@ -289,7 +268,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 21, name: 'しょっさん' }],
     startTime: '2025-09-18T14:30:00.000+09:00',
     endTime: '2025-09-18T15:00:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Stories（プラットフォームエンジニアリングの実践事例）',
   },
   {
@@ -301,7 +279,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 22, name: 'スポンサー' }],
     startTime: '2025-09-18T15:15:00.000+09:00',
     endTime: '2025-09-18T15:45:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: '',
   },
   {
@@ -315,7 +292,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 23, name: 'Shinichi Tokuhara' }],
     startTime: '2025-09-18T16:00:00.000+09:00',
     endTime: '2025-09-18T16:30:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Stories（プラットフォームエンジニアリングの実践事例）',
   },
   {
@@ -327,7 +303,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 24, name: 'スポンサー' }],
     startTime: '2025-09-18T16:45:00.000+09:00',
     endTime: '2025-09-18T17:15:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: '',
   },
   {
@@ -340,7 +315,6 @@ export const talks: Talk[] = [
     speakers: [{ id: 25, name: 'maru' }],
     startTime: '2025-09-18T17:30:00.000+09:00',
     endTime: '2025-09-18T18:00:00.000+09:00',
-    talkDifficulty: '',
     talkCategory: 'Blueprints（プラットフォームの構想や全体像）',
   },
 ]

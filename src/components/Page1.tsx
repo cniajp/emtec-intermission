@@ -68,15 +68,15 @@ function Body({ view }: Props) {
         </div>
         <div className="m-5 py-5 font-ryo-gothic-plusn">
           <div className="text-sm text-gray-600 ">
-            <span className="mr-5">Category: {talk.talkCategory}</span>
-            {talk.talkDifficulty ? (
-              <span>Difficulty: {talk.talkDifficulty}</span>
-            ) : (
-              <span></span>
+            {talk.talkCategory && (
+              <span className="mr-5">Category: {talk.talkCategory}</span>
+            )}
+            {talk.talkDifficulty && (
+              <span className="mr-5">Difficulty: {talk.talkDifficulty}</span>
             )}
           </div>
           <div className="text-sm text-gray-600 mt-2">
-            Abstract: {trim(talk.abstract, 200)}
+            {talk.abstract && <span>Abstract: {trim(talk.abstract, 200)}</span>}
           </div>
         </div>
       </div>

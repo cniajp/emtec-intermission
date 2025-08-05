@@ -9,8 +9,8 @@ export type Talk = {
   }[]
   startTime: string
   endTime: string
-  talkDifficulty: string
-  talkCategory: string
+  talkDifficulty?: string | undefined
+  talkCategory?: string | undefined
   conferenceDayId?: (number | null) | undefined
   showOnTimetable?: boolean | undefined
 }
