@@ -53,7 +53,7 @@ export default function Header({ view }: Props) {
         <div className="text-lg text-left">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>
-        <div className="text-base text-left mt-2 font-ryo-gothic-plusn ">
+        <div className="text-base text-left mt-2 font-ryo-gothic-plusn line-clamp-3">
           {trim(talk.title, 80)}
         </div>
       </div>
