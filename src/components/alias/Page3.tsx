@@ -61,13 +61,9 @@ export default function Page3({ view, eventAbbr }: Props) {
           className="m-auto"
         />
       ) : imagesLoaded && images.length === 0 ? (
-        <div className="text-white text-center text-2xl mt-20">
-          No information images available
-        </div>
+        <div className="text-white text-center text-2xl mt-20"></div>
       ) : (
-        <div className="text-white text-center text-2xl mt-20">
-          Loading information...
-        </div>
+        <div className="text-white text-center text-2xl mt-20"></div>
       )}
     </div>
   )

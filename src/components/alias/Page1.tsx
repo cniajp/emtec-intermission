@@ -88,18 +88,26 @@ function Side({ view }: Props) {
   if (!view) {
     return <></>
   }
+  // 現在のトークより前のものは表示しない
+  const talkStartTime = view.talksLeftInSameTrack()[0]?.startTime
+  if (!talkStartTime) {
+    return <></>
+  }
   // 午前セッションは、keynoteとして1枠で表示する。
   const hasKeynote =
-    view.talksInSameTrack().filter((t) => t.talkCategory === 'Keynote').length >
-    0
+    view
+      .talksInSameTrack()
+      .filter(
+        (t) => t.talkCategory === 'Keynote' && t.startTime > talkStartTime
+      ).length > 0
   const talks = view
     .talksInSameTrack()
-    .filter((t) => t.talkCategory !== 'Keynote')
+    .filter((t) => t.talkCategory !== 'Keynote' && t.startTime > talkStartTime)
   const keyNoteTalks = view
     .talksInSameTrack()
-    .filter((t) => t.talkCategory === 'Keynote')
+    .filter((t) => t.talkCategory === 'Keynote' && t.startTime > talkStartTime)
   return (
-    <div className="p-14">
+    <div className="p-14 h-[80%] overflow-y-auto">
       {hasKeynote && (
         <div className="text-right w-[750px] bg-COLOR-TIMETABLE-Box px-3 pt-1 pb-2 my-3 font-ryo-gothic-plusn">
           <div className="flex flex-row">
