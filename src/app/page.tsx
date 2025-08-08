@@ -36,21 +36,13 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
       <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                EMTEC Intermission 管理画面
-              </h1>
-              <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                URL形式選択
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <label
-                htmlFor="event-select"
-                className="text-sm font-medium text-gray-700 dark:text-gray-300"
-              >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              EMTEC Intermission
+            </h1>
+            <div className="flex items-center space-x-3">
+              <label htmlFor="event-select" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 イベント:
               </label>
               {loading ? (
@@ -62,7 +54,7 @@ export default function Home() {
                   id="event-select"
                   value={selectedEvent}
                   onChange={(e) => setSelectedEvent(e.target.value)}
-                  className="block px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white dark:bg-gray-700 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="px-3 py-1.5 border border-gray-300 rounded-md text-sm bg-white dark:bg-gray-700 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   disabled={events.length === 0}
                 >
                   {events.length === 0 ? (
@@ -70,7 +62,7 @@ export default function Home() {
                   ) : (
                     events.map((event) => (
                       <option key={event.abbr} value={event.abbr}>
-                        {event.abbr} - {event.name}
+                        {event.abbr}
                       </option>
                     ))
                   )}
@@ -82,18 +74,18 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {loading && (
-          <div className="flex justify-center items-center py-12">
-            <div className="text-lg text-gray-600 dark:text-gray-400">
+          <div className="flex justify-center items-center py-8">
+            <div className="text-gray-600 dark:text-gray-400">
               イベント情報を読み込み中...
             </div>
           </div>
         )}
 
         {!loading && events.length === 0 && (
-          <div className="flex justify-center items-center py-12">
-            <div className="text-lg text-gray-600 dark:text-gray-400">
+          <div className="flex justify-center items-center py-8">
+            <div className="text-gray-600 dark:text-gray-400">
               利用可能なイベントが見つかりません
             </div>
           </div>
@@ -102,11 +94,11 @@ export default function Home() {
         {!loading && selectedEvent && (
           <>
             {/* Tabs */}
-            <div className="border-b border-gray-200 dark:border-gray-700 mb-8">
-              <nav className="-mb-px flex space-x-8">
+            <div className="border-b border-gray-200 dark:border-gray-700 mb-6">
+              <nav className="-mb-px flex space-x-6">
                 <button
                   onClick={() => setActiveTab('new')}
-                  className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
+                  className={`whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm ${
                     activeTab === 'new'
                       ? 'border-blue-500 text-blue-600 dark:text-blue-400'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
@@ -119,7 +111,7 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => setActiveTab('legacy')}
-                  className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
+                  className={`whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm ${
                     activeTab === 'legacy'
                       ? 'border-blue-500 text-blue-600 dark:text-blue-400'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
@@ -132,81 +124,74 @@ export default function Home() {
 
             {/* Tab Content */}
             {activeTab === 'new' && (
-              <div className="space-y-12">
+              <div className="space-y-8">
                 {/* New Event-based Dreamkast Section */}
                 <section>
-                  <div className="mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+                  <div className="mb-4">
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
                       Dreamkast 連携
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
                       外部APIからデータを取得 - イベント別URL形式
                     </p>
+                    <div className="p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-md">
+                      <div className="flex">
+                        <svg className="w-4 h-4 text-amber-400 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                        </svg>
+                        <div>
+                          <p className="text-xs font-medium text-amber-800 dark:text-amber-300 mb-1">
+                            注意: CORSエラー
+                          </p>
+                          <p className="text-xs text-amber-700 dark:text-amber-400">
+                            異なるドメイン間でのAPI呼び出しによりCORSエラーが発生する可能性があります。
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="grid lg:grid-cols-2 gap-4">
+                  <div className="grid lg:grid-cols-2 gap-3">
                     <Link
                       href={`/${selectedEvent}/break-dk/menu/0`}
-                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600"
+                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-4 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600"
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                            {selectedEvent.toUpperCase()} Day 1 - Dreamkast
+                          <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                            {selectedEvent.toUpperCase()} Day 1
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm">
-                            /[eventAbbr]/break-dk/menu/0 - イベント別URL
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mb-2">
+                            /{selectedEvent}/break-dk/menu/0
                           </p>
-                          <div className="mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-                            <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                          <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
                             API連携
-                          </div>
+                          </span>
                         </div>
-                        <svg
-                          className="w-5 h-5 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </div>
                     </Link>
 
                     <Link
                       href={`/${selectedEvent}/break-dk/menu/1`}
-                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600"
+                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-4 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600"
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                            {selectedEvent.toUpperCase()} Day 2 - Dreamkast
+                          <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                            {selectedEvent.toUpperCase()} Day 2
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm">
-                            /[eventAbbr]/break-dk/menu/1 - イベント別URL
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mb-2">
+                            /{selectedEvent}/break-dk/menu/1
                           </p>
-                          <div className="mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-                            <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                          <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
                             API連携
-                          </div>
+                          </span>
                         </div>
-                        <svg
-                          className="w-5 h-5 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </div>
                     </Link>
@@ -215,79 +200,56 @@ export default function Home() {
 
                 {/* New Event-based Static Data Section */}
                 <section>
-                  <div className="mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+                  <div className="mb-4">
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
                       静的データ
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-400">
-                      /src/data/talks.tsファイルに定義されたデータを使用 -
-                      イベント別URL形式
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">
+                      talks.tsファイルに定義されたデータを使用
                     </p>
                   </div>
 
-                  <div className="grid lg:grid-cols-2 gap-4">
+                  <div className="grid lg:grid-cols-2 gap-3">
                     <Link
                       href={`/${selectedEvent}/break/menu/1`}
-                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 dark:border-gray-700 hover:border-green-300 dark:hover:border-green-600"
+                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-4 border border-gray-200 dark:border-gray-700 hover:border-green-300 dark:hover:border-green-600"
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                          <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
                             Day 1 - Static Data
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm">
-                            /[eventAbbr]/break/menu/1 - イベント別URL
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mb-2">
+                            /{selectedEvent}/break/menu/1
                           </p>
-                          <div className="mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
-                            <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                          <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
                             ローカルファイル
-                          </div>
+                          </span>
                         </div>
-                        <svg
-                          className="w-5 h-5 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </div>
                     </Link>
 
                     <Link
                       href={`/${selectedEvent}/break/menu/2`}
-                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 dark:border-gray-700 hover:border-green-300 dark:hover:border-green-600"
+                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-4 border border-gray-200 dark:border-gray-700 hover:border-green-300 dark:hover:border-green-600"
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                          <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
                             Day 2 - Static Data
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm">
-                            /[eventAbbr]/break/menu/2 - イベント別URL
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mb-2">
+                            /{selectedEvent}/break/menu/2
                           </p>
-                          <div className="mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
-                            <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                          <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
                             ローカルファイル
-                          </div>
+                          </span>
                         </div>
-                        <svg
-                          className="w-5 h-5 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </div>
                     </Link>
@@ -297,81 +259,59 @@ export default function Home() {
             )}
 
             {activeTab === 'legacy' && (
-              <div className="space-y-12">
+              <div className="space-y-8">
                 {/* Legacy Dreamkast Section */}
                 <section>
-                  <div className="mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+                  <div className="mb-4">
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
                       Dreamkast 連携
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">
                       外部APIからデータを取得 - レガシーURL形式
                     </p>
                   </div>
 
-                  <div className="grid lg:grid-cols-2 gap-4">
+                  <div className="grid lg:grid-cols-2 gap-3">
                     <Link
                       href="/break-dk/menu/0"
-                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600"
+                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-4 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600"
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                          <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
                             Day 1 - Dreamkast
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm">
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mb-2">
                             /break-dk/menu/0 - レガシーURL形式
                           </p>
-                          <div className="mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-                            <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                          <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
                             API連携
-                          </div>
+                          </span>
                         </div>
-                        <svg
-                          className="w-5 h-5 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </div>
                     </Link>
 
                     <Link
                       href="/break-dk/menu/1"
-                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600"
+                      className="block bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-4 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600"
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                          <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
                             Day 2 - Dreamkast
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm">
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mb-2">
                             /break-dk/menu/1 - レガシーURL形式
                           </p>
-                          <div className="mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-                            <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                          <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
                             API連携
-                          </div>
+                          </span>
                         </div>
-                        <svg
-                          className="w-5 h-5 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </div>
                     </Link>
@@ -396,29 +336,18 @@ export default function Home() {
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                          <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
                             Day 1 - Static Data
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm">
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mb-2">
                             /break/menu/1 - レガシーURL形式
                           </p>
-                          <div className="mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300">
-                            <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                          <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300">
                             ローカルファイル
-                          </div>
+                          </span>
                         </div>
-                        <svg
-                          className="w-5 h-5 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </div>
                     </Link>
@@ -429,29 +358,18 @@ export default function Home() {
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                          <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
                             Day 2 - Static Data
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm">
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mb-2">
                             /break/menu/2 - レガシーURL形式
                           </p>
-                          <div className="mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300">
-                            <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                          <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300">
                             ローカルファイル
-                          </div>
+                          </span>
                         </div>
-                        <svg
-                          className="w-5 h-5 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </div>
                     </Link>
@@ -461,8 +379,8 @@ export default function Home() {
             )}
 
             {/* Comparison Table */}
-            <section className="mt-12">
-              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+            <section className="mt-8">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                 URL形式比較
               </h2>
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
@@ -577,51 +495,23 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* About */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
                 EMTEC Intermission
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                イベント間のインターミッション画面を管理・配信するためのシステムです。
+              <p className="text-gray-600 dark:text-gray-400 text-xs">
+                イベント間のインターミッション画面を管理・配信するためのシステム
               </p>
             </div>
-
-            {/* Tech Stack */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                技術スタック
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-                  Next.js
-                </span>
-                <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-                  TypeScript
-                </span>
-                <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-                  Tailwind CSS
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                © EMTEC. All rights reserved.
-              </p>
-              <div className="mt-4 md:mt-0 flex items-center space-x-4">
-                <span className="text-gray-400 dark:text-gray-500 text-xs">
-                  バージョン: 2.0.0
-                </span>
+            <div className="text-center md:text-right">
+              <div className="flex items-center justify-center md:justify-end space-x-3 text-xs text-gray-500 dark:text-gray-400">
+                <span>v2.0.0</span>
                 <div className="flex items-center space-x-1">
                   <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-gray-500 dark:text-gray-400 text-xs">
+                  <span>
                     運用中
                   </span>
                 </div>

@@ -32,7 +32,7 @@ function getEventName(abbr: string): string {
   const prefix = abbr.slice(0, -4)
 
   const eventMap: Record<string, string> = {
-    cnds: 'CloudNative Days Spring',
+    cnds: 'CloudNative Days Summer',
     cndt: 'CloudNative Days Tokyo',
     cndw: 'CloudNative Days Winter',
     pek: 'Platform Engineering Kaigi',
