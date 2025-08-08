@@ -73,7 +73,7 @@ function Pages() {
         </>
       )}
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
-      <AvatarPreLoader view={view} eventAbbr={eventAbbr as string} />
+      <AvatarPreLoader view={view} />
       <div
         className="w-[1920px] h-[1080px] bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url('/${eventAbbr}/background.png')` }}
