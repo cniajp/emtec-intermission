@@ -7,9 +7,13 @@ import type { Speaker, Talk, Track } from '@/data/types'
 import PageHeader from './PageHeader'
 import { getTimeStr } from '@/utils/time'
 
-type Props = { view: Optional<TalkView>; eventAbbr: string }
-
-export default function Page({ view, eventAbbr }: Props) {
+export default function Page({
+  view,
+  eventAbbr,
+}: {
+  view: Optional<TalkView>
+  eventAbbr: string
+}) {
   const { goNextPage } = useContext(PageCtx)
   useEffect(() => {
     const cancel = setTimeout(goNextPage, config.transTimePage2 * 1000)
@@ -20,13 +24,13 @@ export default function Page({ view, eventAbbr }: Props) {
     <div>
       <PageHeader view={view} eventAbbr={eventAbbr} />
       <div className="h-full">
-        <Body view={view} eventAbbr={eventAbbr} />
+        <Body view={view} />
       </div>
     </div>
   )
 }
 
-function Body({ view, eventAbbr }: Props) {
+function Body({ view }: { view: Optional<TalkView> }) {
   if (!view) {
     return <></>
   }
@@ -85,6 +89,7 @@ function Track({ talk, track, speakers }: TrackProps) {
     <div className="flex flex-row items-center text-gray-800 w-[900px] h-[300px]">
       <div className="basis-1/3">
         {avatarUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={avatarUrl}
             alt={'avatar'}
@@ -110,7 +115,7 @@ function Track({ talk, track, speakers }: TrackProps) {
   )
 }
 
-export function AvatarPreLoader({ view, eventAbbr }: Props) {
+export function AvatarPreLoader({ view }: { view: Optional<TalkView> }) {
   if (!view) {
     return <></>
   }
@@ -129,6 +134,7 @@ export function AvatarPreLoader({ view, eventAbbr }: Props) {
         const speakers = view.speakersOf(talk.id)
         const avatarUrl = speakers[0].avatarUrl
         return avatarUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img key={i} rel="preload" src={avatarUrl} alt="for preload" />
         ) : (
           <></>

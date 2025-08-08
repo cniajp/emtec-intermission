@@ -36,7 +36,7 @@ export default function Page3({ view, eventAbbr }: Props) {
       setImagesLoaded(true)
     }
     fetchImages()
-  }, [eventAbbr])
+  })
 
   useEffect(() => {
     if (imagesLoaded) {

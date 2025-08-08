@@ -2,7 +2,6 @@ import { Optional } from '@/utils/types'
 import { TalkView } from '../models/talkView'
 import { PageCtx } from '../models/pageContext'
 import { useContext } from 'react'
-import config from '@/config'
 import { getTimeStr } from '@/utils/time'
 import { trim } from '@/utils/utils'
 
@@ -33,12 +32,12 @@ export default function Header({ view, eventAbbr }: Props) {
           ハッシュタグ
         </div>
         <div className="text-2xl text-left font-din-2014">
-          {config.eventAbbr.toUpperCase()}_{view.selectedTrack.name}
+          {eventAbbr.toUpperCase()}_{view.selectedTrack.name}
         </div>
       </div>
       <div className="basis-1/4">
         <div className="text-lg text-center font-din-2014 opacity-75">
-          {config.eventAbbr.toUpperCase()}
+          {eventAbbr.toUpperCase()}
         </div>
         <div className="text-5xl text-center font-video-cond">
           {now.format('HH:mm:ss')}
