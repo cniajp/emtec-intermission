@@ -12,13 +12,13 @@ export const speakers: Speaker[] = [
     id: 2,
     name: 'Nicki Watt',
     company: 'Trifork UK',
-    avatarUrl: '/pek2025/spaker_nicki-watt.jpg',
+    avatarUrl: '/pek2025/speaker_nicki-watt.jpg',
   },
   {
     id: 3,
     name: '服部佑樹 (Yuki Hattori)',
     company: 'GitHub',
-    avatarUrl: '/pek2025/spaker_yuki-hattori.jpg',
+    avatarUrl: '/pek2025/speaker_yuki-hattori.jpg',
   },
   {
     id: 4,
@@ -53,7 +53,7 @@ export const speakers: Speaker[] = [
     name: '津田薫',
     company: 'Dress Code株式会社',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/177efc16-c6f4-4dad-a325-3f894d745717.jpg',
   },
   {
     id: 9,
@@ -67,7 +67,7 @@ export const speakers: Speaker[] = [
     name: '伊藤 泰',
     company: '株式会社MonotaRO',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/2bf24310-7e3c-4f7e-bc45-85d02bc14c81.jpg',
   },
   {
     id: 11,
@@ -102,7 +102,7 @@ export const speakers: Speaker[] = [
     name: '上田義明',
     company: '株式会社hacomono',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/eff756ea-7f11-4b27-973d-7621ee8c5a14.jpg',
   },
   {
     id: 16,
@@ -115,8 +115,7 @@ export const speakers: Speaker[] = [
     id: 17,
     name: 'Mac Kawabata',
     company: 'Sysdig Japan合同会社',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+    avatarUrl: '/pek2025/speaker_mac-kawabata.jpg',
   },
   {
     id: 18,
@@ -137,7 +136,7 @@ export const speakers: Speaker[] = [
     name: '伊藤遼',
     company: '株式会社リンクアンドモチベーション',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/d70ae5ad-69d2-4fd8-a32c-b75b531bf2db.jpg',
   },
   {
     id: 21,
@@ -151,7 +150,7 @@ export const speakers: Speaker[] = [
     name: '中島 清貴',
     company: '株式会社マルイユナイト',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/65be5744-1886-4e1b-8fa6-e34a52222e2e.png',
   },
   {
     id: 23,
