@@ -12,20 +12,18 @@ export const speakers: Speaker[] = [
     id: 2,
     name: 'Nicki Watt',
     company: 'Trifork UK',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+    avatarUrl: '/pek2025/spaker_nicki-watt.jpg',
   },
   {
     id: 3,
     name: '服部佑樹 (Yuki Hattori)',
     company: 'GitHub',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+    avatarUrl: '/pek2025/spaker_yuki-hattori.jpg',
   },
   {
     id: 4,
-    name: 'スポンサー',
-    company: '',
+    name: '風見恵介',
+    company: 'ウルシステムズ',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
   },
@@ -38,8 +36,8 @@ export const speakers: Speaker[] = [
   },
   {
     id: 6,
-    name: 'スポンサー',
-    company: '',
+    name: '谷成 雄',
+    company: '株式会社サイバーエージェント',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
   },
@@ -52,8 +50,8 @@ export const speakers: Speaker[] = [
   },
   {
     id: 8,
-    name: 'スポンサー',
-    company: '',
+    name: '津田薫',
+    company: 'Dress Code株式会社',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
   },
@@ -66,8 +64,8 @@ export const speakers: Speaker[] = [
   },
   {
     id: 10,
-    name: 'スポンサー',
-    company: '',
+    name: '伊藤 泰',
+    company: '株式会社MonotaRO',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
   },
@@ -87,8 +85,8 @@ export const speakers: Speaker[] = [
   },
   {
     id: 13,
-    name: 'スポンサー',
-    company: '',
+    name: '今井 陽祐',
+    company: 'クリエーションライン株式会社',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
   },
@@ -101,8 +99,8 @@ export const speakers: Speaker[] = [
   },
   {
     id: 15,
-    name: 'スポンサー',
-    company: '',
+    name: '上田義明',
+    company: '株式会社hacomono',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
   },
@@ -115,8 +113,8 @@ export const speakers: Speaker[] = [
   },
   {
     id: 17,
-    name: 'スポンサー',
-    company: '',
+    name: 'Mac Kawabata',
+    company: 'Sysdig Japan合同会社',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
   },
@@ -136,8 +134,8 @@ export const speakers: Speaker[] = [
   },
   {
     id: 20,
-    name: 'スポンサー',
-    company: '',
+    name: '伊藤遼',
+    company: '株式会社リンクアンドモチベーション',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
   },
@@ -150,8 +148,8 @@ export const speakers: Speaker[] = [
   },
   {
     id: 22,
-    name: 'スポンサー',
-    company: '',
+    name: '中島 清貴',
+    company: '株式会社マルイユナイト',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
   },
@@ -164,8 +162,8 @@ export const speakers: Speaker[] = [
   },
   {
     id: 24,
-    name: 'スポンサー',
-    company: '',
+    name: 'Masa',
+    company: 'テナブルネットワークセキュリティジャパン株式会社',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
   },
