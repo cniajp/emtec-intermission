@@ -68,11 +68,15 @@ function Body({ view }: Props) {
         </div>
         <div className="m-5 py-5 font-ryo-gothic-plusn">
           <div className="text-sm text-gray-600 ">
-            <span className="mr-5">Category: {talk.talkCategory}</span>
-            <span>Difficulty: {talk.talkDifficulty}</span>
+            {talk.talkCategory && (
+              <span className="mr-5">Category: {talk.talkCategory}</span>
+            )}
+            {talk.talkDifficulty && (
+              <span className="mr-5">Difficulty: {talk.talkDifficulty}</span>
+            )}
           </div>
           <div className="text-sm text-gray-600 mt-2">
-            Abstract: {trim(talk.abstract, 200)}
+            {talk.abstract && <span>Abstract: {trim(talk.abstract, 200)}</span>}
           </div>
         </div>
       </div>
@@ -84,18 +88,26 @@ function Side({ view }: Props) {
   if (!view) {
     return <></>
   }
+  // 現在のトークより前のものは表示しない
+  const talkStartTime = view.talksLeftInSameTrack()[0]?.startTime
+  if (!talkStartTime) {
+    return <></>
+  }
   // 午前セッションは、keynoteとして1枠で表示する。
   const hasKeynote =
-    view.talksInSameTrack().filter((t) => t.talkCategory === 'Keynote').length >
-    0
+    view
+      .talksInSameTrack()
+      .filter(
+        (t) => t.talkCategory === 'Keynote' && t.startTime > talkStartTime
+      ).length > 0
   const talks = view
     .talksInSameTrack()
-    .filter((t) => t.talkCategory !== 'Keynote')
+    .filter((t) => t.talkCategory !== 'Keynote' && t.startTime > talkStartTime)
   const keyNoteTalks = view
     .talksInSameTrack()
-    .filter((t) => t.talkCategory === 'Keynote')
+    .filter((t) => t.talkCategory === 'Keynote' && t.startTime > talkStartTime)
   return (
-    <div className="p-14">
+    <div className="p-14 h-[80%] overflow-y-auto">
       {hasKeynote && (
         <div className="text-right w-[750px] bg-COLOR-TIMETABLE-Box px-3 pt-1 pb-2 my-3 font-ryo-gothic-plusn">
           <div className="flex flex-row">

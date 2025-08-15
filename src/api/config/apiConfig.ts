@@ -2,7 +2,7 @@
 const eventAbbr = 'cndw2024'
 
 export const apiConfig = {
-    talksEndpoint: `https://event.cloudnativedays.jp/api/v1/talks?eventAbbr=${eventAbbr}`,
-    talkEndpoint: `https://event.cloudnativedays.jp/api/v1/talks/`,
-    speakersEndpoint:  `https://event.cloudnativedays.jp/api/v1/speakers?eventAbbr=${eventAbbr}`,
-};
+  talksEndpoint: `https://event.cloudnativedays.jp/api/v1/talks?eventAbbr=${eventAbbr}`,
+  talkEndpoint: `https://event.cloudnativedays.jp/api/v1/talks/`,
+  speakersEndpoint: `https://event.cloudnativedays.jp/api/v1/speakers?eventAbbr=${eventAbbr}`,
+}

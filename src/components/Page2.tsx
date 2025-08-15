@@ -77,7 +77,7 @@ function Track({ talk, track, speakers }: TrackProps) {
     return <></>
   }
   const companies = new Set(speakers.map((s) => s.company))
-  const re = /https:\/\/.*/
+  const re = /(https:\/\/.*|\/.*)/
   const avatarUrl = re.test(speakers[0].avatarUrl || '')
     ? speakers[0].avatarUrl!
     : null

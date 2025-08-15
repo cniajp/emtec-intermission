@@ -6,7 +6,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'EMTEC Intermission',
-  description: 'EMTEC Intermission is a web application for generating Intermission for use in streaming.',
+  description:
+    'EMTEC Intermission is a web application for generating Intermission for use in streaming.',
 }
 
 export default function RootLayout({
