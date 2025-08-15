@@ -1,15 +1,19 @@
 import { Optional } from '@/utils/types'
-import { TalkView } from './models/talkView'
+import { TalkView } from '../models/talkView'
 import { useContext, useEffect } from 'react'
-import { PageCtx } from './models/pageContext'
+import { PageCtx } from '../models/pageContext'
 import config from '@/config'
 import type { Speaker, Talk, Track } from '@/data/types'
 import PageHeader from './PageHeader'
 import { getTimeStr } from '@/utils/time'
 
-type Props = { view: Optional<TalkView> }
-
-export default function Page({ view }: Props) {
+export default function Page({
+  view,
+  eventAbbr,
+}: {
+  view: Optional<TalkView>
+  eventAbbr: string
+}) {
   const { goNextPage } = useContext(PageCtx)
   useEffect(() => {
     const cancel = setTimeout(goNextPage, config.transTimePage2 * 1000)
@@ -18,7 +22,7 @@ export default function Page({ view }: Props) {
 
   return (
     <div>
-      <PageHeader view={view} />
+      <PageHeader view={view} eventAbbr={eventAbbr} />
       <div className="h-full">
         <Body view={view} />
       </div>
@@ -26,7 +30,7 @@ export default function Page({ view }: Props) {
   )
 }
 
-function Body({ view }: Props) {
+function Body({ view }: { view: Optional<TalkView> }) {
   if (!view) {
     return <></>
   }
@@ -77,7 +81,7 @@ function Track({ talk, track, speakers }: TrackProps) {
     return <></>
   }
   const companies = new Set(speakers.map((s) => s.company))
-  const re = /(https:\/\/.*|\/.*)/
+  const re = /https:\/\/.*/
   const avatarUrl = re.test(speakers[0].avatarUrl || '')
     ? speakers[0].avatarUrl!
     : null
@@ -111,7 +115,7 @@ function Track({ talk, track, speakers }: TrackProps) {
   )
 }
 
-export function AvatarPreLoader({ view }: Props) {
+export function AvatarPreLoader({ view }: { view: Optional<TalkView> }) {
   if (!view) {
     return <></>
   }

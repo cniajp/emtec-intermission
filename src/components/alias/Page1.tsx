@@ -1,15 +1,15 @@
 import { Optional } from '@/utils/types'
-import { TalkView } from './models/talkView'
+import { TalkView } from '../models/talkView'
 import { useContext, useEffect } from 'react'
-import { PageCtx } from './models/pageContext'
+import { PageCtx } from '../models/pageContext'
 import config from '@/config'
 import { getTimeStr } from '@/utils/time'
 import { trim } from '@/utils/utils'
 import PageHeader from './PageHeader'
 
-type Props = { view: Optional<TalkView> }
+type Props = { view: Optional<TalkView>; eventAbbr: string }
 
-export default function Page({ view }: Props) {
+export default function Page({ view, eventAbbr }: Props) {
   const { goNextPage } = useContext(PageCtx)
   useEffect(() => {
     const cancel = setTimeout(goNextPage, config.transTimePage1 * 1000)
@@ -18,14 +18,14 @@ export default function Page({ view }: Props) {
 
   return (
     <div>
-      <PageHeader view={view} />
+      <PageHeader view={view} eventAbbr={eventAbbr} />
       <div className="h-full">
         <div className="flex flex-row h-full">
           <div className="basis-2/3">
-            <Body view={view} />
+            <Body view={view} eventAbbr={eventAbbr} />
           </div>
           <div className="basis-1/3">
-            <Side view={view} />
+            <Side view={view} eventAbbr={eventAbbr} />
           </div>
         </div>
       </div>
