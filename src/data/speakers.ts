@@ -114,7 +114,7 @@ export const speakers: Speaker[] = [
     id: 17,
     name: 'Mac Kawabata（共同登壇者： 株式会社サイバーエージェント　石川 雲）',
     company: 'Sysdig Japan合同会社',
-    avatarUrl: '/pek2025/speaker_mac-kawabata.jpg',
+    avatarUrl: '/pek2025/speaker_mac-kawabata.png',
   },
   {
     id: 18,
