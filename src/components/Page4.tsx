@@ -12,7 +12,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/kagoya.mp4',
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cyberagent.mp4',
         type: 'video/mp4',
       },
     ],
@@ -20,7 +20,15 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/m3.mp4',
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/monotaro1.mp4',
+        type: 'video/mp4',
+      },
+    ],
+  },
+  {
+    sources: [
+      {
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/monotaro2.mp4',
         type: 'video/mp4',
       },
     ],
