@@ -162,8 +162,7 @@ export const speakers: Speaker[] = [
     id: 24,
     name: 'Masa',
     company: 'テナブルネットワークセキュリティジャパン株式会社',
-    avatarUrl:
-      '/pek2025/speaker_masa.png',
+    avatarUrl: '/pek2025/speaker_masa.png',
   },
   {
     id: 25,
