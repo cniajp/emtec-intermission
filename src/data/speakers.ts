@@ -22,7 +22,7 @@ export const speakers: Speaker[] = [
   },
   {
     id: 4,
-    name: '風見恵介',
+    name: '風見恵介 （共同登壇者： 菅慎司）',
     company: 'ウルシステムズ',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
@@ -87,8 +87,7 @@ export const speakers: Speaker[] = [
     id: 13,
     name: '今井 陽祐',
     company: 'クリエーションライン株式会社',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+    avatarUrl: '/pek2025/speaker_yosuke-imai.png',
   },
   {
     id: 14,
@@ -113,7 +112,7 @@ export const speakers: Speaker[] = [
   },
   {
     id: 17,
-    name: 'Mac Kawabata',
+    name: 'Mac Kawabata（共同登壇者： 株式会社サイバーエージェント　石川 雲）',
     company: 'Sysdig Japan合同会社',
     avatarUrl: '/pek2025/speaker_mac-kawabata.jpg',
   },
@@ -164,7 +163,7 @@ export const speakers: Speaker[] = [
     name: 'Masa',
     company: 'テナブルネットワークセキュリティジャパン株式会社',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+      '/pek2025/speaker_masa.png',
   },
   {
     id: 25,
