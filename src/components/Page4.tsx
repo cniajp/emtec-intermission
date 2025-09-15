@@ -12,7 +12,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2025/cm1.mp4',
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cyberagent.mp4',
         type: 'video/mp4',
       },
     ],
@@ -20,7 +20,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2025/cm2.mp4',
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/monotaro1.mp4',
         type: 'video/mp4',
       },
     ],
@@ -28,7 +28,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2025/cm3.mp4',
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/monotaro2.mp4',
         type: 'video/mp4',
       },
     ],

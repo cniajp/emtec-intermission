@@ -8,8 +8,8 @@ export const talks: Talk[] = [
     title: 'Opening',
     abstract: '',
     speakers: [{ id: 1, name: '運営チーム' }],
-    startTime: '2025-09-18T10:10:00.000+09:00',
-    endTime: '2025-09-18T10:20:00.000+09:00',
+    startTime: '2025-09-18T10:30:00.000+09:00',
+    endTime: '2025-09-18T10:40:00.000+09:00',
     talkCategory: 'Keynote',
   },
   {
@@ -21,22 +21,9 @@ export const talks: Talk[] = [
     abstract:
       'As AI continues to evolve at an unprecedented pace—sparking excitement, disruption, and even existential questions about the future of software engineering—what does it take to build a platform that truly stands the test of time? \nIn this keynote, we’ll explore what it takes to design and operate platforms that not only deliver tangible value today but also remain adaptable and resilient in a rapidly changing landscape. Drawing on real-world experiences and lessons learned, we’ll examine what makes a platform great—from developer experience to maintainability and scalability.\nMost importantly, we’ll ask: how can we ensure the platforms we build today continue to empower engineers—not replace them—in the years to come?',
     speakers: [{ id: 2, name: 'Nicki Watt' }],
-    startTime: '2025-09-18T10:20:00.000+09:00',
-    endTime: '2025-09-18T11:10:00.000+09:00',
+    startTime: '2025-09-18T10:40:00.000+09:00',
+    endTime: '2025-09-18T11:40:00.000+09:00',
     talkCategory: 'Keynote',
-  },
-  {
-    id: 103,
-    conferenceDayId: 1,
-    trackId: 1,
-    title:
-      'プラットフォームチームの持続可能性 - 開発者コミュニティ構築とAI時代への準備で決まる成否',
-    abstract:
-      '「プラットフォームを構築した」と「プラットフォームが真に機能している」の間には、決定的な違いがあります。多くの組織が見落とすのは、技術的実装の後に始まる開発者コミュニティの育成です。共通プラットフォームが辿る典型的な失敗パターン—サービスデスク化と象牙の塔化—を回避し、自律的な開発者エコシステムを構築するInnerSourceアプローチを解説します。AI開発支援が標準となる時代において、これらのコミュニティ基盤がプラットフォーム成功の決定要因となる理由についても実践的に紹介します。',
-    speakers: [{ id: 3, name: '服部佑樹 (Yuki Hattori)' }],
-    startTime: '2025-09-18T11:10:00.000+09:00',
-    endTime: '2025-09-18T11:50:00.000+09:00',
-    talkCategory: 'Culture（開発者にプラットフォームを定着させる文化）',
   },
   {
     id: 104,
@@ -45,9 +32,9 @@ export const talks: Talk[] = [
     title: '実例紹介！プラットフォームエンジニアリング導入の成功ポイント',
     abstract:
       'プラットフォームエンジニアリングを導入したくても、「上司に投資対効果をうまく伝えられず、予算がとれない」--そんな悩みをよく耳にします。新しい仕組みを社内に取り入れるのは簡単ではありません。どれだけ技術的に先進的な取り組みでも、組織内の壁や文化の「境界」にも向き合い、理解を広めなければ導入は進まないでしょう。例えば、開発者なら実感が湧く「開発者体験の向上」も、経営層にはイメージしづらく、理解を得るのは容易ではありません。本セッションでは、弊社が内製化支援で得た知見をもとに、プラットフォームエンジニアリングを導入する「トップダウン」、「ボトムアップ」のアプローチを実例とともに紹介します。「どんなポイントを押さえれば社内が動くのか」「成果をどのように見える化すればよいのか」など、すぐに使えるヒントをお届けします。',
-    speakers: [{ id: 4, name: '風見恵介' }],
-    startTime: '2025-09-18T12:00:00.000+09:00',
-    endTime: '2025-09-18T13:00:00.000+09:00',
+    speakers: [{ id: 4, name: '風見恵介 （共同登壇者： 菅慎司）' }],
+    startTime: '2025-09-18T12:15:00.000+09:00',
+    endTime: '2025-09-18T12:45:00.000+09:00',
     talkCategory: 'Stories（プラットフォームエンジニアリングの実践事例）',
   },
   {
@@ -67,12 +54,14 @@ export const talks: Talk[] = [
     id: 106,
     conferenceDayId: 1,
     trackId: 1,
-    title: 'Sponsor Session',
-    abstract: '',
+    title:
+      '持続可能なプラットフォーム運用：エコシステム導入の判断基準と運用戦略',
+    abstract:
+      '本発表では、社内のいくつかのプラットフォーム運用管理に従事する中で培った、エコシステム導入における実践的なアプローチを共有します。プラットフォームにエコシステムを導入する際は、運用負荷を最小化する明確な判断基準が重要です。導入前の評価軸（学習コスト、保守性、チーム習熟度、既存システムとの親和性）から実際の導入事例まで体系的に紹介します。特に運用フェーズでは、Design Docによる設計思想の文書化、段階的なバージョン管理戦略、チーム間の知識共有プロセスなどが持続可能性の鍵となってきます。導入判断のフレームワークから日常運用で得られた知見や失敗経験まで、現場目線での実践的なノウハウを共有し、長期的に保守可能なプラットフォーム構築の指針を共有します。',
     speakers: [{ id: 6, name: '谷成 雄' }],
     startTime: '2025-09-18T13:45:00.000+09:00',
     endTime: '2025-09-18T14:15:00.000+09:00',
-    talkCategory: '',
+    talkCategory: 'Tech（課題を解決する個別技術）',
   },
   {
     id: 107,
@@ -111,7 +100,7 @@ export const talks: Talk[] = [
     speakers: [
       {
         id: 9,
-        name: '住木　憲一 （共同登壇者： PwCコンサルティング合同会社 岡田裕、佐藤晴彦、財前遥平）',
+        name: '住木 憲一',
       },
     ],
     startTime: '2025-09-18T16:00:00.000+09:00',
@@ -162,7 +151,7 @@ export const talks: Talk[] = [
       '「小さく壊す」は許し「一発アウト」は防ぐ Agentic AI 時代のプラットフォームが備えるべきガードレールを再考する',
     abstract:
       'これまで私たちは、プラットフォームが抱える不必要な複雑さから生まれる「認知負荷を軽減」し「開発生産性」を向上させるための一環として「プラットフォームのシンプル化」、いかにして TVP を作り上げるかに力を入れてきました。\nそんな中、 AI Agent の登場により、開発者がこれまで認知できなかったものが認知できるようになり、「開発生産性」の向上や「運用高度化」が実現できるようになりました。\nまた最近では、人が認知しているのは明確なゴールだけで手段は Agentic AI が自律的に意思決定を行うといったようなやり方も浸透してきています。\n\nこのような状況下で、ビジネスの存続そのものを危ぶむ個人情報漏洩などの「一発アウト」をどのように防ぐのか。\n20以上のサービスを支えるマルチテナントプラットフォームの構成を元に、プラットフォームが備えるべきガードレールを再考します。',
-    speakers: [{ id: 12, name: '岡　麦' }],
+    speakers: [{ id: 12, name: '岡 麦' }],
     startTime: '2025-09-18T13:00:00.000+09:00',
     endTime: '2025-09-18T13:30:00.000+09:00',
     talkCategory: 'Blueprints（プラットフォームの構想や全体像）',
@@ -175,7 +164,7 @@ export const talks: Talk[] = [
       'GitLab x Kubernetes x AI ～ チームにスケーラブルな AI 駆動型開発基盤を提供しよう！',
     abstract:
       '本セッションでは、AI駆動型開発を“最小の手間”で始められるマルチクラスタ対応のAI駆動開発環境の構築デモをお見せします。開発チームがUIから操作するだけで、Kubernetesクラスタの立ち上げからGitLabリポジトリの自動生成、DevContainer設定、VSCodeによる開発開始までを一気通貫で実行します。さらに、GitLab Duo や Duo Agent などのAIツールを活用した最新のAI駆動開発支援機能、そして本番環境（Kubernetes）へのデプロイまでの流れも紹介します。',
-    speakers: [{ id: 13, name: '今井 陽祐' }],
+    speakers: [{ id: 13, name: '今井 陽祐 （共同登壇者： 野木 悦孝）' }],
     startTime: '2025-09-18T13:45:00.000+09:00',
     endTime: '2025-09-18T14:15:00.000+09:00',
     talkCategory: 'Tech（課題を解決する個別技術）',
@@ -200,7 +189,7 @@ export const talks: Talk[] = [
     title: '疎結合でスキーマ駆動開発を実現するイベントバスの設計',
     abstract:
       '急成長するサービス基盤では、開発者が安心して機能追加できるプラットフォームが欠かせません。hacomonoでは異なる可用性が要求されるサービスを個別のマイクロサービスに切り出すことで、開発速度と可用性の両方を満たしています。マイクロサービス化を行うためには個々のサービスが疎結合で、登録されたスキーマのイベントだけがやり取りされるイベントバスが必要でした。hacomonoでは「スキーマ駆動イベントバス」を設計しました。Protocol Buffersを信頼の基点とし、Fire-and-Forgetで送信側と受信側の依存を排除しています。CIでスキーマの互換性破壊を検知し、破壊的変更のデプロイの防止。不正なイベントの発行や、開発者の考慮漏れによるループイベントを署名とバリデーションで遮断してカスケード障害を防止します。本セッションでは、その設計思想と段階的導入プロセスを共有します。',
-    speakers: [{ id: 15, name: '上田義明' }],
+    speakers: [{ id: 15, name: 'Yoshiaki Ueda / bootjp' }],
     startTime: '2025-09-18T15:15:00.000+09:00',
     endTime: '2025-09-18T15:45:00.000+09:00',
     talkCategory: 'Tech（課題を解決する個別技術）',
@@ -225,7 +214,12 @@ export const talks: Talk[] = [
     title: 'AmebaのFalco活用事例から見る、継続可能なセキュリティ運用',
     abstract:
       '大規模なKubernetesクラスタを運用する中で、実行時のセキュリティを確保しつつ、開発体験を損なわない仕組みを整えることは、運用の安定性と開発スピードを両立させるための重要な課題です。AmebaではFalcoを導入し、Auditログに基づく独自ルールの整備や、Slack通知・Talonによる初動対応の自動化を含む、SOARプラットフォーム連携を見据えた継続的なセキュリティインシデント対応基盤を構築してきました。本セッションでは、サイバーエージェントでの導入当初に直面した課題や運用に定着させるまでの工夫、検知と対応のバランスの取り方など、現場での具体的な取り組みをもとに、現実的なDevSecOpsの進め方を共有します。SysdigからはFalco検知ルールの継続的アップデートが可能になるFalco Feedsや商用版SysdigならではのAIとの連携等、オープンソースと共存できる新しい形でのセキュリティを紹介いたします。',
-    speakers: [{ id: 17, name: 'Mac Kawabata' }],
+    speakers: [
+      {
+        id: 17,
+        name: 'Mac Kawabata（共同登壇者： 株式会社サイバーエージェント 石川 雲）',
+      },
+    ],
     startTime: '2025-09-18T16:45:00.000+09:00',
     endTime: '2025-09-18T17:15:00.000+09:00',
     talkCategory: 'Stories（プラットフォームエンジニアリングの実践事例）',

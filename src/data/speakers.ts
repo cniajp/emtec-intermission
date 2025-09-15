@@ -15,17 +15,10 @@ export const speakers: Speaker[] = [
     avatarUrl: '/pek2025/speaker_nicki-watt.jpg',
   },
   {
-    id: 3,
-    name: '服部佑樹 (Yuki Hattori)',
-    company: 'GitHub',
-    avatarUrl: '/pek2025/speaker_yuki-hattori.jpg',
-  },
-  {
     id: 4,
-    name: '風見恵介',
-    company: 'ウルシステムズ',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+    name: '風見恵介 （共同登壇者： 菅慎司）',
+    company: 'ウルシステムズ株式会社',
+    avatarUrl: '/pek2025/speaker_keisuke-kazami.png',
   },
   {
     id: 5,
@@ -38,8 +31,7 @@ export const speakers: Speaker[] = [
     id: 6,
     name: '谷成 雄',
     company: '株式会社サイバーエージェント',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+    avatarUrl: '/pek2025/speaker_yu-taniya.png',
   },
   {
     id: 7,
@@ -57,7 +49,7 @@ export const speakers: Speaker[] = [
   },
   {
     id: 9,
-    name: '住木　憲一 （共同登壇者： PwCコンサルティング合同会社 岡田裕、佐藤晴彦、財前遥平）',
+    name: '住木 憲一',
     company: 'ニッセイ情報テクノロジー株式会社',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
@@ -78,17 +70,16 @@ export const speakers: Speaker[] = [
   },
   {
     id: 12,
-    name: '岡　麦',
+    name: '岡 麦',
     company: '株式会社CAM',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/03b8c8e3-019a-4c89-b852-1b19617efbf8.jpg',
   },
   {
     id: 13,
-    name: '今井 陽祐',
+    name: '今井 陽祐 （共同登壇者： 野木 悦孝）',
     company: 'クリエーションライン株式会社',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+    avatarUrl: '/pek2025/speaker_yosuke-imai.png',
   },
   {
     id: 14,
@@ -99,7 +90,7 @@ export const speakers: Speaker[] = [
   },
   {
     id: 15,
-    name: '上田義明',
+    name: 'Yoshiaki Ueda / bootjp',
     company: '株式会社hacomono',
     avatarUrl:
       'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/eff756ea-7f11-4b27-973d-7621ee8c5a14.jpg',
@@ -113,9 +104,9 @@ export const speakers: Speaker[] = [
   },
   {
     id: 17,
-    name: 'Mac Kawabata',
+    name: 'Mac Kawabata（共同登壇者： 株式会社サイバーエージェント 石川 雲）',
     company: 'Sysdig Japan合同会社',
-    avatarUrl: '/pek2025/speaker_mac-kawabata.jpg',
+    avatarUrl: '/pek2025/speaker_mac-kawabata.png',
   },
   {
     id: 18,
@@ -163,8 +154,7 @@ export const speakers: Speaker[] = [
     id: 24,
     name: 'Masa',
     company: 'テナブルネットワークセキュリティジャパン株式会社',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+    avatarUrl: '/pek2025/speaker_masa.png',
   },
   {
     id: 25,
