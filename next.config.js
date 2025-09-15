@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /** @type {import('next').NextConfig} */
 const nextConfig = {}
 
-const isDev = process.env.NODE_ENV !== "production";
+const isDev = process.env.NODE_ENV !== 'production'
 const withPWA = require('next-pwa')({
   dest: 'public',
   swSrc: 'src/service-worker.js',
@@ -9,19 +10,21 @@ const withPWA = require('next-pwa')({
   // https://github.com/shadowwalker/next-pwa/issues/424#issuecomment-1857499715
   exclude: [
     // add buildExcludes here
-    ({ asset, compilation }) => {
+    ({ asset }) => {
       if (
-        asset.name.startsWith("server/") ||
-        asset.name.match(/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/)
+        asset.name.startsWith('server/') ||
+        asset.name.match(
+          /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
+        )
       ) {
-        return true;
+        return true
       }
-      if (isDev && !asset.name.startsWith("static/runtime/")) {
-        return true;
+      if (isDev && !asset.name.startsWith('static/runtime/')) {
+        return true
       }
-      return false;
-    }
+      return false
+    },
   ],
-});
+})
 
 module.exports = withPWA(nextConfig)
