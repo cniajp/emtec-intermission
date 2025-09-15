@@ -9,14 +9,14 @@ import Image from 'next/image'
 type Props = { view: Optional<TalkView> }
 
 const images = [
-  '/cnds2025/info1.webp',
-  '/cnds2025/info2.webp',
-  '/cnds2025/info3.webp',
-  '/cnds2025/info4.webp',
-  '/cnds2025/info5.webp',
-  '/cnds2025/info6.webp',
-  '/cnds2025/info7.webp',
-  '/cnds2025/info8.webp',
+  // '/cnds2025/info1.webp',
+  // '/cnds2025/info2.webp',
+  // '/cnds2025/info3.webp',
+  // '/cnds2025/info4.webp',
+  // '/cnds2025/info5.webp',
+  // '/cnds2025/info6.webp',
+  // '/cnds2025/info7.webp',
+  // '/cnds2025/info8.webp',
 ]
 
 export default function Page({ view }: Props) {
