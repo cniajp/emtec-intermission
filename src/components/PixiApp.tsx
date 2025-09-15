@@ -266,7 +266,13 @@ const RotatingBunny: React.FC<ContentProperties> = (
         .filter((x) => x.isActive((duration - count) * 1000))
         .map((x, i) => {
           return (
-            <Text key={i} text={x.name} x={x.x()} y={x.y()} style={x.style} />
+            <Text
+              key={i}
+              text={x.name}
+              x={x.x()}
+              y={x.y()}
+              style={Object.assign({}, x.style) as any}
+            />
           )
         })}
     </>
