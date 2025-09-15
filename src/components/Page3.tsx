@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 type Props = { view: Optional<TalkView> }
 
-const images = [
+const images: string[] = [
   // '/cnds2025/info1.webp',
   // '/cnds2025/info2.webp',
   // '/cnds2025/info3.webp',
