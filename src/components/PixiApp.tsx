@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react'
-import { Stage, Container, Sprite, useTick, Text } from '@pixi/react'
+import { Stage, Container, Sprite, useTick, Text, _ReactPixi } from '@pixi/react'
 import * as PIXI from 'pixi.js'
 import { sound } from '@pixi/sound'
 import { ContentProperties } from './ContentProperties'
@@ -271,7 +271,7 @@ const RotatingBunny: React.FC<ContentProperties> = (
               text={x.name}
               x={x.x()}
               y={x.y()}
-              style={Object.assign({}, x.style) as any}
+              style={x.style as unknown as Parameters<typeof Text>['0']['style']}
             />
           )
         })}
