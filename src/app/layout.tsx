@@ -12,10 +12,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  folder1,
 }: {
   children: React.ReactNode
-  folder1: React.ReactNode
 }) {
   return (
     <html lang="ja">
