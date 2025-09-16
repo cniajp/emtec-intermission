@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  optimizeFonts: false,
+}
 
 const isDev = process.env.NODE_ENV !== 'production'
 const withPWA = require('next-pwa')({
