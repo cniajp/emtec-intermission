@@ -11,7 +11,7 @@
     "test": "npm install --frozen-lockfile && jest",
     "test:update": "jest -u",
     "test:coverage": "jest --collect-coverage",
-    "rtk-query-codegen": "rtk-query-codegen-openapi ./rtk-query-codegen-openapi.config.ts"
+    "rtk-query-codegen": "TS_NODE_PROJECT=tsconfig.rtk.json rtk-query-codegen-openapi ./rtk-query-codegen-openapi.config.ts"
   },
   "dependencies": {
     "@pixi/react": "^7.1.2",
@@ -32,7 +32,7 @@
     "videojs-playlist": "^5.1.0"
   },
   "devDependencies": {
-    "@rtk-query/codegen-openapi": "^1.2.0",
+    "@rtk-query/codegen-openapi": "^2.0.0",
     "@types/node": "^24.5.1",
     "@typescript-eslint/eslint-plugin": "^8.44.0",
     "@typescript-eslint/parser": "^8.44.0",
@@ -45,7 +45,7 @@
     "jest-environment-jsdom": "^30.1.2",
     "postcss": "^8.5.6",
     "prettier": "^3.1.0",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
   "volta": {
