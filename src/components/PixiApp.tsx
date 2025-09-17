@@ -1,16 +1,21 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react'
-import {
-  Stage,
-  Container,
-  Sprite,
-  useTick,
-  Text,
-  _ReactPixi,
-} from '@pixi/react'
-import * as PIXI from 'pixi.js'
+// import {
+//   Stage,
+//   Container,
+//   Sprite,
+//   useTick,
+//   Text,
+//   _ReactPixi,
+// } from '@pixi/react'
+// import * as PIXI from 'pixi.js'
+// import { sound } from '@pixi/sound'
+import { Application, extend, useTick } from '@pixi/react'
+import { Container, Sprite, Text, TextStyle, Texture } from 'pixi.js'
 import { sound } from '@pixi/sound'
 import { ContentProperties } from './ContentProperties'
+
+extend({ Container, Sprite, Text, TextStyle })
 
 class SessionInfo {
   name: string
@@ -20,7 +25,7 @@ class SessionInfo {
   toPos: [number, number]
   fromMillis: number
   moveMillis: number
-  style: PIXI.TextStyle
+  style: TextStyle
 
   constructor(
     name: string,
@@ -29,7 +34,7 @@ class SessionInfo {
     toPos: [number, number],
     fromMillis: number,
     moveMillis: number,
-    style: PIXI.TextStyle
+    style: TextStyle
   ) {
     this.name = name
     this.age = age[0]
@@ -100,42 +105,39 @@ const RotatingBunny: React.FC<ContentProperties> = (
   if (!sound.exists('bgm'))
     sound.add('bgm', '/cnds2025/cnds2025_intermission.mp3')
 
-  const style_clock = new PIXI.TextStyle({
+  const style_clock = new TextStyle({
     align: 'center',
     fontFamily: 'video-cond',
     fontSize: 88,
     fontWeight: '600',
-    fill: ['#ffffff'],
-    stroke: '#ffffff',
-    strokeThickness: 1,
+    fill: '#ffffff',
+    stroke: { color: '#ffffff', width: 1 },
     letterSpacing: 5,
     wordWrap: true,
     wordWrapWidth: 650,
   })
 
-  const style_info = new PIXI.TextStyle({
+  const style_info = new TextStyle({
     align: 'left',
     fontFamily:
       '"Verdana", "游ゴシック", "YuGothic", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", "Meiryo", sans-serif',
     fontSize: 30,
     fontWeight: '600',
-    fill: ['#404040'],
-    stroke: '#404040',
-    strokeThickness: 1,
+    fill: '#404040',
+    stroke: { color: '#404040', width: 1 },
     letterSpacing: 1,
     wordWrap: true,
     wordWrapWidth: 900,
   })
 
-  const style_label = new PIXI.TextStyle({
+  const style_label = new TextStyle({
     align: 'center',
     fontFamily:
       '"Verdana", "游ゴシック", "YuGothic", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", "Meiryo", sans-serif',
     fontSize: 30,
     fontWeight: '300',
-    fill: ['#404040'],
-    stroke: '#404040',
-    strokeThickness: 1,
+    fill: '#404040',
+    stroke: { color: '#404040', width: 1 },
     letterSpacing: 4,
     wordWrap: true,
     wordWrapWidth: 900,
@@ -226,13 +228,13 @@ const RotatingBunny: React.FC<ContentProperties> = (
   }, [count])
 
   // PIXI フレーム更新時の処理
-  useTick((delta) => {
+  useTick((delta: unknown) => {
     for (let i = 0; i < sessions.length; i++) {
       const session = sessions[i]
       if (!session.isActive((10 - count) * 1000)) {
         continue
       }
-      session.setAge(session.age + delta * (1000 / 60))
+      session.setAge(session.age + (delta as number) * (1000 / 60))
     }
 
     // 現在時刻を更新
@@ -242,7 +244,7 @@ const RotatingBunny: React.FC<ContentProperties> = (
     if ((rotation * (180 / Math.PI)) % 360 <= 10 && count <= 1) {
       setRotation(0)
     } else {
-      delta && count < 9 && setRotation(rotation + 0.1 * delta)
+      delta && count < 9 && setRotation(rotation + 0.1 * (delta as number))
     }
 
     // bgm フェードアウト
@@ -254,8 +256,8 @@ const RotatingBunny: React.FC<ContentProperties> = (
 
   return (
     <>
-      <Sprite
-        image="https://res.cloudinary.com/lesto-dertne/image/upload/v1697829207/EMTEC-intermission/background.png"
+      <pixiSprite
+        texture={Texture.from("https://res.cloudinary.com/lesto-dertne/image/upload/v1697829207/EMTEC-intermission/background.png")}
         anchor={0}
         x={0}
         y={0}
@@ -273,13 +275,13 @@ const RotatingBunny: React.FC<ContentProperties> = (
         .filter((x) => x.isActive((duration - count) * 1000))
         .map((x, i) => {
           return (
-            <Text
+            <pixiText
               key={i}
               text={x.name}
               x={x.x()}
               y={x.y()}
               style={
-                x.style as unknown as Parameters<typeof Text>['0']['style']
+                x.style
               }
             />
           )
@@ -290,15 +292,15 @@ const RotatingBunny: React.FC<ContentProperties> = (
 
 const PixiApp: React.FC<ContentProperties> = (props: ContentProperties) => {
   return (
-    <Stage width={1920} height={1080}>
-      <Container position={[0, 0]}>
+    <Application width={1920} height={1080}>
+      <pixiContainer position={{ x: 0, y: 0 }}>
         <RotatingBunny
           onEnded={props.onEnded}
           talkData={props.talkData}
           speakersData={props.speakersData}
         />
-      </Container>
-    </Stage>
+      </pixiContainer>
+    </Application>
   )
 }
 
