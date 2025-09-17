@@ -200,7 +200,6 @@ const RotatingBunny: React.FC<ContentProperties> = (
   useEffect(() => {
     console.log('once...')
     sound.volume('bgm', 0.5)
-    // sound.volume('bgm', 1)
     sound.play('bgm')
   }, [])
 
