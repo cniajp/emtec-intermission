@@ -48,7 +48,7 @@ function Pages() {
   const audioSrc = '/pek2025/pek2025_intermission.mp3'
   const shouldPlayAudio = current !== pages.length - 1
 
-  if (!view && config) {
+  if (!view && config.debug) {
     return <div className="text-white">Loading...</div>
   }
   return (
