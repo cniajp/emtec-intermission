@@ -12,7 +12,7 @@ const images: string[] = [
   '/pek2025/info001.png',
   '/pek2025/info002.png',
   '/pek2025/info003.png',
-  // '/pek2025/info004.png',
+  '/pek2025/info004.png',
   '/pek2025/info005.png',
   '/pek2025/info006.png',
   '/pek2025/info007.png',
