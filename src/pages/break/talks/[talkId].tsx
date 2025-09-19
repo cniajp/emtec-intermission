@@ -11,6 +11,7 @@ import { talks } from '@/data/talks'
 import { tracks } from '@/data/tracks'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useMemo } from 'react'
+import Image from 'next/image'
 
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
@@ -47,7 +48,7 @@ function Pages() {
   const audioSrc = '/pek2025/pek2025_intermission.mp3'
   const shouldPlayAudio = current !== pages.length - 1
 
-  if (!view) {
+  if (!view && config.debug) {
     return <div className="text-white">Loading...</div>
   }
   return (
@@ -74,7 +75,15 @@ function Pages() {
       )}
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view}></AvatarPreLoader>
-      <div className="w-[1920px] h-[1080px] bg-[url('/cndw2024/background.png')]">
+      <div className="w-[1920px] h-[1080px] relative">
+        <Image
+          src="/pek2025/background.webp"
+          alt="background"
+          className="-z-10"
+          fill
+          style={{ objectFit: 'cover' }}
+          priority
+        />
         {pages[current]}
       </div>
       <div className="w-[1280px] h-[300px] bg-black relative"></div>
