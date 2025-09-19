@@ -9,14 +9,14 @@ import Image from 'next/image'
 type Props = { view: Optional<TalkView> }
 
 const images: string[] = [
-  // '/cnds2025/info1.webp',
-  // '/cnds2025/info2.webp',
-  // '/cnds2025/info3.webp',
-  // '/cnds2025/info4.webp',
-  // '/cnds2025/info5.webp',
-  // '/cnds2025/info6.webp',
-  // '/cnds2025/info7.webp',
-  // '/cnds2025/info8.webp',
+  '/pek2025/info001.png',
+  '/pek2025/info002.png',
+  '/pek2025/info003.png',
+  '/pek2025/info004.png',
+  '/pek2025/info005.png',
+  '/pek2025/info006.png',
+  '/pek2025/info007.png',
+  // '/pek2025/info008.png',
 ]
 
 export default function Page({ view }: Props) {
@@ -34,7 +34,7 @@ export default function Page({ view }: Props) {
       <Image
         src={images[count]}
         alt={'information'}
-        width={1671}
+        width={1670}
         height={940}
         className="m-auto"
       />
