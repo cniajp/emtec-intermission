@@ -59,9 +59,9 @@ function TalkMenu({ view }: { view: Optional<MenuView> }) {
               {getTimeStr(slot.startTime)} - {getTimeStr(slot.endTime)}
             </div>
             <div className={'basis-11/12 grid grid-cols-4 gap-4'}>
-              {view
-                ?.getTalksOnTimeSlot(slot)
-                .map((talk, i) => <TalkMenuItem key={i} talk={talk} />)}
+              {view?.getTalksOnTimeSlot(slot).map((talk, i) => (
+                <TalkMenuItem key={i} talk={talk} />
+              ))}
             </div>
           </div>
         )
