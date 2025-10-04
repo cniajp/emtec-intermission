@@ -1,6 +1,7 @@
 /* eslint-disable */
 'use client'
 
+import config from '@/config'
 import React, { useRef, useEffect } from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
@@ -54,7 +55,7 @@ export default function VideoPlaylist({ onEnded, playlist }: Props) {
   return (
     <video
       autoPlay
-      controls
+      {...(config.debug && { controls: true })}
       ref={videoRef}
       className="video-js w-full h-full"
     />
