@@ -1,3 +1,10 @@
+// Forteeのプロポーザルデータを元に、セッション・スピーカー情報を生成するスクリプト
+// 変換元API: https://fortee.jp/{EVENT_ALIAS}/api/proposals/accepted
+// 変換先フォーマット: src/data/xxx.ts (Track, Speaker, Talk)
+// 実行コマンド: just fortee
+// もしくは
+// 実行コマンド: npx tsx ./script/fortee/convert.ts -y && npm run fmt
+
 import { forteeProposal } from './type.js'
 import { Track, Speaker, Talk } from '../../src/data/types.js'
 import { exportEventData } from '../common/utils.js'
@@ -15,6 +22,23 @@ const tracks: Track[] = [
   { id: 2, name: 'ぼこ' },
   { id: 3, name: 'あじ' },
 ]
+
+/**
+ * メイン処理関数
+ */
+async function main() {
+  // APIからデータを取得する
+  const dataTalks: forteeProposal[] = await fetchProposalData()
+
+  // Speaker情報を生成する
+  const speakers: Speaker[] = convertToSpeakers(dataTalks)
+
+  // Talk情報を生成する
+  const talks: Talk[] = convertToTalks(dataTalks, speakers)
+
+  // 最終データを組み立てる
+  exportEventData({ tracks, speakers, talks })
+}
 
 /**
  * ForteeのAPIからプロポーザルデータを取得する
@@ -94,20 +118,6 @@ function convertToTalks(
     })
 
   return convertedTalks
-}
-
-async function main() {
-  // APIからデータを取得する
-  const dataTalks: forteeProposal[] = await fetchProposalData()
-
-  // Speaker情報を生成する
-  const speakers: Speaker[] = convertToSpeakers(dataTalks)
-
-  // Talk情報を生成する
-  const talks: Talk[] = convertToTalks(dataTalks, speakers)
-
-  // 最終データを組み立てる
-  exportEventData({ tracks, speakers, talks })
 }
 
 main().catch(console.error)
