@@ -7,9 +7,10 @@ import type { Speaker, Talk, Track } from '@/data/types'
 import PageHeader from './PageHeader'
 import { getTimeStr } from '@/utils/time'
 
+type PageProps = { view: Optional<TalkView>; isDk: boolean }
 type Props = { view: Optional<TalkView> }
 
-export default function Page({ view }: Props) {
+export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
   useEffect(() => {
     const cancel = setTimeout(goNextPage, config.transTimePage2 * 1000)
@@ -18,7 +19,7 @@ export default function Page({ view }: Props) {
 
   return (
     <div>
-      <PageHeader view={view} />
+      <PageHeader view={view} isDk={isDk} />
       <div className="h-full">
         <Body view={view} />
       </div>

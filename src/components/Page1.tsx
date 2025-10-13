@@ -7,9 +7,10 @@ import { getTimeStr } from '@/utils/time'
 import { trim } from '@/utils/utils'
 import PageHeader from './PageHeader'
 
+type PageProps = { view: Optional<TalkView>; isDk: boolean }
 type Props = { view: Optional<TalkView> }
 
-export default function Page({ view }: Props) {
+export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
   useEffect(() => {
     const cancel = setTimeout(goNextPage, config.transTimePage1 * 1000)
@@ -18,7 +19,7 @@ export default function Page({ view }: Props) {
 
   return (
     <div>
-      <PageHeader view={view} />
+      <PageHeader view={view} isDk={isDk} />
       <div className="h-full">
         <div className="flex flex-row h-full">
           <div className="basis-2/3">

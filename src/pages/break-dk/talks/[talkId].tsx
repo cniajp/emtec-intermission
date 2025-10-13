@@ -26,9 +26,9 @@ function Pages() {
   const { isLoading, view } = useGetTalksAndTracks(talkId as string | null)
 
   const pages = [
-    <Page1 key={1} view={view} />,
-    <Page2 key={2} view={view} />,
-    <Page3 key={3} view={view} />,
+    <Page1 key={1} view={view} isDk={true} />,
+    <Page2 key={2} view={view} isDk={true} />,
+    <Page3 key={3} view={view} isDk={true} />,
     // CM スポンサーなしの場合は page 4 はコメントアウトする (下のshouldPlayAudioも編集が必要)
     <Page4 key={4} view={view} />,
   ]
