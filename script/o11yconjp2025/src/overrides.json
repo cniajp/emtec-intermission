@@ -1,0 +1,280 @@
+{
+  "sessions": {
+    "19f402b8-888a-4304-bf40-d3d748e95ee5": {
+      "title": "Affordable Observability: Strategy to Implementation",
+      "description": "Complex systems need observability, but your team can't afford to instrument everything. This talk shows you how to get the debugging power you need without breaking your budget. You'll learn how to avoid \"Not Invented Here\" syndrome, over-engineering, and building custom solutions when proven tools already exist.\r\n\r\nMoving to implementation, we'll cover the \"reduce, reuse, recycle\" approach to telemetry data. Using practical analogies, you'll understand intelligent data cleanup and sampling strategies. We'll examine why 99% of events are low signal and how to automatically identify and preserve the meaningful ones.\r\n\r\nThe session concludes with an OpenTelemetry implementation and maturity roadmap for you and your team. You'll leave with both strategic thinking tools and specific technical patterns for building observability that actually helps your team debug production, affordably. Whether you're just starting your observability journey or looking to optimise existing investments, this talk provides the frameworks to make smart decisions and implement them cost-effectively.",
+      "translated": "⚠️ 本セッションの使用言語は英語です。日本語への同時翻訳ツールを提供します。\r\n\r\n複雑なシステムにはオブザーバビリティが不可欠ですが、チームはすべてを計装する余裕はありません。本講演では、予算を破綻させることなく必要なデバッグ力を手に入れる方法を紹介します。最初に、「Not Invented Here 症候群」（<a href=\"https://ja.wikipedia.org/wiki/NIH%E7%97%87%E5%80%99%E7%BE%A4\" target=\"_blank\" rel=\"noopener noreferrer\">自前症候群</a>）、オーバーエンジニアリング、すでに存在している実績あるツールを差し置いて独自開発をしてしまう、などをどうやって避けるかについてを学びます。\r\n\r\n次に実装に関する話題として、テレメトリデータに対する「Reduce, Reuse, Recycle」というアプローチについて解説します。実践的なアナロジーを使いながら、データの整理やサンプリング戦略を理解できるようにし、なぜ99%のイベントは価値が低く、どうやってより価値の高いテレメトリデータを自動的に見極めて保持するのかを説明します。\r\n\r\n最後に、あなたとあなたのチームのためのOpenTelemetry の実装と成熟度ロードマップを紹介します。参加者は、本番環境のデバッグに本当に役立つオブザーバビリティをコスト効率よく構築するための、戦略的な思考法と具体的な技術パターンの両方を持ち帰ることができます。これからオブザーバビリティの旅を始めるチームも、すでに投資を進めて最適化を考えているチームも、本講演でスマートな意思決定と費用対効果のあるオブサーバビリティの実装を行うためのフレームワークが得られます。",
+      "speakers": ["liz-fong-jones"],
+      "isKeynote": true
+    },
+    "c1012bd7-d0e9-42b5-80cc-ac83e8ab56b8": {
+      "title": "O11y現場の\"属人化\"にさよなら！AIと始める新しいインシデント管理",
+      "description": "O11yツールや監視、APM、ログ…増え続けるツールに、インシデント管理が属人化＆サイロ化していませんか？PagerDutyは、主要O11yツールとノーコードで連携し、アラートの一元管理や自動エスカレーションを実現。AIが大量アラートをトリアージし、過去の解決事例も活用して、現場の「困った！」を即サポート。最新AIエージェントによる\"運用の見える化\"や\"解決策の自動提案\"もデモを交えてご紹介。「O11y運用をAIで効率化したい」「インシデント管理をもっとスマートにしたい」方、ぜひお立ち寄りください！",
+      "speakers": ["seiya-yonezaki"],
+      "isSponsorSession": true,
+      "sponsorName": "PagerDuty株式会社"
+    },
+    "9f4a10d3-f2a4-42d8-9787-d2be26a8f74d": {
+      "title": "オブザーバビリティの効果を可視化するIncident Response Metricsの実践",
+      "description": "Observabilityを高め、メトリクス・ログ・トレースを効果的に活用するメリットの一つは、システムのトラブルシューティングが迅速になることです。\n\n実際の現場では、「復旧対応に時間がかかった理由は何か」「原因切り分けは従来より早くなったのか」といった点を客観的に測定するデータ収集まで手が回らず、改善効果を具体的に示せないケースが少なくありません。\n\n本セッションでは、インシデントレスポンスのプロセスを定量的に数値化する「Incident Response Metrics」に焦点を当てた上で、MTTDやMTTRといった従来指標の限界に触れつつ、インシデントレスポンス中に実際に何が起きていたのかを把握するための新しい視点や測定方法を紹介します。Observabilityと指標設計を組み合わせることで、よりデータドリブンに対応プロセスを改善するアプローチを解説します。",
+      "speakers": ["narimichi-takamura"],
+      "isSponsorSession": true,
+      "sponsorName": "株式会社Topotal"
+    },
+    "97ddcd86-a893-4377-a28b-a6718153ca78": {
+      "title": "急増するオブザーバビリティコストにどう向き合うか ― Grafana Cloudのアプローチ",
+      "description": "オブザーバビリティの重要性が高まる一方で、ログやメトリクス、トレースのデータ量は際限なく増え、コストがspiralling（うなぎ登り）するという声をよく耳にします。「監視したいのに、監視コストに監視されている」…そんなジレンマに陥っていませんか？本セッションでは、この課題に対する私たちのアプローチをご紹介します。Grafana Cloudは、ダッシュボードによる可視化はもちろん、ログ、メトリクス、トレースの統合管理、柔軟なアラート設定、インシデント対応の効率化、オンコール管理、さらにはパフォーマンステストや外形監視まで幅広くサポートするマネージドサービスです。自前で運用する手間や無駄なリソースを抑えつつ、必要な可観測性をしっかり確保できます。もちろんこれは「Grafana Cloud最高！」と叫ぶための宣伝ではなく、spirallingなコストに頭を抱える皆さんと一緒に解決策を考えるためのトークです。",
+      "speakers": ["anthony-woods"],
+      "isSponsorSession": true,
+      "sponsorName": "Grafana Labs"
+    },
+    "fde073a9-b167-4842-ab49-7bd0b1f02613": {
+      "title": "ピーク時165万スパン/秒に立ち向かえ！オブザーバビリティコストを効率化する ABEMA におけるトレースサンプリングの実践的事例",
+      "description": "多くのマイクロサービスで構成され、膨大なトラフィックを高速化つ安定的に処理する動画配信サービス ABEMA において、オブザーバビリティや分散トレースは必要不可欠です。\n一方で、オブザーバビリティにおいて課題となるのはコストです。テレメトリーのデータ量は、ツールを長く効率化に使う上で考慮すべきコストの一つであり、保存すべきトレースの取捨選択が必要になります。関心のあるトレースは実は全てではないことが多く、エラーリクエストや高レイテンシーのものとなる傾向にあります。そこで必要なのがトレースサンプリング戦略です。\n本セッションでは、ピーク時165万スパン/秒を超えるABEMAにおけるトレースサンプリングの実践的事例を紹介します。OpenTelemetryとDatadogを用いた分散トレース基盤の上で、OTel Collectorを用いたテールサンプリングや、DatadogのリテンションフィルターやアダプティブサンプリングといったSaaSならではの機能を駆使し、どのように価値あるシグナルを残しつつ、オブザバビリティーコストを最適化しているのか、その具体的な設計や工夫に迫ります。",
+      "speakers": ["tetsuya-yamamoto", "keisuke-sakasai"],
+      "isSponsorSession": true,
+      "sponsorName": "Datadog Japan 合同会社"
+    },
+    "82c3d062-0233-442b-888d-5eacd325e834": {
+      "title": "OpenCensusと歩んだ7年間",
+      "description": "OpenCensusは現在ではOpenTelemetryに統合された、アプリケーションメトリクスと分散トレースを収集・転送するためのライブラリです。いち早くマイクロサービスの概念を取り入れ複雑性が増大したウォンテッドリーでは、エラーの原因特定と解決難易度の高さに課題を感じ、2018年にOpenCensusを導入しました。\n当時はまだマイクロサービスや分散トレーシングを導入している企業は少なく、環境が整っていない中で試行錯誤を繰り返し、活用の糸口を模索しながら運用を続けてきました。本セッションではOpenCensusにフォーカスを当て、これまでの7年間の導入・運用・移行の各フェーズでどんな問題が発生し、どのように対処したのかを、実際の体験談を交えてお伝えします。",
+      "speakers": ["atsushi-tanaka"],
+      "isSponsorSession": true,
+      "sponsorName": "ウォンテッドリー株式会社"
+    },
+    "6ef8fbcf-922c-482a-87f8-522ac7f518b2": {
+      "title": "あなたのオブザーバビリティは2年後も通用するか？ ～Splunkのレポートが示すオブザーバビリティの今と未来～",
+      "description": "「AIシステムを可視化できないなら、それはすでに負債です。」\nシステムの複雑化、アラート疲れ、チーム間のサイロ。日々の課題に追われる中で、更にAIという新たな潮流も出てきて、私たちはどう向き合えばよいのでしょうか。\n前半では、Splunkがグローバルで2000名弱のIT運用・開発者を対象に行った最新のオブザーバビリティレポートを読み解きます。先進的プラクティスを実践するリーダーグループは何をし、いかにしてビジネス成果につなげているのか、多くの組織が直面する「ツールの分散」や「誤検知アラート」といった課題、そしてAI活用のリアルな実態をデータから明らかにします。\n後半では、レポートで浮き彫りになった課題に対し、SplunkとCiscoの統合オブザーバビリティプラットフォームがどう解決していくのか、そしてAIのための/AIによるオブザーバビリティについて最新機能をご紹介し、皆さんのチームが明日から実践できる次の一手を探ります。",
+      "speakers": ["satoshi-yamamura"],
+      "isSponsorSession": true,
+      "sponsorName": "Splunk Services Japan合同会社"
+    },
+    "be0f5b73-0ef0-4d46-b8c3-351e564daba0": {
+      "title": "Observability文化はなぜ根付かないのか 〜よくある失敗とその回避策〜",
+      "description": "ビジネスアジリティの向上は、多くの企業にとって最重要テーマとなっています。新しい価値を素早く市場に届けると同時に、システムの安定性と信頼性を損なわないことが求められるのは言うまでもありません。\nその実現には、単なるツール導入ではなく「Observability文化」の浸透が不可欠です。障害を迅速に検知・特定・復旧できる体制を整えることで、エンジニアの心理的安全性が確保され、アジリティを犠牲にせず開発を進められます。\nしかし、文化の定着には多くの落とし穴があります。例えば・・・\n・大量のアラートが発生しても誰も対応しない\n・メトリクスやログは収集しているが、トレースできず再現待ちとなる\n・監視はSRE任せで、開発者はアラートの意味すら理解していない\nこれらはツールや技術だけの問題ではなく、人・組織・プロセスに起因するものです。本セッションでは、こうした典型的な失敗事例を紹介しながら、その回避策と実践のヒントをお伝えします。",
+      "isLunchSession": true,
+      "sponsorName": "ULSコンサルティング株式会社",
+      "tags": ["ランチセッション"],
+      "speakers": ["hiroya-sano"]
+    },
+    "e92c73b4-070f-4768-84c0-82028a81f583": {
+      "title": "制約下の医療LLM Observability〜セキュアなデータ活用と専門家による改善サイクルの実現〜",
+      "description": "株式会社カケハシでは薬局向けの業務支援SaaSを提供しており、LLMを活用した機能の提供を行っています。\n\nLLMの活用において、その不確実性をコントロールするためのObservabilityは不可欠です。特に、高い信頼性が求められる医療ドメインでは、その重要性が一層高まります。また、専門性の高い内容であるために、医療ドメインエキスパート自身が観測情報の参照やプロンプトの改善を行う必要があります。その一方、医療ドメインではデータの保護も重要な点であり、その可観測性とデータ保護の両立には様々な壁があります。\n\n本セッションでは、インターネットから遮断されたセキュアな環境で、音声とテキストを扱うマルチモーダルな医療LLMアプリケーションのObservabilityをいかにして確保し、医療ドメインエキスパート自身が直接プロンプトチューニングを行える改善サイクルを実現したかをご紹介します。",
+      "isLunchSession": true,
+      "sponsorName": "株式会社カケハシ",
+      "tags": ["ランチセッション"],
+      "speakers": ["keisuke-hosaka"]
+    },
+    "13c12567-e6ba-4ce0-acd9-5ba4edea5781": {
+      "title": "クロージングキーノート: これからのオブザーバビリティ（仮）",
+      "description": "Observability Conference Tokyo 2025は、オブザーバビリティに関心のあるすべての人が集まり、話し合い、知見を共有するカンファレンスとして企画しています。1日を過ごして、みなさまどうだったでしょうか？\n\nクロージングキーノートでは、カンファレンスで行われたセッションやブース、廊下での会話、オンラインでの反応など、起こった様々なことをふりかえりながら、参加者の皆さんそれぞれが抱える課題や次のステップに対して何ができるのか、考えていきます。",
+      "speakers": ["kazunori-otani"],
+      "isKeynote": true
+    },
+    "2e4cc4d3-a310-4b12-aff1-a105185e567d": {
+      "title": "懇親会パーティー🎉🥳",
+      "description": "懇親会パーティーでは、参加者同士の交流を深めるとともに、パーティーLTを開催します！\n\nパーティーLT:\n・OTEPsで知るOpenTelemetryの未来 - 朝倉 一希（株式会社はてな Mackerel開発チーム サブディレクター・テックリード）\n・入社して3ヶ月経ったBBが伝えるPLAIDの素晴らしさ(仮) - 岡本 泰典（株式会社プレイド Developer Experience & Performance Engineer）"
+    }
+  },
+  "speakers": {
+    "atsushi-tanaka": {
+      "name": "田中 篤志",
+      "firstName": "篤志",
+      "lastName": "田中",
+      "bio": "2018年ウォンテッドリー株式会社に新卒入社。インフラエンジニアとして Kubernetes をベースとしたマイクロサービス基盤の開発運用に従事。2024年1月からはインフラチームのリーダーを担当。",
+      "tagLine": "Dev Branch / Infra Squad Leader, ウォンテッドリー株式会社",
+      "profilePicture": "/atsushi-tanaka.webp",
+      "links": [
+        {
+          "title": "Wantedly",
+          "url": "https://www.wantedly.com/id/bgpat",
+          "linkType": "Other"
+        },
+        {
+          "title": "X",
+          "url": "https://x.com/bgpat_",
+          "linkType": "Twitter"
+        }
+      ]
+    },
+    "satoshi-yamamura": {
+      "name": "山村 悟史",
+      "firstName": "悟史",
+      "lastName": "山村",
+      "bio": "日系のSIerでネットワーク、セキュリティ、IT運用、ITサービスマネジメントに関して経験を積んだ後にSplunkにJoinし、オブザーバビリティソリューションを担当してます。\n日本で29番目ぐらいのKubestronaut。\nSplunkやオブザーバビリティのTechブログを書いてます。",
+      "tagLine": "ソリューションズ・アーキテクト・マネージャー, Splunk Services Japan合同会社",
+      "profilePicture": "/satoshi-yamamura.webp",
+      "links": [
+        {
+          "title": "LinkedIn",
+          "url": "https://www.linkedin.com/in/satoshi-yamamura-a97b0954/",
+          "linkType": "LinkedIn"
+        },
+        {
+          "title": "Qiita",
+          "url": "https://qiita.com/symmr",
+          "linkType": "Other"
+        },
+        {
+          "title": "Zenn",
+          "url": "https://zenn.dev/symmr",
+          "linkType": "Other"
+        }
+      ]
+    },
+    "seiya-yonezaki": {
+      "name": "米崎 誠矢",
+      "firstName": "誠矢",
+      "lastName": "米崎",
+      "bio": "国内大手SIerでSEとして、政府系ミッションクリティカルシステムの開発・運用やAI画像解析ソリューションの開発・拡販に従事した後、外資系ITベンダーにて小売・流通・製造など幅広い業界向けにDXソリューション提案を経験。現在はPagerDutyにて、AIやオブザーバビリティの最新技術を活用し、インシデント対応の自動化をはじめとしたデジタルオペレーションのモダン化や、お客様の運用課題解決、DX推進を支援している。",
+      "tagLine": "Senior Solutions Consultant, PagerDuty株式会社",
+      "profilePicture": "/seiya-yonezaki.webp",
+      "links": [
+        {
+          "title": "LinkedIn",
+          "url": "https://www.linkedin.com/in/seiya-yonezaki-89779938/",
+          "linkType": "LinkedIn"
+        }
+      ]
+    },
+    "liz-fong-jones": {
+      "name": "Liz Fong-Jones",
+      "firstName": "Liz",
+      "lastName": "Fong-Jones",
+      "bio": "Lizは、デベロッパーアドボケイト、労働・倫理活動のオーガナイザー、そして20年以上の経験を持つ Site Reliability Engineer (SRE) です。現在は Honeycomb の Field CTO を務めており、以前は Google Cloud Load BalancerからGoogle Flightsまで幅広いプロダクトに携わるSRE を担当していました。\r\n\r\n彼女はカナダのブリティッシュコロンビア州バンクーバーで妻のElly、他のパートナーたち、サモエドとゴールデンレトリバーのミックス犬と暮らしているほか、オーストラリアのニューサウスウェールズ州シドニーにも生活拠点を持っています。クラシックピアノを弾き、EVE Online のアライアンスを率い、トランスジェンダーの権利擁護にも取り組んでいます。",
+      "tagLine": "Field CTO, honeycomb.io",
+      "profilePicture": "/liz_headshot.jpg",
+      "links": []
+    },
+    "hiroya-sano": {
+      "name": "佐野 浩也",
+      "firstName": "浩也",
+      "lastName": "佐野",
+      "bio": "ULSコンサルティング株式会社にてシニアコンサルタントとして従事。\nプラットフォームエンジニアリングの実践に関心を持ち、Observabilityツール導入・文化浸透、アーキテクチャ・プロセス設計、顧客伴走型でのスクラムチーム立上げなど幅広い支援を行っている。",
+      "tagLine": "シニアコンサルタント, ULSコンサルティング株式会社",
+      "profilePicture": "/hiroya-sano.webp",
+      "links": [
+        {
+          "title": "ULSコンサルティング株式会社",
+          "url": "https://www.ulsconsulting.co.jp/",
+          "linkType": "Other"
+        }
+      ]
+    },
+    "keisuke-hosaka": {
+      "name": "保坂 桂佑",
+      "firstName": "桂佑",
+      "lastName": "保坂",
+      "bio": "東京大学大学院総合文化研究科修了。修了後は、株式会社NTTデータ数理システムにてデータサイエンス専門の研究員として勤務。さまざまな業界のデータ分析やアルゴリズム開発を担当する。その後、株式会社リクルートコミュニケーションズへ転職。データエンジニアリンググループのマネージャーとして勤務したのち、株式会社カケハシへ。2013年データ解析コンペティション優秀賞受賞。著作（共著）に「Kaggleで勝つデータ分析の技術」（技術評論社）。",
+      "tagLine": "データサイエンティスト, 株式会社カケハシ",
+      "profilePicture": "/keisuke-hosaka.webp",
+      "links": [
+        {
+          "title": "X",
+          "url": "https://x.com/free_skier",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "株式会社カケハシ",
+          "url": "https://www.kakehashi.life/",
+          "linkType": "Other"
+        }
+      ]
+    },
+    "anthony-woods": {
+      "name": "Anthony Woods",
+      "firstName": "Anthony",
+      "lastName": "Woods",
+      "bio": "アンソニーはシンガポールでVoxelのオペレーションを担当し、またVisaの決済システムを支えるツール開発にも携わってきました。現在は陽光あふれるパースで家族とアウトドアを楽しみ、ときにはビールを一杯二杯たしなんでいます。",
+      "tagLine": "共同創業者, Grafana Labs",
+      "profilePicture": "/anthony_woods.jpg",
+      "links": [
+        {
+          "title": "Grafana Labs",
+          "url": "https://grafana.com/ja/",
+          "linkType": "Other"
+        }
+      ]
+    },
+    "tetsuya-yamamoto": {
+      "name": "山本 哲也",
+      "firstName": "哲也",
+      "lastName": "山本",
+      "bio": "2021 年 4 月株式会社 AbemaTV の Cloud Platform チームに新卒として入社。 GKE / EKS をはじめとした基盤や監視基盤や CI/CD など基盤周り全般を担当。大規模イベントの負荷試験やリージョン移設、新しいクラウドソリューションの導入などを担当。 2024 年からは Developer Productivity チームの立ち上げや Engineering Manager を経て、現在はオブザーバビリティ基盤の刷新・構築にコミット。さらに 2025 年 10 月からは SRE チームとして ABEMA 全体の信頼性の向上をサポートしています。",
+      "tagLine": "SRE, 株式会社AbemaTV",
+      "profilePicture": "/yamamoto_tetsuya.jpg",
+      "links": [
+        {
+          "title": "X",
+          "url": "https://x.com/_tetsuya28",
+          "linkType": "Twitter"
+        }
+      ]
+    },
+    "keisuke-sakasai": {
+      "name": "逆井 啓佑",
+      "firstName": "啓佑",
+      "lastName": "逆井",
+      "bio": "普段の仕事ではオブザーバビリティを始めたり、高めたりするための技術支援や Datadog の導入支援を行っています。コミュニティ活動では、OpenTelemetry Meetup の運営や、Google Developer Experts（Google Cloud）に参加しております。趣味は、スノーボードと、練習すればするほどスコアが落ちるゴルフです。最近はマグマ式サウナにもハマっています。\n\nObservability Conference Tokyo 2025の共同オーガナイザーも務めています。",
+      "tagLine": "Sales Engineer, Datadog Japan / Co-Organizer, Observability Conference Tokyo 2025",
+      "profilePicture": "/sakasai_keisuke.jpg",
+      "links": [
+        {
+          "title": "X",
+          "url": "https://x.com/k6s4i53rx",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "Datadog Japan",
+          "url": "https://www.datadoghq.com/ja/",
+          "linkType": "Other"
+        }
+      ]
+    },
+    "kazunori-otani": {
+      "name": "大谷 和紀",
+      "firstName": "和紀",
+      "lastName": "大谷",
+      "bio": "アプリケーションの開発・構築・運用などをやりつつ、現在はオブザーバビリティ製品を専門に製品、プラクティス、OpenTelemetryの導入支援をしています。趣味はバイクとボルダリング、冬はバックカントリースキーで、怪我や遭難に気をつけています。\n\n「オブザーバビリティ・エンジニアリング」の共訳、「実践OpenTelemetry」翻訳。\n\nObservability Conference TOKYO 2025の共同オーガナイザー。",
+      "tagLine": "Co-Organizer, Observability Conference Tokyo 2025 / Senior Solutions Architect, Observability, Cisco Systems",
+      "profilePicture": "/kazunori-otani.jpg",
+      "links": [
+        {
+          "title": "X",
+          "url": "https://x.com/katzchang",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "Bluesky",
+          "url": "https://bsky.app/profile/katzchang.bsky.social",
+          "linkType": "Other"
+        },
+        {
+          "title": "LinkedIn",
+          "url": "https://www.linkedin.com/in/kazunori-otani/",
+          "linkType": "LinkedIn"
+        }
+      ]
+    },
+    "narimichi-takamura": {
+      "name": "高村 成道",
+      "firstName": "成道",
+      "lastName": "高村",
+      "bio": "大規模インフラ基盤の設計・構築・運用を経験し、EM、事業責任者、VPoEを経て、2020年にTopotalを創業し、SRE as a ServiceのSREとWaroomのPdMを担当している。",
+      "tagLine": "CEO / SRE, 株式会社Topotal",
+      "profilePicture": "/narimichi-takamura.jpg",
+      "links": [
+        {
+          "title": "株式会社Topotal",
+          "url": "https://topotal.com/",
+          "linkType": "Other"
+        },
+        {
+          "title": "X",
+          "url": "https://x.com/nari_ex",
+          "linkType": "Twitter"
+        }
+      ]
+    }
+  }
+}

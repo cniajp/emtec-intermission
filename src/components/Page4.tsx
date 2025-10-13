@@ -9,30 +9,30 @@ type Props = { view: Optional<TalkView> }
 // CM スポンサーがいない時には 各 source をコメントアウトする
 
 const playlist: Playlist = [
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cyberagent.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/monotaro1.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/monotaro2.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
+  // {
+  //   sources: [
+  //     {
+  //       src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cyberagent.mp4',
+  //       type: 'video/mp4',
+  //     },
+  //   ],
+  // },
+  // {
+  //   sources: [
+  //     {
+  //       src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/monotaro1.mp4',
+  //       type: 'video/mp4',
+  //     },
+  //   ],
+  // },
+  // {
+  //   sources: [
+  //     {
+  //       src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/monotaro2.mp4',
+  //       type: 'video/mp4',
+  //     },
+  //   ],
+  // },
   // {
   //   sources: [
   //     {

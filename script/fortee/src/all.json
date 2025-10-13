@@ -1,0 +1,689 @@
+{
+  "proposals": [
+    {
+      "uuid": "e48dbb3e-1046-4835-9bd6-5088c8c1b5c8",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/e48dbb3e-1046-4835-9bd6-5088c8c1b5c8",
+      "title": "オープニング",
+      "abstract": "実行委員長がオープニングを盛り上げます",
+      "accepted": true,
+      "speaker": {
+        "name": "asumikam",
+        "kana": "アスミ",
+        "twitter": "asumikam",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/786eb621-c986-499e-a3c1-40c13aa5b0d9.jpg"
+      },
+      "created": "2024-12-05T23:42:50+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T10:00:00+09:00",
+        "length_min": 10
+      },
+      "video_url": "https://www.youtube.com/watch?v=CCv2tbGZrGQ",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "56be018e-75cf-41a7-88a2-cc15e92d741e",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/56be018e-75cf-41a7-88a2-cc15e92d741e",
+      "title": "PHP 8.x 時代のクラス設計（property promotion から property hooks まで）",
+      "abstract": "# 概要\r\n\r\nPHP 8.x には、クラス設計に関わる重要な機能が多数導入されています。PHP 7.x の頃ではベストプラクティスと考えられていた設計でも、PHP 8.x の言語機能で代替できたり、改善できたりするものがあります。新しい言語機能を振り返りつつ、最新のクラス設計について考えていきましょう。\r\n\r\n# 話すこと\r\n\r\n* PHP 8.x によって導入された言語機能（property promotion、readonly、property hooks など）\r\n* 上記を踏まえて、どのようなクラス設計が望ましいか\r\n\r\n## 本発表の想定する対象コード\r\n\r\nこの発表は、主にアプリケーションコードを対象とします。ライブラリコードの設計も発表内で触れることはありますが、一部に限られます。また、フレームワークが提供する基底クラスを継承する場合など、クラス設計が大きく制限されるケースは対象としません。",
+      "accepted": true,
+      "speaker": {
+        "name": "nsfisis",
+        "kana": "イマムラ",
+        "twitter": "nsfisis",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/dae73c69-6ac0-48ce-88db-0394dcbf80d8.jpg"
+      },
+      "created": "2024-12-05T23:52:06+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T11:00:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://blog.nsfisis.dev/slides/2025-04-12/phpcon-odawara-2025/",
+      "video_url": "https://www.youtube.com/watch?v=ZpPFQBrhz4o",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "e97298ff-3d40-4bc0-8e5e-1fab5c2480ab",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/e97298ff-3d40-4bc0-8e5e-1fab5c2480ab",
+      "title": "2025年春に見直したい、リソース最適化の基本",
+      "abstract": "クラウド時代のPHPベースなサービス運用において、コストを抑えながらパフォーマンスを最大化するためのリソース選定について、以下の観点で基本的な考え方をお伝えします。\r\n\r\n• インスタンスタイプの選択：CPUアーキテクチャの移行\r\n• メモリキャッシュの進化：ミドルウェアの選択\r\n• ストレージ選定：より高速なディスクの利用\r\n• I/O最適化：処理単位を「小さくする」\r\n• 軽量化：コンテナ最適化を意識したOS選定とマルチステージビルド\r\n• ルーティング：シンプルなネットワーク構成",
+      "accepted": true,
+      "speaker": {
+        "name": "sogaoh",
+        "kana": "ソガオー",
+        "twitter": "sogaoh",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/3129d11d-b44d-41c0-9012-191b726cb88f.jpg"
+      },
+      "created": "2024-12-05T23:53:02+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T16:20:00+09:00",
+        "length_min": 5
+      },
+      "slide_url": "https://speakerdeck.com/sogaoh/20250412-phpcon-odawara2025-lt",
+      "video_url": "https://www.youtube.com/watch?v=39YaA6fI9sw",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "039cd31d-0e0a-43e2-8f58-a584eb90e207",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/039cd31d-0e0a-43e2-8f58-a584eb90e207",
+      "title": "PHP で学ぶ OAuth 入門",
+      "abstract": "昨今のWeb サービスにおいて、認証・認可は必要不可欠な要素といっても過言ではないでしょう。\r\n認可の技術の一つに、 **OAuth** というものがあります。\r\n使ったことはなくても、 OAuth という単語を一度は耳にしたことがある方は多いのではないでしょうか?\r\n\r\n本トークでは、 OAuth に触れたことがない方を対象に、以下の内容についてお話しします。\r\n\r\n- 認証・認可の基礎\r\n- OAuth とは何か\r\n- OAuth の具体的な使いどころ\r\n- PHP による OAuth の認可処理の実装例\r\n\r\n前半では OAuth とは何かについて説明したあと、後半で PHP での実装例を交えながら OAuth の認可処理の流れを説明します。\r\n\r\n本トークを通じて、 OAuth の基礎を学んでみませんか?\r\n*小田原で みんなで学ぼう OAuth*",
+      "accepted": true,
+      "speaker": {
+        "name": "SAW",
+        "kana": "ソウ",
+        "twitter": "azuki_eater",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/82930fff-7fef-487e-9ef4-5c0dd26e6f2e.jpg"
+      },
+      "created": "2024-12-05T23:56:23+09:00",
+      "timetable": {
+        "track": "ぼこ",
+        "starts_at": "2025-04-12T15:10:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/azuki/php-dexue-bu-oauth-ru-men",
+      "video_url": "https://www.youtube.com/watch?v=_uzB1xdGfY4",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "10386b1c-679e-4a3b-b64d-9f9a0b4c98f7",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/10386b1c-679e-4a3b-b64d-9f9a0b4c98f7",
+      "title": "「影響が少ない」を自分の目でみてみる",
+      "abstract": "「良いコード」は手を入れやすいもので、\r\nそのためには「改修した時の影響が必要最低限に留まれるもの」が求められます。\r\n\r\n日頃から「影響範囲」と口にしますが、\r\n「影響する」あるいは「影響しない」とは、どのような事を意味するのでしょう？\r\n\r\nプログラミングを取り巻くものは、コードはもちろん、\r\nデータベースや外部システムとの連携、クライアントとつなぐI/Fと多岐にわたります。\r\n発生する影響と変更を類型化して、それが開発者に与えるものを考察します。\r\nそして、開発者の経験則や直感に頼ることなく、誰でも「見える」ようにする方法がないか？を模索するトークです。",
+      "accepted": true,
+      "speaker": {
+        "name": "きんじょうひでき",
+        "kana": "キンジョウヒデキ",
+        "twitter": "o0h_",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/1b82d220-584c-49a6-a69e-c904f2e1d8e1.jpg"
+      },
+      "created": "2024-12-05T23:59:26+09:00",
+      "timetable": {
+        "track": "ぼこ",
+        "starts_at": "2025-04-12T14:00:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/o0h/phpcon-odawara-2025",
+      "video_url": "https://www.youtube.com/watch?v=k_EU2WP9nc8",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "4211481b-db98-480d-b2e4-eb317852232d",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/4211481b-db98-480d-b2e4-eb317852232d",
+      "title": "改めて学ぶ Trait の使い方",
+      "abstract": "PHP 5.4 から導入された Trait は、多重継承ができない PHP に、コードを再利用するための一つの手段として提供され続けて来ました。\r\nしかし、実際にコードを再利用が求められる場面では DI を使用する方が適していたりするため、Trait を積極的に使う機会が少ないように感じています。\r\nそこで OSS のコードや、実務のコードで使われていた Trait を参考に、2025 年に改めて Trait の使い方を学ぶお話しをします。\r\n\r\n## 話すこと\r\n- OSS のコードから見た Trait の使いどころ\r\n- Trait のテストの書き方\r\n- 実務のコードで合った良い・悪い使われ方",
+      "accepted": true,
+      "speaker": {
+        "name": "meihei",
+        "kana": "メイヘイ",
+        "twitter": "app1e_s",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/a413a27b-c9af-4ea0-86eb-601949a321e5.jpg"
+      },
+      "created": "2024-12-06T00:03:57+09:00",
+      "timetable": {
+        "track": "ぼこ",
+        "starts_at": "2025-04-12T11:00:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/meihei3/phpcon-odawara-2025",
+      "video_url": "https://www.youtube.com/watch?v=nNReOshwMhs",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "f070c575-7231-4414-8cf2-e2e53d61b8b4",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/f070c575-7231-4414-8cf2-e2e53d61b8b4",
+      "title": "タイムゾーンの奥地は思ったよりも闇深いかもしれない",
+      "abstract": "タイムゾーンは、開発において日付や時刻を扱う際に不可欠な要素ですが、その仕組みや実装について深く考える機会は少ないですよね！本セッションは、各主要OS（Linux、Windows、macOS）がどのようにタイムゾーンを管理・参照するのか、内部構造や関連ファイルなどについて紐解きます。また、PHPがタイムゾーンを扱う際に参照する仕組み（設定など）についても触れ、タイムゾーンの基本概念から実践的なトラブルシューティング方法まで幅広くカバーします。さらに、タイムゾーンデータの更新（IANAタイムゾーンデータベースの利用やPHPのアップデートとの関係）についても取り上げ、国際化対応や開発の安定性向上に寄与する知識を提供します。タイムゾーンの奥地へ踏み込み、日常の開発をより強固に支える技術を一緒に探っていきましょう！",
+      "accepted": true,
+      "speaker": {
+        "name": "スー",
+        "kana": "スー",
+        "twitter": "suguru_ohki",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/b88d16b7-aa71-4803-8d59-c5e2ba2b76fb.jpg"
+      },
+      "created": "2024-12-06T00:52:00+09:00",
+      "timetable": {
+        "track": "あじ",
+        "starts_at": "2025-04-12T14:35:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/suguruooki/taimuzonnoao-di-hasi-tutayorimoan-shen-ikamosirenai",
+      "video_url": "https://www.youtube.com/watch?v=5bZ8OD-MWLE",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "6ea31fc2-3799-4a69-86af-aa74d5b3d2d1",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/6ea31fc2-3799-4a69-86af-aa74d5b3d2d1",
+      "title": "OpenSearchでレガシーな検索処理の大幅改善をやってやろう",
+      "abstract": "年月を経たレガシーなアプリケーションの検索処理は、肥大化したロジックによりパフォーマンスが劣化しがちです。実際に直面した検索遅延を、OpenSearchを活用して改善した実例をもとに、選定理由から実装の課題、実際の効果までをお話します。\r\nPHP7.1といったメンテナンスされていない環境での導入事例になります\r\n\r\n## ターゲット\r\n- OpenSearch導入を検討している方\r\n- 検索処理のパフォーマンス改善に悩む方\r\n- レガシーな環境で開発を続けている方\r\n\r\n## お話すること\r\n- 社内で抱えていた課題\r\n- OpenSearchの概要\r\n- 選定理由\r\n- 実装時の躓き\r\n- 実装後の効果\r\n- 今後の課題\r\n",
+      "accepted": true,
+      "speaker": {
+        "name": "DPon",
+        "kana": "ディーポン",
+        "twitter": "DPontaro",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/fdd36d19-2a94-47d6-83f2-9eb8a305158e.jpg"
+      },
+      "created": "2024-12-06T01:51:46+09:00",
+      "timetable": {
+        "track": "あじ",
+        "starts_at": "2025-04-12T15:10:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/dznbk/opensearchderegasinajian-suo-chu-li-noda-fu-gai-shan-woyatuteyarou",
+      "video_url": "https://www.youtube.com/watch?v=Dm6o02o7pDM",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "e789b76e-c6e4-4299-b5dc-399463039711",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/e789b76e-c6e4-4299-b5dc-399463039711",
+      "title": "恣意性から考える、変更に強いモデルの作り方",
+      "abstract": "「ツイートの文字数は140文字まで」これはドメインロジックだと思いますか？\r\nもしそうではなかったとしたら、この整合性は一体誰が関心を持つべきなのでしょうか？\r\n\r\nこのセッションでは、恣意性を軸にデータの強整合性をさらに2種類に分けて考えるアイデアを提案します。\r\nそして、そのアイデアがなぜ変更に強いモデルに繋がるのか、私の考えをお話ししたいと思います。\r\n\r\nこのトークでお話しすること\r\n- 恣意的なものとそうではないものについて\r\n- 2つの整合性について\r\n- 多重人格的なドメインモデルについて\r\n- 恣意性あるいはポリシーをドメインモデルから分離するということについて\r\n- 恣意性の分離がなぜ変更への強さを生むのか\r\n",
+      "accepted": true,
+      "speaker": {
+        "name": "吉田あひる",
+        "kana": "ヨシダアヒル",
+        "twitter": "strtyuu",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/4fb32bdb-bc17-4200-ac46-07beadde67a3.jpg"
+      },
+      "created": "2024-12-06T06:34:56+09:00",
+      "timetable": {
+        "track": "あじ",
+        "starts_at": "2025-04-12T14:00:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/yahiru/zi-yi-xing-karakao-eru-bian-geng-niqiang-imoderunozuo-rifang",
+      "video_url": "https://www.youtube.com/watch?v=tctkZVzTnKE",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "b54135a6-4b49-4c57-b742-c787aa238c2d",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/b54135a6-4b49-4c57-b742-c787aa238c2d",
+      "title": "100行で書けるPSR-11",
+      "abstract": "依存の注入、していますか？\r\n\r\n皆さん大好き（？）Laravelもアプリケーション本体はDIコンテナそのものです。\r\n\r\nそんな黒魔術の塊のように思えるDIコンテナですが、実はPHPでは100行弱のコードで実装が可能です。\r\n\r\nみなさんも「四角い車輪の再発明」をして黒魔術への理解を深めてみませんか？",
+      "accepted": true,
+      "speaker": {
+        "name": "おぎ",
+        "kana": "オギ",
+        "twitter": "ogi_chotdake_se",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/a3eded83-9c54-43d5-8ec8-0784e84ef247.jpg"
+      },
+      "created": "2024-12-06T08:48:23+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T16:25:00+09:00",
+        "length_min": 5
+      },
+      "slide_url": "https://speakerdeck.com/togishima/100xing-deshu-kerupsr-11",
+      "video_url": "https://www.youtube.com/watch?v=aenSwvPF3-U",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "2af5d22a-0c9e-48be-a083-51d6da9217d9",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/2af5d22a-0c9e-48be-a083-51d6da9217d9",
+      "title": "新しいPHP拡張モジュールインストール方法「PHP Installer for Extensions (PIE)」を使ってみよう！",
+      "abstract": "この世の中にはPHP拡張モジュールをインストールするコマンドとして、peclやdocker-php-ext-installなどがあります。\r\n新しいPHP拡張モジュールインストール方法として、2024/11/19にPHP Installer for Extensions (以下PIE)のプレリリース版が公開されました。\r\n\r\nhttps://thephp.foundation/blog/2024/11/19/pie-pre-release/\r\n\r\nPIEは、PHP拡張モジュール用のComposerだと言われています。いったいどんな機能や仕組みなのでしょうか？\r\nこのセッションでは、PIEの機能や仕組みやについて具体的なコードを乗せながら解説します。\r\n新しく追加されたPIEについて、一緒に学びましょう！",
+      "accepted": true,
+      "speaker": {
+        "name": "02",
+        "kana": "オーツー",
+        "twitter": "cocoeyes02",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/f4e35a8c-b484-47a3-85ca-c0c5b9cbd504.jpg"
+      },
+      "created": "2024-12-06T10:09:05+09:00",
+      "timetable": {
+        "track": "あじ",
+        "starts_at": "2025-04-12T11:00:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/cocoeyes02/lets-use-php-pie",
+      "video_url": "https://www.youtube.com/watch?v=Wk1IMmwAwm0",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "6d853d31-19ed-4e75-b7fb-841b9490d9a8",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/6d853d31-19ed-4e75-b7fb-841b9490d9a8",
+      "title": "定義ジャンプ入門",
+      "abstract": "## 概要\r\n\r\n「この関数、どこで定義されているの？」と悩んだことはありませんか？\r\nコードベースが大規模になるほど、適切な定義ジャンプ機能を活用することで、開発効率やコード理解度を大幅に向上させることができます。\r\n\r\n本セッションでは、定義ジャンプ（Definition Jump）の基本概念から、具体的な実装方法（例: ctags, LSP）の設定手順や活用事例を実践的に解説します。\r\nさらに、PHPのコードベースを定義ジャンプしやすくするための工夫やベストプラクティスについても紹介します。\r\n\r\n## 聴講者対象\r\n\r\n- 定義ジャンプの仕組みや原理に興味がある方\r\n- PHPの開発効率をさらに向上させたい方\r\n",
+      "accepted": true,
+      "speaker": {
+        "name": "たけてぃ",
+        "kana": "タケティ",
+        "twitter": "takeokunn",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/ec35234d-58c5-4132-9de9-c0ae6ee888aa.png"
+      },
+      "created": "2024-12-06T10:25:52+09:00",
+      "timetable": {
+        "track": "ぼこ",
+        "starts_at": "2025-04-12T14:35:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://docs.google.com/presentation/d/1HkiYZNKf6YBBOPNsHcvuOq2IKp1fw0L40j_T7RhrKZE/edit?slide=id.p#slide=id.p",
+      "video_url": "https://www.youtube.com/watch?v=oGjrjfkVALE",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "fa227b73-7c9e-4c79-a484-ff3309cb0ccf",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/fa227b73-7c9e-4c79-a484-ff3309cb0ccf",
+      "title": "New RelicのAPMを活用したECサービスにおけるメール遅延解消の舞台裏",
+      "abstract": "担当しているECサービスにおいて、TVで取り上げられるタイミングや、クーポン配布時に購入が集中すると負荷が高まり一部のメールで配信遅延が発生していました。\r\nECサービスにおいてメールの遅延はクリティカルなビジネスインパクトを与える為、解決は急務です。\r\n本セッションでは「推測するな、計測せよ」の精神で、実際にNew RelicのAPMを活用し遅延の根本原因を特定し、効果的に解消した実例をお話しします。\r\nこのセッションでは以下のような話を紹介します。\r\n\r\nNew Relicを使った問題可視化と原因特定\r\nNew Relic APMの活用によるアプリケーションパフォーマンスの測定\r\nSLI/SLOの設定を通じて指標を明確化し、改善目標を策定\r\n改善ステップと実装詳細\r\n効果測定とその後のまとめについて",
+      "accepted": true,
+      "speaker": {
+        "name": "Futoshi Endo",
+        "kana": "フトシ エンドウ",
+        "twitter": "Fendo181",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/3a904596-9699-4876-b59c-47b4d6d0ace8.jpg"
+      },
+      "created": "2024-12-06T13:12:40+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T15:10:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/fendo181/behind-the-scenes-resolving-email-delays-for-an-e-commerce-service-using-new-relic-apm",
+      "video_url": "https://www.youtube.com/watch?v=wq7OpdqtNcQ",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "241a237f-4bb7-42fa-989a-d23b6183b2d2",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/241a237f-4bb7-42fa-989a-d23b6183b2d2",
+      "title": "「”誤った使い方をすることが困難”な設計」で良いコードの基礎を固めよう",
+      "abstract": "「”誤った使い方をすることが困難”な設計」とは\r\n- バグを発生させにくくする\r\n- チームメンバーの誰でも扱いやすい\r\n- 時間が経っても意図を理解しやすい\r\n\r\nような実装を目指す設計です。\r\n\r\nこのトークでは、「”誤った使い方をすることが困難”な設計」を実現する方法として\r\n- クラスを型として扱い、実装者の考える意図と概念をコード上に残す\r\n- 制約をクラス内部に持たせ、重要なロジックを1箇所に集める\r\n- いつでも正しく仕事ができるクラスを作る\r\n\r\nなど、誰でも取り組めるテクニックを解説します。\r\n\r\n難しいと感じやすいオブジェクト指向や設計の用語を極力避け、”気張らずに聞ける”トークを目指します。\r\n\r\n**対象者**\r\n- フレームワークの使い方に慣れてきたくらいの初心者\r\n- 中級者へステップアップしたい人\r\n- 設計は難しいものだとハードルを感じている人\r\n- チーム全体に設計の基礎を浸透させたい人",
+      "accepted": true,
+      "speaker": {
+        "name": "taniguhey",
+        "kana": "タニグチ",
+        "twitter": "TanigUhey",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/65c970fa-cd3d-4d4d-9a0c-1b7721821e44.png"
+      },
+      "created": "2024-12-06T13:14:54+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T14:00:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/taniguhey/phpcon-odawara-2025",
+      "video_url": "https://www.youtube.com/watch?v=0ZctXviqCZE",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "928d4226-4c2c-4cc0-b1ea-372442d9d86d",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/928d4226-4c2c-4cc0-b1ea-372442d9d86d",
+      "title": "これ【\u003C?php】がないと始まらない！PHPインタプリタ入門",
+      "abstract": "PHPStormなどを使っているとつい存在を忘れがちな \u003C?php タグ。タグの役割や、なぜ省略できないのか考えたことはありますか？本セッションでは、この小さな記述がPHPインタープリタの動作をどのように開始させるのかサクっと解説します。",
+      "accepted": true,
+      "speaker": {
+        "name": "yuka",
+        "kana": "ユカ"
+      },
+      "created": "2024-12-06T14:58:05+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T16:15:00+09:00",
+        "length_min": 5
+      },
+      "video_url": "https://www.youtube.com/watch?v=VLcj8VrFm6I",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "87a6bd7b-56b8-41e2-b53f-1cf21211a400",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/87a6bd7b-56b8-41e2-b53f-1cf21211a400",
+      "title": "小田原で　みんなで一句　詠みたいな",
+      "abstract": "みなさんは、日常会話の中で「5-7-5」を見つけたことはありますか？\r\n私はSNSや社内チャットツールの中で隠れた「5-7-5」を探すのが好きです。\r\n\r\nこのトークでは、PHPを使って俳句の判定に本気で挑戦した結果をお伝えします。\r\n\r\nオーソドックスな判定方法から、形態素解析、さらには生成AIの力も借りつつ、さまざまな観点から俳句の機械的な判定について探っていきます。",
+      "accepted": true,
+      "speaker": {
+        "name": "すてにゃん",
+        "kana": "ステニャン",
+        "twitter": "stefafafan",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/eb394ff0-3289-4b5c-af32-0bfb92f8fea8.jpg"
+      },
+      "created": "2024-12-06T15:05:01+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T16:30:00+09:00",
+        "length_min": 5
+      },
+      "slide_url": "https://speakerdeck.com/stefafafan/php-haiku-validation",
+      "video_url": "https://www.youtube.com/watch?v=Iz8JZ6RI9fc",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "bdd2c125-ac74-4ccb-b738-fe18f5f31bad",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/bdd2c125-ac74-4ccb-b738-fe18f5f31bad",
+      "title": "低レイヤを知りたいPHPerのためのCコンパイラ作成入門",
+      "abstract": "CPUやプログラムの実行といったコンピュータの\"低レイヤ\"を知るためにCコンパイラを作成するのはとても良いアイデアです。\r\nRui Ueyamaさんの「低レイヤを知りたい人のためのCコンパイラ作成入門」はまさにそんな目的で書かれていて、手順どおりに進めていくだけで演算、変数、関数やポインタなど十分にそれっぽいCコンパイラを作れます。\r\nですが、このドキュメント、C（言語）でCコンパイラを作っていて、それ自体はごく普通のことですがPHPerにとっては若干ハードルが高いんですよね…。\r\nOK。それならPHPでやってみましょう。\r\nこのトークではRui Ueyamaさんのドキュメントに従いながらPHPでCコンパイラを作る方法を解説します。\r\nこのトークを聞いた方がご自身でもPHPでCコンパイラを作成し、コンピュータの低レイヤを楽しめる様になることを願っています。",
+      "accepted": true,
+      "speaker": {
+        "name": "長谷川智希",
+        "kana": "ハセガワトモキ",
+        "twitter": "tomzoh",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/35550064-fe1f-4f6a-b2b9-3460c77d2a15.jpg"
+      },
+      "created": "2024-12-06T15:05:49+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T14:35:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/tomzoh/building-a-c-compiler-for-phpers-who-want-to-dive-into-low-level-programming",
+      "video_url": "https://www.youtube.com/watch?v=0biaUnVJPNc",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "14cd227c-f8d6-4eb5-a05e-bd172bf4cefe",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/14cd227c-f8d6-4eb5-a05e-bd172bf4cefe",
+      "title": "ちいさくPHPUnitをつくってみる",
+      "abstract": "PHPUnit、毎日（？）使っていますよね。\r\n直接コマンドを叩いたり、便利なツールを介して使っていたりするかもしれませんが、\r\nその中身に目を向けたことはありますか？\r\n\r\nそこで、LT中に PHPUnitを「小さく作ってみる」ことで、その仕組みをひも解きます。\r\n最低限必要な機能は何か？「最小限のPHPUnit」を作って実際に動かしながらデモを行います。\r\nそして、「最小」では対応できない部分がどのように設計されているのかについても触れます。\r\n\r\n「作る」ことで中身を想像する足掛かりにしていただければ嬉しいです。\r\nテストフレームワークの奥深さを一緒に覗いてみましょう！",
+      "accepted": true,
+      "speaker": {
+        "name": "asumikam",
+        "kana": "アスミ",
+        "twitter": "asumikam",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/786eb621-c986-499e-a3c1-40c13aa5b0d9.jpg"
+      },
+      "created": "2024-12-06T15:09:36+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T16:10:00+09:00",
+        "length_min": 5
+      },
+      "video_url": "https://www.youtube.com/watch?v=hysAgC2Muxc",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "118409a3-759c-437b-9133-7fa126e0683e",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/118409a3-759c-437b-9133-7fa126e0683e",
+      "title": "サービスクラスのありがたみを発見したときの思い出",
+      "abstract": "日々の開発でサービスクラス作っていますか？あなたはなぜその処理を切り出してサービスクラスに実装したでしょうか？\r\nn年前のある日、Fat Controllerバリバリでフレームワークを使いこなしている気分で生きていた自分がサービスクラスの使いどころに気づいた前後の思い出をふりかえることを通じて、「サービスクラスはどういうときに便利か？どういう処理をおいたら便利か？」を解き明かしていきます。",
+      "accepted": true,
+      "speaker": {
+        "name": "菱田裕美",
+        "kana": "ヒシダヒロミ",
+        "twitter": "77web",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/71e2fe3d-91c6-4612-a1a9-c31016ecba56.jpg"
+      },
+      "created": "2024-12-06T19:55:14+09:00",
+      "timetable": {
+        "track": "ぼこ",
+        "starts_at": "2025-04-11T18:45:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/77web/sabisukurasunoarigatamiwofa-jian-sitatokinosi-ichu-number-phpcon-odawara",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "59bfacd6-ec67-4758-9148-8f4403cfcb12",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/59bfacd6-ec67-4758-9148-8f4403cfcb12",
+      "title": "だから僕は（クラス）設計を辞めた",
+      "abstract": "一人のエンジニアとして、設計は私の生き甲斐の一つである。だが世の中が私の設計を求めているとは限らない。設計以外でコードを書く。\r\n\r\nクラス設計を辞めてどうなるのか考えたことすらないくらい、具象と抽象のシャトルランを繰り返していた私が、今、クラス設計をしていない。\r\n\r\nクラス設計を禁止しているわけではなく、自制している。そんな開発ライフの中で見えた新たな力の核心を、是非とも皆様にお伝えしたい。\r\n\r\n## 話すこと\r\n\r\n* クラス設計をしない技術について\r\n* クラス設計をやめて、テストに対する話の時間を取っている話\r\n* エンジニアリングの熱をどこで焚き付けるのか問題",
+      "accepted": true,
+      "speaker": {
+        "name": "スタヰル",
+        "kana": "スタヰル",
+        "twitter": "stwile871",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/62bd44a6-ed3a-44e5-b8c8-26d2318e233f.jpg"
+      },
+      "created": "2024-12-06T20:39:59+09:00",
+      "timetable": {
+        "track": "ぼこ",
+        "starts_at": "2025-04-11T18:20:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://www.docswell.com/s/stwile/KP2318-2025-04-11-breaking-up-with-class-design/1",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "470e51a1-e6ea-497e-b584-6e56f39d48a8",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/470e51a1-e6ea-497e-b584-6e56f39d48a8",
+      "title": "社内コードゴルフ大会を開催したら最高に楽しかった！！",
+      "abstract": "今年の3月に実施されたPHPerkaigi2024でコードゴルフ大会に参加し、とても楽しかったため、「自分の会社でも実施したい！」と思い立ち、実際に開催しました。結果は大成功で、とても楽しい時間を過ごせたので、その時の話をします。\r\n\r\nコードゴルフの内容は、「FizzBuzz」問題や、1時間で解ける程度のの難易度のものを採用しました。言語はPHPを使用しました。\r\n\r\n具体的には以下のような内容を話す予定です。\r\n\r\nコードゴルフ大会を実施するにあたって、コードゴルフができるWEBアプリをどのように作成したか\r\nコードゴルフ大会の雰囲気や参加者からの評判\r\n•参加者たちの感想\r\nコードゴルフ大会を定期的に開催していることでの社内への影響\r\nコードゴルフ大会を開催した私自身の感想",
+      "accepted": true,
+      "speaker": {
+        "name": "ケイタMAX",
+        "kana": "ケイタマックス",
+        "twitter": "keita__Max",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/e9241c9c-b7aa-42fa-913c-304ededcb78e.jpg"
+      },
+      "created": "2024-12-06T23:13:38+09:00",
+      "timetable": {
+        "track": "ぼこ",
+        "starts_at": "2025-04-11T19:10:00+09:00",
+        "length_min": 5
+      },
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "2187180d-eda1-447d-9af9-da087cdd07ec",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/2187180d-eda1-447d-9af9-da087cdd07ec",
+      "title": "クロージング",
+      "abstract": "〆",
+      "accepted": true,
+      "speaker": {
+        "name": "asumikam",
+        "kana": "アスミ",
+        "twitter": "asumikam",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/786eb621-c986-499e-a3c1-40c13aa5b0d9.jpg"
+      },
+      "created": "2024-12-06T23:18:11+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T18:55:00+09:00",
+        "length_min": 20
+      },
+      "video_url": "https://www.youtube.com/watch?v=Ct2Xc_bgWc8",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "9dcb6cb4-866b-4b14-8540-bde2d7264568",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/9dcb6cb4-866b-4b14-8540-bde2d7264568",
+      "title": "PhpStorm超絶技巧5分集中講座2025.4",
+      "abstract": "LTだと思うのでとりあえず文字を入れておきます。",
+      "accepted": true,
+      "speaker": {
+        "name": "山本ユースケ",
+        "kana": "ヤマモトユースケ",
+        "twitter": "yusuke",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/b6ff8494-15a3-4f5d-b917-6896e39d0402.jpg"
+      },
+      "created": "2025-02-03T18:14:58+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T16:00:00+09:00",
+        "length_min": 5
+      },
+      "video_url": "https://www.youtube.com/watch?v=7CcN3iory2I",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "db76a0c7-a721-4e3b-9245-72d432105b19",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/db76a0c7-a721-4e3b-9245-72d432105b19",
+      "title": "PHPと旅する OSI 7階層",
+      "abstract": "スポンサーセッションとして前半に脆弱性診断ツールVAddyの紹介を行い、\r\n後半に私がPHPで実装したTCPプロトコルやIPプロトコルの紹介をします。\r\n\r\nPHPでHTTP以下の層を実装できるのか、どうやれば良いのかを解説します。\r\n楽しいネットワークの層（世界）を一緒に楽しみましょう！",
+      "accepted": true,
+      "speaker": {
+        "name": "市川@cakephper",
+        "kana": "イチカワ　アット　ケイクペチパー",
+        "twitter": "cakephper",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/c087c43e-ba13-4a65-abc7-29b7cba68bab.jpg"
+      },
+      "created": "2025-02-19T18:10:16+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T11:35:00+09:00",
+        "length_min": 15
+      },
+      "slide_url": "https://docs.google.com/presentation/d/1QQSkmRpzydr-6gyC5OnqEKwvGXh80lZl/edit",
+      "video_url": "https://www.youtube.com/watch?v=Xu7EYVOWdas",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "4791c482-607c-4092-9972-592c84bdd63a",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/4791c482-607c-4092-9972-592c84bdd63a",
+      "title": "小さな開発会社が受託開発に力を入れる理由",
+      "abstract": "パーティーハード社では、Printgraphやginconnectといった自社サービスを運営していますが、今年はなぜか受託開発に注力したいと考えています。\r\nその理由をお伝えできればと思います。",
+      "accepted": true,
+      "speaker": {
+        "name": "polidog",
+        "kana": "ポリドッグ",
+        "twitter": "polidog",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/0f03f2d0-57b6-4aaa-8680-549a0e530b91.jpg"
+      },
+      "created": "2025-02-28T01:38:24+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T15:55:00+09:00",
+        "length_min": 5
+      },
+      "slide_url": "https://speakerdeck.com/polidog/xiao-sanakai-fa-hui-she-kashou-tuo-kai-fa-nili-woru-reruli-you",
+      "video_url": "https://www.youtube.com/watch?v=SZgCgzm3ew8",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "888dd742-0295-4982-b267-8f1c0072c38b",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/888dd742-0295-4982-b267-8f1c0072c38b",
+      "title": "PHPバージョンアップから始めるOSSコントリビュート",
+      "abstract": "OSSへのコントリビュートは敷居が高いと感じていませんか？「何から始めればいいのかわからない」「自分のスキルでは貢献できない」といった壁を感じる方も多いでしょう。\r\nしかし、自分のプロダクトのPHPのバージョンアップ作業をきっかけに、自然とOSSにコントリビュートを始めることができます。\r\n\r\n本セッションでは、以下の内容をお話しします：\r\n\r\nPHPのバージョンアップで直面した課題とその解決方法\r\nバージョンアップ作業を通じてOSSプロジェクトにフィードバックを返す方法\r\n初心者がOSSコントリビュートに取り組むための具体的なステップ\r\n実際の体験を交えながら、どのようにOSSコントリビュートを「ハードルの高いもの」から「身近なもの」に変えられるのかをお伝えします。\r\nPHPのバージョンアップは単なる技術負債解消にとどまらず、コミュニティ全体の改善に貢献する第一歩でもあります。\r\n",
+      "accepted": true,
+      "speaker": {
+        "name": "川口将貴@dmnlk",
+        "kana": "カワグチマサキ",
+        "twitter": "dmnlk",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/54ff5791-7152-44d5-bb4b-d1b3975d7f67.jpeg"
+      },
+      "created": "2025-03-06T14:21:14+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T11:55:00+09:00",
+        "length_min": 15
+      },
+      "slide_url": "https://speakerdeck.com/dmnlk/how2oss-contribute",
+      "video_url": "https://www.youtube.com/watch?v=7GoQtQ8Juzs",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "46099864-be03-45df-a862-853ed2d5a6ec",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/46099864-be03-45df-a862-853ed2d5a6ec",
+      "title": "PHP CLIを使って日々の業務を楽に",
+      "abstract": "PHP CLI利用されていますか？\r\ncomposerやphpunitを利用しているかもしれませんが\r\nちょっとした仕事をするのに\r\n慣れたPHPのCLIで簡単に仕事をこなしましょう。",
+      "accepted": true,
+      "speaker": {
+        "name": "有限会社アリウープ 柏岡秀男",
+        "kana": "ユウゲンガイシャアリウープ　カシオカヒデオ",
+        "twitter": "kashioka",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/1278d46e-ce18-416d-84ab-bea549540024.jpg"
+      },
+      "created": "2025-03-09T22:10:04+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T16:05:00+09:00",
+        "length_min": 5
+      },
+      "slide_url": "https://speakerdeck.com/kashioka/php-cliwoshi-tuteri-noye-wu-wole-ni",
+      "video_url": "https://www.youtube.com/watch?v=wrncwEFK1Vs",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "dcf4e085-d653-4d51-9f87-574a3a79f7e2",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/dcf4e085-d653-4d51-9f87-574a3a79f7e2",
+      "title": "古き良きLaravelのシステムは関数型スタイルでリファクタできるのか",
+      "abstract": "レバテックには、約10年間事業を支えてきたLaravel製の営業支援システムがあります。\r\n事業とともにシステムが成長していくなかで技術負債も多く抱えることになり、その結果システムの認知負荷が高まってしまいました。\r\n\r\nそんな現状を改善するため、「関数型ドメインモデリング」の要素を取り入れて一部リファクタリングを実施しました。\r\n本セッションでは、その活動のなかで得られた知見をお届けします。",
+      "accepted": true,
+      "speaker": {
+        "name": "ひがき",
+        "kana": "ひがき",
+        "twitter": "higaki_program",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/8baa0032-a38f-4a5d-a576-78b66a203a0e.jpg"
+      },
+      "created": "2025-03-14T15:45:58+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T12:15:00+09:00",
+        "length_min": 15
+      },
+      "slide_url": "https://speakerdeck.com/leveragestech/gu-kiliang-ki-laravel-nosisutemuha-guan-shu-xing-sutairuderihuakutadekirunoka",
+      "video_url": "https://www.youtube.com/watch?v=hpP08agvqTY",
+      "feedback": {
+        "open": false
+      }
+    },
+    {
+      "uuid": "783ac013-b506-4fa0-b6c2-62e99a2a95f7",
+      "url": "https://fortee.jp/phpconodawara-2025/proposal/783ac013-b506-4fa0-b6c2-62e99a2a95f7",
+      "title": "OSSコントリビュートをphp-srcメンテナの立場から語る",
+      "abstract": "著名なリポジトリへのコントリビュートは（私もそうでしたが）ハードルを高く感じることが多いと思います。\r\nOSSコントリビュートについて、「このポイントを押さえておけば大丈夫」というような話ではなく、「何を考え、感じながらレビューしているのか」というように、「コントリビュートする側」ではなく、「PRの通知が飛んできて、レビューやマージを行なうメンテナ側」の目線でお話しします。\r\n\r\nまた、新機能等の話し合いが活発に行われている「内部メーリングリスト」についてもご紹介します。\r\n\r\nこのトークを通じて、OSSコントリビュートは特別身構える必要などなく、皆さんが気軽に足を踏み出すきっかけになれば良いなと思っています。",
+      "accepted": true,
+      "speaker": {
+        "name": "高町咲衣",
+        "kana": "タカマチ　サキ",
+        "twitter": "takamachi1saki",
+        "avatar_url": "https://fortee.jp/files/phpconodawara-2025/speaker/1cef1b6c-e754-49f8-98a3-5c83d0f4a745.jpg"
+      },
+      "created": "2025-03-31T21:54:59+09:00",
+      "timetable": {
+        "track": "かま",
+        "starts_at": "2025-04-12T10:20:00+09:00",
+        "length_min": 20
+      },
+      "slide_url": "https://speakerdeck.com/sakitakamachi/oss-contribute",
+      "video_url": "https://www.youtube.com/watch?v=8uXvead3EW0",
+      "feedback": {
+        "open": false
+      }
+    }
+  ]
+}

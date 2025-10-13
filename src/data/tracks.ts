@@ -1,7 +1,16 @@
 import { Track } from './types'
 
 export const tracks: Track[] = [
-  { id: 1, name: 'HALL' },
-  { id: 2, name: 'A' },
-  { id: 3, name: 'B' },
+  {
+    id: 1,
+    name: 'A',
+  },
+  {
+    id: 2,
+    name: 'B',
+  },
+  {
+    id: 3,
+    name: 'C',
+  },
 ]

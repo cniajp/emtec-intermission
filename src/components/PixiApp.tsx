@@ -257,7 +257,9 @@ const RotatingBunny: React.FC<ContentProperties> = (
   return (
     <>
       <pixiSprite
-        texture={Texture.from("https://res.cloudinary.com/lesto-dertne/image/upload/v1697829207/EMTEC-intermission/background.png")}
+        texture={Texture.from(
+          'https://res.cloudinary.com/lesto-dertne/image/upload/v1697829207/EMTEC-intermission/background.png'
+        )}
         anchor={0}
         x={0}
         y={0}
@@ -280,9 +282,7 @@ const RotatingBunny: React.FC<ContentProperties> = (
               text={x.name}
               x={x.x()}
               y={x.y()}
-              style={
-                x.style
-              }
+              style={x.style}
             />
           )
         })}
