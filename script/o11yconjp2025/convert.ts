@@ -281,7 +281,6 @@ function convertToTalks(
   trackIdMap: { [key: number]: number }
 ) {
   // id はRoomのIDを百の位にして、部屋の中での登壇時間順の連番を一の位にする
-  // 先にデータをroomIdでグループ化してから、各グループ内でstartsAt順にソートしてidを振り直す方法もあるが、今回は単純に元データの順番で処理する
   const talks: Talk[] = []
   dataTalks
     .filter((talk) => !hiddenTalkIds.has(talk.id))
