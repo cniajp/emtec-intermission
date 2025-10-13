@@ -1,0 +1,932 @@
+{
+  "sessions": [
+    {
+      "id": "9b978691-f832-41a9-a5fd-a367ccf8075a",
+      "title": "開場",
+      "description": null,
+      "startsAt": "2025-10-27T09:30:00",
+      "endsAt": "2025-10-27T10:00:00",
+      "isServiceSession": true,
+      "isPlenumSession": true,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "c71ae548-0a4b-4adb-8f9a-dcb8dc9ac8e7",
+      "title": "オープニング",
+      "description": null,
+      "startsAt": "2025-10-27T10:00:00",
+      "endsAt": "2025-10-27T10:10:00",
+      "isServiceSession": true,
+      "isPlenumSession": false,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "19f402b8-888a-4304-bf40-d3d748e95ee5",
+      "title": "Keynote Session By Liz Fong-Jones + QA",
+      "description": null,
+      "startsAt": "2025-10-27T10:10:00",
+      "endsAt": "2025-10-27T11:00:00",
+      "isServiceSession": true,
+      "isPlenumSession": false,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "989565",
+      "title": "オブザーバビリティが育む開発者のシステム理解と好奇心",
+      "description": "当初は障害対応の品質や速度を改善するために、オブザーバビリティの改善に取り組んでいました。\r\nしかし、ある一定の品質を超えると、それは障害時にだけ頼りになるものではなく、「正常動作とは何か」について興味を持たせてくれる題材になっていました。\r\n\r\n例えば、十分にクライアントにキャッシュがある場合、遅い正常レスポンスより、迅速なエラーレスポンス(古いキャッシュによる表示)の方がユーザー体験により良い効果があるかもしれません。そうなると、タイムアウトの適切な設定にも議論が及びますし、Fault Injectionのような機能があると対話が進めやすいことにも気づきます。\r\n\r\nさらに、速報性が高いコンテンツでは古いキャッシュによる表示は適していないことにも議論が波及し、その場合は別コンテンツへのフォールバックが適しているかもしれません。そして次の議論は、どうコンテンツとエラーハンドリングの対応を管理するかでしょうか。\r\n\r\n本セッションでは、オブザーバビリティに関する地道で小さな改善の積み上げによって、障害対応以外の何が変化したのか、そして何を今悩んでいるかを紹介します。",
+      "startsAt": "2025-10-27T11:20:00",
+      "endsAt": "2025-10-27T11:50:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "2c20fea0-7e89-40e0-a00e-c586360040ba"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "1013988",
+      "title": "可観測性は開発環境から、開発環境にもオブザーバビリティ導入のススメ",
+      "description": "「本番環境のオブザーバビリティは大事」。誰もがそう言います。でも、日々の開発で「なんでこれ動かないんだ…」と途方に暮れた経験はありませんか？私たちは、開発環境こそオブザーバビリティ導入の第一歩だと信じ、私の所属するLayerXのAI・LLM事業部でその実践に挑んできました。\r\n\r\n本セッションでは、オブザーバビリティがなかったことで起きた苦労したことや、そしてそれを乗り越えるために開発環境にオブザーバビリティを導入したことで、いかに開発が楽になったかをお伝えします。さらに、その小さな改善が最終的にサービスの品質向上にどう繋がったのか、具体的な事例を交えてお話しします。",
+      "startsAt": "2025-10-27T11:20:00",
+      "endsAt": "2025-10-27T11:50:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "107ff428-a5db-4d71-9616-1c2857262446"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69967,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "c1012bd7-d0e9-42b5-80cc-ac83e8ab56b8",
+      "title": "スポンサーセッション",
+      "description": null,
+      "startsAt": "2025-10-27T11:20:00",
+      "endsAt": "2025-10-27T11:50:00",
+      "isServiceSession": true,
+      "isPlenumSession": false,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69968,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "1016829",
+      "title": "映えないObservability",
+      "description": "分散トレーシングをはじめとするモダンなObservailityは非常に魅力的ですが、レガシーなシステムや組織の慣習などといった現場の制約との間にギャップを感じたことはありませんか？事業成長の裏で技術的負債を抱えてしまっているMonotaROではこのギャップと向き合い、自分たちに合ったObservailityのあり方について日々試行錯誤を重ねています。開発チームのユースケースに寄り添い、具体的なアクションにつながるようなテレメトリを小さく仕込む。そんな泥臭い「映えないObservability」について実体験をもとにお話しします。",
+      "startsAt": "2025-10-27T12:10:00",
+      "endsAt": "2025-10-27T12:40:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "ac952c44-d0a6-47fd-a59d-366025f64654"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "9f4a10d3-f2a4-42d8-9787-d2be26a8f74d",
+      "title": "スポンサーセッション",
+      "description": null,
+      "startsAt": "2025-10-27T12:10:00",
+      "endsAt": "2025-10-27T12:40:00",
+      "isServiceSession": true,
+      "isPlenumSession": false,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69967,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "1017868",
+      "title": "現場の壁を乗り越えて、「計装注入」が拓くオブザーバビリティ",
+      "description": "現代の複雑なシステム環境において、オブザーバビリティは信頼性を高める重要な要素として位置付けられています。しかし現場では、アプリケーションの計測導入に伴うコード改修や環境依存性が大きな障壁となり、アプリケーションに対するオブザーバビリティの獲得を困難にしてきました。様々な経緯を経て稼働するシステム環境へオブザーバビリティを導入するには、従来とは異なるアプローチが必要です。\r\n本セッションでは、この課題を解決する一助となる「計装注入（Instrumentation Injection）」を取り上げます。「計装注入」の主要なアプローチを、OpenTelemetry Operator, OpenTelemetry Injector の仕組みを通して解説し、アプリケーションコードの改修を伴わずに自動計測を実現する原理を明らかにします。さらに、従来の手法との比較から見える導入上の利点と制約を整理し、実環境での適用性とユースケースを検討します。",
+      "startsAt": "2025-10-27T12:10:00",
+      "endsAt": "2025-10-27T12:40:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "4121b12f-f5a6-414a-a8ec-539f1520d10b"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69968,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "be0f5b73-0ef0-4d46-b8c3-351e564daba0",
+      "title": "ランチセッション",
+      "description": null,
+      "startsAt": "2025-10-27T12:50:00",
+      "endsAt": "2025-10-27T13:10:00",
+      "isServiceSession": true,
+      "isPlenumSession": false,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "e92c73b4-070f-4768-84c0-82028a81f583",
+      "title": "ランチセッション",
+      "description": null,
+      "startsAt": "2025-10-27T13:10:00",
+      "endsAt": "2025-10-27T13:30:00",
+      "isServiceSession": true,
+      "isPlenumSession": false,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "1017779",
+      "title": "プロファイルとAIエージェントによる効率的なデバッグ",
+      "description": "最近ではオブザーバビリティの主要テレメトリーとしてログ、メトリクス、分散トレースは広く認識されるようになりましたが、プロファイルの利用はまだまだ普及していません。これは、プロファイルは特にパフォーマンスの問題を解決するためにはもっとも重要なテレメトリーであるにもかかわらず、そのデータを読み取ってデバッグに活用するためには多少の経験が必要なことが原因でしょう。しかし、この問題は昨今広く普及してきているLLMベースのAIエージェントによって軽減されつつあります。\r\n本セッションでは、まずオブザーバビリティのためのテレメトリーとしてなぜプロファイルが重要であるかを確認した後、プロファイルを使った従来のデバッグ方法を解説したうえで、AIエージェントによる支援がいかに有用であるかをご紹介します。\r\n本セッションを聞き終わるころには、早速実務に活かすべくプロファイルを取得したくなることでしょう。",
+      "startsAt": "2025-10-27T13:40:00",
+      "endsAt": "2025-10-27T14:10:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "398a776b-adf3-48b6-8510-7891a404302d"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "1000456",
+      "title": "医療システムのObservability向上のためのOpenTelemetry活用",
+      "description": "株式会社ispecは、『医療DXを“加速させる土台”をつくる』をミッションとし、医療機関様がクラウドサービスを簡単に導入できるようになるIaaS事業「Stargate」を立ち上げています。\r\n\r\nStargateでは、Stargate CUBEと呼ばれるコンテナを実行できる小型サーバーを病院に設置し、そこでクラウドサービス事業者様の連携用アプリを動かせるようにすることで、クラウドサービスの連携をスムーズにしています。\r\n\r\n本セッションでは、OpenTelemtryの思想を最大限活用することでStargate事業で提供するCUBE内のテレメトリーデータを、クラウドサービス事業者にセキュアかつシンプルに公開するアプローチで公開するためのアーキテクチャについて説明をします。",
+      "startsAt": "2025-10-27T13:40:00",
+      "endsAt": "2025-10-27T14:10:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "1ae247ae-0c0b-40a9-aea5-4f453632a7d5"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69967,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "97ddcd86-a893-4377-a28b-a6718153ca78",
+      "title": "スポンサーセッション",
+      "description": null,
+      "startsAt": "2025-10-27T13:40:00",
+      "endsAt": "2025-10-27T14:10:00",
+      "isServiceSession": true,
+      "isPlenumSession": false,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69968,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "1017896",
+      "title": "AIスパコン「さくらONE」のオブザーバビリティ",
+      "description": "LLMなどの大規模なAI基盤モデルの学習は、ハイエンドGPU、高帯域・低遅延のインターコネクトネットワークや分散ストレージを統合した高性能計算機インフラを必要とします。さくらインターネットでは、この要件に最適化したAIスパコン「さくらONE」を開発し、スパコン性能ランキングTOP500で世界49位を獲得しました。講演者は「さくらONE」を対象にオブザーバビリティを向上させる研究開発を行っています。そこで本講演では、\r\n\r\n1. 前提知識：分散学習のワークロードとその基盤の特性が、オブザーバビリティ業界が主に対象とするウェブアプリケーションの特性とは大きく異なること\r\n2. さくらONEの事例：実際に収集しているテレメトリーデータとその活用例、および、VictoriaMetrics、VictoriaLogs、Pyroscope、otel-ebpf-profiler、Grafanaを用いたデータ収集・分析システム\r\n3. 最先端の研究動向：eBPFによるGPU処理の計装法など論文で提案されている手法\r\n\r\nを紹介します。",
+      "startsAt": "2025-10-27T14:30:00",
+      "endsAt": "2025-10-27T15:00:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "d9702e0e-5bf8-462b-a478-d98dff0450cf"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "fde073a9-b167-4842-ab49-7bd0b1f02613",
+      "title": "スポンサーセッション",
+      "description": null,
+      "startsAt": "2025-10-27T14:30:00",
+      "endsAt": "2025-10-27T15:00:00",
+      "isServiceSession": true,
+      "isPlenumSession": false,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69967,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "1017855",
+      "title": "反省から紐解くオブザーバビリティとして本当に必要だったテレメトリ",
+      "description": "現代のシステム運用において、オブザーバビリティの重要性は広く認識されている。しかし、「テレメトリデータを収集すれば良い」という単純な理解では、真の価値を得ることは困難である。闇雲にメトリクス、ログ、トレースを収集しても、障害発生時の根本原因分析に活用できなかったり、ストレージコストの増大を招くだけに終わることが多い。\r\n一方で、システム構築の初期段階から必要なテレメトリデータを完璧に予測することは現実的ではない。重要なのは、実際の障害対応や運用経験から得られた教訓を活かし、段階的に観測可能性を向上させることである。\r\n本セッションでは、過去の障害対応で「このデータがあれば迅速に解決できた」「このメトリクスを見ていれば予防できた」といった実体験に基づく反省から、本当に必要だったテレメトリデータの具体例を紹介する。理論ではなく実践から学んだ、効果的なオブザーバビリティ戦略の構築方法を共有したい。",
+      "startsAt": "2025-10-27T14:30:00",
+      "endsAt": "2025-10-27T15:00:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "0a7a6c44-9686-4269-a818-de84847de2c4"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69968,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "1016944",
+      "title": "ゼロコード計装導入後のカスタム計装でさらに可観測性を高めよう",
+      "description": "ゼロコード計装を導入したものの、アプリケーションの状態に基づいたテレメトリーデータが取得できていない、ということはないでしょうか？\r\n\r\n言語によってはゼロコード計装という仕組みが提供されています。これにより、WebアプリケーションにおいてHTTPやgRPCのリクエスト、データベースへのリクエストなどのスパンを自動的に作ってくれたり、インフラのデータや言語によってはメトリクスも取得してくれます。これだけでもトレースデータがない状態よりはるかに良い状態になります。しかし、自動計装に加えてアプリケーション固有のデータなどを自前で計装し、新たなディメンションや高カーディナリティなテレメトリーデータを用意することで、さらにアプリケーションの可観測性が高まります。\r\n\r\n私が実際に、弊社のプロダクトであるBill Oneで計装を実施し、障害発生時の影響調査が迅速になった、などの実例を踏まえて紹介します。\r\n\r\nなお、事例としてはBtoBのマイクロサービスアーキテクチャを採用しているWebアプリケーションで、言語はKotlin(Java)とTypeScript(Node.js)となります。",
+      "startsAt": "2025-10-27T15:20:00",
+      "endsAt": "2025-10-27T15:50:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "36387ff8-f315-42fe-a66c-6df010003460"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "1017888",
+      "title": "エンタープライズBPMプラットフォームにおけるO11y",
+      "description": "弊社システムでは、人事・IT運用などのバックオフィス業務を支える複雑なBPMエンジンが動作していますが、その内部状態の可視化は技術的にもビジネス的にも困難な課題です。\r\n自社開発のBPMプラットフォームにおいて、Token-basedの制御と独自アーキテクチャにおける可観測性向上の実践事例を紹介します。\r\nさらに、具体的なバックオフィス業務を例に、技術観点のメトリクス（処理時間・エラー率）からビジネスに関わるメトリクスの軽装について紹介します。\r\nまた幅広いバックオフィス業務ドメインにおける「信頼性の測り方」を、技術的観点とビジネス価値の両面から提案します。",
+      "startsAt": "2025-10-27T15:20:00",
+      "endsAt": "2025-10-27T15:50:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "77bfe413-ac00-47d2-83b8-47e3e8c9760d"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69967,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "82c3d062-0233-442b-888d-5eacd325e834",
+      "title": "スポンサーセッション",
+      "description": null,
+      "startsAt": "2025-10-27T15:20:00",
+      "endsAt": "2025-10-27T15:50:00",
+      "isServiceSession": true,
+      "isPlenumSession": false,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69968,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "1000121",
+      "title": "オブザーバビリティ成熟度モデルの企画から社内導入まで：複数サービスでの評価を通じた組織変革の軌跡",
+      "description": "SRE部主導で独自のオブザーバビリティ成熟度モデルを企画・策定し、複数サービスにわたる実際の評価・改善を推進した取り組みを紹介します。書籍『オブザーバビリティ・エンジニアリング』とCMMIを基に6つの評価項目（データ収集と可視化、システムの信頼性管理、開発・運用プロセスの整備と最適化、アラート最適化と障害対応、ユーザー行動の理解と最適化、継続的な改善と最適化）を定義し、5段階の成熟度レベルで組織全体を評価しました。アンケート形式での現状把握から、レベル別改善アクションプランの策定まで、実践的なフレームワークを構築しました。理論と実践を結びつけた組織的なオブザーバビリティ向上の取り組みと、その実践から得た知見をお話しし、明日から実践できる第一歩を提供します。",
+      "startsAt": "2025-10-27T16:10:00",
+      "endsAt": "2025-10-27T16:40:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "86c9ce57-a3c2-4514-b72d-66cfad952906"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "6ef8fbcf-922c-482a-87f8-522ac7f518b2",
+      "title": "スポンサーセッション",
+      "description": null,
+      "startsAt": "2025-10-27T16:10:00",
+      "endsAt": "2025-10-27T16:40:00",
+      "isServiceSession": true,
+      "isPlenumSession": false,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69967,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "1016876",
+      "title": "LLMオブザーバビリティにおけるトレースの拡張",
+      "description": "OpenAIなどのLLMを組み込んだアプリケーションは、従来のシステム以上に不確実性を抱えています。こうしたアプリケーションでは、LLMの回答内容やプロンプトの効果測定、推論コストの変化を観測することが重要です。これらは、LLM利用の拡大に比例して今後ますます重要になるでしょう。この課題に対し、一般的なシステムでは分散トレーシングが用いられますが、LLMアプリケーションでは従来の仕組みだけでは不十分な場合が多くあります。本セッションでは、従来の分散トレーシングの限界を整理し、LLM特有のニーズに応えるトレースの拡張について解説します。さらに、Langfuseを利用したデモやCNCF Observability TAGで議論が進む Generative AI Semantic Conventions を紹介し、参加者とともに「生成AI時代のトレース拡張」を考えます。\r\n参加者はLLMアプリケーションに対する新たな視点を持ち帰り、自組織のオブザーバビリティ戦略に活かすヒントを得られるでしょう。",
+      "startsAt": "2025-10-27T16:10:00",
+      "endsAt": "2025-10-27T16:40:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "991fd12e-e306-4e89-8f29-6ce7671da8cf",
+        "8ca5b622-1512-49f5-8a9e-5997aac5bbf1"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69968,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "1017512",
+      "title": "オブザーバビリティと共に育てたID管理・認証認可基盤の歩み",
+      "description": "このセッションでは、マルチプロダクト・マルチテナント向けの認証認可基盤の立ち上げから、サービスがスケールしていく過程において、オブザーバビリティを高めながらどのように認証認可基盤を開発・運用してきたのかお話します。\r\n\r\n認証認可基盤は一般的なWebサービスと同様にデータベースや外部サービス呼び出しを起因としたI/Oバウンドなボトルネックだけでなく、暗号化・復号や電子署名といった処理を起因とするCPUバウンドなボトルネックが存在します。また、安全な実装のために処理のコア部分は標準的なライブラリを利用することも多いため、ログや外形的なメトリクスだけでは性能改善に必要なシステムの内部状態の理解を深めるのが難しいのが特徴です。\r\n\r\n私たちの認証認可基盤開発の事例をもとに、どのようにオブザーバビリティを高め、基盤の性能やUXを向上に役立てていくことができるのか共有します。",
+      "startsAt": "2025-10-27T17:00:00",
+      "endsAt": "2025-10-27T17:30:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "75d1ffb0-e263-40e2-91f8-6bde333cf44a"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "997198",
+      "title": "SRE × マネジメントレイヤーが挑戦した組織・会社のオブザーバビリティ改革 ― ビジネス価値と信頼性を両立するリアルな挑戦",
+      "description": "組織開発は多くの企業で取り組まれていますが、悩まれている方も多いのではないでしょうか。\r\nプラクティスはありますが、試行錯誤した事例やその結果として血肉になったノウハウが語られることは多くありません。\r\n\r\n私はSRE → マネジメントレイヤーのキャリアを歩んできており、オブザーバビリティのプラクティスを利活用していました。\r\n・メトリクスの収集と可視化 → 社員定着率や全社サーベイを元にした従業員エンゲージメント向上\r\n・SLO/SLIの設定と管理 → 経営指標の設定と達成に向けたPDCAサイクルイテレーション\r\n・ポストモーテム → 失敗・ヒヤリハットの学習文化とフィードバックによる組織強化\r\n\r\n本セッションでは、オブザーバビリティを「システムの可視化」に留めず、「組織やビジネスの可視化」へと発展させた挑戦をリアルに語ります。\r\nなぜオブザーバビリティが組織改革に有効なのか、いかにして定性的な課題を定量的に捉え、改善を促す共通言語を築いてきたのか、試行錯誤の過程と具体的なアプローチを共有し、オブザーバビリティの新たな可能性を提示します。",
+      "startsAt": "2025-10-27T17:00:00",
+      "endsAt": "2025-10-27T17:30:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "6b59f1bf-7e0a-4c51-89ff-b767831ee37f"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69967,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "1016880",
+      "title": "外接に惑わされない自システムの処理時間SLIをOpenTelemetryで実現した話",
+      "description": "最近SLIやSLOが重要であるという話はよく聞きますよね、気になっている・すでに導入してみたという方も少なくないと思います。でもそのSLI/SLO、本当に誰かの役に立っていますか？\r\n私たちのシステムではAPIのレスポンスタイムに関するSLIがとりあえず設定されていたものの「外接処理時間が含まれている」「同じAPI中の処理分岐を混同してしまっている」といった理由から、誰も見なければ意思決定にも使っていないという状態でした。\r\n\r\nこの発表では、活用方法を意識したSLIの設計やそれを実現するためにOpenTelemetryの機能をどう使ったのかについてお話ししていきます。\r\nSLIに興味があるけどどう設計するのがいいのかよくわからない...というエンジニア・マネージャーや、すでにSLIがあるけど効果を実感できていないSRE、OpenTelemetryにもっと詳しい方など幅広い方が明日から使えるような内容となっています。",
+      "startsAt": "2025-10-27T17:00:00",
+      "endsAt": "2025-10-27T17:30:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "ff18d302-8a96-4888-b6ca-cdeb3d465c6c"
+      ],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69968,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": "Accepted",
+      "isInformed": true,
+      "isConfirmed": true
+    },
+    {
+      "id": "13c12567-e6ba-4ce0-acd9-5ba4edea5781",
+      "title": "クロージング（キーノート）",
+      "description": null,
+      "startsAt": "2025-10-27T17:40:00",
+      "endsAt": "2025-10-27T18:00:00",
+      "isServiceSession": true,
+      "isPlenumSession": false,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    },
+    {
+      "id": "2e4cc4d3-a310-4b12-aff1-a105185e567d",
+      "title": "懇親会",
+      "description": null,
+      "startsAt": "2025-10-27T18:30:00",
+      "endsAt": "2025-10-27T20:00:00",
+      "isServiceSession": true,
+      "isPlenumSession": true,
+      "speakers": [],
+      "categoryItems": [],
+      "questionAnswers": [],
+      "roomId": 69966,
+      "liveUrl": null,
+      "recordingUrl": null,
+      "status": null,
+      "isInformed": false,
+      "isConfirmed": false
+    }
+  ],
+  "speakers": [
+    {
+      "id": "36387ff8-f315-42fe-a66c-6df010003460",
+      "firstName": "Eiji",
+      "lastName": "Maeda",
+      "bio": "Webアプリケーションエンジニアをやっています。\r\n経歴として、大学までは簿記や会計学を専攻、1社目は大手会計システムの会社でWindowsアプリケーション開発、2社目はSIer、3社目はベンチャーでWebアプリケーションやSalesforceを触り、現在はSansan株式会社でWebアプリケーションエンジニアとして働いています。\r\nBill Oneの仕訳機能や外部連携といった機能の開発に携わり、2023年4月から1年程度SREとして可観測性の向上などをやっていました。\r\nアプリケーションエンジニアから見たオブザーバビリティ、といったテーマでお話しできると思っています。",
+      "tagLine": "Sansan株式会社",
+      "profilePicture": "https://sessionize.com/image/15f0-400o400o1-PmnM2f7Yj6zWqL7n9nyu62.jpg",
+      "isTopSpeaker": false,
+      "links": [],
+      "sessions": [
+        1016944
+      ],
+      "fullName": "Eiji Maeda",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "ac952c44-d0a6-47fd-a59d-366025f64654",
+      "firstName": "Kazuki",
+      "lastName": "Iwanaga",
+      "bio": "2023年にMonotaROに入社後、2024年からPlatform Engineering部門所属。開発生産性のデータ収集と可視化に従事したのち、現在はレガシーな基幹システムのObservability改善に取り組んでいる。",
+      "tagLine": "株式会社MonotaRO Platform Engineering部門",
+      "profilePicture": "https://sessionize.com/image/356b-400o400o1-HQULs4ifhBgkxx3gbrTZep.jpg",
+      "isTopSpeaker": false,
+      "links": [],
+      "sessions": [
+        1016829
+      ],
+      "fullName": "Kazuki Iwanaga",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "4121b12f-f5a6-414a-a8ec-539f1520d10b",
+      "firstName": "Kento",
+      "lastName": "Kimura",
+      "bio": "Sales Engineer at Datadog.\r\nCloud technology enthusiast, and  leading multiple cloud communities in Japan. One of the leading menber of Jagu'e'r(Japan Google Cloud User Group for Enterprise), AWS Community Builder(Cloud Operations, since 2024).",
+      "tagLine": "Datadog Japan G.K., Sales Engineer",
+      "profilePicture": "https://sessionize.com/image/dc10-400o400o1-7CbSiKSReJdkqJ2LkM3bbH.jpg",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/AoToLog_",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "LinkedIn",
+          "url": "https://www.linkedin.com/in/aoto/",
+          "linkType": "LinkedIn"
+        },
+        {
+          "title": "Company Website",
+          "url": "https://datadoghq.com",
+          "linkType": "Company_Website"
+        }
+      ],
+      "sessions": [
+        1017868
+      ],
+      "fullName": "Kento Kimura",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "0a7a6c44-9686-4269-a818-de84847de2c4",
+      "firstName": "Mitsuaki",
+      "lastName": "Tsugo",
+      "bio": "普段は製造業のお客様の技術課題の解決をお手伝いさせていただいております。一方でオブザーバビリティやCloudOps、SREに関する情報発信、案件サポートも行っております。",
+      "tagLine": "アマゾンウェブサービスジャパン合同会社　ソリューションアーキテクト",
+      "profilePicture": "https://sessionize.com/image/85dc-400o400o1-GRembEpE7VnJQYWh4R6X1F.jpg",
+      "isTopSpeaker": false,
+      "links": [],
+      "sessions": [
+        1017855
+      ],
+      "fullName": "Mitsuaki Tsugo",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "8ca5b622-1512-49f5-8a9e-5997aac5bbf1",
+      "firstName": "Shuhei",
+      "lastName": "Kawamura",
+      "bio": "TBD",
+      "tagLine": "Kong K.K., Senior Field Engineer",
+      "profilePicture": "https://sessionize.com/image/df75-400o400o1-Kje8zDAxQULdqxqQZaqNTR.jpg",
+      "isTopSpeaker": false,
+      "links": [],
+      "sessions": [
+        1016876
+      ],
+      "fullName": "Shuhei Kawamura",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "2c20fea0-7e89-40e0-a00e-c586360040ba",
+      "firstName": "Toshiya",
+      "lastName": "Kato",
+      "bio": "SWE, DBAなどを経て、2020年12月にLINE株式会社に入社。主にLINEスタンプやLYP PremiumでEmbedded-SREとして活動。 (2023年10月よりLINEヤフー株式会社)",
+      "tagLine": "LINEヤフー株式会社",
+      "profilePicture": "https://sessionize.com/image/19ec-400o400o1-RMtiCteZsK8xY384qJQV1M.jpg",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/maruloop",
+          "linkType": "Twitter"
+        }
+      ],
+      "sessions": [
+        989565
+      ],
+      "fullName": "Toshiya Kato",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "398a776b-adf3-48b6-8510-7891a404302d",
+      "firstName": "Yoshi",
+      "lastName": "Yamaguchi",
+      "bio": "アマゾンウェブサービスジャパン合同会社シニアデベロッパーアドボケイト。AWS製品の普及と技術支援を担当し、特にオブザーバビリティ、SRE、DevOpsといった領域を専門とする。",
+      "tagLine": "アマゾンウェブサービスジャパン合同会社 シニアデベロッパーアドボケイト",
+      "profilePicture": "https://sessionize.com/image/d3eb-400o400o1-DSUTejxyYJ9x3wuuxcuKo2.jpg",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/ymotongpoo",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "LinkedIn",
+          "url": "https://www.linkedin.com/in/ymotongpoo/",
+          "linkType": "LinkedIn"
+        },
+        {
+          "title": "Blog",
+          "url": "https://ymotongpoo.hatenablog.com/",
+          "linkType": "Blog"
+        }
+      ],
+      "sessions": [
+        1017779
+      ],
+      "fullName": "Yoshi Yamaguchi",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "991fd12e-e306-4e89-8f29-6ce7671da8cf",
+      "firstName": "Yoshitaka",
+      "lastName": "Fujii",
+      "bio": "TBD",
+      "tagLine": "〆のラーメンまである倶楽部",
+      "profilePicture": "https://sessionize.com/image/cdaf-400o400o1-ah4iBBTgGiyKoBpZoDpJkg.jpg",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/ystkfujii",
+          "linkType": "Twitter"
+        }
+      ],
+      "sessions": [
+        1016876
+      ],
+      "fullName": "Yoshitaka Fujii",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "d9702e0e-5bf8-462b-a478-d98dff0450cf",
+      "firstName": "Yuuki",
+      "lastName": "Tsubouchi",
+      "bio": "SREの研究者。5年のSRE経験を経て、2019年よりさくらインターネットで研究開発に従事。テレメトリーシステムへの負荷増大に関する研究で博士号取得。最近の興味はAIインフラの性能と信頼性およびAIOps。",
+      "tagLine": "さくらインターネット研究所 上級研究員",
+      "profilePicture": "https://sessionize.com/image/923f-400o400o1-3E3xQ6rinocDnLS5hzyeSm.png",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/yuuk1t",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "Blog",
+          "url": "https://blog.yuuk.io/",
+          "linkType": "Blog"
+        }
+      ],
+      "sessions": [
+        1017896
+      ],
+      "fullName": "Yuuki Tsubouchi",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "107ff428-a5db-4d71-9616-1c2857262446",
+      "firstName": "Yuzuru",
+      "lastName": "Ohira",
+      "bio": "LayerX で テクニカルプロジェクトマネージャー というロールについています。お客様への「Ai Workforce」の導入に向けて、プロジェクトに関わる顧客の業務部門・IT部門、社内のエンジニアチーム、クラウドベンダーなどとの調整・合意形成を行い、発生する課題を解決しながらプロジェクトを成功に導くことをメインミッションにしつつ SRE のバックグラウンドからオブザーバビリティ向上のための信頼性向上のための取り組みもしています。\r\n\r\n暇さえあればゴルフのことを考えています。",
+      "tagLine": "LayerX テクニカルプロジェクトマネージャー",
+      "profilePicture": "https://sessionize.com/image/c8f8-400o400o1-JYBUgFF3qQ27dqyMK9NSFD.png",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/joe_yuzupi",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "LinkedIn",
+          "url": "https://www.linkedin.com/in/yuzuru-ohira-405876179/",
+          "linkType": "LinkedIn"
+        }
+      ],
+      "sessions": [
+        1013988
+      ],
+      "fullName": "Yuzuru Ohira",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "1ae247ae-0c0b-40a9-aea5-4f453632a7d5",
+      "firstName": "佑亮",
+      "lastName": "山田",
+      "bio": "株式会社ispec取締役CTO。株式会社タイミーのプロダクト立ち上げ期の開発をリードしたのち、ispecにジョイン。SaaSプロダクトや電子カルテのPdM、テックリードを経験。現在はStargate事業の責任者を務める。",
+      "tagLine": "株式会社ispec CTO",
+      "profilePicture": "https://sessionize.com/image/964c-400o400o1-JDzikLMa2ihG9M8WNvBgF4.jpg",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/yamad07",
+          "linkType": "Twitter"
+        }
+      ],
+      "sessions": [
+        1000456
+      ],
+      "fullName": "佑亮 山田",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "6b59f1bf-7e0a-4c51-89ff-b767831ee37f",
+      "firstName": "川崎",
+      "lastName": "雄太",
+      "bio": "2020年にココナラへジョイン、Head of Informationとして、プロダクトインフラ・SREと社内情報システム / セキュリティを管掌している。 2024年からココナラテックの執行役員 情報基盤統括本部長を兼任。 2025年からココナラのDev Enabling室 室長を兼任し、技術広報を中心とした開発の進化を進めている。",
+      "tagLine": "株式会社ココナラ システムプラットフォーム部 部長",
+      "profilePicture": "https://sessionize.com/image/1650-400o400o1-KKEJuhxzpYa8gm2Awdqwhj.png",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/yuta_k0911",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "LinkedIn",
+          "url": "https://www.linkedin.com/in/yutakawasaki0911/",
+          "linkType": "LinkedIn"
+        },
+        {
+          "title": "Blog",
+          "url": "https://zenn.dev/yuta_k0911",
+          "linkType": "Blog"
+        }
+      ],
+      "sessions": [
+        997198
+      ],
+      "fullName": "川崎 雄太",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "77bfe413-ac00-47d2-83b8-47e3e8c9760d",
+      "firstName": "廣人",
+      "lastName": "蒲生",
+      "bio": "2024/10~ Dress Code株式会社プロダクトエンジニア\r\n2021/04~ レバレジーズ株式会社SREエンジニア",
+      "tagLine": "Dress Code",
+      "profilePicture": "https://sessionize.com/image/511c-400o400o1-Xt8ZcLgH8cRBs66dhCkQBk.jpg",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/gamonges_eng",
+          "linkType": "Twitter"
+        }
+      ],
+      "sessions": [
+        1017888
+      ],
+      "fullName": "廣人 蒲生",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "86c9ce57-a3c2-4514-b72d-66cfad952906",
+      "firstName": "悟",
+      "lastName": "庭野",
+      "bio": "2021年7月より、合同会社DMM.com ITインフラ本部 SRE部に所属。現在は、オブザーバビリティ成熟度モデルの策定・運用および評価を通じ、組織横断での改善推進を主導。オブザーバビリティツールの導入支援や社内向けStatus Pageの運用など、幅広い活動を通じ、組織全体のオブザーバビリティ向上に従事。",
+      "tagLine": "合同会社DMM.com ITインフラ本部 SRE部",
+      "profilePicture": "https://sessionize.com/image/56a5-400o400o1-heSJvfwGMJbFaF85ocKd1e.jpg",
+      "isTopSpeaker": false,
+      "links": [],
+      "sessions": [
+        1000121
+      ],
+      "fullName": "悟 庭野",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "ff18d302-8a96-4888-b6ca-cdeb3d465c6c",
+      "firstName": "浩太朗",
+      "lastName": "新",
+      "bio": "性能を中心としたSREエンジニアとして活動\r\nKubernetes / observabilityなどに興味があります\r\n休日はラーメン食べ歩き・宅鯖いじり・個人開発をする日々",
+      "tagLine": "株式会社NTTデータグループ",
+      "profilePicture": "https://sessionize.com/image/b7ff-400o400o1-E1Ja8PVkRYE6sJX78Vwhrm.jpg",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/Kotaro7750",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "Blog",
+          "url": "https://gehirn.kotaro7750.net/",
+          "linkType": "Blog"
+        }
+      ],
+      "sessions": [
+        1016880
+      ],
+      "fullName": "浩太朗 新",
+      "categoryItems": [],
+      "questionAnswers": []
+    },
+    {
+      "id": "75d1ffb0-e263-40e2-91f8-6bde333cf44a",
+      "firstName": "高井",
+      "lastName": "真人",
+      "bio": "2014年から新卒で電機メーカーにてエレベータ向けの遠隔監視システムやビルシステムの開発を担当。その後、API基盤や認証認可基盤の技術コンサルティングおよび構築支援を経て、現職のカミナシにてノンデスクワーカー向けSaaSにおけるID管理・認証認可基盤の開発運用に従事。博士（工学）。",
+      "tagLine": "株式会社カミナシ エンジニアリングマネージャー",
+      "profilePicture": "https://sessionize.com/image/8622-400o400o1-wPXGzV8Yra7jxguq9o1czh.jpg",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/manaty0226",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "Blog",
+          "url": "https://zenn.dev/manaty226",
+          "linkType": "Blog"
+        }
+      ],
+      "sessions": [
+        1017512
+      ],
+      "fullName": "高井 真人",
+      "categoryItems": [],
+      "questionAnswers": []
+    }
+  ],
+  "questions": [],
+  "categories": [],
+  "rooms": [
+    {
+      "id": 69966,
+      "name": "Track A",
+      "sort": 0
+    },
+    {
+      "id": 69967,
+      "name": "Track B",
+      "sort": 1
+    },
+    {
+      "id": 69968,
+      "name": "Track C",
+      "sort": 2
+    }
+  ]
+}

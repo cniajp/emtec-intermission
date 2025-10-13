@@ -3,164 +3,130 @@ import { Speaker } from './types'
 export const speakers: Speaker[] = [
   {
     id: 1,
-    name: '運営チーム',
-    company: 'Platform Engineering Kaigi 2025 実行委員会',
+    name: 'Maeda Eiji',
+    company: 'Sansan株式会社',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+      'https://sessionize.com/image/15f0-400o400o1-PmnM2f7Yj6zWqL7n9nyu62.jpg',
   },
   {
     id: 2,
-    name: 'Nicki Watt',
-    company: 'Trifork UK',
-    avatarUrl: '/pek2025/speaker_nicki-watt.jpg',
+    name: 'Iwanaga Kazuki',
+    company: '株式会社MonotaRO Platform Engineering部門',
+    avatarUrl:
+      'https://sessionize.com/image/356b-400o400o1-HQULs4ifhBgkxx3gbrTZep.jpg',
+  },
+  {
+    id: 3,
+    name: 'Kimura Kento',
+    company: 'Datadog Japan G.K., Sales Engineer',
+    avatarUrl:
+      'https://sessionize.com/image/dc10-400o400o1-7CbSiKSReJdkqJ2LkM3bbH.jpg',
   },
   {
     id: 4,
-    name: '風見恵介 （共同登壇者： 菅慎司）',
-    company: 'ウルシステムズ株式会社',
-    avatarUrl: '/pek2025/speaker_keisuke-kazami.png',
+    name: 'Tsugo Mitsuaki',
+    company:
+      'アマゾンウェブサービスジャパン合同会社　ソリューションアーキテクト',
+    avatarUrl:
+      'https://sessionize.com/image/85dc-400o400o1-GRembEpE7VnJQYWh4R6X1F.jpg',
   },
   {
     id: 5,
-    name: '池添 明宏 （共同登壇者： 山田 高大）',
-    company: 'サイボウズ株式会社',
+    name: 'Kawamura Shuhei',
+    company: 'Kong K.K., Senior Field Engineer',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/539d5321-0d84-4b71-bd19-67c3e7a5b475.jpg',
+      'https://sessionize.com/image/df75-400o400o1-Kje8zDAxQULdqxqQZaqNTR.jpg',
   },
   {
     id: 6,
-    name: '谷成 雄',
-    company: '株式会社サイバーエージェント',
-    avatarUrl: '/pek2025/speaker_yu-taniya.png',
+    name: 'Kato Toshiya',
+    company: 'LINEヤフー株式会社',
+    avatarUrl:
+      'https://sessionize.com/image/19ec-400o400o1-RMtiCteZsK8xY384qJQV1M.jpg',
   },
   {
     id: 7,
-    name: 'Kumo Ishikawa',
-    company: '株式会社サイバーエージェント',
+    name: 'Yamaguchi Yoshi',
+    company:
+      'アマゾンウェブサービスジャパン合同会社 シニアデベロッパーアドボケイト',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/fe651d05-8edf-4fbe-8328-ac22622d31c7.jpg',
+      'https://sessionize.com/image/d3eb-400o400o1-DSUTejxyYJ9x3wuuxcuKo2.jpg',
   },
   {
     id: 8,
-    name: '津田薫',
-    company: 'Dress Code株式会社',
+    name: 'Fujii Yoshitaka',
+    company: '〆のラーメンまである倶楽部',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/177efc16-c6f4-4dad-a325-3f894d745717.jpg',
+      'https://sessionize.com/image/cdaf-400o400o1-ah4iBBTgGiyKoBpZoDpJkg.jpg',
   },
   {
     id: 9,
-    name: '住木 憲一',
-    company: 'ニッセイ情報テクノロジー株式会社',
+    name: 'Tsubouchi Yuuki',
+    company: 'さくらインターネット研究所 上級研究員',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/image/avatar.png',
+      'https://sessionize.com/image/923f-400o400o1-3E3xQ6rinocDnLS5hzyeSm.png',
   },
   {
     id: 10,
-    name: '伊藤 泰',
-    company: '株式会社MonotaRO',
+    name: 'Ohira Yuzuru',
+    company: 'LayerX テクニカルプロジェクトマネージャー',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/2bf24310-7e3c-4f7e-bc45-85d02bc14c81.jpg',
+      'https://sessionize.com/image/c8f8-400o400o1-JYBUgFF3qQ27dqyMK9NSFD.png',
   },
   {
     id: 11,
-    name: 'Toshinori Sugita',
-    company: '株式会社LegalOn Technologies',
+    name: '山田 佑亮',
+    company: '株式会社ispec CTO',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/c12c7cd0-fffb-4a7f-9109-764ba9f87005.jpg',
+      'https://sessionize.com/image/964c-400o400o1-JDzikLMa2ihG9M8WNvBgF4.jpg',
   },
   {
     id: 12,
-    name: '岡 麦',
-    company: '株式会社CAM',
+    name: '川崎 雄太',
+    company: '株式会社ココナラ システムプラットフォーム部 部長',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/03b8c8e3-019a-4c89-b852-1b19617efbf8.jpg',
+      'https://sessionize.com/image/1650-400o400o1-KKEJuhxzpYa8gm2Awdqwhj.png',
   },
   {
     id: 13,
-    name: '今井 陽祐 （共同登壇者： 野木 悦孝）',
-    company: 'クリエーションライン株式会社',
-    avatarUrl: '/pek2025/speaker_yosuke-imai.png',
+    name: '蒲生 廣人',
+    company: 'Dress Code',
+    avatarUrl:
+      'https://sessionize.com/image/511c-400o400o1-Xt8ZcLgH8cRBs66dhCkQBk.jpg',
   },
   {
     id: 14,
-    name: '五反田 正太郎',
-    company: 'LINEヤフー株式会社',
+    name: '庭野 悟',
+    company: '合同会社DMM.com ITインフラ本部 SRE部',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/7612ebf1-5b30-4b1b-a1b2-09654e92ebe8.jpg',
+      'https://sessionize.com/image/56a5-400o400o1-heSJvfwGMJbFaF85ocKd1e.jpg',
   },
   {
     id: 15,
-    name: 'Yoshiaki Ueda / bootjp',
-    company: '株式会社hacomono',
+    name: '新 浩太朗',
+    company: '株式会社NTTデータグループ',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/eff756ea-7f11-4b27-973d-7621ee8c5a14.jpg',
+      'https://sessionize.com/image/b7ff-400o400o1-E1Ja8PVkRYE6sJX78Vwhrm.jpg',
   },
   {
     id: 16,
-    name: '吉瀬 淳一',
-    company: 'GitLab合同会社',
+    name: '真人 高井',
+    company: '株式会社カミナシ エンジニアリングマネージャー',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/9b13cdb4-f3e0-4945-b2e6-21f9b278fbb5.jpg',
+      'https://sessionize.com/image/8622-400o400o1-wPXGzV8Yra7jxguq9o1czh.jpg',
   },
   {
-    id: 17,
-    name: 'Mac Kawabata（共同登壇者： 株式会社サイバーエージェント 石川 雲）',
-    company: 'Sysdig Japan合同会社',
-    avatarUrl: '/pek2025/speaker_mac-kawabata.png',
-  },
-  {
-    id: 18,
-    name: 'oguma',
-    company: '株式会社メルカリ',
+    id: 0,
+    name: '運営メンバー',
+    company: 'Observability Conference Tokyo',
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/117f483f-f8cb-449f-a01c-f02f10ccf715.jpg',
+      'https://pbs.twimg.com/profile_images/1953665800411525120/lbqP5cJi_400x400.png',
   },
   {
-    id: 19,
-    name: 'Makoto Shiga',
-    company: '株式会社hacomono',
+    id: 999,
+    name: '未定',
+    company: null,
     avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/c9af2117-dbb5-4378-a841-d85f94388500.jpg',
-  },
-  {
-    id: 20,
-    name: '伊藤遼',
-    company: '株式会社リンクアンドモチベーション',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/d70ae5ad-69d2-4fd8-a32c-b75b531bf2db.jpg',
-  },
-  {
-    id: 21,
-    name: 'しょっさん',
-    company: '株式会社MIXI',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/babeabfa-2bf7-4e6b-98f4-02a30608d9b9.jpg',
-  },
-  {
-    id: 22,
-    name: '中島 清貴',
-    company: '株式会社マルイユナイト',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/65be5744-1886-4e1b-8fa6-e34a52222e2e.png',
-  },
-  {
-    id: 23,
-    name: 'Shinichi Tokuhara',
-    company: '株式会社estie',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/94cd68f3-de42-4bdb-b272-a2250b4a7c82.jpeg',
-  },
-  {
-    id: 24,
-    name: 'Masa',
-    company: 'テナブルネットワークセキュリティジャパン株式会社',
-    avatarUrl: '/pek2025/speaker_masa.png',
-  },
-  {
-    id: 25,
-    name: 'maru',
-    company: 'LINEヤフー株式会社',
-    avatarUrl:
-      'https://fortee.jp/files/platform-engineering-kaigi-2025/speaker/4214b81e-efe2-419e-a6a2-c4544323efbd.jpeg',
+      'https://pbs.twimg.com/profile_images/1953665800411525120/lbqP5cJi_400x400.png',
   },
 ]
