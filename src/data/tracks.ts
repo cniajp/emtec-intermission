@@ -1,16 +1,16 @@
-import { Tracks } from './types'
+import { Track } from './types'
 
-export const tracks: Tracks[] = [
+export const tracks: Track[] = [
   {
-    "id": 1,
-    "name": "A"
+    id: 1,
+    name: 'A',
   },
   {
-    "id": 2,
-    "name": "B"
+    id: 2,
+    name: 'B',
   },
   {
-    "id": 3,
-    "name": "C"
-  }
+    id: 3,
+    name: 'C',
+  },
 ]

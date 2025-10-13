@@ -224,7 +224,7 @@ const finalData = {
 // tsファイルとして保存(TypeScriptの定数として使えるように)
 Object.entries(finalData).forEach(([key, value]) => {
   const outputPath = `../src/data/${key}.ts`
-  const typeName = key.charAt(0).toUpperCase() + key.slice(1)
+  const typeName = key.charAt(0).toUpperCase() + key.slice(1, -1)
   fs.writeFileSync(
     outputPath,
     `import { ${typeName} } from './types'\n\nexport const ${key}: ${typeName}[] = ${JSON.stringify(
