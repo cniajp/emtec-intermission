@@ -1,19 +1,23 @@
 // このファイルは事前にデータのコンバートを行うためのスクリプトです。
 // 実行には Node.js と TypeScript の環境が必要です。
-// 実行コマンド: npx tsx script/o11y-2025-convert.ts -y
+// 実行コマンド: npx tsx ./script/o11y_2025_convert.ts -y && npm run fmt
 
 import * as fs from 'fs'
-import { Track, Speaker, Talk } from '../src/data/types'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import { Track, Speaker, Talk } from '../src/data/types.js'
 import {
   sessioniseRoom,
   sessioniseSpeaker,
   sessioniseTalk,
   OverridesTalk,
   OverridesSpeaker,
-} from './o11y_2025/types.mts'
+} from './o11y_2025/types'
 
-const file_path: string = './o11y_2025/src/all.json'
-const overrides_path: string = './o11y_2025/src/overrides.json'
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const file_path = path.join(__dirname, './o11y_2025/src/all.json')
+const overrides_path = path.join(__dirname, './o11y_2025/src/overrides.json')
+
 const DEFAULT_IMAGE_PATH: string =
   'https://pbs.twimg.com/profile_images/1953665800411525120/lbqP5cJi_400x400.png'
 
@@ -64,13 +68,14 @@ const addSpeakers = [
 
 // JSONファイルの読み込み
 const rawData = fs.readFileSync(file_path, 'utf-8')
+const rawOverrides = fs.readFileSync(overrides_path, 'utf-8')
+
 const data: {
   rooms: sessioniseRoom[]
   speakers: sessioniseSpeaker[]
   sessions: sessioniseTalk[]
 } = JSON.parse(rawData)
 
-const rawOverrides = fs.readFileSync(overrides_path, 'utf-8')
 const overrides: {
   sessions: { [key: string]: OverridesTalk }
   speakers: { [key: string]: OverridesSpeaker }
@@ -223,7 +228,7 @@ const finalData = {
 
 // tsファイルとして保存(TypeScriptの定数として使えるように)
 Object.entries(finalData).forEach(([key, value]) => {
-  const outputPath = `../src/data/${key}.ts`
+  const outputPath = `./src/data/${key}.ts`
   const typeName = key.charAt(0).toUpperCase() + key.slice(1, -1)
   fs.writeFileSync(
     outputPath,

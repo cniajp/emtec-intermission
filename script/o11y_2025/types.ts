@@ -1,9 +1,9 @@
-type sessioniseRoom = {
+export type sessioniseRoom = {
   id: number
   name: string
   sort: number
 }
-type sessioniseSpeaker = {
+export type sessioniseSpeaker = {
   id: string
   firstName: string
   lastName: string
@@ -17,7 +17,7 @@ type sessioniseSpeaker = {
   categoryItems?: object[] | null
   questionAnswer?: object[] | null
 }
-type sessioniseTalk = {
+export type sessioniseTalk = {
   id: string
   title: string
   description: string
@@ -35,7 +35,7 @@ type sessioniseTalk = {
   isInformed: boolean
   isConfirmed: boolean
 }
-type OverridesTalk = {
+export type OverridesTalk = {
   title: string
   description: string
   isLunchSession: boolean
@@ -43,7 +43,7 @@ type OverridesTalk = {
   tags: string[] | null
   speakers: string[] | null
 }
-type OverridesSpeaker = {
+export type OverridesSpeaker = {
   name: string
   firstName: string
   lastName: string
@@ -52,17 +52,17 @@ type OverridesSpeaker = {
   profilePicture: string
   links: object[] | null
 }
-type appTrack = {
+export type appTrack = {
   id: number
   name: string
 }
-type appSpeaker = {
+export type appSpeaker = {
   id: number
   name: string
   company?: (string | null) | undefined
   avatarUrl?: (string | null) | undefined
 }
-type appTalk = {
+export type appTalk = {
   id: number
   trackId: number
   title: string
@@ -79,13 +79,3 @@ type appTalk = {
   showOnTimetable?: boolean | undefined
 }
 
-export {
-  sessioniseRoom,
-  sessioniseSpeaker,
-  sessioniseTalk,
-  OverridesTalk,
-  OverridesSpeaker,
-  appTrack,
-  appSpeaker,
-  appTalk,
-}
