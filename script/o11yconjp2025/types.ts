@@ -52,30 +52,3 @@ export type OverridesSpeaker = {
   profilePicture: string
   links: object[] | null
 }
-export type appTrack = {
-  id: number
-  name: string
-}
-export type appSpeaker = {
-  id: number
-  name: string
-  company?: (string | null) | undefined
-  avatarUrl?: (string | null) | undefined
-}
-export type appTalk = {
-  id: number
-  trackId: number
-  title: string
-  abstract: string
-  speakers: {
-    id?: number | undefined
-    name?: string | undefined
-  }[]
-  startTime: string
-  endTime: string
-  talkDifficulty?: string | undefined
-  talkCategory?: string | undefined
-  conferenceDayId?: (number | null) | undefined
-  showOnTimetable?: boolean | undefined
-}
-
