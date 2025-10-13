@@ -7,9 +7,10 @@ import type { Speaker, Talk, Track } from '@/data/types'
 import PageHeader from './PageHeader'
 import { getTimeStr } from '@/utils/time'
 
+type PageProps = { view: Optional<TalkView>; isDk: boolean }
 type Props = { view: Optional<TalkView> }
 
-export default function Page({ view }: Props) {
+export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
   useEffect(() => {
     const cancel = setTimeout(goNextPage, config.transTimePage2 * 1000)
@@ -18,7 +19,7 @@ export default function Page({ view }: Props) {
 
   return (
     <div>
-      <PageHeader view={view} />
+      <PageHeader view={view} isDk={isDk} />
       <div className="h-full">
         <Body view={view} />
       </div>
@@ -78,7 +79,7 @@ function Track({ talk, track, speakers }: TrackProps) {
   }
   const companies = new Set(speakers.map((s) => s.company))
   const re = /(https:\/\/.*|\/.*)/
-  const avatarUrl = re.test(speakers[0].avatarUrl || '')
+  const avatarUrl = re.test(speakers[0]?.avatarUrl || '')
     ? speakers[0].avatarUrl!
     : null
   return (
@@ -128,7 +129,7 @@ export function AvatarPreLoader({ view }: Props) {
           return <></>
         }
         const speakers = view.speakersOf(talk.id)
-        const avatarUrl = speakers[0].avatarUrl
+        const avatarUrl = speakers[0]?.avatarUrl
         return avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img key={i} rel="preload" src={avatarUrl} alt="for preload" />

@@ -6,6 +6,7 @@ import config from '@/config'
 import PageHeader from './PageHeader'
 import Image from 'next/image'
 
+type PageProps = { view: Optional<TalkView>; isDk: boolean }
 type Props = { view: Optional<TalkView> }
 
 const images: string[] = [
@@ -19,7 +20,7 @@ const images: string[] = [
   // '/pek2025/info008.png',
 ]
 
-export default function Page({ view }: Props) {
+export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
   const { count } = useCounter(images.length)
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function Page({ view }: Props) {
 
   return (
     <div>
-      <PageHeader view={view} />
+      <PageHeader view={view} isDk={isDk} />
       <Image
         src={images[count]}
         alt={'information'}

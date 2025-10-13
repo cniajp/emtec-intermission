@@ -36,9 +36,9 @@ function Pages() {
   }, [talkId])
 
   const pages = [
-    <Page1 key={1} view={view} />,
-    <Page2 key={2} view={view} />,
-    <Page3 key={3} view={view} />,
+    <Page1 key={1} view={view} isDk={false} />,
+    <Page2 key={2} view={view} isDk={false} />,
+    <Page3 key={3} view={view} isDk={false} />,
     // <Page4 key={4} view={view} />,
   ]
   useEffect(() => {

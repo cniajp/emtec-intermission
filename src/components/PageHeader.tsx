@@ -6,16 +6,21 @@ import config from '@/config'
 import { getTimeStr } from '@/utils/time'
 import { trim } from '@/utils/utils'
 
-type Props = { view: Optional<TalkView> }
+type Props = { view: Optional<TalkView>; isDk: boolean }
 
-export default function Header({ view }: Props) {
+export default function Header({ view, isDk }: Props) {
   const { now } = useContext(PageCtx)
+  const { eventAbbr, dkEventAbbr } = config
   if (!view) {
     return <></>
   }
   const talk = view.talksLeftInSameTrack()[0]
   if (!talk) {
     return <div>No talks left.</div>
+  }
+  const eventAbbrToShow = isDk ? dkEventAbbr : eventAbbr
+  if (!eventAbbrToShow) {
+    return <div>No eventAbbr configured.</div>
   }
   return (
     <div className="flex flex-row items-center h-[140px] text-white font-din-2014 font-bold">
@@ -35,19 +40,19 @@ export default function Header({ view }: Props) {
         <div className="text-2xl text-left font-din-2014">
           {view.selectedTrack.hashTag ? (
             <>
-              #{config.eventAbbr.toUpperCase()}
+              #{eventAbbrToShow.toUpperCase()}
               <br />#{view.selectedTrack.hashTag.toUpperCase()}
             </>
           ) : (
             <>
-              #{config.eventAbbr.toUpperCase()}_{view.selectedTrack.name}
+              #{eventAbbrToShow.toUpperCase()}_{view.selectedTrack.name}
             </>
           )}
         </div>
       </div>
       <div className="basis-1/4">
         <div className="text-lg text-center font-din-2014 opacity-75">
-          {config.eventAbbr.toUpperCase()}
+          {eventAbbrToShow.toUpperCase()}
         </div>
         <div className="text-5xl text-center font-video-cond">
           {now.format('HH:mm:ss')}

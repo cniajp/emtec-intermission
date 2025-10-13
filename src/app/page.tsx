@@ -1,12 +1,16 @@
 'use client'
 
 import Link from 'next/link'
+import config from '@/config'
 
 export default function Home() {
+  const { dkEventAbbr, eventAbbr } = config
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-evenly p-24">
       <h1 className={`text-4xl`}>EMTEC Intermission</h1>
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-2 lg:text-left">
+      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-3 lg:text-left">
+        <div className='text-center my-auto'>{dkEventAbbr}</div>
         <Link
           href="/break-dk/menu/0"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
@@ -37,6 +41,7 @@ export default function Home() {
           </p>
         </Link>
 
+        <div className='text-center my-auto'>{eventAbbr}</div>
         <Link
           href="/break/menu/1"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"

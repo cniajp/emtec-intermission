@@ -1,19 +1,19 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    env_file:
-    - .env.development
-    ports:
-    - 3000:3000
-  # CORS 超えに必要だったが、現在は不要
-  # proxy:
-  #   image: hrk091/simple-proxy:v0.0.2
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   env_file:
+  #   - .env.development
   #   ports:
-  #   - 8888:8888
-  #   environment:
-  #     TARGET_URL: https://event.cloudnativedays.jp/
-  #     # CACHE_DIR: /mnt/cache
-  #   volumes:
-  #   - ./cache:/mnt/cache
+  #   - 3000:3000
+  # CORS 超えに必要だったが、現在は不要
+  proxy:
+    image: hrk091/simple-proxy:v0.0.2
+    ports:
+    - 8888:8888
+    environment:
+      TARGET_URL: https://event.cloudnativedays.jp/
+      # CACHE_DIR: /mnt/cache
+    volumes:
+    - ./cache:/mnt/cache
