@@ -6,6 +6,7 @@
 import * as fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { exportEventData } from '../common/utils.js'
 import { Track, Speaker, Talk } from '../../src/data/types.js'
 import {
   sessioniseRoom,
@@ -228,17 +229,4 @@ const finalData = {
 }
 
 // tsファイルとして保存(TypeScriptの定数として使えるように)
-Object.entries(finalData).forEach(([key, value]) => {
-  const outputPath = `./src/data/${key}.ts`
-  const typeName = key.charAt(0).toUpperCase() + key.slice(1, -1)
-  fs.writeFileSync(
-    outputPath,
-    `import { ${typeName} } from './types'\n\nexport const ${key}: ${typeName}[] = ${JSON.stringify(
-      value,
-      null,
-      2
-    )}\n`,
-    'utf-8'
-  )
-  console.log(`Converted data has been saved to ${outputPath}`)
-})
+exportEventData(finalData)
