@@ -49,10 +49,10 @@ export const useGetTalksAndTracks = (talkId: Optional<string>) => {
 }
 
 export const useGetTalksAndTracksForMenu = (
-  eventAbbr: Optional<string>,
+  dkEventAbbr: Optional<string>,
   dayNum: Optional<string>
 ) => {
-  const event = useGetEvent(eventAbbr)
+  const event = useGetEvent(dkEventAbbr)
   const confDayId = useMemo(() => {
     if (!event.data?.conferenceDays) {
       return null
@@ -139,7 +139,7 @@ export const useGetTalks = (conferenceDayId: Optional<number>) => {
 
   const { data, isLoading, isError, error } = useGetApiV1TalksQuery(
     {
-      eventAbbr: config.eventAbbr,
+      eventAbbr: config.dkEventAbbr,
       conferenceDayIds: `${conferenceDayId}`,
     },
     { skip: !conferenceDayId }
@@ -163,7 +163,7 @@ export const useGetTracks = () => {
   const [_, setError] = useState()
 
   const { data, isLoading, isError, error } = useGetApiV1TracksQuery({
-    eventAbbr: config.eventAbbr,
+    eventAbbr: config.dkEventAbbr,
   })
 
   useEffect(() => {
@@ -184,7 +184,7 @@ export const useGetSpeakers = () => {
   const [_, setError] = useState()
 
   const { data, isLoading, isError, error } = useGetApiV1SpeakersQuery(
-    { eventAbbr: config.eventAbbr },
+    { eventAbbr: config.dkEventAbbr },
     { pollingInterval: 300 * 1000 }
   )
 

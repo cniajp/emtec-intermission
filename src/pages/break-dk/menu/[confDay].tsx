@@ -14,10 +14,10 @@ export default function Index() {
   useEffect(() => {
     extendConfig(router.query as Record<string, string>)
   }, [router.query])
-  const { eventAbbr } = config
+  const { dkEventAbbr } = config
 
   const { isLoading, view } = useGetTalksAndTracksForMenu(
-    eventAbbr as Optional<string>,
+    dkEventAbbr as Optional<string>,
     confDay as Optional<string>
   )
 
@@ -27,7 +27,8 @@ export default function Index() {
   return (
     <div>
       <div className="text-3xl text-white text-center w-full my-5">
-        EMTEC Intermission - {(eventAbbr as string).toUpperCase()} Day{confDay}
+        EMTEC Intermission - {(dkEventAbbr as string).toUpperCase()} Day
+        {confDay}
       </div>
       <TalkMenu view={view} />
     </div>
@@ -86,7 +87,7 @@ function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
     >
       <div>{talk.id}</div>
       <div>{talk.title}</div>
-      <div>{talk.speakers[0].name}</div>
+      <div>{talk.speakers[0]?.name}</div>
     </Link>
   )
 }

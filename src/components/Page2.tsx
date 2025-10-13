@@ -78,7 +78,7 @@ function Track({ talk, track, speakers }: TrackProps) {
   }
   const companies = new Set(speakers.map((s) => s.company))
   const re = /(https:\/\/.*|\/.*)/
-  const avatarUrl = re.test(speakers[0].avatarUrl || '')
+  const avatarUrl = re.test(speakers[0]?.avatarUrl || '')
     ? speakers[0].avatarUrl!
     : null
   return (
@@ -128,7 +128,7 @@ export function AvatarPreLoader({ view }: Props) {
           return <></>
         }
         const speakers = view.speakersOf(talk.id)
-        const avatarUrl = speakers[0].avatarUrl
+        const avatarUrl = speakers[0]?.avatarUrl
         return avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img key={i} rel="preload" src={avatarUrl} alt="for preload" />

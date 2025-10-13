@@ -1,6 +1,7 @@
 const envVars = {
   apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL ?? '',
   eventAbbr: process.env.NEXT_PUBLIC_EVENT_ABBR ?? '',
+  dkEventAbbr: process.env.NEXT_PUBLIC_DK_EVENT_ABBR ?? '',
   transTimePage1: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE1 ?? '24',
   transTimePage2: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE2 ?? '24',
   transTimePage3: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE3 ?? '24',
@@ -13,6 +14,7 @@ export type EnvVars = typeof envVars
 export type Config = {
   apiBaseUrl: string
   eventAbbr: string
+  dkEventAbbr: string
   transTimePage1: number
   transTimePage2: number
   transTimePage3: number
@@ -29,6 +31,9 @@ function makeConfig(vars: Partial<EnvVars>): Partial<Config> {
   }
   if (vars.eventAbbr) {
     conf.eventAbbr = vars.eventAbbr
+  }
+  if (vars.dkEventAbbr) {
+    conf.dkEventAbbr = vars.dkEventAbbr
   }
   if (vars.transTimePage1) {
     conf.transTimePage1 = parseFloat(vars.transTimePage1)
