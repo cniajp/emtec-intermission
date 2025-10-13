@@ -52,7 +52,7 @@ export default function Header({ view, isDk }: Props) {
       </div>
       <div className="basis-1/4">
         <div className="text-lg text-center font-din-2014 opacity-75">
-          {config.eventAbbr.toUpperCase()}
+          {eventAbbrToShow.toUpperCase()}
         </div>
         <div className="text-5xl text-center font-video-cond">
           {now.format('HH:mm:ss')}
