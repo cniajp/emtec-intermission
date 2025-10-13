@@ -39,14 +39,16 @@ function Pages() {
     <Page1 key={1} view={view} />,
     <Page2 key={2} view={view} />,
     <Page3 key={3} view={view} />,
-    <Page4 key={4} view={view} />,
+    // <Page4 key={4} view={view} />,
   ]
   useEffect(() => {
     setTotalPage(pages.length)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const audioSrc = '/pek2025/pek2025_intermission.mp3'
-  const shouldPlayAudio = current !== pages.length - 1
+
+  const shouldPlayAudio = current !== pages.length // Page4を使用しない場合
+  // const shouldPlayAudio = current !== pages.length - 1
 
   if (!view && config.debug) {
     return <div className="text-white">Loading...</div>
