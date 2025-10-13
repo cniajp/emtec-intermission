@@ -85,10 +85,11 @@ function Track({ talk, track, speakers }: TrackProps) {
     <div className="flex flex-row items-center text-gray-800 w-[900px] h-[300px]">
       <div className="basis-1/3">
         {avatarUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={avatarUrl}
             alt={'avatar'}
-            className="w-[180px] h-[180px] ml-auto mr-5 rounded-full"
+            className="w-[180px] h-[180px] object-cover ml-auto mr-5 rounded-full"
           />
         ) : (
           <div className="w-[180px] h-[180px] ml-auto mr-5 rounded-full bg-gray-400 flex items-center justify-center">
@@ -129,6 +130,7 @@ export function AvatarPreLoader({ view }: Props) {
         const speakers = view.speakersOf(talk.id)
         const avatarUrl = speakers[0].avatarUrl
         return avatarUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img key={i} rel="preload" src={avatarUrl} alt="for preload" />
         ) : (
           <></>
