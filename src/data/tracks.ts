@@ -3,14 +3,14 @@ import { Tracks } from './types'
 export const tracks: Tracks[] = [
   {
     "id": 1,
-    "name": "Track A"
+    "name": "A"
   },
   {
     "id": 2,
-    "name": "Track B"
+    "name": "B"
   },
   {
     "id": 3,
-    "name": "Track C"
+    "name": "C"
   }
 ]
