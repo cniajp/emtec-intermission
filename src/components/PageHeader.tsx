@@ -33,7 +33,16 @@ export default function Header({ view }: Props) {
           ハッシュタグ
         </div>
         <div className="text-2xl text-left font-din-2014">
-          {config.eventAbbr.toUpperCase()}_{view.selectedTrack.name}
+          {view.selectedTrack.hashTag ? (
+            <>
+              #{config.eventAbbr.toUpperCase()}
+              <br />#{view.selectedTrack.hashTag.toUpperCase()}
+            </>
+          ) : (
+            <>
+              #{config.eventAbbr.toUpperCase()}_{view.selectedTrack.name}
+            </>
+          )}
         </div>
       </div>
       <div className="basis-1/4">

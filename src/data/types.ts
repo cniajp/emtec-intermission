@@ -18,6 +18,7 @@ export type Talk = {
 export type Track = {
   id: number
   name: string
+  hashTag?: (string | null) | undefined
 }
 
 export type Speaker = {
