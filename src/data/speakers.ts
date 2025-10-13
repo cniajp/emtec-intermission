@@ -3,199 +3,175 @@ import { Speaker } from './types'
 export const speakers: Speaker[] = [
   {
     id: 1,
-    name: 'Maeda Eiji',
-    company: 'Sansan株式会社',
+    name: 'asumikam',
     avatarUrl:
-      'https://sessionize.com/image/15f0-400o400o1-PmnM2f7Yj6zWqL7n9nyu62.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/786eb621-c986-499e-a3c1-40c13aa5b0d9.jpg',
   },
   {
     id: 2,
-    name: 'Iwanaga Kazuki',
-    company: '株式会社MonotaRO Platform Engineering部門',
+    name: 'nsfisis',
     avatarUrl:
-      'https://sessionize.com/image/356b-400o400o1-HQULs4ifhBgkxx3gbrTZep.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/dae73c69-6ac0-48ce-88db-0394dcbf80d8.jpg',
   },
   {
     id: 3,
-    name: 'Kimura Kento',
-    company: 'Datadog Japan G.K., Sales Engineer',
+    name: 'sogaoh',
     avatarUrl:
-      'https://sessionize.com/image/dc10-400o400o1-7CbSiKSReJdkqJ2LkM3bbH.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/3129d11d-b44d-41c0-9012-191b726cb88f.jpg',
   },
   {
     id: 4,
-    name: 'Tsugo Mitsuaki',
-    company:
-      'アマゾンウェブサービスジャパン合同会社　ソリューションアーキテクト',
+    name: 'SAW',
     avatarUrl:
-      'https://sessionize.com/image/85dc-400o400o1-GRembEpE7VnJQYWh4R6X1F.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/82930fff-7fef-487e-9ef4-5c0dd26e6f2e.jpg',
   },
   {
     id: 5,
-    name: 'Kawamura Shuhei',
-    company: 'Kong K.K., Senior Field Engineer',
+    name: 'きんじょうひでき',
     avatarUrl:
-      'https://sessionize.com/image/df75-400o400o1-Kje8zDAxQULdqxqQZaqNTR.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/1b82d220-584c-49a6-a69e-c904f2e1d8e1.jpg',
   },
   {
     id: 6,
-    name: 'Kato Toshiya',
-    company: 'LINEヤフー株式会社',
+    name: 'meihei',
     avatarUrl:
-      'https://sessionize.com/image/19ec-400o400o1-RMtiCteZsK8xY384qJQV1M.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/a413a27b-c9af-4ea0-86eb-601949a321e5.jpg',
   },
   {
     id: 7,
-    name: 'Yamaguchi Yoshi',
-    company:
-      'アマゾンウェブサービスジャパン合同会社 シニアデベロッパーアドボケイト',
+    name: 'スー',
     avatarUrl:
-      'https://sessionize.com/image/d3eb-400o400o1-DSUTejxyYJ9x3wuuxcuKo2.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/b88d16b7-aa71-4803-8d59-c5e2ba2b76fb.jpg',
   },
   {
     id: 8,
-    name: 'Fujii Yoshitaka',
-    company: '〆のラーメンまである倶楽部',
+    name: 'DPon',
     avatarUrl:
-      'https://sessionize.com/image/cdaf-400o400o1-ah4iBBTgGiyKoBpZoDpJkg.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/fdd36d19-2a94-47d6-83f2-9eb8a305158e.jpg',
   },
   {
     id: 9,
-    name: 'Tsubouchi Yuuki',
-    company: 'さくらインターネット研究所 上級研究員',
+    name: '吉田あひる',
     avatarUrl:
-      'https://sessionize.com/image/923f-400o400o1-3E3xQ6rinocDnLS5hzyeSm.png',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/4fb32bdb-bc17-4200-ac46-07beadde67a3.jpg',
   },
   {
     id: 10,
-    name: 'Ohira Yuzuru',
-    company: 'LayerX テクニカルプロジェクトマネージャー',
+    name: 'おぎ',
     avatarUrl:
-      'https://sessionize.com/image/c8f8-400o400o1-JYBUgFF3qQ27dqyMK9NSFD.png',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/a3eded83-9c54-43d5-8ec8-0784e84ef247.jpg',
   },
   {
     id: 11,
-    name: '山田 佑亮',
-    company: '株式会社ispec CTO',
+    name: '02',
     avatarUrl:
-      'https://sessionize.com/image/964c-400o400o1-JDzikLMa2ihG9M8WNvBgF4.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/f4e35a8c-b484-47a3-85ca-c0c5b9cbd504.jpg',
   },
   {
     id: 12,
-    name: '川崎 雄太',
-    company: '株式会社ココナラ システムプラットフォーム部 部長',
+    name: 'たけてぃ',
     avatarUrl:
-      'https://sessionize.com/image/1650-400o400o1-KKEJuhxzpYa8gm2Awdqwhj.png',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/ec35234d-58c5-4132-9de9-c0ae6ee888aa.png',
   },
   {
     id: 13,
-    name: '蒲生 廣人',
-    company: 'Dress Code',
+    name: 'Futoshi Endo',
     avatarUrl:
-      'https://sessionize.com/image/511c-400o400o1-Xt8ZcLgH8cRBs66dhCkQBk.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/3a904596-9699-4876-b59c-47b4d6d0ace8.jpg',
   },
   {
     id: 14,
-    name: '庭野 悟',
-    company: '合同会社DMM.com ITインフラ本部 SRE部',
+    name: 'taniguhey',
     avatarUrl:
-      'https://sessionize.com/image/56a5-400o400o1-heSJvfwGMJbFaF85ocKd1e.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/65c970fa-cd3d-4d4d-9a0c-1b7721821e44.png',
   },
   {
     id: 15,
-    name: '新 浩太朗',
-    company: '株式会社NTTデータグループ',
-    avatarUrl:
-      'https://sessionize.com/image/b7ff-400o400o1-E1Ja8PVkRYE6sJX78Vwhrm.jpg',
+    name: 'yuka',
+    avatarUrl: 'https://fortee.jp/files/phpconodawara-2025/image/avatar.png',
   },
   {
     id: 16,
-    name: '真人 高井',
-    company: '株式会社カミナシ エンジニアリングマネージャー',
+    name: 'すてにゃん',
     avatarUrl:
-      'https://sessionize.com/image/8622-400o400o1-wPXGzV8Yra7jxguq9o1czh.jpg',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/eb394ff0-3289-4b5c-af32-0bfb92f8fea8.jpg',
   },
   {
     id: 17,
-    name: '田中 篤志',
-    company: 'Dev Branch / Infra Squad Leader, ウォンテッドリー株式会社',
-    avatarUrl: '/o11yconjp2025/atsushi-tanaka.jpg',
+    name: '長谷川智希',
+    avatarUrl:
+      'https://fortee.jp/files/phpconodawara-2025/speaker/35550064-fe1f-4f6a-b2b9-3460c77d2a15.jpg',
   },
   {
     id: 18,
-    name: '山村 悟史',
-    company:
-      'ソリューションズ・アーキテクト・マネージャー, Splunk Services Japan合同会社',
-    avatarUrl: '/o11yconjp2025/satoshi-yamamura.jpg',
+    name: 'asumikam',
+    avatarUrl:
+      'https://fortee.jp/files/phpconodawara-2025/speaker/786eb621-c986-499e-a3c1-40c13aa5b0d9.jpg',
   },
   {
     id: 19,
-    name: '米崎 誠矢',
-    company: 'Senior Solutions Consultant, PagerDuty株式会社',
-    avatarUrl: '/o11yconjp2025/seiya-yonezaki.jpg',
+    name: '菱田裕美',
+    avatarUrl:
+      'https://fortee.jp/files/phpconodawara-2025/speaker/71e2fe3d-91c6-4612-a1a9-c31016ecba56.jpg',
   },
   {
     id: 20,
-    name: 'Fong-Jones Liz',
-    company: 'Field CTO, honeycomb.io',
-    avatarUrl: '/o11yconjp2025/liz_headshot.jpg',
+    name: 'スタヰル',
+    avatarUrl:
+      'https://fortee.jp/files/phpconodawara-2025/speaker/62bd44a6-ed3a-44e5-b8c8-26d2318e233f.jpg',
   },
   {
     id: 21,
-    name: '佐野 浩也',
-    company: 'シニアコンサルタント, ULSコンサルティング株式会社',
-    avatarUrl: '/o11yconjp2025/hiroya-sano.jpg',
+    name: 'ケイタMAX',
+    avatarUrl:
+      'https://fortee.jp/files/phpconodawara-2025/speaker/e9241c9c-b7aa-42fa-913c-304ededcb78e.jpg',
   },
   {
     id: 22,
-    name: '保坂 桂佑',
-    company: 'データサイエンティスト, 株式会社カケハシ',
-    avatarUrl: '/o11yconjp2025/keisuke-hosaka.jpg',
+    name: 'asumikam',
+    avatarUrl:
+      'https://fortee.jp/files/phpconodawara-2025/speaker/786eb621-c986-499e-a3c1-40c13aa5b0d9.jpg',
   },
   {
     id: 23,
-    name: 'Woods Anthony',
-    company: '共同創業者, Grafana Labs',
-    avatarUrl: '/o11yconjp2025/anthony_woods.jpg',
+    name: '山本ユースケ',
+    avatarUrl:
+      'https://fortee.jp/files/phpconodawara-2025/speaker/b6ff8494-15a3-4f5d-b917-6896e39d0402.jpg',
   },
   {
     id: 24,
-    name: '山本 哲也',
-    company: 'SRE, 株式会社AbemaTV',
-    avatarUrl: '/o11yconjp2025/yamamoto_tetsuya.jpg',
+    name: '市川@cakephper',
+    avatarUrl:
+      'https://fortee.jp/files/phpconodawara-2025/speaker/c087c43e-ba13-4a65-abc7-29b7cba68bab.jpg',
   },
   {
     id: 25,
-    name: '逆井 啓佑',
-    company:
-      'Sales Engineer, Datadog Japan / Co-Organizer, Observability Conference Tokyo 2025',
-    avatarUrl: '/o11yconjp2025/sakasai_keisuke.jpg',
+    name: 'polidog',
+    avatarUrl:
+      'https://fortee.jp/files/phpconodawara-2025/speaker/0f03f2d0-57b6-4aaa-8680-549a0e530b91.jpg',
   },
   {
     id: 26,
-    name: '大谷 和紀',
-    company:
-      'Co-Organizer, Observability Conference Tokyo 2025 / Senior Solutions Architect, Observability, Cisco Systems',
-    avatarUrl: '/o11yconjp2025/kazunori-otani.jpg',
+    name: '川口将貴@dmnlk',
+    avatarUrl:
+      'https://fortee.jp/files/phpconodawara-2025/speaker/54ff5791-7152-44d5-bb4b-d1b3975d7f67.jpeg',
   },
   {
     id: 27,
-    name: '高村 成道',
-    company: 'CEO / SRE, 株式会社Topotal',
-    avatarUrl: '/o11yconjp2025/narimichi-takamura.jpg',
+    name: '有限会社アリウープ 柏岡秀男',
+    avatarUrl:
+      'https://fortee.jp/files/phpconodawara-2025/speaker/1278d46e-ce18-416d-84ab-bea549540024.jpg',
   },
   {
     id: 28,
-    name: '運営メンバー',
-    company: 'Observability Conference Tokyo',
+    name: 'ひがき',
     avatarUrl:
-      'https://pbs.twimg.com/profile_images/1953665800411525120/lbqP5cJi_400x400.png',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/8baa0032-a38f-4a5d-a576-78b66a203a0e.jpg',
   },
   {
     id: 29,
-    name: ' ',
-    company: '未定',
+    name: '高町咲衣',
     avatarUrl:
-      'https://pbs.twimg.com/profile_images/1953665800411525120/lbqP5cJi_400x400.png',
+      'https://fortee.jp/files/phpconodawara-2025/speaker/1cef1b6c-e754-49f8-98a3-5c83d0f4a745.jpg',
   },
 ]
