@@ -25,12 +25,18 @@ export default function Index() {
       <div className="text-3xl text-white text-center w-full my-5">
         EMTEC Intermission - {(eventAbbr as string).toUpperCase()} Day{confDay}
       </div>
-      <TalkMenu view={view} />
+      <TalkMenu view={view} confDay={confDay as string} />
     </div>
   )
 }
 
-function TalkMenu({ view }: { view: Optional<MenuView> }) {
+function TalkMenu({
+  view,
+  confDay,
+}: {
+  view: Optional<MenuView>
+  confDay: string
+}) {
   if (!view) {
     return <></>
   }
@@ -43,7 +49,24 @@ function TalkMenu({ view }: { view: Optional<MenuView> }) {
         <div className={'basis-11/12 grid grid-cols-4 gap-4'}>
           {view?.allTracks.map((track, i) => (
             <div key={i} className="text-lg">
-              {track.name}
+              {track.name} -
+              {/*
+                ここのリンクをクリックすると動的にjsonファイルを生成する仕組みを作る
+                生成に必要な情報はここから渡しますが、生成は別コンポーネントで行う
+               */}
+              <Link
+                className="ml-2 text-sm text-blue-400 hover:underline text-end"
+                href={{
+                  pathname: `/break/obs`,
+                  query: {
+                    confDay: confDay,
+                    trackId: track.id,
+                    trackName: track.name,
+                  },
+                }}
+              >
+                OBS
+              </Link>
             </div>
           ))}
         </div>
