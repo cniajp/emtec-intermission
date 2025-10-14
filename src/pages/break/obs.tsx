@@ -42,7 +42,6 @@ export default function ObsPage() {
     ObsSceneGenerate({
       eventAbbr,
       confDay,
-      trackId,
       trackName,
       template,
     })
