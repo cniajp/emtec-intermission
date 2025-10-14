@@ -10,6 +10,11 @@ import { talks } from '@/data/talks'
 import { tracks } from '@/data/tracks'
 import { speakers } from '@/data/speakers'
 
+type Props = {
+  view: Optional<MenuView>
+  confDay: string
+}
+
 export default function Index() {
   const router = useRouter()
   const { confDay } = router.query
@@ -30,13 +35,7 @@ export default function Index() {
   )
 }
 
-function TalkMenu({
-  view,
-  confDay,
-}: {
-  view: Optional<MenuView>
-  confDay: string
-}) {
+function TalkMenu({ view, confDay }: Props) {
   if (!view) {
     return <></>
   }
@@ -50,10 +49,6 @@ function TalkMenu({
           {view?.allTracks.map((track, i) => (
             <div key={i} className="text-lg">
               {track.name} -
-              {/*
-                ここのリンクをクリックすると動的にjsonファイルを生成する仕組みを作る
-                生成に必要な情報はここから渡しますが、生成は別コンポーネントで行う
-               */}
               <Link
                 className="ml-2 text-sm text-blue-400 hover:underline text-end"
                 href={{
