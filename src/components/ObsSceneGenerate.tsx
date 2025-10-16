@@ -182,7 +182,7 @@ function createSceneWithBrowser(
  */
 async function loadSeparatorScenes(): Promise<object[]> {
   try {
-    const response = await fetch('/obs-separator-scenes.json')
+    const response = await fetch('/obs-scenes/obs-separator-scenes.json')
     if (!response.ok) {
       throw new Error(`Failed to load separator scenes: ${response.statusText}`)
     }
@@ -228,7 +228,7 @@ function createQuickTransitions() {
  */
 async function loadFixedSources(): Promise<object[]> {
   try {
-    const response = await fetch('/obs-fixed-sources.json')
+    const response = await fetch('/obs-scenes/obs-fixed-sources.json')
     if (!response.ok) {
       throw new Error(`Failed to load fixed sources: ${response.statusText}`)
     }
