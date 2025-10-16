@@ -1,6 +1,6 @@
 import ObsSceneGenerate from '@/components/ObsSceneGenerate'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import config from '@/config'
 import { Talk } from '@/data/types'
 import {
@@ -11,37 +11,52 @@ import {
 
 export default function ObsPage() {
   const router = useRouter()
-  const { confDay, trackId, trackName } = router.query
+  const [isClient, setIsClient] = useState(false)
+  const { confDay, trackName } = router.query
   const { dkEventAbbr } = config
 
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   const eventResult = useGetEvent(dkEventAbbr)
-  if (!eventResult.data) {
-    alert('Event data not found')
-    router.push(`/break-dk/menu/${confDay}`)
-  }
-  const apiConfDayId = eventResult.data?.conferenceDays?.[Number(confDay)]?.id
-  if (!apiConfDayId) {
-    alert('Conference day not found')
-    router.push(`/break-dk/menu/${confDay}`)
-  }
   const trackResult = useGetTracks()
-  if (!trackResult.data) {
-    alert('Track data not found')
-    router.push(`/break-dk/menu/${confDay}`)
-  }
+  const apiConfDayId = eventResult.data?.conferenceDays?.[Number(confDay)]?.id
   const apiTrackId =
     trackResult.data?.filter((t) => t.name === trackName)[0]?.id || null
-  if (!apiTrackId) {
-    alert('Track not found')
-    router.push(`/break-dk/menu/${confDay}`)
-  }
   const talkResult = useGetTalks(apiConfDayId)
-  if (!talkResult.data) {
-    alert('Talk data not found')
-    router.push(`/break-dk/menu/${confDay}`)
-  }
 
   useEffect(() => {
+    if (!isClient) return
+
+    if (!eventResult.data) {
+      alert('Event data not found')
+      router.push(`/break-dk/menu/${confDay}`)
+      return
+    }
+    if (!apiConfDayId) {
+      alert('Conference day not found')
+      router.push(`/break-dk/menu/${confDay}`)
+      return
+    }
+    if (!trackResult.data) {
+      alert('Track data not found')
+      router.push(`/break-dk/menu/${confDay}`)
+      return
+    }
+
+    if (!apiTrackId) {
+      alert('Track not found')
+      router.push(`/break-dk/menu/${confDay}`)
+      return
+    }
+
+    if (!talkResult.data) {
+      alert('Talk data not found')
+      router.push(`/break-dk/menu/${confDay}`)
+      return
+    }
+
     if (
       !dkEventAbbr ||
       !confDay ||
@@ -88,14 +103,21 @@ export default function ObsPage() {
     // menuページにリダイレクト
     router.push(`/break-dk/menu/${confDay}`)
   }, [
+    isClient,
+    eventResult.data,
+    trackResult.data,
+    talkResult.data,
     dkEventAbbr,
     confDay,
     apiConfDayId,
     apiTrackId,
     trackName,
     router,
-    talkResult.data,
   ])
+
+  if (!isClient) {
+    return <div className="text-white text-center w-full my-5">Loading...</div>
+  }
 
   return (
     <div className="text-white text-center w-full my-5">
