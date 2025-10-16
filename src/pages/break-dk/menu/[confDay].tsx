@@ -8,6 +8,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
+type Props = {
+  view: Optional<MenuView>
+  confDay: string
+}
+
 export default function Index() {
   const router = useRouter()
   const { confDay } = router.query
@@ -30,12 +35,12 @@ export default function Index() {
         EMTEC Intermission - {(dkEventAbbr as string).toUpperCase()} Day
         {confDay}
       </div>
-      <TalkMenu view={view} />
+      <TalkMenu view={view} confDay={confDay as string} />
     </div>
   )
 }
 
-function TalkMenu({ view }: { view: Optional<MenuView> }) {
+function TalkMenu({ view, confDay }: Props) {
   if (!view) {
     return <></>
   }
@@ -48,7 +53,20 @@ function TalkMenu({ view }: { view: Optional<MenuView> }) {
         <div className={'basis-11/12 grid grid-cols-4 gap-4'}>
           {view?.allTracks.map((track, i) => (
             <div key={i} className="text-lg">
-              {track.name}
+              {track.name} -
+              <Link
+                className="ml-2 text-sm text-blue-400 hover:underline text-end"
+                href={{
+                  pathname: `/break-dk/obs`,
+                  query: {
+                    confDay: confDay,
+                    trackId: track.id,
+                    trackName: track.name,
+                  },
+                }}
+              >
+                OBS
+              </Link>
             </div>
           ))}
         </div>
