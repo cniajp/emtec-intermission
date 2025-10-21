@@ -41,18 +41,13 @@ function Pages() {
   interface PageProps {
     view: ReturnType<typeof TalkView.withoutDk> | null
     isDk?: boolean
-    talkId?: string
   }
 
   const pages: ReactElement<PageProps>[] = [
     <Page1 key={1} view={view} isDk={false} />,
     <Page2 key={2} view={view} isDk={false} />,
     <Page3 key={3} view={view} isDk={false} />,
-    isDk ? (
-      <Page4 key={4} view={view} />
-    ) : (
-      <Page5 key={4} view={view} talkId={talkId as string} />
-    ),
+    isDk ? <Page4 key={4} view={view} /> : <Page5 key={4} view={view} />,
   ]
   useEffect(() => {
     setTotalPage(pages.length)
