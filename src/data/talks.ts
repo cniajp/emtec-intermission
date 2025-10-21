@@ -15,6 +15,7 @@ export const talks: Talk[] = [
     startTime: '2025-10-27T10:00:00',
     endTime: '2025-10-27T10:10:00',
     conferenceDayId: 1,
+    cmIds: ['cyberagent'],
   },
   {
     id: 102,
@@ -31,6 +32,7 @@ export const talks: Talk[] = [
     startTime: '2025-10-27T10:10:00',
     endTime: '2025-10-27T11:00:00',
     conferenceDayId: 1,
+    cmIds: ['monotaro1', 'monotaro2'],
   },
   {
     id: 103,
