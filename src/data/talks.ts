@@ -49,6 +49,7 @@ export const talks: Talk[] = [
     startTime: '2025-10-27T11:20:00',
     endTime: '2025-10-27T11:50:00',
     conferenceDayId: 1,
+    cmIds: []
   },
   {
     id: 201,
@@ -81,6 +82,7 @@ export const talks: Talk[] = [
     startTime: '2025-10-27T11:20:00',
     endTime: '2025-10-27T11:50:00',
     conferenceDayId: 1,
+    cmIds: []
   },
   {
     id: 104,

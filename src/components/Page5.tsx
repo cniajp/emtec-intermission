@@ -8,7 +8,7 @@ type Props = { view: Optional<TalkView> }
 
 // CM スポンサーがいない時には 各 source をコメントアウトする
 
-const cmList = {
+const cmList: Record<string, { src: string; type: string }> = {
   cyberagent: {
     src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cyberagent.mp4',
     type: 'video/mp4',
@@ -31,9 +31,25 @@ export default function Page({ view }: Props) {
   const { goNextPage } = useContext(PageCtx)
   const playlist: Playlist = []
 
-  const cmids = view?.getCmIds() || []
+  const cmIds = view?.getCmIds()
+  let cmids: string[]
+
+  if (cmIds === undefined) {
+    // undefined の場合: すべてのCMを再生
+    cmids = Object.keys(cmList)
+    console.log('CM IDs (undefined - using all):', cmids)
+  } else if (cmIds.length === 0) {
+    // 空配列の場合: CMをスキップして次のページへ
+    console.log('CM IDs (empty - skipping):', cmIds)
+    return goNextPage()
+  } else {
+    // 配列に値がある場合: 指定されたCMを再生
+    cmids = cmIds
+    console.log('CM IDs (specified):', cmids)
+  }
+
   cmids.forEach((cmid) => {
-    const cm = (cmList as Record<string, { src: string; type: string }>)[cmid]
+    const cm = cmList[cmid]
     if (cm) {
       playlist.push({
         sources: [
@@ -45,6 +61,8 @@ export default function Page({ view }: Props) {
       })
     }
   })
+
+  console.log('Page5 playlist:', playlist)
 
   return (
     <div className="w-full h-full">

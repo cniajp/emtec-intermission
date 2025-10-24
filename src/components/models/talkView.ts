@@ -105,8 +105,8 @@ export class TalkView {
     )
   }
 
-  getCmIds(): string[] {
-    return this.selectedTalk.cmIds || []
+  getCmIds(): string[] | undefined {
+    return this.selectedTalk.cmIds
   }
 }
 
