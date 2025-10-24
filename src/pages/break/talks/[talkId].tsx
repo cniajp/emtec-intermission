@@ -3,6 +3,7 @@ import Page1 from '@/components/Page1'
 import Page2, { AvatarPreLoader } from '@/components/Page2'
 import Page3 from '@/components/Page3'
 import Page4 from '@/components/Page4'
+import Page5 from '@/components/Page5'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import { TalkView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
@@ -12,6 +13,7 @@ import { tracks } from '@/data/tracks'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useMemo } from 'react'
 import Image from 'next/image'
+import { ReactElement } from 'react'
 
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
@@ -22,6 +24,8 @@ function updateCache() {
 function Pages() {
   const router = useRouter()
   const { talkId } = router.query
+  const isDk = router.asPath.includes('break-dk')
+
   useEffect(() => {
     extendConfig(router.query as Record<string, string>)
   }, [router.query])
@@ -34,12 +38,16 @@ function Pages() {
     }
     return TalkView.withoutDk(talkId as string, talks, tracks, speakers)
   }, [talkId])
+  interface PageProps {
+    view: ReturnType<typeof TalkView.withoutDk> | null
+    isDk?: boolean
+  }
 
-  const pages = [
+  const pages: ReactElement<PageProps>[] = [
     <Page1 key={1} view={view} isDk={false} />,
     <Page2 key={2} view={view} isDk={false} />,
     <Page3 key={3} view={view} isDk={false} />,
-    // <Page4 key={4} view={view} />,
+    isDk ? <Page4 key={4} view={view} /> : <Page5 key={4} view={view} />,
   ]
   useEffect(() => {
     setTotalPage(pages.length)
@@ -47,8 +55,8 @@ function Pages() {
 
   const audioSrc = '/pek2025/pek2025_intermission.mp3'
 
-  const shouldPlayAudio = current !== pages.length // Page4を使用しない場合
-  // const shouldPlayAudio = current !== pages.length - 1
+  // const shouldPlayAudio = current !== pages.length // Page4を使用しない場合
+  const shouldPlayAudio = current !== pages.length - 1
 
   if (!view && config.debug) {
     return <div className="text-white">Loading...</div>

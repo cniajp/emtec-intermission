@@ -13,6 +13,7 @@ export type Talk = {
   talkCategory?: string | undefined
   conferenceDayId?: (number | null) | undefined
   showOnTimetable?: boolean | undefined
+  cmIds?: string[] | undefined
 }
 
 export type Track = {

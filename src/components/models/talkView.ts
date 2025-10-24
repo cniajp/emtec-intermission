@@ -104,6 +104,10 @@ export class TalkView {
       talk.speakers.map((s) => s.id).includes(speaker.id)
     )
   }
+
+  getCmIds(): string[] | undefined {
+    return this.selectedTalk.cmIds
+  }
 }
 
 type TimeSlot = {
