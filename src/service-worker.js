@@ -15,7 +15,7 @@ const VIDEO_URL = [
   'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/pagerduty.mp4',
   'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/shift.mp4',
   'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/splunk.mp4',
-  'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/topotal.mp4',
+  'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/topotal.mp4'
 ]
 
 async function updateCache() {
