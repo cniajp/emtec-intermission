@@ -5,14 +5,17 @@ precacheAndRoute(self.__WB_MANIFEST)
 
 const CACHE_NAME = 'video-cache'
 const VIDEO_URL = [
-  'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cyberagent.mp4',
-  'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/monotaro1.mp4',
-  'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/monotaro2.mp4',
-  // 'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2025/cm1.mp4',
-  // 'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2025/cm2.mp4',
-  // 'https://web-intermission.s3.isk01.sakurastorage.jp/cnds2025/cm3.mp4',
-  // 'https://web-intermission.s3.isk01.sakurastorage.jp/cndw2024/cm4.mp4',
-  // 'https://web-intermission.s3.isk01.sakurastorage.jp/cndw2024/cm5.mp4',
+  'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/3shake.mp4',
+'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/antipattern.mp4',
+'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/datadog.mp4',
+'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/grafana.mp4',
+'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/kaonavi.mp4',
+'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/mackerel.mp4',
+'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/newrelic.mp4',
+'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/pagerduty.mp4',
+'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/shift.mp4',
+'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/splunk.mp4',
+'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/topotal.mp4'
 ]
 
 async function updateCache() {
