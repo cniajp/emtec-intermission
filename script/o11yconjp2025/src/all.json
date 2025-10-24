@@ -115,7 +115,7 @@
     {
       "id": "1016829",
       "title": "映えないObservability",
-      "description": "分散トレーシングをはじめとするモダンなObservailityは非常に魅力的ですが、レガシーなシステムや組織の慣習などといった現場の制約との間にギャップを感じたことはありませんか？事業成長の裏で技術的負債を抱えてしまっているMonotaROではこのギャップと向き合い、自分たちに合ったObservailityのあり方について日々試行錯誤を重ねています。開発チームのユースケースに寄り添い、具体的なアクションにつながるようなテレメトリを小さく仕込む。そんな泥臭い「映えないObservability」について実体験をもとにお話しします。",
+      "description": "分散トレーシングをはじめとするモダンなObservabilityは非常に魅力的ですが、レガシーなシステムや組織の慣習などといった現場の制約との間にギャップを感じたことはありませんか？事業成長の裏で技術的負債を抱えてしまっているMonotaROではこのギャップと向き合い、自分たちに合ったObservabilityのあり方について日々試行錯誤を重ねています。開発チームのユースケースに寄り添い、具体的なアクションにつながるようなテレメトリを小さく仕込む。そんな泥臭い「映えないObservability」について実体験をもとにお話しします。",
       "startsAt": "2025-10-27T12:10:00",
       "endsAt": "2025-10-27T12:40:00",
       "isServiceSession": false,
@@ -621,11 +621,17 @@
       "id": "8ca5b622-1512-49f5-8a9e-5997aac5bbf1",
       "firstName": "Shuhei",
       "lastName": "Kawamura",
-      "bio": "TBD",
+      "bio": "Kong Gatewayの導入支援（Professional Service）に携わっています。\n最近はゴリマッチョを目指してちょうど良い細マッチョになるために筋トレに励んでいます。",
       "tagLine": "Kong K.K., Senior Field Engineer",
       "profilePicture": "https://sessionize.com/image/df75-400o400o1-Kje8zDAxQULdqxqQZaqNTR.jpg",
       "isTopSpeaker": false,
-      "links": [],
+      "links": [
+        {
+          "title": "X (Twitter)",
+          "url": "https://x.com/shukawam",
+          "linkType": "Twitter"
+        }
+      ],
       "sessions": [
         1016876
       ],
@@ -691,8 +697,8 @@
       "id": "991fd12e-e306-4e89-8f29-6ce7671da8cf",
       "firstName": "Yoshitaka",
       "lastName": "Fujii",
-      "bio": "TBD",
-      "tagLine": "〆のラーメンまである倶楽部",
+      "bio": "LINEヤフー株式会社所属のソフトウェアエンジニア。主にPrivateクラウドのサービス開発に携わっています。\n休日は朝からジムに行き、軽く汗を流した後で自家焙煎コーヒーを淹れながら読書できるといいな。と思いながらゴロゴロしています。",
+      "tagLine": "LINEヤフー株式会社",
       "profilePicture": "https://sessionize.com/image/cdaf-400o400o1-ah4iBBTgGiyKoBpZoDpJkg.jpg",
       "isTopSpeaker": false,
       "links": [
