@@ -29,7 +29,18 @@ function generateUUID(): string {
   })
 }
 
-function generateSceneUrl(protocol: string, host: string, sceneObj: template): string {
+/**
+ * URLを生成
+ * @param protocol プロトコル
+ * @param host ホスト
+ * @param sceneObj シーンオブジェクト
+ * @returns 生成されたURL
+ */
+function generateSceneUrl(
+  protocol: string,
+  host: string,
+  sceneObj: template
+): string {
   return sceneObj.full_url
     ? sceneObj.full_url
     : protocol + '//' + host + sceneObj.url_path
