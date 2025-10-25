@@ -7,7 +7,8 @@ type Props = {
 
 type template = {
   name: string
-  url_path: string
+  url_path?: string
+  full_url?: string
 }
 
 /**
@@ -28,6 +29,12 @@ function generateUUID(): string {
   })
 }
 
+function generateSceneUrl(protocol: string, host: string, sceneObj: template): string {
+  return sceneObj.full_url
+    ? sceneObj.full_url
+    : protocol + '//' + host + sceneObj.url_path
+}
+
 /**
  * ブラウザソース定義を作成
  */
@@ -36,6 +43,7 @@ function createBrowserSource(
   url: string,
   sourceUuid: string,
   shutdown: boolean = true,
+  restart: boolean = true,
   volume: number = 1.0
 ) {
   return {
@@ -49,7 +57,7 @@ function createBrowserSource(
       width: 1920,
       height: 1080,
       shutdown: shutdown,
-      restart_when_active: true,
+      restart_when_active: restart,
       reroute_audio: true,
     },
     mixers: 255,
@@ -270,6 +278,19 @@ export default function ObsSceneGenerate({
       { name: '-------' },
     ]
 
+    console.log('eventName:', eventName)
+    console.log('roomName:', tName)
+
+    // 特定の条件でSlidoシーンを追加
+    if (eventName === 'o11yconjp_Day1_TrackA') {
+      const fullUrl =
+        'https://auth.slido.com/eu1/api/latest/the-auth/user/lifecycle-process/shareable-link/init?token=f05927ef1a9ec541524b9612cf6eccf9d034ff89e19a8e5376d3468c5c5bf83a'
+      sceneOrder.push({ name: 'Slido' })
+      template.unshift({ name: 'Slido', full_url: fullUrl })
+    }
+
+    console.log('template:', template)
+
     // ソースリストを構築
     const sources: object[] = []
 
@@ -279,13 +300,16 @@ export default function ObsSceneGenerate({
 
     // テンプレートからシーンとブラウザソースを生成
     template.forEach((tmpl) => {
-      const sceneName = tmpl.name + ' ~'
+      const isDefault = tmpl.name !== 'Slido'
+      const sceneName = isDefault ? tmpl.name + ' ~' : tmpl.name
       const browserName = `Browser_${tmpl.name}`
       const browserUuid = generateUUID()
       const sceneUuid = generateUUID()
 
       // シーン順序に追加
-      sceneOrder.push({ name: sceneName })
+      if (isDefault) {
+        sceneOrder.push({ name: sceneName })
+      }
 
       // シーンを作成
       const scene = createSceneWithBrowser(
@@ -299,8 +323,10 @@ export default function ObsSceneGenerate({
       // ブラウザソースを作成
       const browserSource = createBrowserSource(
         browserName,
-        protocol + '//' + host + tmpl.url_path,
-        browserUuid
+        generateSceneUrl(protocol, host, tmpl),
+        browserUuid,
+        isDefault ? true : false,
+        isDefault ? true : false
       )
       sources.push(browserSource)
     })
@@ -308,6 +334,8 @@ export default function ObsSceneGenerate({
     // 固定ソースをJSONから読み込んで追加
     const fixedSources = await loadFixedSources()
     sources.push(...fixedSources)
+
+    console.log('sceneOrder:', sceneOrder)
 
     // 完全なOBS設定を構築
     const obsConfig = {
