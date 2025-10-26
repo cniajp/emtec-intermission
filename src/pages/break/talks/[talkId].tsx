@@ -56,8 +56,9 @@ function Pages() {
   return (
     <>
       <div>
+        <link rel="preload" as="image" href="/pek2025/background.webp" />
         <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css" />
-        <link rel="stylesheet" href="https://use.typekit.net/hbv7ezy.css" />
+        {/* <link rel="stylesheet" href="https://use.typekit.net/hbv7ezy.css" /> */}
       </div>
       {config.debug && (
         <>
