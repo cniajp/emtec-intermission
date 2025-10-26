@@ -18,7 +18,7 @@ const images: string[] = [
   '/o11yconjp2025/info006.jpg',
   '/o11yconjp2025/info007.jpg',
   '/o11yconjp2025/info008.jpg',
-  '/o11yconjp2025/info009.jpg',
+  // '/o11yconjp2025/info009.jpg',
 ]
 
 export default function Page({ view, isDk }: PageProps) {
