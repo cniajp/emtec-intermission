@@ -189,7 +189,7 @@ function applyOverrides(
   )
 }
 
-const dataRooms: sessioniseRoom[] = data.rooms
+// const dataRooms: sessioniseRoom[] = data.rooms
 const dataSpeakers: sessioniseSpeaker[] = data.speakers
 const dataTalks: sessioniseTalk[] = data.sessions
 

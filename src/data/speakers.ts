@@ -55,7 +55,7 @@ export const speakers: Speaker[] = [
   {
     id: 8,
     name: 'Fujii Yoshitaka',
-    company: '〆のラーメンまである倶楽部',
+    company: 'LINEヤフー株式会社',
     avatarUrl:
       'https://sessionize.com/image/cdaf-400o400o1-ah4iBBTgGiyKoBpZoDpJkg.jpg',
   },
