@@ -1,5 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+export const runtime = 'edge'
+
 type Data = {
   timestamp: string
   timezone: string
@@ -8,7 +10,7 @@ type Data = {
 }
 
 export default function handler(
-  req: NextApiRequest,
+  _req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   const now = new Date()
