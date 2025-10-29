@@ -1,17 +1,12 @@
 export const onRequest = async () => {
   const now = new Date()
 
-  // Convert to JST
-  const jstTime = new Date(
-    now.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' })
-  )
-
   return new Response(
     JSON.stringify({
-      timestamp: jstTime.toISOString(),
+      timestamp: now.toISOString(),
       timezone: 'Asia/Tokyo',
-      unix: Math.floor(jstTime.getTime() / 1000),
-      milliseconds: jstTime.getTime(),
+      unix: Math.floor(now.getTime() / 1000),
+      milliseconds: now.getTime(),
     }),
     {
       headers: {
