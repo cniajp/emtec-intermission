@@ -6,20 +6,11 @@ dayjs.extend(timezone)
 dayjs.extend(utc)
 dayjs.tz.setDefault('Asia/Tokyo')
 
-interface TimeApiResponse {
-  year: number
-  month: number
-  day: number
-  hour: number
-  minute: number
-  seconds: number
-  milliSeconds: number
-  dateTime: string
-  date: string
-  time: string
-  timeZone: string
-  dayOfWeek: string
-  dstActive: boolean
+interface ServerTimeResponse {
+  timestamp: string
+  timezone: string
+  unix: number
+  milliseconds: number
 }
 
 // Configuration constants - easy to modify
@@ -36,15 +27,13 @@ let syncInterval: NodeJS.Timeout | null = null
 
 async function attemptTimeSync(): Promise<boolean> {
   try {
-    const response = await fetch(
-      'https://timeapi.io/api/Time/current/zone?timeZone=Asia/Tokyo'
-    )
+    const response = await fetch('/api/time')
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`)
     }
 
-    const data: TimeApiResponse = await response.json()
-    const serverTime = dayjs(data.dateTime).tz('Asia/Tokyo')
+    const data: ServerTimeResponse = await response.json()
+    const serverTime = dayjs(data.timestamp).tz('Asia/Tokyo')
     const localTime = dayjs().tz('Asia/Tokyo')
 
     timeOffset = serverTime.diff(localTime)
