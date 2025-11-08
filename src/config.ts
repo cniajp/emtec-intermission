@@ -1,5 +1,5 @@
 const envVars = {
-  apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL ?? '',
+  apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL ?? '/api/',
   eventAbbr: process.env.NEXT_PUBLIC_EVENT_ABBR ?? '',
   dkEventAbbr: process.env.NEXT_PUBLIC_DK_EVENT_ABBR ?? '',
   transTimePage1: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE1 ?? '24',
