@@ -1,8 +1,11 @@
 // eventAbbrはイベント毎に変更する.
 const eventAbbr = 'cndw2025'
 
+// Cloudflare Pages Function プロキシを使用してCORSエラーを回避
+const apiProxyBase = '/api/proxy/api/v1'
+
 export const apiConfig = {
-  talksEndpoint: `https://event.cloudnativedays.jp/api/v1/talks?eventAbbr=${eventAbbr}`,
-  talkEndpoint: `https://event.cloudnativedays.jp/api/v1/talks/`,
-  speakersEndpoint: `https://event.cloudnativedays.jp/api/v1/speakers?eventAbbr=${eventAbbr}`,
+  talksEndpoint: `${apiProxyBase}/talks?eventAbbr=${eventAbbr}`,
+  talkEndpoint: `${apiProxyBase}/talks/`,
+  speakersEndpoint: `${apiProxyBase}/speakers?eventAbbr=${eventAbbr}`,
 }
