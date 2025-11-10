@@ -41,6 +41,14 @@ const playlist: Playlist = [
       },
     ],
   },
+  {
+    sources: [
+      {
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cndw2025/prairie.mp4',
+        type: 'video/mp4',
+      },
+    ],
+  },
   // {
   //   sources: [
   //     {
