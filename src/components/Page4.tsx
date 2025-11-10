@@ -12,7 +12,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/3shake.mp4',
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cndw2025/nec.mp4',
         type: 'video/mp4',
       },
     ],
@@ -20,7 +20,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/antipattern.mp4',
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cndw2025/preferred_networks.mp4',
         type: 'video/mp4',
       },
     ],
@@ -28,7 +28,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/datadog.mp4',
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cndw2025/kinto.mp4',
         type: 'video/mp4',
       },
     ],
@@ -36,7 +36,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/grafana.mp4',
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cndw2025/grafana.mp4',
         type: 'video/mp4',
       },
     ],
@@ -44,55 +44,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/kaonavi.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/mackerel.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/newrelic.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/pagerduty.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/shift.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/splunk.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/o11ycon2025/topotal.mp4',
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cndw2025/prairie.mp4',
         type: 'video/mp4',
       },
     ],
