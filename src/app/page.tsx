@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import config from '@/config'
 
 export default function Home() {
@@ -8,7 +9,16 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-evenly p-24">
-      <h1 className={`text-4xl`}>EMTEC Intermission</h1>
+      <div className="w-full max-w-3xl mb-8">
+        <Image
+          src="/intermission.png"
+          alt="EMTEC Intermission"
+          width={800}
+          height={200}
+          priority
+          className="w-full h-auto"
+        />
+      </div>
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-3 lg:text-left">
         <div className="text-center my-auto">{dkEventAbbr}</div>
         <Link
