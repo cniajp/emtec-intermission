@@ -21,10 +21,13 @@ export default function ObsPage() {
 
   const eventResult = useGetEvent(dkEventAbbr)
   const trackResult = useGetTracks()
-  const apiConfDayId = eventResult.data?.conferenceDays?.[Number(confDay)]?.id
+  const apiConfDayId =
+    eventResult.data?.conferenceDays?.[Number(confDay) - 1]?.id
   const apiTrackId =
     trackResult.data?.filter((t) => t.name === trackName)[0]?.id || null
   const talkResult = useGetTalks(apiConfDayId)
+  const nextDayId: number | undefined =
+    eventResult.data?.conferenceDays?.[Number(confDay)]?.id
 
   useEffect(() => {
     if (!isClient) return
@@ -92,6 +95,14 @@ export default function ObsPage() {
       }
     )
 
+    if (nextDayId) {
+      // 次の日の最初のトークの時間も追加する
+      template.push({
+        name: 'NextDayTalk',
+        url_path: `/break-dk/talks/2764`, // ハードコーディング
+      })
+    }
+
     // obsSceneGenerate.tsxを実行
     ObsSceneGenerate({
       eventAbbr: dkEventAbbr,
@@ -113,6 +124,7 @@ export default function ObsPage() {
     apiTrackId,
     trackName,
     router,
+    nextDayId,
   ])
 
   if (!isClient) {
