@@ -64,7 +64,7 @@ export const useGetTalksAndTracksForMenu = (
       return null
     }
     console.log(event.data!.conferenceDays!)
-    return event.data!.conferenceDays![parseInt(dayNum)].id
+    return event.data!.conferenceDays![parseInt(dayNum) - 1].id
   }, [event.data, dayNum])
   const talksResult = useGetTalks(confDayId)
   const tracksResult = useGetTracks()
