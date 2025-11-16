@@ -8,8 +8,9 @@ import { useGetTalksAndTracks } from '@/components/hooks/useGetTalksAndTracks'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import config, { extendConfig } from '@/config'
 import { useRouter } from 'next/router'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import Image from 'next/image'
+import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
@@ -28,34 +29,11 @@ function Pages() {
   const { isLoading: isDataLoading, view } = useGetTalksAndTracks(
     talkId as string | null
   )
-  const [isLoading, setIsLoading] = useState(true)
-  const [showContent, setShowContent] = useState(false)
-  const [isLogoFadingOut, setIsLogoFadingOut] = useState(false)
 
-  // ローディング状態の管理
-  useEffect(() => {
-    if (!isDataLoading && view) {
-      // ローディング画面を表示し、ロゴがフェードイン完了後にフェードアウト
-      const timer = setTimeout(() => {
-        setIsLogoFadingOut(true)
-        // ロゴのフェードアウト後にコンテンツを表示
-        setTimeout(() => {
-          setShowContent(true)
-          // その後ローディングを非表示
-          setTimeout(() => {
-            setIsLoading(false)
-          }, 100)
-        }, 800) // ロゴのフェードアウト時間
-      }, 1500) // ロゴのフェードイン完了後（1.5秒）
-      return () => {
-        clearTimeout(timer)
-      }
-    } else if (!isDataLoading && !view) {
-      // データがない場合は即座に切り替え
-      setIsLoading(false)
-      setShowContent(true)
-    }
-  }, [isDataLoading, view])
+  const { isLoading, showContent, isLogoFadingOut } = useLoadingTransition({
+    isDataReady: !!view,
+    isDataLoading,
+  })
 
   const pages = [
     <Page1 key={1} view={view} isDk={true} />,

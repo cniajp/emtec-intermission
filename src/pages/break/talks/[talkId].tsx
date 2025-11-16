@@ -11,8 +11,9 @@ import { speakers } from '@/data/speakers'
 import { talks } from '@/data/talks'
 import { tracks } from '@/data/tracks'
 import { useRouter } from 'next/router'
-import { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 import Image from 'next/image'
+import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
@@ -28,9 +29,6 @@ function Pages() {
   }, [router.query])
 
   const { current, setTotalPage, goNextPage } = useContext(PageCtx)
-  const [isLoading, setIsLoading] = useState(true)
-  const [showContent, setShowContent] = useState(false)
-  const [isLogoFadingOut, setIsLogoFadingOut] = useState(false)
 
   const view = useMemo(() => {
     if (!talkId) {
@@ -39,32 +37,9 @@ function Pages() {
     return TalkView.withoutDk(talkId as string, talks, tracks, speakers)
   }, [talkId])
 
-  // ローディング状態の管理
-  useEffect(() => {
-    if (view) {
-      if (config.debug) {
-        // ローディング画面を表示し、ロゴがフェードイン完了後にフェードアウト
-        const timer = setTimeout(() => {
-          setIsLogoFadingOut(true)
-          // ロゴのフェードアウト後にコンテンツを表示
-          setTimeout(() => {
-            setShowContent(true)
-            // その後ローディングを非表示
-            setTimeout(() => {
-              setIsLoading(false)
-            }, 100)
-          }, 800) // ロゴのフェードアウト時間
-        }, 1500) // ロゴのフェードイン完了後（1.5秒）
-        return () => {
-          clearTimeout(timer)
-        }
-      } else {
-        // debugモードでない場合は即座に切り替え
-        setIsLoading(false)
-        setShowContent(true)
-      }
-    }
-  }, [view])
+  const { isLoading, showContent, isLogoFadingOut } = useLoadingTransition({
+    isDataReady: !!view,
+  })
 
   const pages = [
     <Page1 key={1} view={view} isDk={false} />,
@@ -116,7 +91,10 @@ function Pages() {
         {/* ローディング画面 */}
         {isLoading && (
           <div className="absolute inset-0 z-10">
-            <Loading isFadingOut={isLogoFadingOut} />
+            <Loading
+              isFadingOut={isLogoFadingOut}
+              logoPath="/o11yconjp2025/logo.svg"
+            />
           </div>
         )}
         {/* コンテンツ */}
