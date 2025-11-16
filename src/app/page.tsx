@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import config from '@/config'
 
 export default function Home() {
@@ -8,11 +9,20 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-evenly p-24">
-      <h1 className={`text-4xl`}>EMTEC Intermission</h1>
+      <div className="w-full max-w-3xl mb-8">
+        <Image
+          src="/intermission.png"
+          alt="EMTEC Intermission"
+          width={800}
+          height={200}
+          priority
+          className="w-full h-auto"
+        />
+      </div>
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-3 lg:text-left">
         <div className="text-center my-auto">{dkEventAbbr}</div>
         <Link
-          href="/break-dk/menu/0"
+          href="/break-dk/menu/1"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
@@ -27,7 +37,7 @@ export default function Home() {
         </Link>
 
         <Link
-          href="/break-dk/menu/1"
+          href="/break-dk/menu/2"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>

@@ -10,15 +10,18 @@ type PageProps = { view: Optional<TalkView>; isDk: boolean }
 type Props = { view: Optional<TalkView> }
 
 const images: string[] = [
-  '/o11yconjp2025/info001.jpg',
-  '/o11yconjp2025/info002.jpg',
-  '/o11yconjp2025/info003.jpg',
-  '/o11yconjp2025/info004.jpg',
-  '/o11yconjp2025/info005.jpg',
-  '/o11yconjp2025/info006.jpg',
-  '/o11yconjp2025/info007.jpg',
-  '/o11yconjp2025/info008.jpg',
-  // '/o11yconjp2025/info009.jpg',
+  '/cndw2025/info_001.png',
+  '/cndw2025/info_002.png',
+  '/cndw2025/info_003.png',
+  '/cndw2025/info_004.png',
+  '/cndw2025/info_005.png',
+  '/cndw2025/info_006.png',
+  '/cndw2025/info_007.png',
+  '/cndw2025/info_008.png',
+  '/cndw2025/info_009.png',
+  '/cndw2025/info_010.png',
+  '/cndw2025/info_011.png',
+  '/cndw2025/info_012.png',
 ]
 
 export default function Page({ view, isDk }: PageProps) {

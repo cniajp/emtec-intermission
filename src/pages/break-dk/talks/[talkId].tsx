@@ -3,11 +3,14 @@ import Page1 from '@/components/Page1'
 import Page2, { AvatarPreLoader } from '@/components/Page2'
 import Page3 from '@/components/Page3'
 import Page4 from '@/components/Page4'
+import Loading from '@/components/Loading'
 import { useGetTalksAndTracks } from '@/components/hooks/useGetTalksAndTracks'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import config, { extendConfig } from '@/config'
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
+import Image from 'next/image'
+import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
@@ -23,7 +26,14 @@ function Pages() {
   }, [router.query])
 
   const { current, setTotalPage, goNextPage } = useContext(PageCtx)
-  const { isLoading, view } = useGetTalksAndTracks(talkId as string | null)
+  const { isLoading: isDataLoading, view } = useGetTalksAndTracks(
+    talkId as string | null
+  )
+
+  const { isLoading, showContent, isLogoFadingOut } = useLoadingTransition({
+    isDataReady: !!view,
+    isDataLoading,
+  })
 
   const pages = [
     <Page1 key={1} view={view} isDk={true} />,
@@ -42,14 +52,10 @@ function Pages() {
   // CM なしの場合
   // const shouldPlayAudio = true
 
-  if (isLoading) {
-    return <div className="text-white">Loading...</div>
-  }
   return (
     <>
       <div>
         <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css" />
-        <link rel="stylesheet" href="https://use.typekit.net/hbv7ezy.css" />
       </div>
       {config.debug && (
         <>
@@ -69,8 +75,33 @@ function Pages() {
       )}
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view}></AvatarPreLoader>
-      <div className="w-[1920px] h-[1080px] bg-[url('/cndw2024/background.png')]">
-        {pages[current]}
+      <div className="w-[1920px] h-[1080px] relative">
+        <Image
+          src="/cndw2024/background.png"
+          alt="background"
+          className="-z-10"
+          fill
+          style={{ objectFit: 'cover' }}
+          priority
+        />
+        {/* ローディング画面 */}
+        {isLoading && (
+          <div className="absolute inset-0 z-10">
+            <Loading
+              isFadingOut={isLogoFadingOut}
+              logoPath="/cndw2025/logo.png"
+            />
+          </div>
+        )}
+        {/* コンテンツ */}
+        {showContent && (
+          <div className="absolute inset-0 content-fade-in">
+            {pages[current]}
+          </div>
+        )}
+        {!isLoading && !showContent && (
+          <div className="absolute inset-0">{pages[current]}</div>
+        )}
       </div>
       <div className="w-[1280px] h-[300px] bg-black relative"></div>
     </>

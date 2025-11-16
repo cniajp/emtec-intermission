@@ -3,6 +3,7 @@ import Page1 from '@/components/Page1'
 import Page2, { AvatarPreLoader } from '@/components/Page2'
 import Page3 from '@/components/Page3'
 import Page4 from '@/components/Page4'
+import Loading from '@/components/Loading'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import { TalkView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
@@ -12,6 +13,7 @@ import { tracks } from '@/data/tracks'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useMemo } from 'react'
 import Image from 'next/image'
+import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
@@ -35,6 +37,10 @@ function Pages() {
     return TalkView.withoutDk(talkId as string, talks, tracks, speakers)
   }, [talkId])
 
+  const { isLoading, showContent, isLogoFadingOut } = useLoadingTransition({
+    isDataReady: !!view,
+  })
+
   const pages = [
     <Page1 key={1} view={view} isDk={false} />,
     <Page2 key={2} view={view} isDk={false} />,
@@ -50,14 +56,10 @@ function Pages() {
   // const shouldPlayAudio = current !== pages.length // Page4を使用しない場合
   const shouldPlayAudio = current !== pages.length - 1
 
-  if (!view && config.debug) {
-    return <div className="text-white">Loading...</div>
-  }
   return (
     <>
       <div>
         <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css" />
-        <link rel="stylesheet" href="https://use.typekit.net/hbv7ezy.css" />
       </div>
       {config.debug && (
         <>
@@ -86,7 +88,24 @@ function Pages() {
           style={{ objectFit: 'cover' }}
           priority
         />
-        {pages[current]}
+        {/* ローディング画面 */}
+        {isLoading && (
+          <div className="absolute inset-0 z-10">
+            <Loading
+              isFadingOut={isLogoFadingOut}
+              logoPath="/o11yconjp2025/logo.svg"
+            />
+          </div>
+        )}
+        {/* コンテンツ */}
+        {showContent && (
+          <div className="absolute inset-0 content-fade-in">
+            {pages[current]}
+          </div>
+        )}
+        {!isLoading && !showContent && (
+          <div className="absolute inset-0">{pages[current]}</div>
+        )}
       </div>
       <div className="w-[1280px] h-[300px] bg-black relative"></div>
     </>
