@@ -14,8 +14,11 @@ const config: Config = {
         'ryo-gothic-plusn': ['ryo-gothic-plusn', 'sans-serif'],
       },
       colors: {
-        'COLOR-UPCOMING-SESSION-LABEL': '#EABA54',
-        'COLOR-TIMETABLE-Box': '#459ac0',
+        'COLOR-TIMETABLE-Box': '#216a9c',
+      },
+      backgroundImage: {
+        'COLOR-UPCOMING-SESSION-LABEL':
+          'linear-gradient(to right, #e99411, #be4493)',
       },
     },
     fontSize: {
