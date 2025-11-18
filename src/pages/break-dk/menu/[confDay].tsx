@@ -1,3 +1,4 @@
+import '@/pages/globals-sub.css'
 import { useGetTalksAndTracksForMenu } from '@/components/hooks/useGetTalksAndTracks'
 import { MenuView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
