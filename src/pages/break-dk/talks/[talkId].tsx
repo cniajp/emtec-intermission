@@ -103,7 +103,6 @@ function Pages() {
           <div className="absolute inset-0">{pages[current]}</div>
         )}
       </div>
-      <div className="w-[1280px] h-[300px] bg-black relative"></div>
     </>
   )
 }

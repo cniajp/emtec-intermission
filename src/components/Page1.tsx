@@ -108,7 +108,7 @@ function Side({ view }: Props) {
     .talksInSameTrack()
     .filter((t) => t.talkCategory === 'Keynote' && t.startTime > talkStartTime)
   return (
-    <div className="p-14 h-[80%] overflow-y-auto">
+    <div className="p-14 h-[80%] overflow-y-auto hidden-scrollbar">
       {hasKeynote && (
         <div className="text-right w-[750px] bg-COLOR-TIMETABLE-Box px-3 pt-1 pb-2 my-3 font-ryo-gothic-plusn">
           <div className="flex flex-row">

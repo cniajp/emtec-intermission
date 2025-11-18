@@ -1,3 +1,4 @@
+import '@/pages/globals-sub.css'
 import { MenuView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
 import type { Talk } from '@/data/types'
