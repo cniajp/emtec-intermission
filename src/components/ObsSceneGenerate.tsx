@@ -70,6 +70,7 @@ function createBrowserSource(
       shutdown: shutdown,
       restart_when_active: restart,
       reroute_audio: true,
+      css: 'body { background-color: rgba(255, 255, 255, 1); margin: 0px auto; overflow: hidden; }',
     },
     mixers: 255,
     sync: 0,
