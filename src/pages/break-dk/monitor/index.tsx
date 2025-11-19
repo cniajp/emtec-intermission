@@ -5,6 +5,7 @@ import {
   useGetApiV1TalksQuery,
 } from '@/generated/dreamkast-api.generated'
 import config from '@/config'
+import { nowAccurate, startTimeSync } from '@/utils/time'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 // onAirTalkはtalk_idまたはidのみを含む可能性がある
@@ -52,11 +53,17 @@ export default function MonitorPage() {
     }
   }, [talks])
 
-  // 現在時刻を1秒ごとに更新
+  // 現在時刻をサーバー時刻基準で1秒ごとに更新
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+    startTimeSync()
+
+    const updateTime = () => {
+      setCurrentTime(nowAccurate().toDate())
+    }
+
+    updateTime()
+    const timer = setInterval(updateTime, 1000)
+
     return () => clearInterval(timer)
   }, [])
 
@@ -66,7 +73,7 @@ export default function MonitorPage() {
     if (!isFetching && isSuccess && tracks) {
       // 前回がフェッチ中だった場合、または初回ロード完了時
       if (prevIsFetchingRef.current || isInitialLoadRef.current) {
-        setLastUpdateTime(new Date())
+        setLastUpdateTime(nowAccurate().toDate())
         isInitialLoadRef.current = false
       }
     }
@@ -194,7 +201,7 @@ export default function MonitorPage() {
                       )}
                       <div className="grid grid-cols-2 gap-4 mt-4">
                         <div>
-                          <div className="text-base text-gray-300">
+                          <div className="text-base text-gray-400">
                             開始時刻
                           </div>
                           <div className="text-2xl font-semibold">
@@ -202,7 +209,7 @@ export default function MonitorPage() {
                           </div>
                         </div>
                         <div>
-                          <div className="text-base text-gray-300">
+                          <div className="text-base text-gray-400">
                             終了時刻
                           </div>
                           <div className="text-2xl font-semibold">
