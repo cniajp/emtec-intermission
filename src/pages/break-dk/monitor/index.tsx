@@ -53,6 +53,21 @@ export default function MonitorPage() {
     }
   }, [talks])
 
+  // trackのvideoId（m3u8 URL）をコピーする関数
+  const copyStreamingUrl = async (track: Track) => {
+    if (track.videoId) {
+      try {
+        await navigator.clipboard.writeText(track.videoId)
+        alert(`配信URL をコピーしました:\n${track.videoId}`)
+      } catch (err) {
+        console.error('URLのコピーに失敗しました:', err)
+        alert('URLのコピーに失敗しました')
+      }
+    } else {
+      alert('配信URLが見つかりません')
+    }
+  }
+
   // 現在時刻をサーバー時刻基準で1秒ごとに更新
   useEffect(() => {
     startTimeSync()
@@ -159,7 +174,13 @@ export default function MonitorPage() {
               } bg-black/40 backdrop-blur-sm`}
             >
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold">Track {track.name}</h2>
+                <h2
+                  className="text-2xl font-bold hover:text-blue-400 cursor-pointer transition-colors"
+                  onClick={() => copyStreamingUrl(track)}
+                  title="クリックして配信URLをコピー"
+                >
+                  Track {track.name}
+                </h2>
                 <div
                   className={`px-3 py-1 rounded-full text-sm font-semibold ${
                     isOnAir
