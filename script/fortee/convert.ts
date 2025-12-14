@@ -67,7 +67,7 @@ async function fetchTimetableData(): Promise<forteeTimetableItem[]> {
 function convertToSpeakers(
   proposals: forteeProposal[] | forteeTimetableItem[]
 ): Speaker[] {
-  const DEFAULT_IMAGE_PATH: string = `https://fortee.jp/files/${EVENT_ALIAS}/image/avatar.png`
+  const DEFAULT_IMAGE_PATH: string = `https://fortee.jp/files/${EVENT_ALIAS}/image/avatar.jpeg`
 
   const speakers: Speaker[] = []
   proposals.forEach((talk, index) => {
