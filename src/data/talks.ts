@@ -2,6 +2,21 @@ import { Talk } from './types'
 
 export const talks: Talk[] = [
   {
+    id: 9001,
+    trackId: 1,
+    title: '開会式',
+    abstract: '',
+    speakers: [
+      {
+        id: 0,
+        name: '運営',
+      },
+    ],
+    startTime: '2026-01-31T10:00:00+09:00',
+    endTime: '2026-01-31T10:10:00+09:00',
+    conferenceDayId: 1,
+  },
+  {
     id: 201,
     trackId: 2,
     title:
@@ -19,7 +34,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 302,
+    id: 301,
     trackId: 3,
     title:
       'モノタロウにおけるSREの現在地：モダナイゼーションの過程で変化していく中でSREはどう向き合って来たか',
@@ -36,7 +51,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 103,
+    id: 101,
     trackId: 1,
     title: '生成AI時代にこそ求められるSRE',
     abstract:
@@ -52,7 +67,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 304,
+    id: 302,
     trackId: 3,
     title:
       'ゼロからはじめるSRE：一人運用から複数プロダクト・SREチーム立ち上げまでの軌跡',
@@ -69,7 +84,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 105,
+    id: 102,
     trackId: 1,
     title:
       '制約が導く迷わない設計 - 信頼性と運用性を両立するマイナンバー管理システムの実践',
@@ -86,7 +101,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 206,
+    id: 202,
     trackId: 2,
     title: 'IaaS/SaaS管理におけるSREの実践',
     abstract:
@@ -102,7 +117,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 307,
+    id: 303,
     trackId: 3,
     title: 'SREが向き合う大規模リアーキテクチャ〜信頼性とアジリティの両立〜',
     abstract:
@@ -118,7 +133,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 208,
+    id: 203,
     trackId: 2,
     title: 'SRE とプロダクトエンジニアは何故分断されてしまうのか',
     abstract:
@@ -134,7 +149,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 109,
+    id: 103,
     trackId: 1,
     title:
       'コスト削減から「セキュリティと利便性」を担うプラットフォームへ、Sansanの認証基盤のこれまでとこれから',
@@ -151,7 +166,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 310,
+    id: 304,
     trackId: 3,
     title: 'AIと新時代を切り拓く。これからのSREとメルカリIBISの挑戦',
     abstract:
@@ -167,7 +182,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 111,
+    id: 104,
     trackId: 1,
     title:
       'Embedded SREの終わりを設計する：「なんとなく」から計画的な自立支援へ',
@@ -184,7 +199,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 212,
+    id: 204,
     trackId: 2,
     title: '小さく始めるBCP ― 多プロダクト環境で始める最初の一歩',
     abstract:
@@ -200,7 +215,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 313,
+    id: 305,
     trackId: 3,
     title:
       '月間数億レコードのアクセスログ基盤を無停止・低コストでAWS移行せよ！アプリケーションエンジニアのSREチャレンジ💪',
@@ -217,7 +232,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 214,
+    id: 205,
     trackId: 2,
     title:
       'レガシー共有バッチ基盤への挑戦 - SREドリブンなリアーキテクチャリングの取り組み',
@@ -234,7 +249,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 115,
+    id: 105,
     trackId: 1,
     title:
       'SREじゃなかった僕らがenablingを通じて「SRE実践者」になるまでのリアル',
@@ -251,7 +266,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 116,
+    id: 106,
     trackId: 1,
     title: 'チームを巻き込みエラーと向き合う技術',
     abstract:
@@ -267,7 +282,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 217,
+    id: 206,
     trackId: 2,
     title:
       '認知負荷を最小化するオブザーバビリティとSLOの導入 ―4名のSREが200名のプロダクトエンジニアを支援',
@@ -284,7 +299,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 318,
+    id: 306,
     trackId: 3,
     title:
       '開発チームが信頼性向上のためにできること: 医療SaaS企業を支える共通基盤の挑戦',
@@ -301,7 +316,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 319,
+    id: 307,
     trackId: 3,
     title:
       '15年続くIoTサービスのSREエンジニアが挑む、可観測性向上 〜技術をビジネス価値に翻訳する試行錯誤の記録〜',
@@ -318,7 +333,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 120,
+    id: 107,
     trackId: 1,
     title:
       'ファインディの横断SREがTakumi byGMOと取り組む、セキュリティと開発スピードの両立',
@@ -335,7 +350,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 221,
+    id: 207,
     trackId: 2,
     title:
       'M&A 後の統合をどう進めるか ─ ナレッジワーク × Poetics が実践した組織とシステムの融合',
@@ -352,7 +367,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 122,
+    id: 108,
     trackId: 1,
     title:
       '予期せぬコストの急増を障害のように扱う――「コスト版ポストモーテム」の導入とその後の改善',
@@ -369,7 +384,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 323,
+    id: 308,
     trackId: 3,
     title: 'SRE Enabling戦記：急成長する組織にSREを浸透させる戦いの歴史',
     abstract:
@@ -385,7 +400,7 @@ export const talks: Talk[] = [
     conferenceDayId: 1,
   },
   {
-    id: 224,
+    id: 208,
     trackId: 2,
     title: 'クレジットカード決済基盤を支えるSRE - 厳格な監査とSRE運用の両立',
     abstract:
@@ -398,6 +413,21 @@ export const talks: Talk[] = [
     ],
     startTime: '2026-01-31T16:50:00+09:00',
     endTime: '2026-01-31T08:20:00.000Z',
+    conferenceDayId: 1,
+  },
+  {
+    id: 9002,
+    trackId: 1,
+    title: '閉会式',
+    abstract: '',
+    speakers: [
+      {
+        id: 0,
+        name: '運営',
+      },
+    ],
+    startTime: '2026-01-31T17:50:00+09:00',
+    endTime: '2026-01-31T18:00:00+09:00',
     conferenceDayId: 1,
   },
 ]

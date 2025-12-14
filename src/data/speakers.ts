@@ -2,6 +2,11 @@ import { Speaker } from './types'
 
 export const speakers: Speaker[] = [
   {
+    id: 0,
+    name: '運営',
+    avatarUrl: 'https://fortee.jp/files/sre-kaigi-2026/image/avatar.jpg',
+  },
+  {
     id: 1,
     name: '川崎 雄太',
     avatarUrl:
@@ -10,7 +15,7 @@ export const speakers: Speaker[] = [
   {
     id: 2,
     name: '河畑凌',
-    avatarUrl: 'https://fortee.jp/files/sre-kaigi-2026/image/avatar.jpeg',
+    avatarUrl: 'https://fortee.jp/files/sre-kaigi-2026/image/avatar.jpg',
   },
   {
     id: 3,
@@ -63,7 +68,7 @@ export const speakers: Speaker[] = [
   {
     id: 11,
     name: '鷹箸 孝典',
-    avatarUrl: 'https://fortee.jp/files/sre-kaigi-2026/image/avatar.jpeg',
+    avatarUrl: 'https://fortee.jp/files/sre-kaigi-2026/image/avatar.jpg',
   },
   {
     id: 12,
@@ -80,7 +85,7 @@ export const speakers: Speaker[] = [
   {
     id: 14,
     name: '小西達大',
-    avatarUrl: 'https://fortee.jp/files/sre-kaigi-2026/image/avatar.jpeg',
+    avatarUrl: 'https://fortee.jp/files/sre-kaigi-2026/image/avatar.jpg',
   },
   {
     id: 15,

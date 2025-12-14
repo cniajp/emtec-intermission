@@ -11,6 +11,8 @@ import { exportEventData } from '../common/utils.js'
 
 const EVENT_ALIAS: string = 'sre-kaigi-2026'
 
+const eventImageUrl: string = `https://fortee.jp/files/${EVENT_ALIAS}/image/avatar.jpg`
+
 const conferenceDays = [{ id: 1, date: '2026-01-31' }]
 
 // Track情報を生成する
@@ -18,6 +20,31 @@ const tracks: Track[] = [
   { id: 1, name: 'ホール', hashTag: 'HALL' },
   { id: 2, name: 'ルーム A', hashTag: 'RoomA' },
   { id: 3, name: 'ルーム B', hashTag: 'RoomB' },
+]
+
+// 手動で追加するトーク（最小限の情報）
+// IDは 9000番台を使用して自動生成されるIDと重複を避ける
+const manualTalks: Partial<Talk>[] = [
+  {
+    id: 9001,
+    trackId: 1,
+    title: '開会式',
+    abstract: '',
+    speakers: [{ id: 0, name: '運営' }],
+    startTime: '2026-01-31T10:00:00+09:00',
+    endTime: '2026-01-31T10:10:00+09:00',
+    conferenceDayId: 1,
+  },
+  {
+    id: 9002,
+    trackId: 1,
+    title: '閉会式',
+    abstract: '',
+    speakers: [{ id: 0, name: '運営' }],
+    startTime: '2026-01-31T17:50:00+09:00',
+    endTime: '2026-01-31T18:00:00+09:00',
+    conferenceDayId: 1,
+  },
 ]
 
 /**
@@ -28,14 +55,31 @@ async function main() {
   // const dataTalks: forteeProposal[] = await fetchProposalData()
   const dataTalks: forteeTimetableItem[] = await fetchTimetableData()
 
-  // Speaker情報を生成する
-  const speakers: Speaker[] = convertToSpeakers(dataTalks)
+  // Speaker情報を生成する（id:0で運営を追加）
+  const speakers: Speaker[] = [
+    {
+      id: 0,
+      name: '運営',
+      avatarUrl: eventImageUrl,
+    },
+    ...convertToSpeakers(dataTalks),
+  ]
 
   // Talk情報を生成する
   const talks: Talk[] = convertToTalks(dataTalks, speakers)
 
+  // 手動で追加したトークをマージ
+  const allTalks: Talk[] = [
+    ...(manualTalks as Talk[]),
+    ...talks,
+  ].sort((a, b) => {
+    if (a.startTime < b.startTime) return -1
+    if (a.startTime > b.startTime) return 1
+    return 0
+  })
+
   // 最終データを組み立てる
-  exportEventData({ tracks, speakers, talks })
+  exportEventData({ tracks, speakers, talks: allTalks })
 }
 
 /**
@@ -67,7 +111,7 @@ async function fetchTimetableData(): Promise<forteeTimetableItem[]> {
 function convertToSpeakers(
   proposals: forteeProposal[] | forteeTimetableItem[]
 ): Speaker[] {
-  const DEFAULT_IMAGE_PATH: string = `https://fortee.jp/files/${EVENT_ALIAS}/image/avatar.jpeg`
+  const DEFAULT_IMAGE_PATH: string = eventImageUrl
 
   const speakers: Speaker[] = []
   proposals.forEach((talk, index) => {
@@ -91,6 +135,7 @@ function convertToTalks(
   speakers: Speaker[]
 ): Talk[] {
   const convertedTalks: Talk[] = []
+  const trackIndexMap = new Map<number, number>()
 
   proposals
     .sort((a, b) => {
@@ -103,7 +148,7 @@ function convertToTalks(
       if (aStartsAt > bStartsAt) return 1
       return 0
     })
-    .forEach((talk, index) => {
+    .forEach((talk) => {
       // forteeProposalの場合はtalk.timetable、forteeTimetableの場合はtalk自体
       let trackName: string
       let startsAt: string
@@ -138,6 +183,10 @@ function convertToTalks(
         return
       }
 
+      // トラックごとのインデックスを取得・更新
+      const trackIndex = trackIndexMap.get(track.id) || 0
+      trackIndexMap.set(track.id, trackIndex + 1)
+
       // startTimeとendTimeを計算
       const startTime = startsAt
       const lengthMin =
@@ -147,7 +196,7 @@ function convertToTalks(
       ).toISOString()
 
       convertedTalks.push({
-        id: track.id * 100 + index + 1,
+        id: track.id * 100 + trackIndex + 1,
         trackId: track.id,
         title: talk.title,
         abstract: talk.abstract?.replace(/[\r\t\n]/g, '') || '',
