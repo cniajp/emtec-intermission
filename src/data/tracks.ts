@@ -9,11 +9,11 @@ export const tracks: Track[] = [
   {
     id: 2,
     name: 'ルーム A',
-    hashTag: 'A',
+    hashTag: 'RoomA',
   },
   {
     id: 3,
     name: 'ルーム B',
-    hashTag: 'B',
+    hashTag: 'RoomB',
   },
 ]

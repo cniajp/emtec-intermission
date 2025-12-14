@@ -16,8 +16,8 @@ const conferenceDays = [{ id: 1, date: '2026-01-31' }]
 // Track情報を生成する
 const tracks: Track[] = [
   { id: 1, name: 'ホール', hashTag: 'HALL' },
-  { id: 2, name: 'ルーム A', hashTag: 'A' },
-  { id: 3, name: 'ルーム B', hashTag: 'B' },
+  { id: 2, name: 'ルーム A', hashTag: 'RoomA' },
+  { id: 3, name: 'ルーム B', hashTag: 'RoomB' },
 ]
 
 /**
@@ -132,17 +132,28 @@ function convertToTalks(
         return
       }
 
-      const speaker = speakers.find((s) => s.name === talk.speaker.name)
+      const speaker = speakers.find((s) => s.name === talk.speaker?.name)
       if (!speaker) {
         console.warn(`No speaker found for talk: ${talk.title}`)
         return
       }
+
+      // startTimeとendTimeを計算
+      const startTime = startsAt
+      const lengthMin =
+        'starts_at' in talk ? talk.length_min : talk.timetable?.length_min || 0
+      const endTime = new Date(
+        new Date(startsAt).getTime() + lengthMin * 60000
+      ).toISOString()
+
       convertedTalks.push({
         id: track.id * 100 + index + 1,
         trackId: track.id,
         title: talk.title,
-        abstract: talk.abstract.replace(/[\r\t\n]/g, ''),
+        abstract: talk.abstract?.replace(/[\r\t\n]/g, '') || '',
         speakers: [{ id: speaker.id, name: speaker.name }],
+        startTime,
+        endTime,
         conferenceDayId: conferenceDays.find((day) =>
           startsAt.startsWith(day.date)
         )?.id,

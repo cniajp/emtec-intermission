@@ -14,6 +14,8 @@ export const talks: Talk[] = [
         name: '川崎 雄太',
       },
     ],
+    startTime: '2026-01-31T10:35:00+09:00',
+    endTime: '2026-01-31T02:05:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -29,6 +31,8 @@ export const talks: Talk[] = [
         name: '河畑凌',
       },
     ],
+    startTime: '2026-01-31T10:35:00+09:00',
+    endTime: '2026-01-31T02:05:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -43,6 +47,8 @@ export const talks: Talk[] = [
         name: '山口能迪',
       },
     ],
+    startTime: '2026-01-31T10:35:00+09:00',
+    endTime: '2026-01-31T02:05:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -58,6 +64,8 @@ export const talks: Talk[] = [
         name: '籔下 直哉',
       },
     ],
+    startTime: '2026-01-31T11:20:00+09:00',
+    endTime: '2026-01-31T02:50:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -73,6 +81,8 @@ export const talks: Talk[] = [
         name: '内藤翔太',
       },
     ],
+    startTime: '2026-01-31T11:20:00+09:00',
+    endTime: '2026-01-31T02:50:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -87,6 +97,8 @@ export const talks: Talk[] = [
         name: '多羽田 俊',
       },
     ],
+    startTime: '2026-01-31T11:20:00+09:00',
+    endTime: '2026-01-31T02:50:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -101,6 +113,8 @@ export const talks: Talk[] = [
         name: '守屋邦昭',
       },
     ],
+    startTime: '2026-01-31T12:05:00+09:00',
+    endTime: '2026-01-31T03:35:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -115,6 +129,8 @@ export const talks: Talk[] = [
         name: '渡邉 美希パウラ',
       },
     ],
+    startTime: '2026-01-31T12:05:00+09:00',
+    endTime: '2026-01-31T03:35:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -130,6 +146,8 @@ export const talks: Talk[] = [
         name: '樋口 礼人',
       },
     ],
+    startTime: '2026-01-31T12:05:00+09:00',
+    endTime: '2026-01-31T03:35:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -144,6 +162,8 @@ export const talks: Talk[] = [
         name: 'oguma',
       },
     ],
+    startTime: '2026-01-31T13:35:00+09:00',
+    endTime: '2026-01-31T05:05:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -159,6 +179,8 @@ export const talks: Talk[] = [
         name: '鷹箸 孝典',
       },
     ],
+    startTime: '2026-01-31T13:35:00+09:00',
+    endTime: '2026-01-31T05:05:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -173,6 +195,8 @@ export const talks: Talk[] = [
         name: '中間啓介',
       },
     ],
+    startTime: '2026-01-31T13:35:00+09:00',
+    endTime: '2026-01-31T05:05:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -188,6 +212,8 @@ export const talks: Talk[] = [
         name: 'miyamu',
       },
     ],
+    startTime: '2026-01-31T14:20:00+09:00',
+    endTime: '2026-01-31T05:50:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -203,6 +229,8 @@ export const talks: Talk[] = [
         name: '小西達大',
       },
     ],
+    startTime: '2026-01-31T14:20:00+09:00',
+    endTime: '2026-01-31T05:50:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -218,6 +246,8 @@ export const talks: Talk[] = [
         name: '川田雅彦',
       },
     ],
+    startTime: '2026-01-31T14:20:00+09:00',
+    endTime: '2026-01-31T05:50:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -232,6 +262,8 @@ export const talks: Talk[] = [
         name: 'maru',
       },
     ],
+    startTime: '2026-01-31T15:05:00+09:00',
+    endTime: '2026-01-31T06:35:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -247,6 +279,8 @@ export const talks: Talk[] = [
         name: '樋口貴志',
       },
     ],
+    startTime: '2026-01-31T15:05:00+09:00',
+    endTime: '2026-01-31T06:35:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -262,6 +296,8 @@ export const talks: Talk[] = [
         name: 'kosui',
       },
     ],
+    startTime: '2026-01-31T15:05:00+09:00',
+    endTime: '2026-01-31T06:35:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -277,6 +313,8 @@ export const talks: Talk[] = [
         name: 'Banri Kakehi',
       },
     ],
+    startTime: '2026-01-31T16:05:00+09:00',
+    endTime: '2026-01-31T07:35:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -292,6 +330,8 @@ export const talks: Talk[] = [
         name: '米内 貴志',
       },
     ],
+    startTime: '2026-01-31T16:05:00+09:00',
+    endTime: '2026-01-31T07:35:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -307,6 +347,8 @@ export const talks: Talk[] = [
         name: 'Shogo Watanabe',
       },
     ],
+    startTime: '2026-01-31T16:05:00+09:00',
+    endTime: '2026-01-31T07:35:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -322,6 +364,8 @@ export const talks: Talk[] = [
         name: '吉澤 政洋',
       },
     ],
+    startTime: '2026-01-31T16:50:00+09:00',
+    endTime: '2026-01-31T08:20:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -336,6 +380,8 @@ export const talks: Talk[] = [
         name: '石垣　雅基',
       },
     ],
+    startTime: '2026-01-31T16:50:00+09:00',
+    endTime: '2026-01-31T08:20:00.000Z',
     conferenceDayId: 1,
   },
   {
@@ -350,6 +396,8 @@ export const talks: Talk[] = [
         name: '水口 洋輔',
       },
     ],
+    startTime: '2026-01-31T16:50:00+09:00',
+    endTime: '2026-01-31T08:20:00.000Z',
     conferenceDayId: 1,
   },
 ]
