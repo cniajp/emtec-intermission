@@ -5,22 +5,19 @@
 // もしくは
 // 実行コマンド: npx tsx ./script/fortee/convert.ts -y && npm run fmt
 
-import { forteeProposal } from './type.js'
+import { forteeProposal, forteeTimetableItem } from './type.js'
 import { Track, Speaker, Talk } from '../../src/data/types.js'
 import { exportEventData } from '../common/utils.js'
 
-const EVENT_ALIAS: string = 'phpconodawara-2025'
+const EVENT_ALIAS: string = 'sre-kaigi-2026'
 
-const conferenceDays = [
-  { id: 1, date: '2025-04-11' },
-  { id: 2, date: '2025-04-12' },
-]
+const conferenceDays = [{ id: 1, date: '2026-01-31' }]
 
 // Track情報を生成する
 const tracks: Track[] = [
-  { id: 1, name: 'かま', hashTag: 'kama' },
-  { id: 2, name: 'ぼこ', hashTag: 'boko' },
-  { id: 3, name: 'あじ', hashTag: 'aji' },
+  { id: 1, name: 'ホール', hashTag: 'HALL' },
+  { id: 2, name: 'ルーム A', hashTag: 'A' },
+  { id: 3, name: 'ルーム B', hashTag: 'B' },
 ]
 
 /**
@@ -28,7 +25,8 @@ const tracks: Track[] = [
  */
 async function main() {
   // APIからデータを取得する
-  const dataTalks: forteeProposal[] = await fetchProposalData()
+  // const dataTalks: forteeProposal[] = await fetchProposalData()
+  const dataTalks: forteeTimetableItem[] = await fetchTimetableData()
 
   // Speaker情報を生成する
   const speakers: Speaker[] = convertToSpeakers(dataTalks)
@@ -53,19 +51,34 @@ async function fetchProposalData(): Promise<forteeProposal[]> {
   return data.proposals
 }
 
+async function fetchTimetableData(): Promise<forteeTimetableItem[]> {
+  const forteeApiTimetableUrl: string = `https://fortee.jp/${EVENT_ALIAS}/api/timetable`
+
+  const data: { timetable: forteeTimetableItem[] } = await fetch(
+    forteeApiTimetableUrl
+  ).then((res) => res.json())
+
+  return data.timetable
+}
+
 /**
  * プロポーザルデータからSpeaker情報を生成する
  */
-function convertToSpeakers(proposals: forteeProposal[]): Speaker[] {
+function convertToSpeakers(
+  proposals: forteeProposal[] | forteeTimetableItem[]
+): Speaker[] {
   const DEFAULT_IMAGE_PATH: string = `https://fortee.jp/files/${EVENT_ALIAS}/image/avatar.png`
 
   const speakers: Speaker[] = []
   proposals.forEach((talk, index) => {
-    speakers.push({
-      id: index + 1,
-      name: talk.speaker.name,
-      avatarUrl: talk.speaker.avatar_url || DEFAULT_IMAGE_PATH,
-    } as Speaker)
+    // speakerが存在する場合のみ処理（timeslotにはspeakerがない）
+    if ('speaker' in talk && talk.speaker) {
+      speakers.push({
+        id: index + 1,
+        name: talk.speaker.name,
+        avatarUrl: talk.speaker.avatar_url || DEFAULT_IMAGE_PATH,
+      } as Speaker)
+    }
   })
   return speakers
 }
@@ -74,27 +87,51 @@ function convertToSpeakers(proposals: forteeProposal[]): Speaker[] {
  * プロポーザルデータからTalk情報を生成する
  */
 function convertToTalks(
-  proposals: forteeProposal[],
+  proposals: forteeProposal[] | forteeTimetableItem[],
   speakers: Speaker[]
 ): Talk[] {
   const convertedTalks: Talk[] = []
 
   proposals
     .sort((a, b) => {
-      if (a.timetable.starts_at < b.timetable.starts_at) return -1
-      if (a.timetable.starts_at > b.timetable.starts_at) return 1
+      // forteeProposalの場合はa.timetable.starts_at、forteeTimetableの場合はa.starts_at
+      const aStartsAt =
+        'starts_at' in a ? a.starts_at : a.timetable?.starts_at || ''
+      const bStartsAt =
+        'starts_at' in b ? b.starts_at : b.timetable?.starts_at || ''
+      if (aStartsAt < bStartsAt) return -1
+      if (aStartsAt > bStartsAt) return 1
       return 0
     })
     .forEach((talk, index) => {
-      if (!talk.timetable) {
-        console.warn(`No timetable for talk: ${talk.title}`)
-        return
+      // forteeProposalの場合はtalk.timetable、forteeTimetableの場合はtalk自体
+      let trackName: string
+      let startsAt: string
+
+      if ('starts_at' in talk) {
+        // forteeTimetableの場合
+        trackName = talk.track.name
+        startsAt = talk.starts_at
+      } else {
+        // forteeProposalの場合
+        if (!talk.timetable) {
+          console.warn(`No timetable for talk: ${talk.title}`)
+          return
+        }
+        trackName = talk.timetable.track
+        startsAt = talk.timetable.starts_at
       }
-      const track = tracks.find((t) => t.name === talk.timetable.track)
+
+      const track = tracks.find((t) => t.name === trackName)
       if (!track) {
         console.warn(`No track found for talk: ${talk.title}`)
         return
       }
+      // speakerが存在しない場合はスキップ（timeslot等）
+      if (!('speaker' in talk) || !talk.speaker) {
+        return
+      }
+
       const speaker = speakers.find((s) => s.name === talk.speaker.name)
       if (!speaker) {
         console.warn(`No speaker found for talk: ${talk.title}`)
@@ -106,13 +143,8 @@ function convertToTalks(
         title: talk.title,
         abstract: talk.abstract.replace(/[\r\t\n]/g, ''),
         speakers: [{ id: speaker.id, name: speaker.name }],
-        startTime: talk.timetable.starts_at,
-        endTime: new Date(
-          new Date(talk.timetable.starts_at).getTime() +
-            talk.timetable.length_min * 60000
-        ).toISOString(),
         conferenceDayId: conferenceDays.find((day) =>
-          talk.timetable.starts_at.startsWith(day.date)
+          startsAt.startsWith(day.date)
         )?.id,
       } as Talk)
     })
