@@ -69,14 +69,13 @@ async function main() {
   const talks: Talk[] = convertToTalks(dataTalks, speakers)
 
   // 手動で追加したトークをマージ
-  const allTalks: Talk[] = [
-    ...(manualTalks as Talk[]),
-    ...talks,
-  ].sort((a, b) => {
-    if (a.startTime < b.startTime) return -1
-    if (a.startTime > b.startTime) return 1
-    return 0
-  })
+  const allTalks: Talk[] = [...(manualTalks as Talk[]), ...talks].sort(
+    (a, b) => {
+      if (a.startTime < b.startTime) return -1
+      if (a.startTime > b.startTime) return 1
+      return 0
+    }
+  )
 
   // 最終データを組み立てる
   exportEventData({ tracks, speakers, talks: allTalks })
