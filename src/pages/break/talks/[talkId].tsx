@@ -3,7 +3,7 @@ import Page1 from '@/components/Page1'
 import Page2, { AvatarPreLoader } from '@/components/Page2'
 import Page3 from '@/components/Page3'
 import Page4 from '@/components/Page4'
-import Loading from '@/components/Loading'
+// import Loading from '@/components/Loading'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import { TalkView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
@@ -13,7 +13,7 @@ import { tracks } from '@/data/tracks'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useMemo } from 'react'
 import Image from 'next/image'
-import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
+// import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
@@ -37,9 +37,9 @@ function Pages() {
     return TalkView.withoutDk(talkId as string, talks, tracks, speakers)
   }, [talkId])
 
-  const { isLoading, showContent, isLogoFadingOut } = useLoadingTransition({
-    isDataReady: !!view,
-  })
+  // const { isLoading, showContent, isLogoFadingOut } = useLoadingTransition({
+  //   isDataReady: !!view,
+  // })
 
   const pages = [
     <Page1 key={1} view={view} isDk={false} />,
@@ -89,23 +89,23 @@ function Pages() {
           priority
         />
         {/* ローディング画面 */}
-        {isLoading && (
+        {/* {isLoading && (
           <div className="absolute inset-0 z-10">
             <Loading
               isFadingOut={isLogoFadingOut}
               logoPath="/o11yconjp2025/logo.svg"
             />
           </div>
-        )}
+        )} */}
         {/* コンテンツ */}
-        {showContent && (
+        {/* {showContent && (
           <div className="absolute inset-0 content-fade-in">
             {pages[current]}
           </div>
-        )}
-        {!isLoading && !showContent && (
-          <div className="absolute inset-0">{pages[current]}</div>
-        )}
+        )} */}
+        {/* {!isLoading && !showContent && ( */}
+        <div className="absolute inset-0">{pages[current]}</div>
+        {/* )} */}
       </div>
     </>
   )

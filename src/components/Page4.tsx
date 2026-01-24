@@ -12,39 +12,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cndw2025/nec.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cndw2025/preferred_networks.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cndw2025/kinto.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cndw2025/grafana.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/cndw2025/prairie.mp4',
+        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/srekaigi2026/makuai.mp4',
         type: 'video/mp4',
       },
     ],
