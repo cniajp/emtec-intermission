@@ -3,14 +3,17 @@ import { Track } from './types'
 export const tracks: Track[] = [
   {
     id: 1,
-    name: 'A',
+    name: 'ホール',
+    hashTag: 'HALL',
   },
   {
     id: 2,
-    name: 'B',
+    name: 'ルーム A',
+    hashTag: 'RoomA',
   },
   {
     id: 3,
-    name: 'C',
+    name: 'ルーム B',
+    hashTag: 'RoomB',
   },
 ]
