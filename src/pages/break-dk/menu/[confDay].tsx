@@ -135,82 +135,91 @@ function ObsModal({ confDay, track }: ObsModalProps) {
         OBS
       </button>
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-gray-800 border border-gray-600 rounded-lg p-6 w-80">
-            <h3 className="text-lg font-bold mb-4">
-              OBS Config - Track {track.name}
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+          <div className="bg-gray-800 border border-gray-600 rounded-xl shadow-2xl p-8 w-[480px]">
+            <h3 className="text-xl font-bold mb-6 text-center border-b border-gray-600 pb-4">
+              OBS Scene Config - Track {track.name}
             </h3>
 
-            <div className="mb-4">
-              <label className="block text-sm mb-2">OS</label>
-              <div className="flex gap-4">
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name={`os-${track.id}`}
-                    value="windows"
-                    checked={os === 'windows'}
-                    onChange={() => setOs('windows')}
-                    className="mr-2"
-                  />
-                  Windows
+            <div className="grid grid-cols-2 gap-6 mb-6">
+              <div className="bg-gray-700/50 rounded-lg p-4">
+                <label className="block text-sm font-medium mb-3">
+                  Operating System
                 </label>
-                <label className="flex items-center">
+                <div className="flex flex-col gap-2">
+                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-2 rounded">
+                    <input
+                      type="radio"
+                      name={`os-${track.id}`}
+                      value="windows"
+                      checked={os === 'windows'}
+                      onChange={() => setOs('windows')}
+                      className="mr-3 w-4 h-4"
+                    />
+                    Windows
+                  </label>
+                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-2 rounded">
+                    <input
+                      type="radio"
+                      name={`os-${track.id}`}
+                      value="mac"
+                      checked={os === 'mac'}
+                      onChange={() => setOs('mac')}
+                      className="mr-3 w-4 h-4"
+                    />
+                    Mac
+                  </label>
+                </div>
+              </div>
+
+              <div className="bg-gray-700/50 rounded-lg p-4">
+                <label className="block text-sm font-medium mb-3">
+                  Options
+                </label>
+                <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-2 rounded">
                   <input
-                    type="radio"
-                    name={`os-${track.id}`}
-                    value="mac"
-                    checked={os === 'mac'}
-                    onChange={() => setOs('mac')}
-                    className="mr-2"
+                    type="checkbox"
+                    checked={includeAttack}
+                    onChange={(e) => setIncludeAttack(e.target.checked)}
+                    className="mr-3 w-4 h-4"
                   />
-                  Mac
+                  Include Attack Videos
                 </label>
               </div>
             </div>
 
-            <div className="mb-4">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={includeAttack}
-                  onChange={(e) => setIncludeAttack(e.target.checked)}
-                  className="mr-2"
-                />
-                Include Attack Video Scenes
-              </label>
-            </div>
-
             {includeAttack && (
-              <div className="mb-4">
-                <label className="block text-sm mb-2">Username</label>
+              <div className="bg-gray-700/50 rounded-lg p-4 mb-6">
+                <label className="block text-sm font-medium mb-2">
+                  Username (for video path)
+                </label>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white text-sm"
+                  className="w-full px-4 py-2 bg-gray-900 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
                   placeholder="OS username"
                 />
-                <div className="text-xs text-gray-400 mt-1">
+                <div className="mt-3 p-3 bg-gray-900 rounded text-xs text-gray-400 font-mono break-all">
                   {os === 'mac'
-                    ? `/Users/${username}/Desktop/...`
-                    : `C:/Users/${username}/Desktop/...`}
+                    ? `/Users/${username}/Desktop/{event}/{track}/{time}.mp4`
+                    : `C:/Users/${username}/Desktop/{event}/{track}/{time}.mp4`}
                 </div>
               </div>
             )}
 
-            <div className="flex gap-3 justify-end">
+            <div className="flex gap-4 justify-end pt-4 border-t border-gray-600">
               <button
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-2 text-sm bg-gray-600 hover:bg-gray-500 rounded"
+                className="px-6 py-2.5 bg-gray-600 hover:bg-gray-500 rounded-lg transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={handleGenerate}
-                className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 rounded"
+                className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors font-medium"
               >
-                Generate
+                Generate JSON
               </button>
             </div>
           </div>
