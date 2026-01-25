@@ -1,34 +1,135 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# EMTEC Intermission
 
-## Getting Started
+CloudNativeDaysなどの技術カンファレンスで使用されるインターミッション（休憩時間の案内）画面を生成・表示するWebアプリケーションです。
 
-First, run the development server:
+## 概要
+
+- セッション間の休憩時に次のセッション情報を表示
+- BGMとアニメーションで視覚的に魅力的なインターミッションを提供
+- OBS（配信ソフト）に組み込んで使用
+
+## 技術スタック
+
+- **Next.js 15** (App Router + Pages Router併用)
+- **React 19**
+- **TypeScript**
+- **PixiJS** - 2Dアニメーション
+- **Redux Toolkit (RTK Query)** - API状態管理
+- **Tailwind CSS**
+- **Video.js** - 動画再生
+- **next-pwa** - PWA対応
+
+## セットアップ
+
+### 必要要件
+
+- Node.js 18以上
+- npm
+
+### インストール
+
+```bash
+npm install
+```
+
+### 開発サーバーの起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[http://localhost:3000](http://localhost:3000) をブラウザで開いてください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 環境変数
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+`.env.development` または `.env.production` で以下を設定します：
 
-## Learn More
+| 変数名 | 説明 |
+|--------|------|
+| `NEXT_PUBLIC_API_BASE_URL` | DreamkastのAPIエンドポイント |
+| `NEXT_PUBLIC_EVENT_ABBR` | 静的データ用イベント略称 |
+| `NEXT_PUBLIC_DK_EVENT_ABBR` | Dreamkast用イベント略称 |
+| `NEXT_PUBLIC_TRANS_TIME_PAGE1` | Page1の表示時間（秒） |
+| `NEXT_PUBLIC_TRANS_TIME_PAGE2` | Page2の表示時間（秒） |
+| `NEXT_PUBLIC_TRANS_TIME_PAGE3` | Page3の表示時間（秒） |
+| `NEXT_PUBLIC_DEBUG` | デバッグモード（'true' で有効） |
+| `NEXT_PUBLIC_EXCLUDED_TALKS` | 除外するトークID（カンマ区切り） |
 
-To learn more about Next.js, take a look at the following resources:
+## ルーティング構造
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+/                              # トップページ（メニュー選択）
+├── /break-dk/menu/[confDay]   # Dreamkast版メニュー（Day 0, 1, 2...）
+├── /break-dk/talks/[talkId]   # Dreamkast版インターミッション表示
+├── /break-dk/obs              # Dreamkast版OBS用ページ
+├── /break/menu/[confDay]      # 静的データ版メニュー
+├── /break/talks/[talkId]      # 静的データ版インターミッション表示
+└── /break/obs                 # 静的データ版OBS用ページ
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### データソース
 
-## Deploy on Vercel
+このプロジェクトは2つのデータソースに対応しています：
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Dreamkast API連携** (`/break-dk/*`) - CloudNativeDaysのイベント管理システムからリアルタイムでデータ取得
+2. **静的TSファイル** (`/break/*`) - ローカルのTSファイルからデータ取得
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 使い方
+
+### OBS連携
+
+`/break-dk/obs` や `/break/obs` ページはOBS用です。クエリパラメータで設定を指定できます：
+
+```
+/break-dk/obs?trackId=1&trackName=TrackA&confDay=1
+```
+
+### クエリパラメータでの設定上書き
+
+ほとんどの設定はURLクエリパラメータで上書き可能です：
+
+```
+/break-dk/talks/123?transTimePage1=30&debug=true
+```
+
+## 開発
+
+### API型定義の自動生成
+
+```bash
+npm run rtk-query-codegen
+```
+
+### テスト
+
+```bash
+npm run test          # テスト実行
+npm run test:update   # スナップショット更新
+npm run test:coverage # カバレッジ取得
+```
+
+### ビルド
+
+```bash
+npm run build  # プロダクションビルド
+npm run start  # プロダクションサーバー起動
+```
+
+## イベントごとのアセット
+
+`public/` ディレクトリ配下にイベントごとのフォルダがあります：
+
+```
+public/
+├── cnds2024/       # CloudNativeDays 2024
+├── cnds2025/       # CloudNativeDays 2025
+├── o11yconjp2025/  # Observability Conference Japan 2025
+├── pek2025/        # Platform Engineering Kaigi 2025
+└── cndw2024/       # CloudNative Days Winter 2024
+```
+
+各イベントフォルダには背景画像、BGMなどのアセットを配置します。
+
+## ライセンス
+
+このプロジェクトはCloudNative Days実行委員会によって管理されています。
