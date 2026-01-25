@@ -76,21 +76,12 @@ npm run dev
 
 ## 使い方
 
-### OBS連携
+1. トップページ（`/`）にアクセス
+2. データソース（Dreamkast版 or 静的データ版）を選択
+3. Day（Day 0, 1, 2...）を選択
+4. 表示したいセッションを選択
 
-`/break-dk/obs` や `/break/obs` ページはOBS用です。クエリパラメータで設定を指定できます：
-
-```
-/break-dk/obs?trackId=1&trackName=TrackA&confDay=1
-```
-
-### クエリパラメータでの設定上書き
-
-ほとんどの設定はURLクエリパラメータで上書き可能です：
-
-```
-/break-dk/talks/123?transTimePage1=30&debug=true
-```
+OBS用ページもメニューから選択できます。
 
 ## 開発
 
