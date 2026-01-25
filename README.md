@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# EMTEC Intermission
 
-## Getting Started
+CloudNativeDaysなどの技術カンファレンスで使用されるインターミッション（休憩時間の案内）画面を生成・表示するWebアプリケーションです。
 
-First, run the development server:
+## 概要
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- セッション間の休憩時に次のセッション情報を表示
+- BGMとアニメーションで視覚的に魅力的なインターミッションを提供
+- OBS（配信ソフト）に組み込んで使用
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 技術スタック
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js 15** (App Router + Pages Router併用)
+- **React 19**
+- **TypeScript**
+- **PixiJS** - 2Dアニメーション
+- **Redux Toolkit (RTK Query)** - API状態管理
+- **Tailwind CSS**
+- **Video.js** - 動画再生
+- **next-pwa** - PWA対応
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 使い方
 
-## Learn More
+1. トップページ（`/`）にアクセス
+2. データソース（Dreamkast版 or 静的データ版）を選択
+3. Day（Day 0, 1, 2...）を選択
+4. 表示したいセッションを選択
 
-To learn more about Next.js, take a look at the following resources:
+メニューからOBS連携を選択すると、OBSにインポートできるシーンコレクションのJSONファイルをダウンロードできます。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 開発
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+開発者向けの詳細情報は [CONTRIBUTING.md](./CONTRIBUTING.md) を参照してください。
 
-## Deploy on Vercel
+## ライセンス
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+このプロジェクトはEMTECによって管理されています。
