@@ -3,6 +3,7 @@ type Props = {
   confDay: string | string[]
   trackName: string | string[]
   template: template[]
+  includeAttack?: boolean
 }
 
 type template = {
@@ -198,6 +199,148 @@ function createSceneWithBrowser(
 }
 
 /**
+ * アタック動画ソース（ffmpeg_source）を作成
+ */
+function createAttackVideoSource(name: string, sourceUuid: string) {
+  return {
+    prev_ver: 536870913,
+    name: name,
+    uuid: sourceUuid,
+    id: 'ffmpeg_source',
+    versioned_id: 'ffmpeg_source',
+    settings: {
+      close_when_inactive: true,
+      looping: false,
+    },
+    mixers: 255,
+    sync: 0,
+    flags: 0,
+    volume: 1.0,
+    balance: 0.5,
+    enabled: true,
+    muted: false,
+    'push-to-mute': false,
+    'push-to-mute-delay': 0,
+    'push-to-talk': false,
+    'push-to-talk-delay': 0,
+    hotkeys: {
+      'libobs.mute': [],
+      'libobs.unmute': [],
+      'libobs.push-to-mute': [],
+      'libobs.push-to-talk': [],
+      'MediaSource.Restart': [],
+      'MediaSource.Play': [],
+      'MediaSource.Pause': [],
+      'MediaSource.Stop': [],
+    },
+    deinterlace_mode: 0,
+    deinterlace_field_order: 0,
+    monitoring_type: 2,
+    private_settings: {},
+  }
+}
+
+/**
+ * アタック動画付きシーンを作成
+ */
+function createSceneWithAttackVideo(
+  sceneName: string,
+  videoSourceName: string,
+  videoSourceUuid: string,
+  sceneUuid: string
+) {
+  return {
+    prev_ver: 536870913,
+    name: sceneName,
+    uuid: sceneUuid,
+    id: 'scene',
+    versioned_id: 'scene',
+    settings: {
+      id_counter: 1,
+      custom_size: false,
+      items: [
+        {
+          name: videoSourceName,
+          source_uuid: videoSourceUuid,
+          visible: true,
+          locked: false,
+          rot: 0.0,
+          scale_ref: {
+            x: 1920.0,
+            y: 1080.0,
+          },
+          align: 5,
+          bounds_type: 0,
+          bounds_align: 0,
+          bounds_crop: false,
+          crop_left: 0,
+          crop_top: 0,
+          crop_right: 0,
+          crop_bottom: 0,
+          id: 1,
+          group_item_backup: false,
+          pos: {
+            x: 0.0,
+            y: 0.0,
+          },
+          pos_rel: {
+            x: -1.7777777910232544,
+            y: -1.0,
+          },
+          scale: {
+            x: 1.0,
+            y: 1.0,
+          },
+          scale_rel: {
+            x: 1.0,
+            y: 1.0,
+          },
+          bounds: {
+            x: 0.0,
+            y: 0.0,
+          },
+          bounds_rel: {
+            x: 0.0,
+            y: 0.0,
+          },
+          scale_filter: 'disable',
+          blend_method: 'default',
+          blend_type: 'normal',
+          show_transition: {
+            duration: 0,
+          },
+          hide_transition: {
+            duration: 0,
+          },
+          private_settings: {},
+        },
+      ],
+    },
+    mixers: 0,
+    sync: 0,
+    flags: 0,
+    volume: 1.0,
+    balance: 0.5,
+    enabled: true,
+    muted: false,
+    'push-to-mute': false,
+    'push-to-mute-delay': 0,
+    'push-to-talk': false,
+    'push-to-talk-delay': 0,
+    hotkeys: {
+      'OBSBasic.SelectScene': [],
+      'libobs.show_scene_item.1': [],
+      'libobs.hide_scene_item.1': [],
+    },
+    deinterlace_mode: 0,
+    deinterlace_field_order: 0,
+    monitoring_type: 0,
+    canvas_uuid: '6c69626f-6273-4c00-9d88-c5136d61696e',
+    private_settings: {},
+  }
+}
+
+/**
  * 区切り線シーンをJSONファイルから読み込み
  */
 async function loadSeparatorScenes(): Promise<object[]> {
@@ -268,6 +411,7 @@ export default function ObsSceneGenerate({
   confDay,
   trackName: _trackName,
   template,
+  includeAttack = false,
 }: Props) {
   const host = window.location.host
   const protocol = window.location.protocol
@@ -317,6 +461,33 @@ export default function ObsSceneGenerate({
       const browserName = `Browser_${tmpl.name}`
       const browserUuid = generateUUID()
       const sceneUuid = generateUUID()
+
+      // アタック動画シーンを追加（includeAttack=trueかつ通常のトーク枠の場合）
+      if (includeAttack && isDefault) {
+        const attackSceneName = `Attack_${tmpl.name}`
+        const attackVideoName = `Movie_Attack_${tmpl.name}`
+        const attackVideoUuid = generateUUID()
+        const attackSceneUuid = generateUUID()
+
+        // シーン順序にアタック動画を追加（トーク枠の前）
+        sceneOrder.push({ name: attackSceneName })
+
+        // アタック動画シーンを作成
+        const attackScene = createSceneWithAttackVideo(
+          attackSceneName,
+          attackVideoName,
+          attackVideoUuid,
+          attackSceneUuid
+        )
+        sources.push(attackScene)
+
+        // アタック動画ソースを作成
+        const attackVideoSource = createAttackVideoSource(
+          attackVideoName,
+          attackVideoUuid
+        )
+        sources.push(attackVideoSource)
+      }
 
       // シーン順序に追加
       if (isDefault) {

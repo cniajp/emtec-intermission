@@ -12,7 +12,7 @@ import {
 export default function ObsPage() {
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
-  const { confDay, trackName } = router.query
+  const { confDay, trackName, includeAttack } = router.query
   const { dkEventAbbr } = config
 
   useEffect(() => {
@@ -109,6 +109,7 @@ export default function ObsPage() {
       confDay,
       trackName,
       template,
+      includeAttack: includeAttack === 'true',
     })
 
     // menuページにリダイレクト

@@ -2,12 +2,12 @@ import '@/pages/globals-sub.css'
 import { useGetTalksAndTracksForMenu } from '@/components/hooks/useGetTalksAndTracks'
 import { MenuView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
-import type { Talk } from '@/data/types'
+import type { Talk, Track } from '@/data/types'
 import { getTimeStr } from '@/utils/time'
 import { Optional } from '@/utils/types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 type Props = {
   view: Optional<MenuView>
@@ -55,19 +55,7 @@ function TalkMenu({ view, confDay }: Props) {
           {view?.allTracks.map((track, i) => (
             <div key={i} className="text-lg">
               {track.name} -
-              <Link
-                className="ml-2 text-sm text-blue-400 hover:underline text-end"
-                href={{
-                  pathname: `/break-dk/obs`,
-                  query: {
-                    confDay: confDay,
-                    trackId: track.id,
-                    trackName: track.name,
-                  },
-                }}
-              >
-                OBS
-              </Link>
+              <ObsDropdown confDay={confDay} track={track} />
             </div>
           ))}
         </div>
@@ -108,5 +96,73 @@ function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
       <div>{talk.title}</div>
       <div>{talk.speakers[0]?.name}</div>
     </Link>
+  )
+}
+
+type ObsDropdownProps = {
+  confDay: string
+  track: Track
+}
+
+function ObsDropdown({ confDay, track }: ObsDropdownProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // クリック外で閉じる
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  return (
+    <div className="relative inline-block" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="ml-2 text-sm text-blue-400 hover:underline"
+      >
+        OBS
+      </button>
+      {isOpen && (
+        <div className="absolute z-10 mt-1 w-40 bg-gray-800 border border-gray-600 rounded shadow-lg">
+          <Link
+            href={{
+              pathname: `/break-dk/obs`,
+              query: {
+                confDay: confDay,
+                trackId: track.id,
+                trackName: track.name,
+              },
+            }}
+            className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+            onClick={() => setIsOpen(false)}
+          >
+            Standard
+          </Link>
+          <Link
+            href={{
+              pathname: `/break-dk/obs`,
+              query: {
+                confDay: confDay,
+                trackId: track.id,
+                trackName: track.name,
+                includeAttack: 'true',
+              },
+            }}
+            className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+            onClick={() => setIsOpen(false)}
+          >
+            With Attack
+          </Link>
+        </div>
+      )}
+    </div>
   )
 }
