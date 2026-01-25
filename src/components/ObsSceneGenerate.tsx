@@ -5,6 +5,7 @@ type Props = {
   template: template[]
   includeAttack?: boolean
   os?: 'windows' | 'mac'
+  username?: string
 }
 
 type template = {
@@ -201,12 +202,21 @@ function createSceneWithBrowser(
 
 /**
  * OS別の動画パスを生成
+ * パス形式: Desktop/{eventAbbr}/{trackName}/{time}.mp4
+ * 時刻のコロンはハイフンに置換（09:00 → 09-00）
  */
-function getAttackVideoPath(os: 'windows' | 'mac'): string {
+function getAttackVideoPath(
+  os: 'windows' | 'mac',
+  username: string,
+  eventAbbr: string,
+  trackName: string,
+  time: string
+): string {
+  const safeTime = time.replace(/:/g, '-')
   if (os === 'mac') {
-    return '/Users/Shared/OBS/attack.mp4'
+    return `/Users/${username}/Desktop/${eventAbbr}/${trackName}/${safeTime}.mp4`
   }
-  return 'C:/OBS/attack.mp4'
+  return `C:/Users/${username}/Desktop/${eventAbbr}/${trackName}/${safeTime}.mp4`
 }
 
 /**
@@ -215,7 +225,11 @@ function getAttackVideoPath(os: 'windows' | 'mac'): string {
 function createAttackVideoSource(
   name: string,
   sourceUuid: string,
-  os: 'windows' | 'mac'
+  os: 'windows' | 'mac',
+  username: string,
+  eventAbbr: string,
+  trackName: string,
+  time: string
 ) {
   return {
     prev_ver: 536870913,
@@ -224,7 +238,7 @@ function createAttackVideoSource(
     id: 'ffmpeg_source',
     versioned_id: 'ffmpeg_source',
     settings: {
-      local_file: getAttackVideoPath(os),
+      local_file: getAttackVideoPath(os, username, eventAbbr, trackName, time),
       close_when_inactive: true,
       looping: false,
     },
@@ -429,6 +443,7 @@ export default function ObsSceneGenerate({
   template,
   includeAttack = false,
   os = 'windows',
+  username = 'emtec',
 }: Props) {
   const host = window.location.host
   const protocol = window.location.protocol
@@ -502,7 +517,11 @@ export default function ObsSceneGenerate({
         const attackVideoSource = createAttackVideoSource(
           attackVideoName,
           attackVideoUuid,
-          os
+          os,
+          username,
+          abbr,
+          tName,
+          tmpl.name
         )
         sources.push(attackVideoSource)
       }

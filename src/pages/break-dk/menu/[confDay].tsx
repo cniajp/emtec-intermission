@@ -108,6 +108,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [os, setOs] = useState<'windows' | 'mac'>('windows')
   const [includeAttack, setIncludeAttack] = useState(false)
+  const [username, setUsername] = useState('emtec')
   const router = useRouter()
 
   const handleGenerate = () => {
@@ -119,6 +120,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
         trackName: track.name,
         includeAttack: includeAttack ? 'true' : 'false',
         os: os,
+        username: username,
       },
     })
     setIsOpen(false)
@@ -145,7 +147,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                 <label className="flex items-center">
                   <input
                     type="radio"
-                    name="os"
+                    name={`os-${track.id}`}
                     value="windows"
                     checked={os === 'windows'}
                     onChange={() => setOs('windows')}
@@ -156,7 +158,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                 <label className="flex items-center">
                   <input
                     type="radio"
-                    name="os"
+                    name={`os-${track.id}`}
                     value="mac"
                     checked={os === 'mac'}
                     onChange={() => setOs('mac')}
@@ -167,7 +169,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
               </div>
             </div>
 
-            <div className="mb-6">
+            <div className="mb-4">
               <label className="flex items-center">
                 <input
                   type="checkbox"
@@ -178,6 +180,24 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                 Include Attack Video Scenes
               </label>
             </div>
+
+            {includeAttack && (
+              <div className="mb-4">
+                <label className="block text-sm mb-2">Username</label>
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white text-sm"
+                  placeholder="OS username"
+                />
+                <div className="text-xs text-gray-400 mt-1">
+                  {os === 'mac'
+                    ? `/Users/${username}/Desktop/...`
+                    : `C:/Users/${username}/Desktop/...`}
+                </div>
+              </div>
+            )}
 
             <div className="flex gap-3 justify-end">
               <button
