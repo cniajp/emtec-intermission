@@ -391,7 +391,11 @@ export default function CompanionConfigGenerate({
       // row 2のボタン配置
       controls['2'] = {}
       const row2Start = 5
-      const row2MaxButtons = hasMultiplePages ? 4 : 5 // ページナビがある場合は4個まで
+      // ページナビがある場合: 1ページ目は4個、中間・最終ページは3個（戻る+次へ or 戻るのみ）
+      const needsPageUp = hasMultiplePages && !isFirstPage
+      const needsPageDown = hasMultiplePages && !isLastPage
+      const navButtonCount = (needsPageUp ? 1 : 0) + (needsPageDown ? 1 : 0)
+      const row2MaxButtons = 5 - navButtonCount
 
       for (let i = 0; i < row2MaxButtons; i++) {
         const itemIdx = buttonIndex + row2Start + i
@@ -412,14 +416,18 @@ export default function CompanionConfigGenerate({
         }
       }
 
-      // ページナビゲーションボタン (row 2, col 4)
+      // ページナビゲーションボタン (row 2)
       if (hasMultiplePages) {
-        if (isLastPage) {
-          // 最終ページ: pageup
-          controls['2']['4'] = createPageNavigationButton('pageup')
-        } else {
-          // 1ページ目・中間ページ: pagedown
+        if (needsPageUp && needsPageDown) {
+          // 中間ページ: col 3 に pageup、col 4 に pagedown
+          controls['2']['3'] = createPageNavigationButton('pageup')
           controls['2']['4'] = createPageNavigationButton('pagedown')
+        } else if (needsPageDown) {
+          // 1ページ目: col 4 に pagedown のみ
+          controls['2']['4'] = createPageNavigationButton('pagedown')
+        } else if (needsPageUp) {
+          // 最終ページ: col 4 に pageup のみ
+          controls['2']['4'] = createPageNavigationButton('pageup')
         }
       }
 
