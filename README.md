@@ -100,14 +100,6 @@ npm run dev
 npm run rtk-query-codegen
 ```
 
-### テスト
-
-```bash
-npm run test          # テスト実行
-npm run test:update   # スナップショット更新
-npm run test:coverage # カバレッジ取得
-```
-
 ### ビルド
 
 ```bash
