@@ -117,11 +117,7 @@ function createObsSetSceneAction(connectionId: string, scene: string): object {
 }
 
 // ボタン定義作成
-function createButton(
-  text: string,
-  size: string,
-  actions: object[]
-): object {
+function createButton(text: string, size: string, actions: object[]): object {
   return {
     type: 'button',
     style: {
@@ -147,9 +143,7 @@ function createButton(
 }
 
 // pageup/pagedownボタン作成
-function createPageNavigationButton(
-  direction: 'pageup' | 'pagedown'
-): object {
+function createPageNavigationButton(direction: 'pageup' | 'pagedown'): object {
   return {
     type: direction,
   }
@@ -384,7 +378,10 @@ export default function CompanionConfigGenerate({
 
       if (includeAttack) {
         // アタック有効時: row 1 に時刻、row 2 にアタック（縦揃え）
-        const timeSlotsThisPage = Math.min(maxColsPerRow, totalTimeSlots - timeIndex)
+        const timeSlotsThisPage = Math.min(
+          maxColsPerRow,
+          totalTimeSlots - timeIndex
+        )
 
         for (let i = 0; i < timeSlotsThisPage; i++) {
           const timeBtn = timeButtons[timeIndex + i]
@@ -393,37 +390,70 @@ export default function CompanionConfigGenerate({
           // row 1: 時刻ボタン
           const timeActions: object[] = []
           if (device === 'gostream') {
-            timeActions.push(createGoStreamAction(deviceConnectionId, timeBtn.macroIndex))
+            timeActions.push(
+              createGoStreamAction(deviceConnectionId, timeBtn.macroIndex)
+            )
           } else {
-            timeActions.push(...createVR6HDActions(deviceConnectionId, timeBtn.dthCode))
+            timeActions.push(
+              ...createVR6HDActions(deviceConnectionId, timeBtn.dthCode)
+            )
           }
-          timeActions.push(createObsSetSceneAction(obsConnectionId, timeBtn.obsScene))
-          controls['1'][i.toString()] = createButton(timeBtn.text, '24', timeActions)
+          timeActions.push(
+            createObsSetSceneAction(obsConnectionId, timeBtn.obsScene)
+          )
+          controls['1'][i.toString()] = createButton(
+            timeBtn.text,
+            '24',
+            timeActions
+          )
 
           // row 2: アタック動画ボタン
           const attackActions: object[] = []
           if (device === 'gostream') {
-            attackActions.push(createGoStreamAction(deviceConnectionId, attackBtn.macroIndex))
+            attackActions.push(
+              createGoStreamAction(deviceConnectionId, attackBtn.macroIndex)
+            )
           } else {
-            attackActions.push(...createVR6HDActions(deviceConnectionId, attackBtn.dthCode))
+            attackActions.push(
+              ...createVR6HDActions(deviceConnectionId, attackBtn.dthCode)
+            )
           }
-          attackActions.push(createObsSetSceneAction(obsConnectionId, attackBtn.obsScene))
-          controls['2'][i.toString()] = createButton(attackBtn.text, '24', attackActions)
+          attackActions.push(
+            createObsSetSceneAction(obsConnectionId, attackBtn.obsScene)
+          )
+          controls['2'][i.toString()] = createButton(
+            attackBtn.text,
+            '24',
+            attackActions
+          )
         }
 
         // 最終ページで特殊ボタンをrow 2の空きに配置
         if (isLastPage) {
           let specialCol = timeSlotsThisPage
-          while (specialIndex < totalSpecialButtons && specialCol < maxColsPerRow) {
+          while (
+            specialIndex < totalSpecialButtons &&
+            specialCol < maxColsPerRow
+          ) {
             const specialBtn = specialButtonItems[specialIndex]
             const specialActions: object[] = []
             if (device === 'gostream') {
-              specialActions.push(createGoStreamAction(deviceConnectionId, specialBtn.macroIndex))
+              specialActions.push(
+                createGoStreamAction(deviceConnectionId, specialBtn.macroIndex)
+              )
             } else {
-              specialActions.push(...createVR6HDActions(deviceConnectionId, specialBtn.dthCode))
+              specialActions.push(
+                ...createVR6HDActions(deviceConnectionId, specialBtn.dthCode)
+              )
             }
-            specialActions.push(createObsSetSceneAction(obsConnectionId, specialBtn.obsScene))
-            controls['2'][specialCol.toString()] = createButton(specialBtn.text, '24', specialActions)
+            specialActions.push(
+              createObsSetSceneAction(obsConnectionId, specialBtn.obsScene)
+            )
+            controls['2'][specialCol.toString()] = createButton(
+              specialBtn.text,
+              '24',
+              specialActions
+            )
             specialCol++
             specialIndex++
           }
@@ -433,7 +463,10 @@ export default function CompanionConfigGenerate({
       } else {
         // アタック無効時: 従来の順番配置
         const allButtons = [...timeButtons, ...specialButtonItems]
-        const buttonsThisPage = Math.min(slotsPerPage, allButtons.length - timeIndex)
+        const buttonsThisPage = Math.min(
+          slotsPerPage,
+          allButtons.length - timeIndex
+        )
 
         // row 1のボタン配置
         for (let i = 0; i < Math.min(maxColsPerRow, buttonsThisPage); i++) {
@@ -442,11 +475,17 @@ export default function CompanionConfigGenerate({
             const actions: object[] = []
 
             if (device === 'gostream') {
-              actions.push(createGoStreamAction(deviceConnectionId, item.macroIndex))
+              actions.push(
+                createGoStreamAction(deviceConnectionId, item.macroIndex)
+              )
             } else {
-              actions.push(...createVR6HDActions(deviceConnectionId, item.dthCode))
+              actions.push(
+                ...createVR6HDActions(deviceConnectionId, item.dthCode)
+              )
             }
-            actions.push(createObsSetSceneAction(obsConnectionId, item.obsScene))
+            actions.push(
+              createObsSetSceneAction(obsConnectionId, item.obsScene)
+            )
 
             controls['1'][i.toString()] = createButton(item.text, '24', actions)
           }
@@ -461,11 +500,17 @@ export default function CompanionConfigGenerate({
             const actions: object[] = []
 
             if (device === 'gostream') {
-              actions.push(createGoStreamAction(deviceConnectionId, item.macroIndex))
+              actions.push(
+                createGoStreamAction(deviceConnectionId, item.macroIndex)
+              )
             } else {
-              actions.push(...createVR6HDActions(deviceConnectionId, item.dthCode))
+              actions.push(
+                ...createVR6HDActions(deviceConnectionId, item.dthCode)
+              )
             }
-            actions.push(createObsSetSceneAction(obsConnectionId, item.obsScene))
+            actions.push(
+              createObsSetSceneAction(obsConnectionId, item.obsScene)
+            )
 
             controls['2'][i.toString()] = createButton(item.text, '24', actions)
           }
