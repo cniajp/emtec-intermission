@@ -203,7 +203,7 @@ function createSceneWithBrowser(
 /**
  * OS別の動画パスを生成
  * パス形式: Desktop/{eventAbbr}/{trackName}/{time}.mp4
- * 時刻のコロンはハイフンに置換（09:00 → 09-00）
+ * 時刻のコロンを削除（09:00 → 0900）
  */
 function getAttackVideoPath(
   os: 'windows' | 'mac',
@@ -212,7 +212,7 @@ function getAttackVideoPath(
   trackName: string,
   time: string
 ): string {
-  const safeTime = time.replace(/:/g, '-')
+  const safeTime = time.replace(/:/g, '')
   if (os === 'mac') {
     return `/Users/${username}/Desktop/${eventAbbr}/${trackName}/${safeTime}.mp4`
   }

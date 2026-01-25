@@ -136,7 +136,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
       </button>
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-          <div className="bg-gray-800 border border-gray-600 rounded-xl shadow-2xl p-8 w-[480px]">
+          <div className="bg-gray-800 border border-gray-600 rounded-xl shadow-2xl p-8 w-[640px]">
             <h3 className="text-xl font-bold mb-6 text-center border-b border-gray-600 pb-4">
               OBS Scene Config - Track {track.name}
             </h3>
@@ -202,8 +202,8 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                 />
                 <div className="mt-3 p-3 bg-gray-900 rounded text-xs text-gray-400 font-mono break-all">
                   {os === 'mac'
-                    ? `/Users/${username}/Desktop/{event}/{track}/{time}.mp4`
-                    : `C:/Users/${username}/Desktop/{event}/{track}/{time}.mp4`}
+                    ? `/Users/${username}/Desktop/{event}/{track}/0900.mp4`
+                    : `C:/Users/${username}/Desktop/{event}/{track}/0900.mp4`}
                 </div>
               </div>
             )}
