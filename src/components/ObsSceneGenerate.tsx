@@ -3,6 +3,9 @@ type Props = {
   confDay: string | string[]
   trackName: string | string[]
   template: template[]
+  includeAttack?: boolean
+  os?: 'windows' | 'mac'
+  username?: string
 }
 
 type template = {
@@ -198,6 +201,176 @@ function createSceneWithBrowser(
 }
 
 /**
+ * OS別の動画パスを生成
+ * パス形式: Desktop/{eventAbbr}/{trackName}/{time}.mp4
+ * 時刻のコロンを削除（09:00 → 0900）
+ */
+function getAttackVideoPath(
+  os: 'windows' | 'mac',
+  username: string,
+  eventAbbr: string,
+  trackName: string,
+  time: string
+): string {
+  const safeTime = time.replace(/:/g, '')
+  if (os === 'mac') {
+    return `/Users/${username}/Desktop/${eventAbbr}/${trackName}/${safeTime}.mp4`
+  }
+  return `C:/Users/${username}/Desktop/${eventAbbr}/${trackName}/${safeTime}.mp4`
+}
+
+/**
+ * アタック動画ソース（ffmpeg_source）を作成
+ */
+function createAttackVideoSource(
+  name: string,
+  sourceUuid: string,
+  os: 'windows' | 'mac',
+  username: string,
+  eventAbbr: string,
+  trackName: string,
+  time: string
+) {
+  return {
+    prev_ver: 536870913,
+    name: name,
+    uuid: sourceUuid,
+    id: 'ffmpeg_source',
+    versioned_id: 'ffmpeg_source',
+    settings: {
+      local_file: getAttackVideoPath(os, username, eventAbbr, trackName, time),
+      close_when_inactive: true,
+      looping: false,
+    },
+    mixers: 255,
+    sync: 0,
+    flags: 0,
+    volume: 1.0,
+    balance: 0.5,
+    enabled: true,
+    muted: false,
+    'push-to-mute': false,
+    'push-to-mute-delay': 0,
+    'push-to-talk': false,
+    'push-to-talk-delay': 0,
+    hotkeys: {
+      'libobs.mute': [],
+      'libobs.unmute': [],
+      'libobs.push-to-mute': [],
+      'libobs.push-to-talk': [],
+      'MediaSource.Restart': [],
+      'MediaSource.Play': [],
+      'MediaSource.Pause': [],
+      'MediaSource.Stop': [],
+    },
+    deinterlace_mode: 0,
+    deinterlace_field_order: 0,
+    monitoring_type: 2,
+    private_settings: {},
+  }
+}
+
+/**
+ * アタック動画付きシーンを作成
+ */
+function createSceneWithAttackVideo(
+  sceneName: string,
+  videoSourceName: string,
+  videoSourceUuid: string,
+  sceneUuid: string
+) {
+  return {
+    prev_ver: 536870913,
+    name: sceneName,
+    uuid: sceneUuid,
+    id: 'scene',
+    versioned_id: 'scene',
+    settings: {
+      id_counter: 1,
+      custom_size: false,
+      items: [
+        {
+          name: videoSourceName,
+          source_uuid: videoSourceUuid,
+          visible: true,
+          locked: false,
+          rot: 0.0,
+          scale_ref: {
+            x: 1920.0,
+            y: 1080.0,
+          },
+          align: 5,
+          bounds_type: 0,
+          bounds_align: 0,
+          bounds_crop: false,
+          crop_left: 0,
+          crop_top: 0,
+          crop_right: 0,
+          crop_bottom: 0,
+          id: 1,
+          group_item_backup: false,
+          pos: {
+            x: 0.0,
+            y: 0.0,
+          },
+          pos_rel: {
+            x: -1.7777777910232544,
+            y: -1.0,
+          },
+          scale: {
+            x: 1.0,
+            y: 1.0,
+          },
+          scale_rel: {
+            x: 1.0,
+            y: 1.0,
+          },
+          bounds: {
+            x: 0.0,
+            y: 0.0,
+          },
+          bounds_rel: {
+            x: 0.0,
+            y: 0.0,
+          },
+          scale_filter: 'disable',
+          blend_method: 'default',
+          blend_type: 'normal',
+          show_transition: {
+            duration: 0,
+          },
+          hide_transition: {
+            duration: 0,
+          },
+          private_settings: {},
+        },
+      ],
+    },
+    mixers: 0,
+    sync: 0,
+    flags: 0,
+    volume: 1.0,
+    balance: 0.5,
+    enabled: true,
+    muted: false,
+    'push-to-mute': false,
+    'push-to-mute-delay': 0,
+    'push-to-talk': false,
+    'push-to-talk-delay': 0,
+    hotkeys: {
+      'OBSBasic.SelectScene': [],
+      'libobs.show_scene_item.1': [],
+      'libobs.hide_scene_item.1': [],
+    },
+    deinterlace_mode: 0,
+    deinterlace_field_order: 0,
+    monitoring_type: 0,
+    canvas_uuid: '6c69626f-6273-4c00-9d88-c5136d61696e',
+    private_settings: {},
+  }
+}
+
+/**
  * 区切り線シーンをJSONファイルから読み込み
  */
 async function loadSeparatorScenes(): Promise<object[]> {
@@ -211,6 +384,43 @@ async function loadSeparatorScenes(): Promise<object[]> {
     console.error('Error loading separator scenes:', error)
     // フォールバック: 空の配列を返す
     return []
+  }
+}
+
+/**
+ * 区切り線シーンを動的に生成
+ */
+function createSeparatorScene(name: string) {
+  return {
+    prev_ver: 536870913,
+    name: name,
+    uuid: generateUUID(),
+    id: 'scene',
+    versioned_id: 'scene',
+    settings: {
+      id_counter: 0,
+      custom_size: false,
+      items: [],
+    },
+    mixers: 0,
+    sync: 0,
+    flags: 0,
+    volume: 1.0,
+    balance: 0.5,
+    enabled: true,
+    muted: false,
+    'push-to-mute': false,
+    'push-to-mute-delay': 0,
+    'push-to-talk': false,
+    'push-to-talk-delay': 0,
+    hotkeys: {
+      'OBSBasic.SelectScene': [],
+    },
+    deinterlace_mode: 0,
+    deinterlace_field_order: 0,
+    monitoring_type: 0,
+    canvas_uuid: '6c69626f-6273-4c00-9d88-c5136d61696e',
+    private_settings: {},
   }
 }
 
@@ -268,6 +478,9 @@ export default function ObsSceneGenerate({
   confDay,
   trackName: _trackName,
   template,
+  includeAttack = false,
+  os = 'windows',
+  username = 'emtec',
 }: Props) {
   const host = window.location.host
   const protocol = window.location.protocol
@@ -310,6 +523,9 @@ export default function ObsSceneGenerate({
     const separatorScenes = await loadSeparatorScenes()
     sources.push(...separatorScenes)
 
+    // アタック動画用の一時リスト
+    const attackSceneOrders: { name: string }[] = []
+
     // テンプレートからシーンとブラウザソースを生成
     template.forEach((tmpl) => {
       const isDefault = tmpl.name !== 'Slido'
@@ -318,7 +534,7 @@ export default function ObsSceneGenerate({
       const browserUuid = generateUUID()
       const sceneUuid = generateUUID()
 
-      // シーン順序に追加
+      // シーン順序に追加（トーク枠）
       if (isDefault) {
         sceneOrder.push({ name: sceneName })
       }
@@ -341,7 +557,48 @@ export default function ObsSceneGenerate({
         isDefault ? true : false
       )
       sources.push(browserSource)
+
+      // アタック動画シーンを作成（includeAttack=trueかつ通常のトーク枠の場合）
+      if (includeAttack && isDefault) {
+        const attackSceneName = `Attack_${tmpl.name}`
+        const attackVideoName = `Movie_Attack_${tmpl.name}`
+        const attackVideoUuid = generateUUID()
+        const attackSceneUuid = generateUUID()
+
+        // アタック動画シーン順序を一時リストに追加
+        attackSceneOrders.push({ name: attackSceneName })
+
+        // アタック動画シーンを作成
+        const attackScene = createSceneWithAttackVideo(
+          attackSceneName,
+          attackVideoName,
+          attackVideoUuid,
+          attackSceneUuid
+        )
+        sources.push(attackScene)
+
+        // アタック動画ソースを作成
+        const attackVideoSource = createAttackVideoSource(
+          attackVideoName,
+          attackVideoUuid,
+          os,
+          username,
+          abbr,
+          tName,
+          tmpl.name
+        )
+        sources.push(attackVideoSource)
+      }
     })
+
+    // アタック動画がある場合、区切り線を追加してからアタック動画シーンを追加
+    if (includeAttack && attackSceneOrders.length > 0) {
+      const attackSeparatorName = '--------'
+      sceneOrder.push({ name: attackSeparatorName })
+      sceneOrder.push(...attackSceneOrders)
+      // 区切り線シーンをsourcesに追加
+      sources.push(createSeparatorScene(attackSeparatorName))
+    }
 
     // 固定ソースをJSONから読み込んで追加
     const fixedSources = await loadFixedSources()
