@@ -7,7 +7,7 @@ import { Talk } from '@/data/types'
 
 export default function ObsPage() {
   const router = useRouter()
-  const { confDay, trackId, trackName, includeAttack } = router.query
+  const { confDay, trackId, trackName, includeAttack, os } = router.query
   const { eventAbbr } = config
 
   useEffect(() => {
@@ -45,6 +45,7 @@ export default function ObsPage() {
       trackName,
       template,
       includeAttack: includeAttack === 'true',
+      os: (os as 'windows' | 'mac') || 'windows',
     })
 
     // menuページにリダイレクト

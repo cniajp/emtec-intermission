@@ -4,6 +4,7 @@ type Props = {
   trackName: string | string[]
   template: template[]
   includeAttack?: boolean
+  os?: 'windows' | 'mac'
 }
 
 type template = {
@@ -199,9 +200,23 @@ function createSceneWithBrowser(
 }
 
 /**
+ * OS別の動画パスを生成
+ */
+function getAttackVideoPath(os: 'windows' | 'mac'): string {
+  if (os === 'mac') {
+    return '/Users/Shared/OBS/attack.mp4'
+  }
+  return 'C:/OBS/attack.mp4'
+}
+
+/**
  * アタック動画ソース（ffmpeg_source）を作成
  */
-function createAttackVideoSource(name: string, sourceUuid: string) {
+function createAttackVideoSource(
+  name: string,
+  sourceUuid: string,
+  os: 'windows' | 'mac'
+) {
   return {
     prev_ver: 536870913,
     name: name,
@@ -209,6 +224,7 @@ function createAttackVideoSource(name: string, sourceUuid: string) {
     id: 'ffmpeg_source',
     versioned_id: 'ffmpeg_source',
     settings: {
+      local_file: getAttackVideoPath(os),
       close_when_inactive: true,
       looping: false,
     },
@@ -412,6 +428,7 @@ export default function ObsSceneGenerate({
   trackName: _trackName,
   template,
   includeAttack = false,
+  os = 'windows',
 }: Props) {
   const host = window.location.host
   const protocol = window.location.protocol
@@ -484,7 +501,8 @@ export default function ObsSceneGenerate({
         // アタック動画ソースを作成
         const attackVideoSource = createAttackVideoSource(
           attackVideoName,
-          attackVideoUuid
+          attackVideoUuid,
+          os
         )
         sources.push(attackVideoSource)
       }

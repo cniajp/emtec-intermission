@@ -7,7 +7,7 @@ import { getTimeStr } from '@/utils/time'
 import { Optional } from '@/utils/types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
 type Props = {
   view: Optional<MenuView>
@@ -55,7 +55,7 @@ function TalkMenu({ view, confDay }: Props) {
           {view?.allTracks.map((track, i) => (
             <div key={i} className="text-lg">
               {track.name} -
-              <ObsDropdown confDay={confDay} track={track} />
+              <ObsModal confDay={confDay} track={track} />
             </div>
           ))}
         </div>
@@ -99,70 +99,103 @@ function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
   )
 }
 
-type ObsDropdownProps = {
+type ObsModalProps = {
   confDay: string
   track: Track
 }
 
-function ObsDropdown({ confDay, track }: ObsDropdownProps) {
+function ObsModal({ confDay, track }: ObsModalProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const [os, setOs] = useState<'windows' | 'mac'>('windows')
+  const [includeAttack, setIncludeAttack] = useState(false)
+  const router = useRouter()
 
-  // クリック外で閉じる
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+  const handleGenerate = () => {
+    router.push({
+      pathname: `/break-dk/obs`,
+      query: {
+        confDay: confDay,
+        trackId: track.id,
+        trackName: track.name,
+        includeAttack: includeAttack ? 'true' : 'false',
+        os: os,
+      },
+    })
+    setIsOpen(false)
+  }
 
   return (
-    <div className="relative inline-block" ref={dropdownRef}>
+    <>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(true)}
         className="ml-2 text-sm text-blue-400 hover:underline"
       >
         OBS
       </button>
       {isOpen && (
-        <div className="absolute z-10 mt-1 w-40 bg-gray-800 border border-gray-600 rounded shadow-lg">
-          <Link
-            href={{
-              pathname: `/break-dk/obs`,
-              query: {
-                confDay: confDay,
-                trackId: track.id,
-                trackName: track.name,
-              },
-            }}
-            className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
-            onClick={() => setIsOpen(false)}
-          >
-            Standard
-          </Link>
-          <Link
-            href={{
-              pathname: `/break-dk/obs`,
-              query: {
-                confDay: confDay,
-                trackId: track.id,
-                trackName: track.name,
-                includeAttack: 'true',
-              },
-            }}
-            className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
-            onClick={() => setIsOpen(false)}
-          >
-            With Attack
-          </Link>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-gray-800 border border-gray-600 rounded-lg p-6 w-80">
+            <h3 className="text-lg font-bold mb-4">
+              OBS Config - Track {track.name}
+            </h3>
+
+            <div className="mb-4">
+              <label className="block text-sm mb-2">OS</label>
+              <div className="flex gap-4">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="os"
+                    value="windows"
+                    checked={os === 'windows'}
+                    onChange={() => setOs('windows')}
+                    className="mr-2"
+                  />
+                  Windows
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="os"
+                    value="mac"
+                    checked={os === 'mac'}
+                    onChange={() => setOs('mac')}
+                    className="mr-2"
+                  />
+                  Mac
+                </label>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={includeAttack}
+                  onChange={(e) => setIncludeAttack(e.target.checked)}
+                  className="mr-2"
+                />
+                Include Attack Video Scenes
+              </label>
+            </div>
+
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setIsOpen(false)}
+                className="px-4 py-2 text-sm bg-gray-600 hover:bg-gray-500 rounded"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleGenerate}
+                className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 rounded"
+              >
+                Generate
+              </button>
+            </div>
+          </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
