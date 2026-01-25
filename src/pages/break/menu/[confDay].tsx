@@ -131,52 +131,52 @@ function ObsModal({ confDay, track }: ObsModalProps) {
       </button>
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-          <div className="bg-gray-800 border border-gray-600 rounded-xl shadow-2xl p-8 w-[640px]">
-            <h3 className="text-xl font-bold mb-6 text-center border-b border-gray-600 pb-4">
+          <div className="bg-gray-800 border border-gray-600 rounded-xl shadow-2xl p-6 w-[560px] text-sm">
+            <h3 className="text-base font-bold mb-4 text-center border-b border-gray-600 pb-3">
               OBS Scene Config - Track {track.name}
             </h3>
 
-            <div className="grid grid-cols-2 gap-6 mb-6">
-              <div className="bg-gray-700/50 rounded-lg p-4">
-                <label className="block text-sm font-medium mb-3">
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="bg-gray-700/50 rounded-lg p-3">
+                <label className="block text-xs font-medium mb-2">
                   Operating System
                 </label>
-                <div className="flex flex-col gap-2">
-                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-2 rounded">
+                <div className="flex flex-col gap-1">
+                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-1.5 rounded text-xs">
                     <input
                       type="radio"
                       name={`os-${track.id}`}
                       value="windows"
                       checked={os === 'windows'}
                       onChange={() => setOs('windows')}
-                      className="mr-3 w-4 h-4"
+                      className="mr-2 w-3 h-3"
                     />
                     Windows
                   </label>
-                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-2 rounded">
+                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-1.5 rounded text-xs">
                     <input
                       type="radio"
                       name={`os-${track.id}`}
                       value="mac"
                       checked={os === 'mac'}
                       onChange={() => setOs('mac')}
-                      className="mr-3 w-4 h-4"
+                      className="mr-2 w-3 h-3"
                     />
                     Mac
                   </label>
                 </div>
               </div>
 
-              <div className="bg-gray-700/50 rounded-lg p-4">
-                <label className="block text-sm font-medium mb-3">
+              <div className="bg-gray-700/50 rounded-lg p-3">
+                <label className="block text-xs font-medium mb-2">
                   Options
                 </label>
-                <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-2 rounded">
+                <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-1.5 rounded text-xs">
                   <input
                     type="checkbox"
                     checked={includeAttack}
                     onChange={(e) => setIncludeAttack(e.target.checked)}
-                    className="mr-3 w-4 h-4"
+                    className="mr-2 w-3 h-3"
                   />
                   Include Attack Videos
                 </label>
@@ -184,18 +184,18 @@ function ObsModal({ confDay, track }: ObsModalProps) {
             </div>
 
             {includeAttack && (
-              <div className="bg-gray-700/50 rounded-lg p-4 mb-6">
-                <label className="block text-sm font-medium mb-2">
+              <div className="bg-gray-700/50 rounded-lg p-3 mb-4">
+                <label className="block text-xs font-medium mb-1">
                   Username (for video path)
                 </label>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-4 py-2 bg-gray-900 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3 py-1.5 bg-gray-900 border border-gray-600 rounded text-xs text-white focus:outline-none focus:border-blue-500"
                   placeholder="OS username"
                 />
-                <div className="mt-3 p-3 bg-gray-900 rounded text-xs text-gray-400 font-mono break-all">
+                <div className="mt-2 p-2 bg-gray-900 rounded text-[10px] text-gray-400 font-mono break-all">
                   {os === 'mac'
                     ? `/Users/${username}/Desktop/{event}/{track}/0900.mp4`
                     : `C:/Users/${username}/Desktop/{event}/{track}/0900.mp4`}
@@ -203,16 +203,16 @@ function ObsModal({ confDay, track }: ObsModalProps) {
               </div>
             )}
 
-            <div className="flex gap-4 justify-end pt-4 border-t border-gray-600">
+            <div className="flex gap-3 justify-end pt-3 border-t border-gray-600">
               <button
                 onClick={() => setIsOpen(false)}
-                className="px-6 py-2.5 bg-gray-600 hover:bg-gray-500 rounded-lg transition-colors"
+                className="px-4 py-1.5 text-xs bg-gray-600 hover:bg-gray-500 rounded transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={handleGenerate}
-                className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors font-medium"
+                className="px-4 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded transition-colors font-medium"
               >
                 Generate JSON
               </button>
