@@ -190,6 +190,15 @@ function ObsModal({ confDay, track }: ObsModalProps) {
 
             {includeAttack && (
               <div className="bg-gray-700/50 rounded-lg p-3 mb-4">
+                <div className="mb-3 p-2 bg-blue-900/30 border border-blue-700/50 rounded text-[10px] text-blue-200">
+                  <div className="font-medium mb-1">Video File Setup:</div>
+                  <div className="text-blue-300/80">
+                    Save attack videos to Desktop/{'{event}'}/{'{track}'}/
+                    {'{HHMM}'}.mp4
+                    <br />
+                    Example: Desktop/srekaigi2026/A/0900.mp4
+                  </div>
+                </div>
                 <label className="block text-xs font-medium mb-1">
                   Username (for video path)
                 </label>
