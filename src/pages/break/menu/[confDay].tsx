@@ -106,6 +106,7 @@ function CompanionModal({ confDay, track }: ObsModalProps) {
   const [includeCount, setIncludeCount] = useState(true)
   const [includeTrackA, setIncludeTrackA] = useState(false)
   const [includeSlido, setIncludeSlido] = useState(false)
+  const [includeAttack, setIncludeAttack] = useState(false)
   const router = useRouter()
 
   const handleGenerate = () => {
@@ -119,6 +120,7 @@ function CompanionModal({ confDay, track }: ObsModalProps) {
         includeCount: includeCount ? 'true' : 'false',
         includeTrackA: includeTrackA ? 'true' : 'false',
         includeSlido: includeSlido ? 'true' : 'false',
+        includeAttack: includeAttack ? 'true' : 'false',
       },
     })
     setIsOpen(false)
@@ -199,6 +201,15 @@ function CompanionModal({ confDay, track }: ObsModalProps) {
                       className="mr-2 w-3 h-3"
                     />
                     Slido
+                  </label>
+                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-1.5 rounded text-xs">
+                    <input
+                      type="checkbox"
+                      checked={includeAttack}
+                      onChange={(e) => setIncludeAttack(e.target.checked)}
+                      className="mr-2 w-3 h-3"
+                    />
+                    Attack Videos
                   </label>
                 </div>
               </div>

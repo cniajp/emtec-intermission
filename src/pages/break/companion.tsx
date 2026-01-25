@@ -14,6 +14,7 @@ export default function CompanionPage() {
     includeCount,
     includeTrackA,
     includeSlido,
+    includeAttack,
   } = router.query
 
   useEffect(() => {
@@ -51,6 +52,7 @@ export default function CompanionPage() {
         trackA: includeTrackA === 'true',
         slido: includeSlido === 'true',
       },
+      includeAttack: includeAttack === 'true',
     })
 
     // menuページにリダイレクト
@@ -63,6 +65,7 @@ export default function CompanionPage() {
     includeCount,
     includeTrackA,
     includeSlido,
+    includeAttack,
     router,
   ])
 

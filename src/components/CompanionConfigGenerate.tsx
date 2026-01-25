@@ -6,6 +6,7 @@ type Props = {
     trackA?: boolean
     slido?: boolean
   }
+  includeAttack?: boolean
 }
 
 // nanoid互換の21文字ID生成
@@ -259,6 +260,7 @@ export default function CompanionConfigGenerate({
   device,
   times,
   specialButtons,
+  includeAttack = false,
 }: Props) {
   const generateConfig = () => {
     // 接続設定を生成
@@ -286,6 +288,19 @@ export default function CompanionConfigGenerate({
         dthCode: '05',
       })
     })
+
+    // アタック動画ボタンを追加
+    if (includeAttack) {
+      times.forEach((time) => {
+        buttonItems.push({
+          type: 'time',
+          text: `A_${time}`,
+          obsScene: `Attack_${time}`,
+          macroIndex: 5,
+          dthCode: '05',
+        })
+      })
+    }
 
     // 特殊ボタンを追加
     if (specialButtons.count) {
