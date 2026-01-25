@@ -388,6 +388,43 @@ async function loadSeparatorScenes(): Promise<object[]> {
 }
 
 /**
+ * 区切り線シーンを動的に生成
+ */
+function createSeparatorScene(name: string) {
+  return {
+    prev_ver: 536870913,
+    name: name,
+    uuid: generateUUID(),
+    id: 'scene',
+    versioned_id: 'scene',
+    settings: {
+      id_counter: 0,
+      custom_size: false,
+      items: [],
+    },
+    mixers: 0,
+    sync: 0,
+    flags: 0,
+    volume: 1.0,
+    balance: 0.5,
+    enabled: true,
+    muted: false,
+    'push-to-mute': false,
+    'push-to-mute-delay': 0,
+    'push-to-talk': false,
+    'push-to-talk-delay': 0,
+    hotkeys: {
+      'OBSBasic.SelectScene': [],
+    },
+    deinterlace_mode: 0,
+    deinterlace_field_order: 0,
+    monitoring_type: 0,
+    canvas_uuid: '6c69626f-6273-4c00-9d88-c5136d61696e',
+    private_settings: {},
+  }
+}
+
+/**
  * OBSクイックトランジション設定を作成
  */
 function createQuickTransitions() {
@@ -486,6 +523,9 @@ export default function ObsSceneGenerate({
     const separatorScenes = await loadSeparatorScenes()
     sources.push(...separatorScenes)
 
+    // アタック動画用の一時リスト
+    const attackSceneOrders: { name: string }[] = []
+
     // テンプレートからシーンとブラウザソースを生成
     template.forEach((tmpl) => {
       const isDefault = tmpl.name !== 'Slido'
@@ -494,39 +534,7 @@ export default function ObsSceneGenerate({
       const browserUuid = generateUUID()
       const sceneUuid = generateUUID()
 
-      // アタック動画シーンを追加（includeAttack=trueかつ通常のトーク枠の場合）
-      if (includeAttack && isDefault) {
-        const attackSceneName = `Attack_${tmpl.name}`
-        const attackVideoName = `Movie_Attack_${tmpl.name}`
-        const attackVideoUuid = generateUUID()
-        const attackSceneUuid = generateUUID()
-
-        // シーン順序にアタック動画を追加（トーク枠の前）
-        sceneOrder.push({ name: attackSceneName })
-
-        // アタック動画シーンを作成
-        const attackScene = createSceneWithAttackVideo(
-          attackSceneName,
-          attackVideoName,
-          attackVideoUuid,
-          attackSceneUuid
-        )
-        sources.push(attackScene)
-
-        // アタック動画ソースを作成
-        const attackVideoSource = createAttackVideoSource(
-          attackVideoName,
-          attackVideoUuid,
-          os,
-          username,
-          abbr,
-          tName,
-          tmpl.name
-        )
-        sources.push(attackVideoSource)
-      }
-
-      // シーン順序に追加
+      // シーン順序に追加（トーク枠）
       if (isDefault) {
         sceneOrder.push({ name: sceneName })
       }
@@ -549,7 +557,48 @@ export default function ObsSceneGenerate({
         isDefault ? true : false
       )
       sources.push(browserSource)
+
+      // アタック動画シーンを作成（includeAttack=trueかつ通常のトーク枠の場合）
+      if (includeAttack && isDefault) {
+        const attackSceneName = `Attack_${tmpl.name}`
+        const attackVideoName = `Movie_Attack_${tmpl.name}`
+        const attackVideoUuid = generateUUID()
+        const attackSceneUuid = generateUUID()
+
+        // アタック動画シーン順序を一時リストに追加
+        attackSceneOrders.push({ name: attackSceneName })
+
+        // アタック動画シーンを作成
+        const attackScene = createSceneWithAttackVideo(
+          attackSceneName,
+          attackVideoName,
+          attackVideoUuid,
+          attackSceneUuid
+        )
+        sources.push(attackScene)
+
+        // アタック動画ソースを作成
+        const attackVideoSource = createAttackVideoSource(
+          attackVideoName,
+          attackVideoUuid,
+          os,
+          username,
+          abbr,
+          tName,
+          tmpl.name
+        )
+        sources.push(attackVideoSource)
+      }
     })
+
+    // アタック動画がある場合、区切り線を追加してからアタック動画シーンを追加
+    if (includeAttack && attackSceneOrders.length > 0) {
+      const attackSeparatorName = '--------'
+      sceneOrder.push({ name: attackSeparatorName })
+      sceneOrder.push(...attackSceneOrders)
+      // 区切り線シーンをsourcesに追加
+      sources.push(createSeparatorScene(attackSeparatorName))
+    }
 
     // 固定ソースをJSONから読み込んで追加
     const fixedSources = await loadFixedSources()
