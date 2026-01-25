@@ -276,47 +276,42 @@ export default function CompanionConfigGenerate({
       dthCode: string
     }
 
-    const buttonItems: ButtonItem[] = []
+    // 時刻ボタンリスト
+    const timeButtons: ButtonItem[] = times.map((time) => ({
+      type: 'time' as const,
+      text: time,
+      obsScene: `${time} ~`,
+      macroIndex: 5,
+      dthCode: '05',
+    }))
 
-    // 時刻ボタンを追加
-    times.forEach((time) => {
-      buttonItems.push({
-        type: 'time',
-        text: time,
-        obsScene: `${time} ~`,
-        macroIndex: 5,
-        dthCode: '05',
-      })
-    })
-
-    // アタック動画ボタンを追加
-    if (includeAttack) {
-      times.forEach((time) => {
-        buttonItems.push({
-          type: 'time',
+    // アタック動画ボタンリスト
+    const attackButtons: ButtonItem[] = includeAttack
+      ? times.map((time) => ({
+          type: 'time' as const,
           text: `A_${time}`,
           obsScene: `Attack_${time}`,
           macroIndex: 5,
           dthCode: '05',
-        })
-      })
-    }
+        }))
+      : []
 
-    // 特殊ボタンを追加
+    // 特殊ボタンリスト
+    const specialButtonItems: ButtonItem[] = []
     if (specialButtons.count) {
-      buttonItems.push({
+      specialButtonItems.push({
         type: 'special',
         ...SPECIAL_BUTTONS.count,
       })
     }
     if (specialButtons.trackA) {
-      buttonItems.push({
+      specialButtonItems.push({
         type: 'special',
         ...SPECIAL_BUTTONS.trackA,
       })
     }
     if (specialButtons.slido) {
-      buttonItems.push({
+      specialButtonItems.push({
         type: 'special',
         ...SPECIAL_BUTTONS.slido,
       })
@@ -324,21 +319,35 @@ export default function CompanionConfigGenerate({
 
     // ページ計算
     // row 0: レイアウトボタン (5個)
-    // 複数ページの場合: col 4 をナビゲーションに使用
-    //   row 1: 4個 (col 0-3) + pageup (col 4)
-    //   row 2: 4個 (col 0-3) + pagedown (col 4)
-    //   1ページあたり最大8個
-    // 単一ページの場合:
-    //   row 1: 5個, row 2: 5個 = 最大10個
+    // アタック動画有効時: row 1 に時刻、row 2 にアタック（縦揃え）
+    // アタック動画無効時: row 1, row 2 に順番配置
 
-    const totalButtons = buttonItems.length
-    // まず複数ページが必要かを判定（8個超なら複数ページ）
-    const needsMultiplePages = totalButtons > 8
-    const BUTTONS_PER_PAGE = needsMultiplePages ? 8 : 10
-    const totalPages = Math.max(1, Math.ceil(totalButtons / BUTTONS_PER_PAGE))
+    const totalTimeSlots = times.length
+    const totalSpecialButtons = specialButtonItems.length
+
+    // 複数ページが必要かを判定
+    // アタック有効時: 4スロット/ページ（複数ページの場合）、5スロット/ページ（単一ページ）
+    // アタック無効時: 8ボタン/ページ（複数ページの場合）、10ボタン/ページ（単一ページ）
+    let totalPages: number
+    let slotsPerPage: number
+
+    if (includeAttack) {
+      // アタック有効時は時刻スロット単位で計算
+      // 特殊ボタンは最後のページのrow 2の空きに配置
+      const needsMultiplePages = totalTimeSlots > 4
+      slotsPerPage = needsMultiplePages ? 4 : 5
+      totalPages = Math.max(1, Math.ceil(totalTimeSlots / slotsPerPage))
+    } else {
+      // アタック無効時は従来通り
+      const totalButtons = totalTimeSlots + totalSpecialButtons
+      const needsMultiplePages = totalButtons > 8
+      slotsPerPage = needsMultiplePages ? 8 : 10
+      totalPages = Math.max(1, Math.ceil(totalButtons / slotsPerPage))
+    }
 
     const pages: Record<string, object> = {}
-    let buttonIndex = 0
+    let timeIndex = 0
+    let specialIndex = 0
 
     for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
       const pageId = generateNanoId()
@@ -367,56 +376,102 @@ export default function CompanionConfigGenerate({
         controls['0'][col.toString()] = createButton(btn.text, '18', actions)
       })
 
-      // Row 1-2: 時刻/特殊ボタン
-      const buttonsThisPage = Math.min(
-        BUTTONS_PER_PAGE,
-        totalButtons - buttonIndex
-      )
-
       // 複数ページの場合は col 4 をナビゲーションに使用
       const maxColsPerRow = hasMultiplePages ? 4 : 5
 
-      // row 1のボタン配置
       controls['1'] = {}
-      for (let i = 0; i < Math.min(maxColsPerRow, buttonsThisPage); i++) {
-        if (buttonIndex + i < totalButtons) {
-          const item = buttonItems[buttonIndex + i]
-          const actions: object[] = []
-
-          if (device === 'gostream') {
-            actions.push(
-              createGoStreamAction(deviceConnectionId, item.macroIndex)
-            )
-          } else {
-            actions.push(...createVR6HDActions(deviceConnectionId, item.dthCode))
-          }
-          actions.push(createObsSetSceneAction(obsConnectionId, item.obsScene))
-
-          controls['1'][i.toString()] = createButton(item.text, '24', actions)
-        }
-      }
-
-      // row 2のボタン配置
       controls['2'] = {}
-      const row2Start = maxColsPerRow
 
-      for (let i = 0; i < maxColsPerRow; i++) {
-        const itemIdx = buttonIndex + row2Start + i
-        if (itemIdx < totalButtons && i + row2Start < buttonsThisPage) {
-          const item = buttonItems[itemIdx]
-          const actions: object[] = []
+      if (includeAttack) {
+        // アタック有効時: row 1 に時刻、row 2 にアタック（縦揃え）
+        const timeSlotsThisPage = Math.min(maxColsPerRow, totalTimeSlots - timeIndex)
 
+        for (let i = 0; i < timeSlotsThisPage; i++) {
+          const timeBtn = timeButtons[timeIndex + i]
+          const attackBtn = attackButtons[timeIndex + i]
+
+          // row 1: 時刻ボタン
+          const timeActions: object[] = []
           if (device === 'gostream') {
-            actions.push(
-              createGoStreamAction(deviceConnectionId, item.macroIndex)
-            )
+            timeActions.push(createGoStreamAction(deviceConnectionId, timeBtn.macroIndex))
           } else {
-            actions.push(...createVR6HDActions(deviceConnectionId, item.dthCode))
+            timeActions.push(...createVR6HDActions(deviceConnectionId, timeBtn.dthCode))
           }
-          actions.push(createObsSetSceneAction(obsConnectionId, item.obsScene))
+          timeActions.push(createObsSetSceneAction(obsConnectionId, timeBtn.obsScene))
+          controls['1'][i.toString()] = createButton(timeBtn.text, '24', timeActions)
 
-          controls['2'][i.toString()] = createButton(item.text, '24', actions)
+          // row 2: アタック動画ボタン
+          const attackActions: object[] = []
+          if (device === 'gostream') {
+            attackActions.push(createGoStreamAction(deviceConnectionId, attackBtn.macroIndex))
+          } else {
+            attackActions.push(...createVR6HDActions(deviceConnectionId, attackBtn.dthCode))
+          }
+          attackActions.push(createObsSetSceneAction(obsConnectionId, attackBtn.obsScene))
+          controls['2'][i.toString()] = createButton(attackBtn.text, '24', attackActions)
         }
+
+        // 最終ページで特殊ボタンをrow 2の空きに配置
+        if (isLastPage) {
+          let specialCol = timeSlotsThisPage
+          while (specialIndex < totalSpecialButtons && specialCol < maxColsPerRow) {
+            const specialBtn = specialButtonItems[specialIndex]
+            const specialActions: object[] = []
+            if (device === 'gostream') {
+              specialActions.push(createGoStreamAction(deviceConnectionId, specialBtn.macroIndex))
+            } else {
+              specialActions.push(...createVR6HDActions(deviceConnectionId, specialBtn.dthCode))
+            }
+            specialActions.push(createObsSetSceneAction(obsConnectionId, specialBtn.obsScene))
+            controls['2'][specialCol.toString()] = createButton(specialBtn.text, '24', specialActions)
+            specialCol++
+            specialIndex++
+          }
+        }
+
+        timeIndex += timeSlotsThisPage
+      } else {
+        // アタック無効時: 従来の順番配置
+        const allButtons = [...timeButtons, ...specialButtonItems]
+        const buttonsThisPage = Math.min(slotsPerPage, allButtons.length - timeIndex)
+
+        // row 1のボタン配置
+        for (let i = 0; i < Math.min(maxColsPerRow, buttonsThisPage); i++) {
+          if (timeIndex + i < allButtons.length) {
+            const item = allButtons[timeIndex + i]
+            const actions: object[] = []
+
+            if (device === 'gostream') {
+              actions.push(createGoStreamAction(deviceConnectionId, item.macroIndex))
+            } else {
+              actions.push(...createVR6HDActions(deviceConnectionId, item.dthCode))
+            }
+            actions.push(createObsSetSceneAction(obsConnectionId, item.obsScene))
+
+            controls['1'][i.toString()] = createButton(item.text, '24', actions)
+          }
+        }
+
+        // row 2のボタン配置
+        const row2Start = maxColsPerRow
+        for (let i = 0; i < maxColsPerRow; i++) {
+          const itemIdx = timeIndex + row2Start + i
+          if (itemIdx < allButtons.length && i + row2Start < buttonsThisPage) {
+            const item = allButtons[itemIdx]
+            const actions: object[] = []
+
+            if (device === 'gostream') {
+              actions.push(createGoStreamAction(deviceConnectionId, item.macroIndex))
+            } else {
+              actions.push(...createVR6HDActions(deviceConnectionId, item.dthCode))
+            }
+            actions.push(createObsSetSceneAction(obsConnectionId, item.obsScene))
+
+            controls['2'][i.toString()] = createButton(item.text, '24', actions)
+          }
+        }
+
+        timeIndex += buttonsThisPage
       }
 
       // ページナビゲーションボタン (col 4 に縦配置)
@@ -442,8 +497,6 @@ export default function CompanionConfigGenerate({
           maxRow: 2,
         },
       }
-
-      buttonIndex += buttonsThisPage
 
       // 最初のページIDを保存（サーフェス設定用）
       if (isFirstPage) {
