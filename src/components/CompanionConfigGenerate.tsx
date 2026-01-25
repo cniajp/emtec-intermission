@@ -116,11 +116,7 @@ function createObsSetSceneAction(connectionId: string, scene: string): object {
 }
 
 // ボタン定義作成
-function createButton(
-  text: string,
-  size: string,
-  actions: object[]
-): object {
+function createButton(text: string, size: string, actions: object[]): object {
   return {
     type: 'button',
     style: {
@@ -146,9 +142,7 @@ function createButton(
 }
 
 // pageup/pagedownボタン作成
-function createPageNavigationButton(
-  direction: 'pageup' | 'pagedown'
-): object {
+function createPageNavigationButton(direction: 'pageup' | 'pagedown'): object {
   return {
     type: direction,
   }
@@ -365,7 +359,9 @@ export default function CompanionConfigGenerate({
               createGoStreamAction(deviceConnectionId, item.macroIndex)
             )
           } else {
-            actions.push(...createVR6HDActions(deviceConnectionId, item.dthCode))
+            actions.push(
+              ...createVR6HDActions(deviceConnectionId, item.dthCode)
+            )
           }
           actions.push(createObsSetSceneAction(obsConnectionId, item.obsScene))
 
@@ -389,7 +385,9 @@ export default function CompanionConfigGenerate({
               createGoStreamAction(deviceConnectionId, item.macroIndex)
             )
           } else {
-            actions.push(...createVR6HDActions(deviceConnectionId, item.dthCode))
+            actions.push(
+              ...createVR6HDActions(deviceConnectionId, item.dthCode)
+            )
           }
           actions.push(createObsSetSceneAction(obsConnectionId, item.obsScene))
 
