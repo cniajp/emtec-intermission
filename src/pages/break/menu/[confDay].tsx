@@ -51,6 +51,7 @@ function TalkMenu({ view, confDay }: Props) {
             <div key={i} className="text-lg">
               {track.name} -
               <ObsModal confDay={confDay} track={track} />
+              <CompanionModal confDay={confDay} track={track} />
             </div>
           ))}
         </div>
@@ -97,6 +98,131 @@ function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
 type ObsModalProps = {
   confDay: string
   track: Track
+}
+
+function CompanionModal({ confDay, track }: ObsModalProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [device, setDevice] = useState<'gostream' | 'vr6hd'>('gostream')
+  const [includeCount, setIncludeCount] = useState(true)
+  const [includeTrackA, setIncludeTrackA] = useState(false)
+  const [includeSlido, setIncludeSlido] = useState(false)
+  const router = useRouter()
+
+  const handleGenerate = () => {
+    router.push({
+      pathname: `/break/companion`,
+      query: {
+        confDay: confDay,
+        trackId: track.id,
+        trackName: track.name,
+        device: device,
+        includeCount: includeCount ? 'true' : 'false',
+        includeTrackA: includeTrackA ? 'true' : 'false',
+        includeSlido: includeSlido ? 'true' : 'false',
+      },
+    })
+    setIsOpen(false)
+  }
+
+  return (
+    <>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="ml-2 text-sm text-green-400 hover:underline"
+      >
+        Companion
+      </button>
+      {isOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+          <div className="bg-gray-800 border border-gray-600 rounded-xl shadow-2xl p-6 w-[560px] text-sm">
+            <h3 className="text-base font-bold mb-4 text-center border-b border-gray-600 pb-3">
+              Companion Config - Track {track.name}
+            </h3>
+
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="bg-gray-700/50 rounded-lg p-3">
+                <label className="block text-xs font-medium mb-2">Device</label>
+                <div className="flex flex-col gap-1">
+                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-1.5 rounded text-xs">
+                    <input
+                      type="radio"
+                      name={`device-${track.id}`}
+                      value="gostream"
+                      checked={device === 'gostream'}
+                      onChange={() => setDevice('gostream')}
+                      className="mr-2 w-3 h-3"
+                    />
+                    GoStream
+                  </label>
+                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-1.5 rounded text-xs">
+                    <input
+                      type="radio"
+                      name={`device-${track.id}`}
+                      value="vr6hd"
+                      checked={device === 'vr6hd'}
+                      onChange={() => setDevice('vr6hd')}
+                      className="mr-2 w-3 h-3"
+                    />
+                    VR-6HD
+                  </label>
+                </div>
+              </div>
+
+              <div className="bg-gray-700/50 rounded-lg p-3">
+                <label className="block text-xs font-medium mb-2">
+                  Special Buttons
+                </label>
+                <div className="flex flex-col gap-1">
+                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-1.5 rounded text-xs">
+                    <input
+                      type="checkbox"
+                      checked={includeCount}
+                      onChange={(e) => setIncludeCount(e.target.checked)}
+                      className="mr-2 w-3 h-3"
+                    />
+                    Countdown
+                  </label>
+                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-1.5 rounded text-xs">
+                    <input
+                      type="checkbox"
+                      checked={includeTrackA}
+                      onChange={(e) => setIncludeTrackA(e.target.checked)}
+                      className="mr-2 w-3 h-3"
+                    />
+                    TrackA
+                  </label>
+                  <label className="flex items-center cursor-pointer hover:bg-gray-600/50 p-1.5 rounded text-xs">
+                    <input
+                      type="checkbox"
+                      checked={includeSlido}
+                      onChange={(e) => setIncludeSlido(e.target.checked)}
+                      className="mr-2 w-3 h-3"
+                    />
+                    Slido
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3 justify-end pt-3 border-t border-gray-600">
+              <button
+                onClick={() => setIsOpen(false)}
+                className="px-4 py-1.5 text-xs bg-gray-600 hover:bg-gray-500 rounded transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleGenerate}
+                className="px-4 py-1.5 text-xs bg-green-600 hover:bg-green-500 rounded transition-colors font-medium"
+              >
+                Generate Config
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
 }
 
 function ObsModal({ confDay, track }: ObsModalProps) {
