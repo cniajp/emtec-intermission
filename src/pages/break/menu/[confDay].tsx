@@ -26,10 +26,40 @@ export default function Index() {
 
   const view = MenuView.withoutDk(confDay as string, talks, tracks, speakers)
 
+  // 全てのconferenceDayIdのユニーク値を取得
+  const allDays = [
+    ...new Set(
+      talks
+        .map((talk) => talk.conferenceDayId)
+        .filter((id): id is number => id != null)
+    ),
+  ].sort((a, b) => a - b)
+
+  const currentDay = Number(confDay)
+  const prevDay = allDays.find(
+    (d) =>
+      d < currentDay && d === Math.max(...allDays.filter((x) => x < currentDay))
+  )
+  const nextDay = allDays.find(
+    (d) =>
+      d > currentDay && d === Math.min(...allDays.filter((x) => x > currentDay))
+  )
+
   return (
     <div>
-      <div className="text-3xl text-white text-center w-full my-5">
-        EMTEC Intermission - {(eventAbbr as string).toUpperCase()} Day{confDay}
+      <div className="text-white text-center w-full my-5">
+        <Link
+          href="/"
+          className="block text-3xl hover:text-blue-300 transition-colors"
+        >
+          EMTEC Intermission
+        </Link>
+        <DayNavigation
+          prevDay={prevDay}
+          nextDay={nextDay}
+          currentDay={currentDay}
+          eventAbbr={eventAbbr as string}
+        />
       </div>
       <TalkMenu view={view} confDay={confDay as string} />
     </div>
@@ -41,7 +71,7 @@ function TalkMenu({ view, confDay }: Props) {
     return <></>
   }
   return (
-    <div className="text-white w-full p-10">
+    <div className="text-white w-full px-10">
       <div className="flex flex-row my-5 bg-gray-900 py-3">
         <div className="basis-1/12">
           <div className="text-lg">Slot</div>
@@ -233,6 +263,52 @@ function CompanionModal({ confDay, track }: ObsModalProps) {
         </div>
       )}
     </>
+  )
+}
+
+type DayNavigationProps = {
+  prevDay: number | undefined
+  nextDay: number | undefined
+  currentDay: number
+  eventAbbr: string
+}
+
+function DayNavigation({
+  prevDay,
+  nextDay,
+  currentDay,
+  eventAbbr,
+}: DayNavigationProps) {
+  const { query } = useRouter()
+  const newQuery = { ...query }
+  delete newQuery.confDay
+
+  return (
+    <div className="text-2xl inline-flex items-center gap-3 mt-2">
+      {prevDay !== undefined ? (
+        <Link
+          href={{ pathname: `/break/menu/${prevDay}`, query: newQuery }}
+          className="text-blue-400 hover:text-blue-300 transition-colors"
+        >
+          ←
+        </Link>
+      ) : (
+        <span className="text-gray-600">←</span>
+      )}
+      <span>
+        {eventAbbr.toUpperCase()} Day{currentDay}
+      </span>
+      {nextDay !== undefined ? (
+        <Link
+          href={{ pathname: `/break/menu/${nextDay}`, query: newQuery }}
+          className="text-blue-400 hover:text-blue-300 transition-colors"
+        >
+          →
+        </Link>
+      ) : (
+        <span className="text-gray-600">→</span>
+      )}
+    </div>
   )
 }
 
