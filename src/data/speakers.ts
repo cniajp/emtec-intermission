@@ -3,7 +3,7 @@ import { Speaker } from './types'
 export const speakers: Speaker[] = [
   {
     id: 0,
-    name: '運営',
+    name: 'JANOG57',
     avatarUrl:
       'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2024/11/JANOG57-logo.png',
   },

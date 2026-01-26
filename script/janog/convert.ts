@@ -41,11 +41,11 @@ async function main() {
   // Track情報を生成する
   const tracks: Track[] = convertToTracks(rooms)
 
-  // Speaker情報を生成する（id:0で運営を追加）
+  // Speaker情報を生成する（id:0でJANOG57を追加）
   const speakers: Speaker[] = [
     {
       id: 0,
-      name: '運営',
+      name: 'JANOG57',
       avatarUrl: eventImageUrl,
     },
     ...convertToSpeakers(speakersData),
@@ -138,11 +138,6 @@ function convertToTalks(
       return 0
     })
     .forEach((program) => {
-      // speakerが存在しない場合はスキップ（休憩等）
-      if (!program.speakers || program.speakers.length === 0) {
-        return
-      }
-
       const room = rooms.find((r) => r.id === program.room.id)
       if (!room) {
         console.warn(
@@ -151,14 +146,17 @@ function convertToTalks(
         return
       }
 
-      // スピーカー情報を取得
-      const talkSpeakers = program.speakers.map((s: janogSpeaker) => {
-        const speaker = speakers.find((sp) => sp.id === s.id)
-        return {
-          id: speaker?.id || s.id,
-          name: speaker?.name || s.name,
-        }
-      })
+      // スピーカー情報を取得（いない場合は「JANOG57」を割り当て）
+      const talkSpeakers =
+        program.speakers && program.speakers.length > 0
+          ? program.speakers.map((s: janogSpeaker) => {
+              const speaker = speakers.find((sp) => sp.id === s.id)
+              return {
+                id: speaker?.id || s.id,
+                name: speaker?.name || s.name,
+              }
+            })
+          : [{ id: 0, name: 'JANOG57' }]
 
       // startTimeとendTimeを生成（ISO 8601形式）
       // APIが HH:MM:SS 形式を返す場合はそのまま、HH:MM 形式なら :00 を追加
