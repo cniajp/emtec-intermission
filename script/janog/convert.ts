@@ -101,7 +101,7 @@ function convertToTracks(rooms: janogRoom[]): Track[] {
   return rooms.map((room) => ({
     id: room.id,
     name: room.name,
-    hashTag: room.name.replace(/\s+/g, ''),
+    hashTag: 'janog57',
   }))
 }
 
