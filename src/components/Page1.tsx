@@ -54,7 +54,7 @@ function Main({ view, isDk }: Props) {
           UPCOMING SESSION
         </div>
       </div>
-      <div className="top-[80px] left-[120px] w-[850px] relative longshadow">
+      <div className="top-[80px] left-[120px] w-[850px] relative longshadow bg-[rgba(18,151,204,0.9)] text-white">
         <div className="text-center py-1 text-xl text-white bg-slate-400 font-din-2014 font-light">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>
@@ -77,7 +77,7 @@ function Main({ view, isDk }: Props) {
           )}
         </div>
         <SpeakerAvatars speakers={speakers} />
-        <div className="p-5 font-ryo-gothic-plusn">
+        <div className="p-5 font-ryo-gothic-plusn text-white">
           {(talk.talkCategory || talk.talkDifficulty) && (
             <div className="text-sm text-gray-600 pb-2">
               {talk.talkCategory && (
@@ -88,7 +88,8 @@ function Main({ view, isDk }: Props) {
               )}
             </div>
           )}
-          <div className="text-sm text-gray-600">
+          {/* <div className="text-sm text-gray-600"> */}
+          <div className="text-sm text-white">
             {talk.abstract && (
               <span>
                 {isDk && 'Abstract: '}

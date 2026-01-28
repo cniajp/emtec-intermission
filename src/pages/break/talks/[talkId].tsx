@@ -45,7 +45,7 @@ function Pages() {
     { name: 'Page1', component: <Page1 key={1} view={view} isDk={false} /> },
     { name: 'Page2', component: <Page2 key={2} view={view} isDk={false} /> },
     { name: 'Page3', component: <Page3 key={3} view={view} isDk={false} /> },
-    { name: 'Page4', component: <Page4 key={4} view={view} /> },
+    // { name: 'Page4', component: <Page4 key={4} view={view} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)
@@ -96,7 +96,7 @@ function Pages() {
       <AvatarPreLoader view={view}></AvatarPreLoader>
       <div className="w-[1920px] h-[1080px] relative">
         <Image
-          src="/pek2025/background.webp"
+          src="/janog57/background.png"
           alt="background"
           className="-z-10"
           fill

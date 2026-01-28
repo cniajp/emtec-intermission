@@ -106,7 +106,7 @@ function Track({ talk, track, speakers }: TrackProps) {
   const currentAvatarUrl = getAvatarUrl(currentSpeakerIndex)
 
   return (
-    <div className="flex flex-row items-center text-gray-800 w-[900px] h-[300px]">
+    <div className="flex flex-row items-center text-gray-800 w-[900px] h-[300px] mt-12">
       <div className="basis-1/3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -121,7 +121,8 @@ function Track({ talk, track, speakers }: TrackProps) {
         />
       </div>
       <div className="basis-2/3">
-        <div className="text-1.5xl my-2 w-[600px] text-black opacity-30 font-din-2014 font-bold ">
+        {/* <div className="text-1.5xl my-2 w-[600px] text-black opacity-30 font-din-2014 font-bold "> */}
+        <div className="text-1.5xl my-2 w-[600px] text-white opacity-90 font-din-2014 font-bold ">
           TRACK {track.name}
         </div>
         <div className="text-xl font-bold flex flex-wrap gap-x-1">
