@@ -2,6 +2,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   optimizeFonts: false,
+  images: {
+    domains: ['www.janog.gr.jp'],
+  },
 }
 
 const isDev = process.env.NODE_ENV !== 'production'

@@ -42,19 +42,25 @@ function Pages() {
   // })
 
   const pages = [
-    <Page1 key={1} view={view} isDk={false} />,
-    <Page2 key={2} view={view} isDk={false} />,
-    <Page3 key={3} view={view} isDk={false} />,
-    <Page4 key={4} view={view} />,
+    { name: 'Page1', component: <Page1 key={1} view={view} isDk={false} /> },
+    { name: 'Page2', component: <Page2 key={2} view={view} isDk={false} /> },
+    { name: 'Page3', component: <Page3 key={3} view={view} isDk={false} /> },
+    { name: 'Page4', component: <Page4 key={4} view={view} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // デバッグ用: 現在のコンポーネント名をコンソールに出力
+  useEffect(() => {
+    if (config.debug) {
+      console.log(`Current component: ${pages[current].name}`)
+    }
+  }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
+
   const audioSrc = '/pek2025/pek2025_intermission.mp3'
 
-  // const shouldPlayAudio = current !== pages.length // Page4を使用しない場合
-  const shouldPlayAudio = current !== pages.length - 1
+  const shouldPlayAudio = pages[current].name !== 'Page4'
 
   return (
     <>
@@ -63,6 +69,15 @@ function Pages() {
       </div>
       {config.debug && (
         <>
+          <button
+            onClick={() => {
+              const dayId = view?.selectedTalk.conferenceDayId || 1
+              router.push(`/break/menu/${dayId}`)
+            }}
+            className="font-bold py-0 px-4 mx-2 my-2 rounded bg-red-300 items-right"
+          >
+            Back to Menu
+          </button>
           <button
             onClick={updateCache}
             className="font-bold py-0 px-4 mx-2 my-2 rounded bg-yellow-300 items-right"
@@ -104,7 +119,7 @@ function Pages() {
           </div>
         )} */}
         {/* {!isLoading && !showContent && ( */}
-        <div className="absolute inset-0">{pages[current]}</div>
+        <div className="absolute inset-0">{pages[current].component}</div>
         {/* )} */}
       </div>
     </>

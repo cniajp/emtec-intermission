@@ -7,7 +7,6 @@ import PageHeader from './PageHeader'
 import Image from 'next/image'
 
 type PageProps = { view: Optional<TalkView>; isDk: boolean }
-type Props = { view: Optional<TalkView> }
 
 const alias: string = 'srekaigi2026'
 

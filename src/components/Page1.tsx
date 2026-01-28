@@ -1,14 +1,16 @@
 import { Optional } from '@/utils/types'
 import { TalkView } from './models/talkView'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { PageCtx } from './models/pageContext'
 import config from '@/config'
 import { getTimeStr } from '@/utils/time'
 import { trim } from '@/utils/utils'
 import PageHeader from './PageHeader'
+import Image from 'next/image'
+import { Speaker } from '@/data/types'
 
 type PageProps = { view: Optional<TalkView>; isDk: boolean }
-type Props = { view: Optional<TalkView> }
+type Props = { view: Optional<TalkView>; isDk?: boolean }
 
 export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
@@ -23,7 +25,7 @@ export default function Page({ view, isDk }: PageProps) {
       <div className="h-full">
         <div className="flex flex-row h-full">
           <div className="basis-2/3">
-            <Body view={view} />
+            <Main view={view} isDk={isDk} />
           </div>
           <div className="basis-1/3">
             <Side view={view} />
@@ -34,7 +36,7 @@ export default function Page({ view, isDk }: PageProps) {
   )
 }
 
-function Body({ view }: Props) {
+function Main({ view, isDk }: Props) {
   if (!view) {
     return <></>
   }
@@ -43,7 +45,7 @@ function Body({ view }: Props) {
     return <></>
   }
   const speakers = view.speakersOf(talk.id)
-  const companies = new Set(speakers.map((s) => s.company))
+  const companies = new Set(speakers.map((s) => s.company).filter(Boolean))
 
   return (
     <div className="my-20">
@@ -56,28 +58,43 @@ function Body({ view }: Props) {
         <div className="text-center py-1 text-xl text-white bg-slate-400 font-din-2014 font-light">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>
-        <div className="mx-10 my-5 font-ryo-gothic-plusn">
-          <div className="text-center text-2xl mt-8 mb-5 font-bold">
+        <div className="px-10 py-5 w-full font-ryo-gothic-plusn">
+          <div className="text-center text-2xl pt-8 pb-5 font-bold">
             {talk.title}
           </div>
-          <div className="text-center text-lg font-bold m-3">
-            {talk.speakers.map((s) => s.name).join(', ')}
+          <div className="text-lg font-bold p-3 flex flex-wrap justify-center gap-x-1">
+            {talk.speakers.map((s, i) => (
+              <span key={i}>
+                {s.name}
+                {i < talk.speakers.length - 1 && ','}
+              </span>
+            ))}
           </div>
-          <div className="text-center text-lg font-bold m-3">
-            {Array.from(companies).join(', ')}
-          </div>
+          {companies.size > 0 && (
+            <div className="text-center text-lg font-bold p-3">
+              {Array.from(companies).join(', ')}
+            </div>
+          )}
         </div>
-        <div className="m-5 py-5 font-ryo-gothic-plusn">
-          <div className="text-sm text-gray-600 ">
-            {talk.talkCategory && (
-              <span className="mr-5">Category: {talk.talkCategory}</span>
+        <SpeakerAvatars speakers={speakers} />
+        <div className="p-5 font-ryo-gothic-plusn">
+          {(talk.talkCategory || talk.talkDifficulty) && (
+            <div className="text-sm text-gray-600 pb-2">
+              {talk.talkCategory && (
+                <span className="mr-5">Category: {talk.talkCategory}</span>
+              )}
+              {talk.talkDifficulty && (
+                <span className="mr-5">Difficulty: {talk.talkDifficulty}</span>
+              )}
+            </div>
+          )}
+          <div className="text-sm text-gray-600">
+            {talk.abstract && (
+              <span>
+                {isDk && 'Abstract: '}
+                {trim(talk.abstract, 200)}
+              </span>
             )}
-            {talk.talkDifficulty && (
-              <span className="mr-5">Difficulty: {talk.talkDifficulty}</span>
-            )}
-          </div>
-          <div className="text-sm text-gray-600 mt-2">
-            {talk.abstract && <span>Abstract: {trim(talk.abstract, 200)}</span>}
           </div>
         </div>
       </div>
@@ -150,6 +167,76 @@ function Side({ view }: Props) {
           </div>
         </div>
       ))}
+    </div>
+  )
+}
+
+const DEFAULT_AVATAR =
+  'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png'
+
+function AvatarImage({ src, alt }: { src: string; alt: string }) {
+  const [imgSrc, setImgSrc] = useState(src || DEFAULT_AVATAR)
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      className="rounded-full mx-2 mb-4 shrink-0"
+      width={96}
+      height={96}
+      onError={() => setImgSrc(DEFAULT_AVATAR)}
+    />
+  )
+}
+
+function SpeakerAvatars({ speakers }: { speakers: Speaker[] }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [isOverflow, setIsOverflow] = useState(false)
+
+  useEffect(() => {
+    const container = containerRef.current
+    const content = contentRef.current
+    if (container && content) {
+      setIsOverflow(content.scrollWidth > container.clientWidth)
+    }
+  }, [speakers])
+
+  if (speakers.length === 0) return null
+
+  const avatarElements = speakers.map((s, i) => (
+    <AvatarImage key={i} src={s.avatarUrl || ''} alt={s.name} />
+  ))
+
+  return (
+    <div ref={containerRef} className="overflow-hidden w-full">
+      <div
+        ref={contentRef}
+        className={`flex justify-center gap-x-1 ${isOverflow ? 'animate-marquee' : ''}`}
+        style={
+          isOverflow
+            ? {
+                animation: 'marquee 20s linear infinite',
+                width: 'max-content',
+              }
+            : undefined
+        }
+      >
+        {avatarElements}
+        {isOverflow && avatarElements}
+      </div>
+      {isOverflow && (
+        <style jsx>{`
+          @keyframes marquee {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+        `}</style>
+      )}
     </div>
   )
 }
