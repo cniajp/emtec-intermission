@@ -58,7 +58,9 @@ function Pages() {
     }
   }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const audioSrc = '/pek2025/pek2025_intermission.mp3'
+  // const audioSrc = '/pek2025/pek2025_intermission.mp3'
+  const audioSrc =
+    'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/bgm/203_fixed.mp3'
 
   const shouldPlayAudio = pages[current].name !== 'Page4'
 
