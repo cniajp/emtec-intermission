@@ -2,37 +2,20 @@ import { Optional } from '@/utils/types'
 import { TalkView } from './models/talkView'
 import { useContext } from 'react'
 import { PageCtx } from './models/pageContext'
-import VideoPlaylist, { Playlist } from './VideoPlaylist'
+import VideoPlaylist from './VideoPlaylist'
+import { VIDEO_PLAYLIST } from '@/constants/video-config'
 
 type Props = { view: Optional<TalkView> }
-
-// CM スポンサーがいない時には 各 source をコメントアウトする
-
-const playlist: Playlist = [
-  {
-    sources: [
-      {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/srekaigi2026/makuai.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  // {
-  //   sources: [
-  //     {
-  //       src: 'https://web-intermission.s3.isk01.sakurastorage.jp/cndw2024/cm5.mp4',
-  //       type: 'video/mp4',
-  //     },
-  //   ],
-  // },
-]
 
 export default function Page(_: Props) {
   const { goNextPage } = useContext(PageCtx)
 
   return (
     <div className="w-full h-full">
-      <VideoPlaylist onEnded={goNextPage} playlist={playlist}></VideoPlaylist>
+      <VideoPlaylist
+        onEnded={goNextPage}
+        playlist={VIDEO_PLAYLIST}
+      ></VideoPlaylist>
     </div>
   )
 }

@@ -5,19 +5,14 @@ import { PageCtx } from './models/pageContext'
 import config from '@/config'
 import PageHeader from './PageHeader'
 import Image from 'next/image'
+import { getEventImages } from '@/constants/image-config'
 
 type PageProps = { view: Optional<TalkView>; isDk: boolean }
 type Props = { view: Optional<TalkView> }
 
-const alias: string = 'srekaigi2026'
-
-const images: string[] = [
-  'info_001.jpg',
-  'info_002.jpg',
-  'info_003.jpg',
-  'info_004.jpg',
-  'info_005.jpg',
-]
+const eventImages = getEventImages()
+const alias = eventImages.alias
+const images = eventImages.images
 
 export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
