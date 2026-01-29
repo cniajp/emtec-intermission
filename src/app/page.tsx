@@ -5,12 +5,90 @@ import Image from 'next/image'
 import config from '@/config'
 import { talks } from '@/data/talks'
 
+function LinkCard({
+  href,
+  title,
+  description,
+}: {
+  href: string
+  title: string
+  description?: string
+}) {
+  return (
+    <Link
+      href={href}
+      className="group flex items-center justify-between rounded-lg border border-neutral-700 bg-neutral-800/50 px-5 py-4 transition-colors hover:border-neutral-500 hover:bg-neutral-700/50"
+    >
+      <div>
+        <h3 className="text-lg font-semibold text-white">{title}</h3>
+        {description && (
+          <p className="mt-1 text-xs text-neutral-400">{description}</p>
+        )}
+      </div>
+      <span className="text-neutral-400 transition-transform group-hover:translate-x-1">
+        &rarr;
+      </span>
+    </Link>
+  )
+}
+
+function Section({
+  title,
+  badge,
+  description,
+  children,
+}: {
+  title: string
+  badge: string
+  description?: string
+  children: React.ReactNode
+}) {
+  return (
+    <section className="w-full max-w-2xl">
+      <div className="mb-4">
+        <div className="flex items-center gap-3">
+          <h2 className="text-xl font-bold text-white">{title}</h2>
+          <span className="rounded-full bg-blue-600/20 px-3 py-1 text-xs font-medium text-blue-400">
+            {badge}
+          </span>
+        </div>
+        {description && (
+          <p className="mt-1 text-sm text-neutral-400">{description}</p>
+        )}
+      </div>
+      <div className="flex flex-col gap-3">{children}</div>
+    </section>
+  )
+}
+
 export default function Home() {
   const { dkEventAbbr, eventAbbr } = config
 
+  const staticDays = talks?.length
+    ? [
+        ...new Set(
+          talks
+            .map((talk) => talk.conferenceDayId)
+            .filter((id): id is number => id != null)
+        ),
+      ]
+        .sort((a, b) => a - b)
+        .map((day) => {
+          const talk = talks.find((t) => t.conferenceDayId === day && t.startTime)
+          const date = talk?.startTime ? new Date(talk.startTime) : null
+          const weekdays = ['日', '月', '火', '水', '木', '金', '土']
+          return {
+            day,
+            date: date
+              ? `${date.getMonth() + 1}/${date.getDate()}(${weekdays[date.getDay()]})`
+              : null,
+          }
+        })
+    : []
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-evenly p-24">
-      <div className="w-full max-w-3xl mb-8">
+    <main className="flex min-h-screen flex-col bg-neutral-900 p-12">
+      <div className="mx-auto mb-12 w-full max-w-md">
         <Image
           src="/intermission.png"
           alt="EMTEC Intermission"
@@ -20,82 +98,44 @@ export default function Home() {
           className="w-full h-auto"
         />
       </div>
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-2 xl:grid-cols-4 lg:text-left">
-        <div className="text-center my-auto">{dkEventAbbr}</div>
-        <Link
-          href="/break-dk/menu/1"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Dreamkast で利用(Day1分){' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            CloudNativeDays イベントのインタミはこちら.
-          </p>
-        </Link>
 
-        <Link
-          href="/break-dk/menu/2"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Dreamkast で利用(Day2分){' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            CloudNativeDays イベントのインタミはこちら.
-          </p>
-        </Link>
+      <div className="flex flex-1 items-start justify-center gap-12">
+        <div className="flex flex-col gap-12">
+          <Section
+            title="Dreamkast API"
+            badge={dkEventAbbr}
+            description="Dreamkast APIからトーク情報を取得"
+          >
+            <LinkCard href="/break-dk/menu/1" title="Day 1" />
+            <LinkCard href="/break-dk/menu/2" title="Day 2" />
+          </Section>
 
-        <Link
-          href="/break-dk/monitor"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Monitor{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            モニター用のページはこちら.
-          </p>
-        </Link>
-
-        <div className="text-center my-auto">{eventAbbr}</div>
-        {talks && talks.length > 0
-          ? [
-              ...new Set(
-                talks
-                  .map((talk) => talk.conferenceDayId)
-                  .filter((id): id is number => id != null)
-              ),
-            ]
-              .sort((a, b) => a - b)
-              .map((day) => (
-                <Link
+          {staticDays.length > 0 && (
+            <Section
+              title="静的TSファイル"
+              badge={eventAbbr}
+              description="src/data/talks.ts からトーク情報を取得"
+            >
+              {staticDays.map(({ day, date }) => (
+                <LinkCard
                   key={day}
                   href={`/break/menu/${day}`}
-                  className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-                >
-                  <h2 className={`mb-3 text-2xl font-semibold`}>
-                    TS ファイルをソースとして利用(Day{day}分){' '}
-                    <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                      -&gt;
-                    </span>
-                  </h2>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                    src/data/talks.ts に書き込んだ
-                    トーク情報からインタミを生成する場合はこちら.
-                  </p>
-                </Link>
-              ))
-          : null}
+                  title={`Day ${day}${date ? ` : ${date}` : ''}`}
+                />
+              ))}
+            </Section>
+          )}
+        </div>
+
+        <div className="w-64">
+          <Section title="ツール" badge="Utilities">
+            <LinkCard
+              href="/break-dk/monitor"
+              title="Monitor"
+              description="全トラックの状態を監視 (Dreamkast専用)"
+            />
+          </Section>
+        </div>
       </div>
     </main>
   )
