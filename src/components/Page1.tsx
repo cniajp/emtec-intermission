@@ -182,7 +182,7 @@ function AvatarImage({ src, alt }: { src: string; alt: string }) {
     <Image
       src={imgSrc}
       alt={alt}
-      className="rounded-full mx-2 mb-4 shrink-0"
+      className="rounded-full mx-2 mb-4 shrink-0 object-cover aspect-square"
       width={96}
       height={96}
       onError={() => setImgSrc(DEFAULT_AVATAR)}
