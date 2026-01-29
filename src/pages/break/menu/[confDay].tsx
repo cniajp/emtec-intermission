@@ -48,12 +48,15 @@ export default function Index() {
   return (
     <div>
       <div className="text-white text-center w-full my-5">
-        <Link
-          href="/"
-          className="block text-3xl hover:text-blue-300 transition-colors"
-        >
-          EMTEC Intermission
-        </Link>
+        <div>
+          <Link
+            href="/"
+            className="text-3xl hover:text-blue-300 transition-colors"
+          >
+            EMTEC Intermission
+          </Link>
+        </div>
+
         <DayNavigation
           prevDay={prevDay}
           nextDay={nextDay}

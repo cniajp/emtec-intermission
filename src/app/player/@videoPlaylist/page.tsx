@@ -6,7 +6,9 @@ import { useContext } from 'react'
 import { ContentContext } from '../context'
 import { Playlist } from '../../../components/media/VideoPlaylist'
 
-const VideoPlaylist = dynamic(() => import('../../../components/media/VideoPlaylist'))
+const VideoPlaylist = dynamic(
+  () => import('../../../components/media/VideoPlaylist')
+)
 
 const playlist: Playlist = [
   {

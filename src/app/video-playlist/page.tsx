@@ -4,7 +4,9 @@ import { useRef, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { Playlist } from '@/components/media/VideoPlaylist'
 
-const VideoPlaylist = dynamic(() => import('../../components/media/VideoPlaylist'))
+const VideoPlaylist = dynamic(
+  () => import('../../components/media/VideoPlaylist')
+)
 
 const playlist: Playlist = [
   {
