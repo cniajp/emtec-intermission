@@ -88,10 +88,10 @@ function Track({ talk, track, speakers }: TrackProps) {
       setPrevSpeakerIndex(currentSpeakerIndex)
       setCurrentSpeakerIndex(nextIndex)
       setIsSliding(true)
-      // スライド完了後にフラグをリセット
+      // スライド完了後にフラグをリセット（アニメーション時間と同期）
       setTimeout(() => {
         setIsSliding(false)
-      }, 400)
+      }, 800)
     }, 3000)
     return () => clearInterval(interval)
   }, [speakers.length, currentSpeakerIndex])
@@ -144,15 +144,15 @@ function Track({ talk, track, speakers }: TrackProps) {
           <style jsx>{`
             img:last-of-type {
               animation: ${isSliding
-                ? 'slideIn 0.4s ease-out forwards'
+                ? 'rollIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards'
                 : 'none'};
             }
-            @keyframes slideIn {
-              from {
-                transform: translateX(-100%);
+            @keyframes rollIn {
+              0% {
+                transform: translateX(-100%) rotate(-90deg);
               }
-              to {
-                transform: translateX(0);
+              100% {
+                transform: translateX(0) rotate(0deg);
               }
             }
           `}</style>
