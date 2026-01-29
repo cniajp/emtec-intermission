@@ -9,16 +9,18 @@ function LinkCard({
   href,
   title,
   description,
+  external,
 }: {
   href: string
   title: string
   description?: string
+  external?: boolean
 }) {
-  return (
-    <Link
-      href={href}
-      className="group flex items-center justify-between rounded-lg border border-neutral-700 bg-neutral-800/50 px-5 py-4 transition-colors hover:border-neutral-500 hover:bg-neutral-700/50"
-    >
+  const className =
+    'group flex items-center justify-between rounded-lg border border-neutral-700 bg-neutral-800/50 px-5 py-4 transition-colors hover:border-neutral-500 hover:bg-neutral-700/50'
+
+  const content = (
+    <>
       <div>
         <h3 className="text-lg font-semibold text-white">{title}</h3>
         {description && (
@@ -28,6 +30,20 @@ function LinkCard({
       <span className="text-neutral-400 transition-transform group-hover:translate-x-1">
         &rarr;
       </span>
+    </>
+  )
+
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {content}
+      </a>
+    )
+  }
+
+  return (
+    <Link href={href} className={className}>
+      {content}
     </Link>
   )
 }
@@ -87,56 +103,94 @@ export default function Home() {
     : []
 
   return (
-    <main className="flex min-h-screen flex-col bg-neutral-900 p-12">
-      <div className="mx-auto mb-12 w-full max-w-md">
-        <Image
-          src="/intermission.png"
-          alt="EMTEC Intermission"
-          width={800}
-          height={200}
-          priority
-          className="w-full h-auto"
-        />
-      </div>
-
-      <div className="flex flex-1 items-start justify-center gap-12">
-        <div className="flex flex-col gap-12">
-          <Section
-            title="Dreamkast API"
-            badge={dkEventAbbr}
-            description="Dreamkast APIからトーク情報を取得"
-          >
-            <LinkCard href="/break-dk/menu/1" title="Day 1" />
-            <LinkCard href="/break-dk/menu/2" title="Day 2" />
-          </Section>
-
-          {staticDays.length > 0 && (
-            <Section
-              title="静的TSファイル"
-              badge={eventAbbr}
-              description="src/data/talks.ts からトーク情報を取得"
-            >
-              {staticDays.map(({ day, date }) => (
-                <LinkCard
-                  key={day}
-                  href={`/break/menu/${day}`}
-                  title={`Day ${day}${date ? ` : ${date}` : ''}`}
-                />
-              ))}
-            </Section>
-          )}
-        </div>
-
-        <div className="w-64">
-          <Section title="ツール" badge="Utilities">
-            <LinkCard
-              href="/break-dk/monitor"
-              title="Monitor"
-              description="全トラックの状態を監視 (Dreamkast専用)"
+    <div className="flex min-h-screen flex-col bg-neutral-900">
+      <header className="border-b border-neutral-800 px-12 py-3">
+        <div className="mx-auto max-w-5xl">
+          <div className="inline-block rounded bg-white px-3 py-1.5">
+            <Image
+              src="/intermission.png"
+              alt="EMTEC Intermission"
+              width={200}
+              height={50}
+              priority
+              className="h-8 w-auto"
             />
-          </Section>
+          </div>
         </div>
-      </div>
-    </main>
+      </header>
+
+      <main className="flex flex-1 flex-col p-12">
+        <div className="mx-auto flex w-full max-w-5xl flex-1 items-start gap-8">
+          <div className="flex w-3/4 flex-col gap-12">
+            <Section
+              title="Dreamkast API"
+              badge={dkEventAbbr}
+              description="Dreamkast APIからトーク情報を取得"
+            >
+              <LinkCard href="/break-dk/menu/1" title="Day 1" />
+              <LinkCard href="/break-dk/menu/2" title="Day 2" />
+            </Section>
+
+            {staticDays.length > 0 && (
+              <Section
+                title="静的TSファイル"
+                badge={eventAbbr}
+                description="src/data/talks.ts からトーク情報を取得"
+              >
+                {staticDays.map(({ day, date }) => (
+                  <LinkCard
+                    key={day}
+                    href={`/break/menu/${day}`}
+                    title={`Day ${day}${date ? ` : ${date}` : ''}`}
+                  />
+                ))}
+              </Section>
+            )}
+          </div>
+
+          <div className="w-1/4">
+            <Section title="ツール" badge="Utilities">
+              <LinkCard
+                href="/break-dk/monitor"
+                title="Monitor"
+                description="全トラックの状態を監視 (Dreamkast専用)"
+              />
+              <LinkCard
+                href="https://short.emtec.tv/"
+                title="短縮URL"
+                description="EMTEC専用短縮URLサービス"
+                external
+              />
+            </Section>
+          </div>
+        </div>
+      </main>
+
+      <footer className="border-t border-neutral-800 px-12 py-6">
+        <div className="mx-auto flex max-w-5xl items-center justify-between">
+          <p className="text-sm text-neutral-500">
+            &copy; {new Date().getFullYear()} EMTEC
+          </p>
+          <div className="flex gap-6">
+            <a
+              href="https://github.com/cloudnativedaysjp/emtec-intermission"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-neutral-400 hover:text-white transition-colors"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://emtec.tv/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-neutral-400 hover:text-white transition-colors"
+            >
+              EMTEC
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
   )
 }
