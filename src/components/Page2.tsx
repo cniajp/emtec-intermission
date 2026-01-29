@@ -78,19 +78,23 @@ type TrackProps = {
 
 function Track({ talk, track, speakers }: TrackProps) {
   const [currentSpeakerIndex, setCurrentSpeakerIndex] = useState(0)
-  const [fade, setFade] = useState(true)
+  const [prevSpeakerIndex, setPrevSpeakerIndex] = useState(0)
+  const [isSliding, setIsSliding] = useState(false)
 
   useEffect(() => {
     if (speakers.length <= 1) return
     const interval = setInterval(() => {
-      setFade(false)
+      const nextIndex = (currentSpeakerIndex + 1) % speakers.length
+      setPrevSpeakerIndex(currentSpeakerIndex)
+      setCurrentSpeakerIndex(nextIndex)
+      setIsSliding(true)
+      // スライド完了後にフラグをリセット
       setTimeout(() => {
-        setCurrentSpeakerIndex((prev) => (prev + 1) % speakers.length)
-        setFade(true)
-      }, 500)
+        setIsSliding(false)
+      }, 400)
     }, 3000)
     return () => clearInterval(interval)
-  }, [speakers.length])
+  }, [speakers.length, currentSpeakerIndex])
 
   if (!talk || !track) {
     return <></>
@@ -104,21 +108,55 @@ function Track({ talk, track, speakers }: TrackProps) {
   }
 
   const currentAvatarUrl = getAvatarUrl(currentSpeakerIndex)
+  const prevAvatarUrl = getAvatarUrl(prevSpeakerIndex)
 
   return (
     <div className="flex flex-row items-center text-gray-800 w-[900px] h-[300px] mt-12">
-      <div className="basis-1/3">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={currentAvatarUrl || DEFAULT_AVATAR}
-          alt={'avatar'}
-          className={`w-[180px] h-[180px] object-cover ml-auto mr-5 rounded-full transition-opacity duration-300 ${
-            fade ? 'opacity-100' : 'opacity-0'
-          }`}
-          onError={(e) => {
-            e.currentTarget.src = DEFAULT_AVATAR
-          }}
-        />
+      <div className="basis-1/3 flex justify-end pr-5">
+        {/* 円形のマスクコンテナ */}
+        <div className="w-[180px] h-[180px] rounded-full overflow-hidden relative">
+          {/* 前の画像（背景として固定表示） */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={prevAvatarUrl || DEFAULT_AVATAR}
+            alt={'avatar-prev'}
+            className="w-full h-full object-cover absolute inset-0"
+            onError={(e) => {
+              e.currentTarget.src = DEFAULT_AVATAR
+            }}
+          />
+          {/* 現在の画像（スライドイン） */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={currentAvatarUrl || DEFAULT_AVATAR}
+            alt={'avatar'}
+            className={`w-full h-full object-cover absolute inset-0 rounded-full transition-transform duration-400 ease-out ${
+              isSliding ? 'translate-x-0' : ''
+            }`}
+            style={{
+              transform: isSliding ? 'translateX(0)' : undefined,
+              // 初回やスライド完了時は普通に表示
+            }}
+            onError={(e) => {
+              e.currentTarget.src = DEFAULT_AVATAR
+            }}
+          />
+          <style jsx>{`
+            img:last-of-type {
+              animation: ${isSliding
+                ? 'slideIn 0.4s ease-out forwards'
+                : 'none'};
+            }
+            @keyframes slideIn {
+              from {
+                transform: translateX(-100%);
+              }
+              to {
+                transform: translateX(0);
+              }
+            }
+          `}</style>
+        </div>
       </div>
       <div className="basis-2/3">
         {/* <div className="text-1.5xl my-2 w-[600px] text-black opacity-30 font-din-2014 font-bold "> */}
