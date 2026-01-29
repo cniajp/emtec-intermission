@@ -143,9 +143,58 @@ function createButton(text: string, size: string, actions: object[]): object {
 }
 
 // pageup/pagedownボタン作成
-function createPageNavigationButton(direction: 'pageup' | 'pagedown'): object {
+function createPageNavigationButton(
+  direction: 'pageup' | 'pagedown',
+  nowPageNumber: number
+): object {
+  const isUp = direction === 'pageup'
   return {
-    type: direction,
+    type: 'button',
+    style: {
+      text: isUp ? '↑' : '↓',
+      textExpression: false,
+      size: 'auto',
+      png64: null,
+      alignment: 'center:center',
+      pngalignment: 'center:center',
+      color: 16777215,
+      bgcolor: 0,
+      show_topbar: 'default',
+    },
+    options: {
+      stepProgression: 'auto',
+      stepExpression: '',
+      rotaryActions: false,
+    },
+    feedbacks: [],
+    steps: {
+      '0': {
+        action_sets: {
+          down: [
+            {
+              id: generateNanoId(),
+              definitionId: 'set_page_byindex',
+              connectionId: 'internal',
+              options: {
+                controller_from_variable: false,
+                controller: 0,
+                controller_variable: '0',
+                page_from_variable: false,
+                page: nowPageNumber + (isUp ? -1 : 1),
+                page_variable: '1',
+              },
+              type: 'action',
+              children: {},
+            },
+          ],
+          up: [],
+        },
+        options: {
+          runWhileHeld: [],
+        },
+      },
+    },
+    localVariables: [],
   }
 }
 
@@ -283,7 +332,7 @@ export default function CompanionConfigGenerate({
     const attackButtons: ButtonItem[] = includeAttack
       ? times.map((time) => ({
           type: 'time' as const,
-          text: `A_${time}`,
+          text: `Video\n${time}`,
           obsScene: `Attack_${time}`,
           macroIndex: 5,
           dthCode: '05',
@@ -523,11 +572,13 @@ export default function CompanionConfigGenerate({
       if (hasMultiplePages) {
         // row 1 col 4: pageup（戻る）- 1ページ目以外で表示
         if (!isFirstPage) {
-          controls['1']['4'] = createPageNavigationButton('pageup')
+          // targetPageIndex: 前のページ
+          controls['1']['4'] = createPageNavigationButton('pageup', pageNum)
         }
         // row 2 col 4: pagedown（次へ）- 最終ページ以外で表示
         if (!isLastPage) {
-          controls['2']['4'] = createPageNavigationButton('pagedown')
+          // targetPageIndex: 次のページ
+          controls['2']['4'] = createPageNavigationButton('pagedown', pageNum)
         }
       }
 
