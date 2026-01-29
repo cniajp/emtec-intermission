@@ -63,8 +63,11 @@ export const useGetTalksAndTracksForMenu = (
     if (!dayNum) {
       return null
     }
-    console.log(event.data!.conferenceDays!)
-    return event.data!.conferenceDays![parseInt(dayNum) - 1].id
+    const index = parseInt(dayNum) - 1
+    if (index < 0 || index >= event.data.conferenceDays.length) {
+      return null
+    }
+    return event.data.conferenceDays[index].id
   }, [event.data, dayNum])
   const talksResult = useGetTalks(confDayId)
   const tracksResult = useGetTracks()
@@ -81,12 +84,23 @@ export const useGetTalksAndTracksForMenu = (
     return null
   }, [talksResult.data, tracksResult.data, speakersResult.data])
 
+  // 利用可能なDay番号のリスト (1-indexed)
+  const allDays = useMemo(() => {
+    if (!event.data?.conferenceDays) {
+      return []
+    }
+    return event.data.conferenceDays.map((_, index) => index + 1)
+  }, [event.data])
+
   return {
     isLoading:
+      event.isLoading ||
       talksResult.isLoading ||
       tracksResult.isLoading ||
       speakersResult.isLoading,
+    isEventLoading: event.isLoading,
     view,
+    allDays,
   }
 }
 
