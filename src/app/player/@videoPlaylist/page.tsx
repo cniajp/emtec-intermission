@@ -4,9 +4,9 @@ import { useRef, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { useContext } from 'react'
 import { ContentContext } from '../context'
-import { Playlist } from '../../../components/VideoPlaylist'
+import { Playlist } from '../../../components/media/VideoPlaylist'
 
-const VideoPlaylist = dynamic(() => import('../../../components/VideoPlaylist'))
+const VideoPlaylist = dynamic(() => import('../../../components/media/VideoPlaylist'))
 
 const playlist: Playlist = [
   {

@@ -1,11 +1,13 @@
 import { Optional } from '@/utils/types'
-import { TalkView } from './models/talkView'
-import { useContext, useEffect, useState } from 'react'
-import { PageCtx } from './models/pageContext'
+import { TalkView } from '../models/talkView'
+import { useContext, useEffect } from 'react'
+import { PageCtx } from '../models/pageContext'
 import config from '@/config'
 import type { Speaker, Talk, Track } from '@/data/types'
 import PageHeader from './PageHeader'
 import { getTimeStr } from '@/utils/time'
+import { useAvatarSlider } from '../hooks/useAvatarSlider'
+import { RollingAvatar } from '../avatar/RollingAvatar'
 
 type PageProps = { view: Optional<TalkView>; isDk: boolean }
 type Props = { view: Optional<TalkView> }
@@ -77,24 +79,9 @@ type TrackProps = {
 }
 
 function Track({ talk, track, speakers }: TrackProps) {
-  const [currentSpeakerIndex, setCurrentSpeakerIndex] = useState(0)
-  const [prevSpeakerIndex, setPrevSpeakerIndex] = useState(0)
-  const [isSliding, setIsSliding] = useState(false)
-
-  useEffect(() => {
-    if (speakers.length <= 1) return
-    const interval = setInterval(() => {
-      const nextIndex = (currentSpeakerIndex + 1) % speakers.length
-      setPrevSpeakerIndex(currentSpeakerIndex)
-      setCurrentSpeakerIndex(nextIndex)
-      setIsSliding(true)
-      // スライド完了後にフラグをリセット（アニメーション時間と同期）
-      setTimeout(() => {
-        setIsSliding(false)
-      }, 800)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [speakers.length, currentSpeakerIndex])
+  const { currentIndex, prevIndex, isSliding } = useAvatarSlider(
+    speakers.length
+  )
 
   if (!talk || !track) {
     return <></>
@@ -107,56 +94,18 @@ function Track({ talk, track, speakers }: TrackProps) {
     return re.test(speaker?.avatarUrl || '') ? speaker.avatarUrl! : null
   }
 
-  const currentAvatarUrl = getAvatarUrl(currentSpeakerIndex)
-  const prevAvatarUrl = getAvatarUrl(prevSpeakerIndex)
+  const currentAvatarUrl = getAvatarUrl(currentIndex)
+  const prevAvatarUrl = getAvatarUrl(prevIndex)
 
   return (
     <div className="flex flex-row items-center text-gray-800 w-[900px] h-[300px] mt-12">
       <div className="basis-1/3 flex justify-end pr-5">
-        {/* 円形のマスクコンテナ */}
-        <div className="w-[180px] h-[180px] rounded-full overflow-hidden relative">
-          {/* 前の画像（背景として固定表示） */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={prevAvatarUrl || DEFAULT_AVATAR}
-            alt={'avatar-prev'}
-            className="w-full h-full object-cover absolute inset-0"
-            onError={(e) => {
-              e.currentTarget.src = DEFAULT_AVATAR
-            }}
-          />
-          {/* 現在の画像（スライドイン） */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={currentAvatarUrl || DEFAULT_AVATAR}
-            alt={'avatar'}
-            className={`w-full h-full object-cover absolute inset-0 rounded-full transition-transform duration-400 ease-out ${
-              isSliding ? 'translate-x-0' : ''
-            }`}
-            style={{
-              transform: isSliding ? 'translateX(0)' : undefined,
-              // 初回やスライド完了時は普通に表示
-            }}
-            onError={(e) => {
-              e.currentTarget.src = DEFAULT_AVATAR
-            }}
-          />
-          <style jsx>{`
-            img:last-of-type {
-              animation: ${isSliding
-                ? 'rollIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards'
-                : 'none'};
-            }
-            @keyframes rollIn {
-              0% {
-                transform: translateX(-100%) rotate(-90deg);
-              }
-              100% {
-                transform: translateX(0) rotate(0deg);
-              }
-            }
-          `}</style>
-        </div>
+        <RollingAvatar
+          currentSrc={currentAvatarUrl || DEFAULT_AVATAR}
+          prevSrc={prevAvatarUrl || DEFAULT_AVATAR}
+          isSliding={isSliding}
+          defaultAvatar={DEFAULT_AVATAR}
+        />
       </div>
       <div className="basis-2/3">
         {/* <div className="text-1.5xl my-2 w-[600px] text-black opacity-30 font-din-2014 font-bold "> */}

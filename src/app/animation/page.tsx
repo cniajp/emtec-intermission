@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic'
 
-const PixiApp = dynamic(() => import('../../components/PixiApp'), {
+const PixiApp = dynamic(() => import('../../components/media/PixiApp'), {
   ssr: false,
 })
 

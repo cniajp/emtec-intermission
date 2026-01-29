@@ -13,7 +13,7 @@ import React, { useEffect, useState } from 'react'
 import { Application, extend, useTick } from '@pixi/react'
 import { Container, Sprite, Text, TextStyle, Texture } from 'pixi.js'
 import { sound } from '@pixi/sound'
-import { ContentProperties } from './ContentProperties'
+import { ContentProperties } from '../tools/ContentProperties'
 
 extend({ Container, Sprite, Text, TextStyle })
 

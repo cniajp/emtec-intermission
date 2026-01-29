@@ -1,8 +1,8 @@
 import { Optional } from '@/utils/types'
-import { TalkView } from './models/talkView'
+import { TalkView } from '../models/talkView'
 import { useContext } from 'react'
-import { PageCtx } from './models/pageContext'
-import VideoPlaylist, { Playlist } from './VideoPlaylist'
+import { PageCtx } from '../models/pageContext'
+import VideoPlaylist, { Playlist } from '../media/VideoPlaylist'
 
 type Props = { view: Optional<TalkView> }
 

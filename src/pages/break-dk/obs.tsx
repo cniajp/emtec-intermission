@@ -1,4 +1,4 @@
-import ObsSceneGenerate from '@/components/ObsSceneGenerate'
+import ObsSceneGenerate from '@/components/tools/ObsSceneGenerate'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import config from '@/config'
