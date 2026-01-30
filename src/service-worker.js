@@ -1,12 +1,11 @@
 // https://github.com/GoogleChrome/workbox/issues/2519
 import { precacheAndRoute } from 'workbox-precaching'
+import { CACHE_VIDEO_URLS, ALLOWED_CACHE_PATHS } from './constants/video-config'
 
 precacheAndRoute(self.__WB_MANIFEST)
 
 const CACHE_NAME = 'video-cache'
-const VIDEO_URL = [
-  'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/srekaigi2026/makuai.mp4',
-]
+const VIDEO_URL = CACHE_VIDEO_URLS
 
 async function updateCache() {
   const status = VIDEO_URL.reduce((acc, url) => {
@@ -45,9 +44,26 @@ self.addEventListener('install', (event) => {
 // https://developer.mozilla.org/ja/docs/Web/API/Service_Worker_API/Using_Service_Workers
 self.addEventListener('fetch', (event) => {
   console.debug('fetch event:', event.request)
+
+  // ビデオファイルでない場合は処理しない
   if (!event.request.url.endsWith('.mp4')) {
     return
   }
+
+  // リファラーをチェックして、特定のパスからのリクエストのみ処理
+  const referer = event.request.referrer
+  const url = new URL(event.request.url)
+
+  // 許可されたパスからのリクエストのみキャッシュを使用
+  const shouldUseCache = ALLOWED_CACHE_PATHS.some((path) =>
+    referer.includes(path)
+  )
+
+  if (!shouldUseCache) {
+    console.log('video cache skipped (not from allowed path):', url.href)
+    return
+  }
+
   console.log('video request: url:', event.request.url)
 
   const response = (async () => {
