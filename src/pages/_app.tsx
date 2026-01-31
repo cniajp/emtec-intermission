@@ -9,7 +9,11 @@ const RootApp: FC<AppProps> = ({ Component, ...rest }) => {
   const { pageProps } = props
 
   useEffect(() => {
+    console.log('[Cache] useEffect triggered')
     if ('serviceWorker' in navigator) {
+      console.log('[Cache] serviceWorker supported')
+      console.log('[Cache] controller:', navigator.serviceWorker.controller)
+
       navigator.serviceWorker.addEventListener('message', (event) => {
         const { type, url, urls, error } = event.data
         switch (type) {
@@ -29,9 +33,12 @@ const RootApp: FC<AppProps> = ({ Component, ...rest }) => {
       })
 
       navigator.serviceWorker.ready.then((registration) => {
+        console.log('[Cache] SW ready, active:', registration.active)
         console.log('[Cache] Requesting video cache update...')
         registration.active?.postMessage({ type: 'UPDATE_CACHE' })
       })
+    } else {
+      console.log('[Cache] serviceWorker NOT supported')
     }
   }, [])
 
