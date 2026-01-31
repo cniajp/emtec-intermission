@@ -11,6 +11,7 @@ const RootApp: FC<AppProps> = ({ Component, ...rest }) => {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.ready.then((registration) => {
+        console.log('Requesting video cache update...')
         registration.active?.postMessage({ type: 'UPDATE_CACHE' })
       })
     }
