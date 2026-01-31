@@ -19,7 +19,7 @@ async function updateCache() {
   return Promise.all(
     VIDEO_URL.map(async (url) => {
       await notifyClients({ type: 'CACHE_DOWNLOAD_START', url })
-      const response = await fetch(url, { mode: 'no-cors' }).catch((e) => {
+      const response = await fetch(url).catch((e) => {
         notifyClients({ type: 'CACHE_DOWNLOAD_ERROR', url, error: e.message })
         return
       })
@@ -53,10 +53,11 @@ self.addEventListener('fetch', (event) => {
   console.log('video request: url:', event.request.url)
 
   const response = (async () => {
-    const cache = await caches.match(event.request)
-    if (cache) {
+    // ignoreVary: true で Range ヘッダー等を無視してマッチさせる
+    const cached = await caches.match(event.request.url, { ignoreVary: true })
+    if (cached) {
       console.log('==> cache hit:', event.request.url)
-      return cache
+      return cached
     }
     console.warn(
       '==> fallback to stream since no cache hit:',
