@@ -1,31 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /** @type {import('next').NextConfig} */
-
-const FaroSourceMapUploaderPlugin = require('@grafana/faro-webpack-plugin')
-
 const nextConfig = {
   optimizeFonts: false,
-  productionBrowserSourceMaps: true,
-  webpack: (config, { isServer }) => {
-    if (
-      !isServer &&
-      process.env.NODE_ENV === 'production' &&
-      process.env.FARO_API_KEY
-    ) {
-      config.plugins.push(
-        new FaroSourceMapUploaderPlugin({
-          appName: 'emtec intermission',
-          endpoint: 'https://faro-api-prod-us-central-0.grafana.net/faro/api/v1',
-          appId: '2651',
-          stackId: '146945',
-          verbose: true,
-          apiKey: process.env.FARO_API_KEY,
-          gzipContents: true,
-        })
-      )
-    }
-    return config
-  },
 }
 
 const isDev = process.env.NODE_ENV !== 'production'
