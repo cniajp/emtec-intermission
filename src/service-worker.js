@@ -36,10 +36,14 @@ async function updateCache() {
 }
 
 self.addEventListener('install', (event) => {
-  console.warn(
-    'Reload is required to activate the service worker since this is the first time to install it. Please reload this page after loading all movies is completed.'
-  )
-  event.waitUntil(updateCache())
+  console.log('Service Worker installing, skipping wait...')
+  self.skipWaiting()
+})
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(self.clients.claim())
+  // 動画キャッシュはバックグラウンドで非同期実行（ブロックしない）
+  updateCache()
 })
 
 // https://developer.mozilla.org/ja/docs/Web/API/Service_Worker_API/Using_Service_Workers
