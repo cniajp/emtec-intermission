@@ -35,15 +35,14 @@ async function updateCache() {
   )
 }
 
-self.addEventListener('install', (event) => {
+self.addEventListener('install', (_event) => {
   console.log('Service Worker installing, skipping wait...')
   self.skipWaiting()
 })
 
 self.addEventListener('activate', (event) => {
+  console.log('Service Worker activating, claiming clients...')
   event.waitUntil(self.clients.claim())
-  // 動画キャッシュはバックグラウンドで非同期実行（ブロックしない）
-  updateCache()
 })
 
 // https://developer.mozilla.org/ja/docs/Web/API/Service_Worker_API/Using_Service_Workers
