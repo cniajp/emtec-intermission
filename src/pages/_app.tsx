@@ -10,8 +10,26 @@ const RootApp: FC<AppProps> = ({ Component, ...rest }) => {
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        const { type, url, urls, error } = event.data
+        switch (type) {
+          case 'CACHE_UPDATE_START':
+            console.log('[Cache] Starting video cache update:', urls)
+            break
+          case 'CACHE_DOWNLOAD_START':
+            console.log('[Cache] Downloading:', url)
+            break
+          case 'CACHE_DOWNLOAD_COMPLETE':
+            console.log('[Cache] Complete:', url)
+            break
+          case 'CACHE_DOWNLOAD_ERROR':
+            console.error('[Cache] Error:', url, error)
+            break
+        }
+      })
+
       navigator.serviceWorker.ready.then((registration) => {
-        console.log('Requesting video cache update...')
+        console.log('[Cache] Requesting video cache update...')
         registration.active?.postMessage({ type: 'UPDATE_CACHE' })
       })
     }

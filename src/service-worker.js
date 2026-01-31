@@ -8,29 +8,28 @@ const VIDEO_URL = [
   'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/srekaigi2026/makuai.mp4',
 ]
 
+async function notifyClients(message) {
+  const clients = await self.clients.matchAll()
+  clients.forEach((client) => client.postMessage(message))
+}
+
 async function updateCache() {
-  const status = VIDEO_URL.reduce((acc, url) => {
-    acc[url] = false
-    return acc
-  }, {})
+  await notifyClients({ type: 'CACHE_UPDATE_START', urls: VIDEO_URL })
 
   return Promise.all(
     VIDEO_URL.map(async (url) => {
-      console.log('start cache update:', url)
+      await notifyClients({ type: 'CACHE_DOWNLOAD_START', url })
       const response = await fetch(url, { mode: 'no-cors' }).catch((e) => {
-        console.error('==> failed to fetch video:', e)
+        notifyClients({ type: 'CACHE_DOWNLOAD_ERROR', url, error: e.message })
         return
       })
       if (!response) {
         return
       }
 
-      caches.open(CACHE_NAME).then((cache) => {
-        cache.put(url, response).then(() => {
-          status[url] = true
-          console.log('==> completed cache update:', url, status)
-        })
-      })
+      const cache = await caches.open(CACHE_NAME)
+      await cache.put(url, response)
+      await notifyClients({ type: 'CACHE_DOWNLOAD_COMPLETE', url })
     })
   )
 }
