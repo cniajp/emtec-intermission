@@ -45,7 +45,8 @@ export default function Header({ view, isDk }: Props) {
             </>
           ) : (
             <>
-              #{eventAbbrToShow.toUpperCase()}_{view.selectedTrack.name}
+              {/* #{eventAbbrToShow.toUpperCase()}_{view.selectedTrack.name} */}
+              #{eventAbbrToShow.toUpperCase()}
             </>
           )}
         </div>
