@@ -32,6 +32,15 @@ const RootApp: FC<AppProps> = ({ Component, ...rest }) => {
         }
       })
 
+      navigator.serviceWorker
+        .getRegistration()
+        .then((reg) => {
+          console.log('[Cache] getRegistration:', reg)
+          console.log('[Cache] installing:', reg?.installing)
+          console.log('[Cache] waiting:', reg?.waiting)
+          console.log('[Cache] active:', reg?.active)
+        })
+
       navigator.serviceWorker.ready.then((registration) => {
         console.log('[Cache] SW ready, active:', registration.active)
         console.log('[Cache] Requesting video cache update...')
