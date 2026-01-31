@@ -32,17 +32,23 @@ const RootApp: FC<AppProps> = ({ Component, ...rest }) => {
         }
       })
 
-      navigator.serviceWorker.getRegistration().then((reg) => {
-        console.log('[Cache] getRegistration:', reg)
-        console.log('[Cache] installing:', reg?.installing)
-        console.log('[Cache] waiting:', reg?.waiting)
-        console.log('[Cache] active:', reg?.active)
-      })
+      const requestCacheUpdate = () => {
+        navigator.serviceWorker.controller?.postMessage({
+          type: 'UPDATE_CACHE',
+        })
+        console.log('[Cache] Requested video cache update')
+      }
 
-      navigator.serviceWorker.ready.then((registration) => {
-        console.log('[Cache] SW ready, active:', registration.active)
-        console.log('[Cache] Requesting video cache update...')
-        registration.active?.postMessage({ type: 'UPDATE_CACHE' })
+      // 既に controller がある場合（2回目以降のアクセス）
+      if (navigator.serviceWorker.controller) {
+        console.log('[Cache] Controller already active')
+        requestCacheUpdate()
+      }
+
+      // 初回アクセス時: SW が active になったら発火
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        console.log('[Cache] Controller changed, SW now active')
+        requestCacheUpdate()
       })
     } else {
       console.log('[Cache] serviceWorker NOT supported')
