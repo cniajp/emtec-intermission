@@ -1,19 +1,29 @@
 import { Optional } from '@/utils/types'
 import { TalkView } from './models/talkView'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { PageCtx } from './models/pageContext'
 import config from '@/config'
 import { getTimeStr } from '@/utils/time'
 import { trim } from '@/utils/utils'
 import PageHeader from './PageHeader'
+import { pushPageMeasurement, pushPageEvent } from '@/lib/faro'
 
 type PageProps = { view: Optional<TalkView>; isDk: boolean }
 type Props = { view: Optional<TalkView> }
 
 export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
+  const renderStartTime = useRef(performance.now())
+
   useEffect(() => {
-    const cancel = setTimeout(goNextPage, config.transTimePage1 * 1000)
+    const duration = performance.now() - renderStartTime.current
+    pushPageMeasurement('Page1', duration)
+    pushPageEvent('Page1', 'page_displayed')
+
+    const cancel = setTimeout(() => {
+      pushPageEvent('Page1', 'page_exit')
+      goNextPage()
+    }, config.transTimePage1 * 1000)
     return () => clearTimeout(cancel)
   }, [goNextPage])
 

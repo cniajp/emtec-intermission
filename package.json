@@ -14,6 +14,8 @@
     "rtk-query-codegen": "TS_NODE_PROJECT=tsconfig.rtk.json rtk-query-codegen-openapi ./rtk-query-codegen-openapi.config.ts"
   },
   "dependencies": {
+    "@grafana/faro-web-sdk": "^2.2.2",
+    "@grafana/faro-web-tracing": "^2.2.2",
     "@pixi/react": "^8.0.3",
     "@pixi/sound": "^6.0.1",
     "@reduxjs/toolkit": "^2.9.0",
