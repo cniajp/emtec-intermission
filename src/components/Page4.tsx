@@ -1,8 +1,9 @@
 import { Optional } from '@/utils/types'
 import { TalkView } from './models/talkView'
-import { useContext } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { PageCtx } from './models/pageContext'
 import VideoPlaylist, { Playlist } from './VideoPlaylist'
+import { pushPageMeasurement, pushPageEvent } from '@/lib/faro'
 
 type Props = { view: Optional<TalkView> }
 
@@ -29,10 +30,22 @@ const playlist: Playlist = [
 
 export default function Page(_: Props) {
   const { goNextPage } = useContext(PageCtx)
+  const renderStartTime = useRef(performance.now())
+
+  useEffect(() => {
+    const duration = performance.now() - renderStartTime.current
+    pushPageMeasurement('Page4', duration)
+    pushPageEvent('Page4', 'page_displayed')
+  }, [])
+
+  const handleEnded = () => {
+    pushPageEvent('Page4', 'page_exit')
+    goNextPage()
+  }
 
   return (
     <div className="w-full h-full">
-      <VideoPlaylist onEnded={goNextPage} playlist={playlist}></VideoPlaylist>
+      <VideoPlaylist onEnded={handleEnded} playlist={playlist}></VideoPlaylist>
     </div>
   )
 }
