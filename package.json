@@ -32,6 +32,7 @@
     "videojs-playlist": "^5.1.0"
   },
   "devDependencies": {
+    "@grafana/faro-webpack-plugin": "^0.9.2",
     "@rtk-query/codegen-openapi": "^2.0.0",
     "@types/node": "^24.5.1",
     "@types/react": "^19.1.13",
