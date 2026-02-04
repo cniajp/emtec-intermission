@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 
 // アニメーション関連の定数
 export const AVATAR_CHANGE_INTERVAL = 3000 // スライド間隔（ms）
-export const ANIMATION_DURATION = 800 // アニメーション時間（ms）
-export const ANIMATION_DURATION_SEC = '0.8s' // CSS用
+export const ANIMATION_DURATION = 1200 // アニメーション時間（ms）
+export const ANIMATION_DURATION_SEC = '1.2s' // CSS用
 
 type UseAvatarSliderResult = {
   currentIndex: number

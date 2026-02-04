@@ -15,12 +15,12 @@ export function RollingAvatar({
   currentSrc,
   prevSrc,
   isSliding,
-  size = 180,
+  size = 200,
   defaultAvatar,
 }: RollingAvatarProps) {
   return (
     <div
-      className="rounded-full overflow-hidden relative"
+      className="rounded-full overflow-hidden relative border-4 border-white/40 shadow-xl"
       style={{ width: size, height: size }}
     >
       {/* 前の画像（背景として固定表示） */}
@@ -46,15 +46,17 @@ export function RollingAvatar({
       <style jsx>{`
         img:last-of-type {
           animation: ${isSliding
-            ? `rollIn ${ANIMATION_DURATION_SEC} cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards`
+            ? `rollIn ${ANIMATION_DURATION_SEC} cubic-bezier(0.16, 1, 0.3, 1) forwards`
             : 'none'};
         }
         @keyframes rollIn {
           0% {
-            transform: translateX(-100%) rotate(-90deg);
+            transform: translateX(-100%) rotate(-120deg);
+            opacity: 0.8;
           }
           100% {
             transform: translateX(0) rotate(0deg);
+            opacity: 1;
           }
         }
       `}</style>

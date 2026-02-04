@@ -51,7 +51,7 @@ function Body({ view }: Props) {
           {getTimeStr(talk.startTime)}-{getTimeStr(talk.endTime)}
         </div>
       </div>
-      <div className="grid grid-cols-2 gap8">
+      <div className="grid grid-cols-2 gap-8 justify-items-center">
         {view.allTracks.map((track) => {
           const talk = nextTalks[track.name]
           if (!talk) {
@@ -98,8 +98,8 @@ function Track({ talk, track, speakers }: TrackProps) {
   const prevAvatarUrl = getAvatarUrl(prevIndex)
 
   return (
-    <div className="flex flex-row items-center text-gray-800 w-[900px] h-[300px] mt-12">
-      <div className="basis-1/3 flex justify-end pr-5">
+    <div className="flex flex-row items-center w-[900px] h-[300px] mt-12 backdrop-blur-xl bg-white/15 border border-white/30 rounded-2xl shadow-2xl text-white p-8">
+      <div className="basis-1/3 flex justify-center">
         <RollingAvatar
           currentSrc={currentAvatarUrl || DEFAULT_AVATAR}
           prevSrc={prevAvatarUrl || DEFAULT_AVATAR}
@@ -107,12 +107,13 @@ function Track({ talk, track, speakers }: TrackProps) {
           defaultAvatar={DEFAULT_AVATAR}
         />
       </div>
-      <div className="basis-2/3">
-        {/* <div className="text-1.5xl my-2 w-[600px] text-black opacity-30 font-din-2014 font-bold "> */}
-        <div className="text-1.5xl my-2 w-[600px] text-white opacity-90 font-din-2014 font-bold ">
-          TRACK {track.name}
+      <div className="basis-2/3 pl-4">
+        <div className="mb-3 pl-3 border-l-4 border-white/70">
+          <span className="text-lg text-white/90 font-din-2014 font-bold tracking-widest">
+            TRACK {track.name}
+          </span>
         </div>
-        <div className="text-xl font-bold flex flex-wrap gap-x-1">
+        <div className="text-2xl font-bold flex flex-wrap gap-x-1 mb-2">
           {talk.speakers.map((s, i) => (
             <span key={i}>
               {s.name}
@@ -120,8 +121,10 @@ function Track({ talk, track, speakers }: TrackProps) {
             </span>
           ))}
         </div>
-        <div className="text-base mb-3">{Array.from(companies).join(', ')}</div>
-        <div className="text-base my-3">{talk.title}</div>
+        <div className="text-base mb-4 text-white/60">
+          {Array.from(companies).join(', ')}
+        </div>
+        <div className="text-lg leading-relaxed">{talk.title}</div>
       </div>
     </div>
   )
