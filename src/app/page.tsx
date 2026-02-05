@@ -5,6 +5,25 @@ import config from '@/config'
 import { Header, Footer } from '@/components/Layout'
 import { talks } from '@/data/talks'
 
+const TOOLS = [
+  {
+    href: '/break-dk/monitor',
+    title: 'Monitor',
+    description: '全トラックの状態を監視 (Dreamkast専用)',
+  },
+  {
+    href: 'https://short.emtec.tv/',
+    title: '短縮URL',
+    description: 'EMTEC専用短縮URLサービス',
+    external: true,
+  },
+  {
+    href: '/tools/pdf',
+    title: 'PDF変換ツール',
+    description: 'PDFファイルを画像に変換するツール',
+  },
+] as const
+
 function LinkCard({
   href,
   title,
@@ -144,22 +163,9 @@ export default function Home() {
 
           <div className="w-1/4">
             <Section title="ツール" badge="Utilities">
-              <LinkCard
-                href="/break-dk/monitor"
-                title="Monitor"
-                description="全トラックの状態を監視 (Dreamkast専用)"
-              />
-              <LinkCard
-                href="https://short.emtec.tv/"
-                title="短縮URL"
-                description="EMTEC専用短縮URLサービス"
-                external
-              />
-              <LinkCard
-                href="/tools/pdf"
-                title="PDF変換ツール"
-                description="PDFファイルを画像に変換するツール"
-              />
+              {TOOLS.map((tool) => (
+                <LinkCard key={tool.href} {...tool} />
+              ))}
             </Section>
           </div>
         </div>
