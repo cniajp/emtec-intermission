@@ -6,7 +6,6 @@ import config from '@/config'
 import { getTimeStr } from '@/utils/time'
 import { trim } from '@/utils/utils'
 import PageHeader from './PageHeader'
-import Image from 'next/image'
 import { Speaker } from '@/data/types'
 
 type PageProps = { view: Optional<TalkView>; isDk: boolean }
@@ -24,10 +23,10 @@ export default function Page({ view, isDk }: PageProps) {
       <PageHeader view={view} isDk={isDk} />
       <div className="h-full">
         <div className="flex flex-row h-full">
-          <div className="basis-2/3">
+          <div className="basis-3/5">
             <Main view={view} isDk={isDk} />
           </div>
-          <div className="basis-1/3">
+          <div className="basis-2/5">
             <Side view={view} />
           </div>
         </div>
@@ -48,21 +47,21 @@ function Main({ view, isDk }: Props) {
   const companies = new Set(speakers.map((s) => s.company).filter(Boolean))
 
   return (
-    <div className="my-20">
-      <div className="text-left w-[450px] bg-COLOR-UPCOMING-SESSION-LABEL pr-3 py-8">
-        <div className="text-right text-white font-bold font-din-2014 tracking-wide text-1.5xl">
+    <div className="mt-4 mb-16">
+      <div className="text-left w-[500px] bg-COLOR-UPCOMING-SESSION-LABEL pr-3 py-10">
+        <div className="text-right text-white font-bold font-din-2014 tracking-wide text-2xl">
           UPCOMING SESSION
         </div>
       </div>
-      <div className="top-[80px] left-[120px] w-[850px] relative longshadow bg-[rgba(18,151,204,0.9)] text-white">
-        <div className="text-center py-1 text-xl text-white bg-slate-400 font-din-2014 font-light">
+      <div className="top-[55px] left-[120px] w-[1000px] relative longshadow bg-[rgba(18,151,204,0.9)] text-white">
+        <div className="text-center py-2 text-1.5xl text-white bg-slate-400 font-din-2014 font-light">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>
-        <div className="px-10 py-5 w-full font-ryo-gothic-plusn">
-          <div className="text-center text-2xl pt-8 pb-5 font-bold">
+        <div className="px-12 py-6 w-full font-ryo-gothic-plusn">
+          <div className="text-center text-3xl pt-8 pb-6 font-bold break-keep">
             {talk.title}
           </div>
-          <div className="text-lg font-bold p-3 flex flex-wrap justify-center gap-x-1">
+          <div className="text-xl font-bold p-3 flex flex-wrap justify-center gap-x-1">
             {talk.speakers.map((s, i) => (
               <span key={i}>
                 {s.name}
@@ -71,15 +70,15 @@ function Main({ view, isDk }: Props) {
             ))}
           </div>
           {companies.size > 0 && (
-            <div className="text-center text-lg font-bold p-3">
+            <div className="text-center text-xl font-bold p-3">
               {Array.from(companies).join(', ')}
             </div>
           )}
         </div>
         <SpeakerAvatars speakers={speakers} />
-        <div className="p-5 font-ryo-gothic-plusn text-white">
+        <div className="p-6 font-ryo-gothic-plusn text-white">
           {(talk.talkCategory || talk.talkDifficulty) && (
-            <div className="text-sm text-gray-600 pb-2">
+            <div className="text-base text-gray-300 pb-2">
               {talk.talkCategory && (
                 <span className="mr-5">Category: {talk.talkCategory}</span>
               )}
@@ -88,8 +87,7 @@ function Main({ view, isDk }: Props) {
               )}
             </div>
           )}
-          {/* <div className="text-sm text-gray-600"> */}
-          <div className="text-sm text-white">
+          <div className="text-base text-white">
             {talk.abstract && (
               <span>
                 {isDk && 'Abstract: '}
@@ -126,23 +124,23 @@ function Side({ view }: Props) {
     .talksInSameTrack()
     .filter((t) => t.talkCategory === 'Keynote' && t.startTime > talkStartTime)
   return (
-    <div className="p-14 h-[80%] overflow-y-auto hidden-scrollbar">
+    <div className="p-14 h-[80%]">
       {hasKeynote && (
-        <div className="text-right w-[750px] bg-COLOR-TIMETABLE-Box px-3 pt-1 pb-2 my-3 font-ryo-gothic-plusn">
+        <div className="text-right w-[650px] backdrop-blur-xl bg-white/15 border border-white/30 px-4 pt-2 pb-3 my-3 font-ryo-gothic-plusn rounded-xl shadow-lg">
           <div className="flex flex-row">
-            <div className="text-left basis-1/2 text-white text-xxs font-din-2014 font-light">
+            <div className="text-left basis-1/2 text-white text-sm font-din-2014 font-light">
               <span>
                 {getTimeStr(keyNoteTalks[0].startTime)} -{' '}
                 {getTimeStr(keyNoteTalks[keyNoteTalks.length - 1].endTime)} :
               </span>
               <span className="ml-2">Keynote</span>
             </div>
-            <div className="basis-1/2 text-white text-xxs" />
+            <div className="basis-1/2 text-white text-sm" />
           </div>
           {keyNoteTalks.map((talk) => (
             <div
               key={talk.id}
-              className="text-center text-white text-semi h-min-[30px] font-bold"
+              className="text-center text-white text-lg min-h-[40px] py-1 font-bold"
             >
               {trim(talk.title, 80)}
             </div>
@@ -153,17 +151,17 @@ function Side({ view }: Props) {
       {talks.map((talk) => (
         <div
           key={talk.id}
-          className="text-right w-[750px] bg-COLOR-TIMETABLE-Box px-3 pt-2 my-3 font-ryo-gothic-plusn"
+          className="text-right w-[650px] backdrop-blur-xl bg-white/15 border border-white/30 px-4 pt-3 pb-2 my-3 font-ryo-gothic-plusn rounded-xl shadow-lg"
         >
           <div className="flex flex-row">
-            <div className="text-left basis-1/2 text-white text-xxs font-din-2014 font-light">
+            <div className="text-left basis-1/2 text-white text-sm font-din-2014 font-light">
               {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
             </div>
-            <div className="basis-1/2 text-white text-xxs">
+            <div className="basis-1/2 text-white text-sm">
               {talk.speakers.map((t) => t.name).join(', ')}
             </div>
           </div>
-          <div className="text-center text-white text-semi h-[60px] font-bold">
+          <div className="text-center text-white text-lg min-h-[70px] py-2 font-bold">
             {trim(talk.title, 80)}
           </div>
         </div>
@@ -174,21 +172,6 @@ function Side({ view }: Props) {
 
 const DEFAULT_AVATAR =
   'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png'
-
-function AvatarImage({ src, alt }: { src: string; alt: string }) {
-  const [imgSrc, setImgSrc] = useState(src || DEFAULT_AVATAR)
-
-  return (
-    <Image
-      src={imgSrc}
-      alt={alt}
-      className="rounded-full mx-2 mb-4 shrink-0 object-cover aspect-square"
-      width={96}
-      height={96}
-      onError={() => setImgSrc(DEFAULT_AVATAR)}
-    />
-  )
-}
 
 function SpeakerAvatars({ speakers }: { speakers: Speaker[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -206,18 +189,29 @@ function SpeakerAvatars({ speakers }: { speakers: Speaker[] }) {
   if (speakers.length === 0) return null
 
   const avatarElements = speakers.map((s, i) => (
-    <AvatarImage key={i} src={s.avatarUrl || ''} alt={s.name} />
+    <div key={i} className="shrink-0 mx-3">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={s.avatarUrl || DEFAULT_AVATAR}
+        alt={s.name}
+        className="rounded-full object-cover border-4 border-white/40 shadow-xl"
+        style={{ width: 120, height: 120 }}
+        onError={(e) => {
+          e.currentTarget.src = DEFAULT_AVATAR
+        }}
+      />
+    </div>
   ))
 
   return (
-    <div ref={containerRef} className="overflow-hidden w-full">
+    <div ref={containerRef} className="overflow-hidden w-full py-4">
       <div
         ref={contentRef}
-        className={`flex justify-center gap-x-1 ${isOverflow ? 'animate-marquee' : ''}`}
+        className={`flex ${isOverflow ? '' : 'justify-center'}`}
         style={
           isOverflow
             ? {
-                animation: 'marquee 20s linear infinite',
+                animation: 'sushiLane 15s linear infinite',
                 width: 'max-content',
               }
             : undefined
@@ -225,15 +219,16 @@ function SpeakerAvatars({ speakers }: { speakers: Speaker[] }) {
       >
         {avatarElements}
         {isOverflow && avatarElements}
+        {isOverflow && avatarElements}
       </div>
       {isOverflow && (
         <style jsx>{`
-          @keyframes marquee {
+          @keyframes sushiLane {
             0% {
               transform: translateX(0);
             }
             100% {
-              transform: translateX(-50%);
+              transform: translateX(-33.33%);
             }
           }
         `}</style>
