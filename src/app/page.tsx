@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import config from '@/config'
+import { Header, Footer } from '@/components/Layout'
 import { talks } from '@/data/talks'
 
 function LinkCard({
@@ -35,7 +35,12 @@ function LinkCard({
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
         {content}
       </a>
     )
@@ -90,7 +95,9 @@ export default function Home() {
       ]
         .sort((a, b) => a - b)
         .map((day) => {
-          const talk = talks.find((t) => t.conferenceDayId === day && t.startTime)
+          const talk = talks.find(
+            (t) => t.conferenceDayId === day && t.startTime
+          )
           const date = talk?.startTime ? new Date(talk.startTime) : null
           const weekdays = ['日', '月', '火', '水', '木', '金', '土']
           return {
@@ -104,20 +111,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col bg-neutral-900">
-      <header className="border-b border-neutral-800 px-12 py-3">
-        <div className="mx-auto max-w-5xl">
-          <div className="inline-block rounded bg-white px-3 py-1.5">
-            <Image
-              src="/intermission.png"
-              alt="EMTEC Intermission"
-              width={200}
-              height={50}
-              priority
-              className="h-8 w-auto"
-            />
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className="flex flex-1 flex-col p-12">
         <div className="mx-auto flex w-full max-w-5xl flex-1 items-start gap-8">
@@ -161,36 +155,17 @@ export default function Home() {
                 description="EMTEC専用短縮URLサービス"
                 external
               />
+              <LinkCard
+                href="/tools/pdf"
+                title="PDF変換ツール"
+                description="PDFファイルを画像に変換するツール"
+              />
             </Section>
           </div>
         </div>
       </main>
 
-      <footer className="border-t border-neutral-800 px-12 py-6">
-        <div className="mx-auto flex max-w-5xl items-center justify-between">
-          <p className="text-sm text-neutral-500">
-            &copy; {new Date().getFullYear()} EMTEC
-          </p>
-          <div className="flex gap-6">
-            <a
-              href="https://github.com/cloudnativedaysjp/emtec-intermission"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-neutral-400 hover:text-white transition-colors"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://emtec.tv/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-neutral-400 hover:text-white transition-colors"
-            >
-              EMTEC
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
