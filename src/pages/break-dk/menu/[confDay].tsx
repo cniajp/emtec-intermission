@@ -6,9 +6,9 @@ import type { Talk, Track } from '@/data/types'
 import { getTimeStr } from '@/utils/time'
 import { Optional } from '@/utils/types'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useState } from 'react'
+import { Header, Footer } from '@/components/Layout'
 
 type Props = {
   view: Optional<MenuView>
@@ -56,55 +56,19 @@ export default function Index() {
 
   return (
     <div className="flex min-h-screen flex-col bg-neutral-900">
-      <header className="border-b border-neutral-800 px-8 py-3">
-        <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <Link href="/" className="inline-block rounded bg-white px-3 py-1.5">
-            <Image
-              src="/intermission.png"
-              alt="EMTEC Intermission"
-              width={200}
-              height={50}
-              priority
-              className="h-8 w-auto"
-            />
-          </Link>
-          <DayNavigation
-            currentDay={currentDay}
-            eventAbbr={dkEventAbbr as string}
-            allDays={allDays}
-          />
-        </div>
-      </header>
+      <Header>
+        <DayNavigation
+          currentDay={currentDay}
+          eventAbbr={dkEventAbbr as string}
+          allDays={allDays}
+        />
+      </Header>
 
       <main className="flex-1 p-8">
         <TalkMenu view={view} confDay={String(currentDay)} />
       </main>
 
-      <footer className="border-t border-neutral-800 px-8 py-4">
-        <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <p className="text-sm text-neutral-500">
-            &copy; {new Date().getFullYear()} EMTEC
-          </p>
-          <div className="flex gap-6">
-            <a
-              href="https://github.com/cloudnativedaysjp/emtec-intermission"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-neutral-400 hover:text-white transition-colors"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://emtec.tv/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-neutral-400 hover:text-white transition-colors"
-            >
-              EMTEC
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
