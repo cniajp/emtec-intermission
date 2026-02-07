@@ -44,7 +44,6 @@ function Main({ view, isDk }: Props) {
     return <></>
   }
   const speakers = view.speakersOf(talk.id)
-  const companies = new Set(speakers.map((s) => s.company).filter(Boolean))
 
   return (
     <div className="mt-4 mb-16">
@@ -58,24 +57,11 @@ function Main({ view, isDk }: Props) {
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>
         <div className="px-12 py-6 w-full font-ryo-gothic-plusn">
-          <div className="text-center text-3xl pt-8 pb-6 font-bold break-keep">
+          <div className="text-center text-3xl pt-4 font-bold break-words">
             {talk.title}
           </div>
-          <div className="text-xl font-bold p-3 flex flex-wrap justify-center gap-x-1">
-            {talk.speakers.map((s, i) => (
-              <span key={i}>
-                {s.name}
-                {i < talk.speakers.length - 1 && ','}
-              </span>
-            ))}
-          </div>
-          {companies.size > 0 && (
-            <div className="text-center text-xl font-bold p-3">
-              {Array.from(companies).join(', ')}
-            </div>
-          )}
         </div>
-        <SpeakerAvatars speakers={speakers} />
+        <SpeakerCards speakers={speakers} />
         <div className="p-6 font-ryo-gothic-plusn text-white">
           {(talk.talkCategory || talk.talkDifficulty) && (
             <div className="text-base text-gray-300 pb-2">
@@ -173,7 +159,7 @@ function Side({ view }: Props) {
 const DEFAULT_AVATAR =
   'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png'
 
-function SpeakerAvatars({ speakers }: { speakers: Speaker[] }) {
+function SpeakerCards({ speakers }: { speakers: Speaker[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [isOverflow, setIsOverflow] = useState(false)
@@ -188,18 +174,29 @@ function SpeakerAvatars({ speakers }: { speakers: Speaker[] }) {
 
   if (speakers.length === 0) return null
 
-  const avatarElements = speakers.map((s, i) => (
-    <div key={i} className="shrink-0 mx-3">
+  const cardElements = speakers.map((s, i) => (
+    <div
+      key={i}
+      className="shrink-0 mx-4 flex flex-col items-center min-w-[140px]"
+    >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={s.avatarUrl || DEFAULT_AVATAR}
         alt={s.name}
-        className="rounded-full object-cover border-4 border-white/40 shadow-xl"
-        style={{ width: 120, height: 120 }}
+        className="rounded-full object-cover border-4 border-white/40 shadow-xl mb-3"
+        style={{ width: 100, height: 100 }}
         onError={(e) => {
           e.currentTarget.src = DEFAULT_AVATAR
         }}
       />
+      <div className="text-white text-lg font-bold text-center leading-tight">
+        {s.name}
+      </div>
+      {s.company && (
+        <div className="text-white/80 text-sm text-center mt-1 leading-tight">
+          {s.company}
+        </div>
+      )}
     </div>
   ))
 
@@ -211,15 +208,15 @@ function SpeakerAvatars({ speakers }: { speakers: Speaker[] }) {
         style={
           isOverflow
             ? {
-                animation: 'sushiLane 15s linear infinite',
+                animation: 'sushiLane 25s linear infinite',
                 width: 'max-content',
               }
             : undefined
         }
       >
-        {avatarElements}
-        {isOverflow && avatarElements}
-        {isOverflow && avatarElements}
+        {cardElements}
+        {isOverflow && cardElements}
+        {isOverflow && cardElements}
       </div>
       {isOverflow && (
         <style jsx>{`
