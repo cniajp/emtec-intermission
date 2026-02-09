@@ -8,14 +8,15 @@ import Image from 'next/image'
 
 type PageProps = { view: Optional<TalkView>; isDk: boolean }
 
-const alias: string = 'srekaigi2026'
+const alias: string = 'janog57'
 
 const images: string[] = [
-  'info_001.jpg',
-  'info_002.jpg',
-  'info_003.jpg',
-  'info_004.jpg',
-  'info_005.jpg',
+  'image.png',
+  // 'info_001.jpg',
+  // 'info_002.jpg',
+  // 'info_003.jpg',
+  // 'info_004.jpg',
+  // 'info_005.jpg',
 ]
 
 export default function Page({ view, isDk }: PageProps) {
