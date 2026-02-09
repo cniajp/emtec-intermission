@@ -62,7 +62,7 @@ function Main({ view, isDk }: Props) {
           UPCOMING SESSION
         </div>
       </div>
-      <div className="top-[55px] left-[120px] w-[1000px] relative longshadow bg-[rgba(18,151,204,0.9)] text-white">
+      <div className="top-[55px] left-[120px] w-[1000px] relative longshadow bg-[rgba(18,151,204)] text-white">
         <div className="text-center py-2 text-1.5xl text-white bg-slate-400 font-din-2014 font-light">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>
