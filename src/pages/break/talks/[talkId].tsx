@@ -42,8 +42,8 @@ function Pages() {
   // })
 
   const pages = [
-    // { name: 'Page1', component: <Page1 key={1} view={view} isDk={false} /> },
-    // { name: 'Page2', component: <Page2 key={2} view={view} isDk={false} /> },
+    { name: 'Page1', component: <Page1 key={1} view={view} isDk={false} /> },
+    { name: 'Page2', component: <Page2 key={2} view={view} isDk={false} /> },
     { name: 'Page3', component: <Page3 key={3} view={view} isDk={false} /> },
     // { name: 'Page4', component: <Page4 key={4} view={view} /> },
   ]
@@ -69,7 +69,6 @@ function Pages() {
       <div>
         <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css" />
       </div>
-      {console.log(config.debug)}
       {config.debug && (
         <>
           <button
