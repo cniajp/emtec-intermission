@@ -1,23 +1,23 @@
 import { Optional } from '@/utils/types'
-import { TalkView } from './models/talkView'
+import { TalkView } from '../models/talkView'
 import { useContext, useEffect, useState, useRef } from 'react'
-import { PageCtx } from './models/pageContext'
+import { PageCtx } from '../models/pageContext'
 import config from '@/config'
 import PageHeader from './PageHeader'
 import Image from 'next/image'
 import { pushPageMeasurement, pushPageEvent } from '@/lib/faro'
 
 type PageProps = { view: Optional<TalkView>; isDk: boolean }
-type Props = { view: Optional<TalkView> }
 
-const alias: string = 'srekaigi2026'
+const alias: string = 'janog57'
 
 const images: string[] = [
-  'info_001.jpg',
-  'info_002.jpg',
-  'info_003.jpg',
-  'info_004.jpg',
-  'info_005.jpg',
+  'image.png',
+  // 'info_001.jpg',
+  // 'info_002.jpg',
+  // 'info_003.jpg',
+  // 'info_004.jpg',
+  // 'info_005.jpg',
 ]
 
 export default function Page({ view, isDk }: PageProps) {

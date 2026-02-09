@@ -1,9 +1,9 @@
-import AudioPlayer from '@/components/AudioPlayer'
-import Page1 from '@/components/Page1'
-import Page2, { AvatarPreLoader } from '@/components/Page2'
-import Page3 from '@/components/Page3'
-import Page4 from '@/components/Page4'
-import Loading from '@/components/Loading'
+import AudioPlayer from '@/components/media/AudioPlayer'
+import Page1 from '@/components/pages/Page1'
+import Page2, { AvatarPreLoader } from '@/components/pages/Page2'
+import Page3 from '@/components/pages/Page3'
+import Page4 from '@/components/pages/Page4'
+import Loading from '@/components/common/Loading'
 import { useGetTalksAndTracks } from '@/components/hooks/useGetTalksAndTracks'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import config, { extendConfig } from '@/config'
@@ -36,21 +36,25 @@ function Pages() {
   })
 
   const pages = [
-    <Page1 key={1} view={view} isDk={true} />,
-    <Page2 key={2} view={view} isDk={true} />,
-    <Page3 key={3} view={view} isDk={true} />,
-    // CM スポンサーなしの場合は page 4 はコメントアウトする (下のshouldPlayAudioも編集が必要)
-    <Page4 key={4} view={view} />,
+    { name: 'Page1', component: <Page1 key={1} view={view} isDk={true} /> },
+    { name: 'Page2', component: <Page2 key={2} view={view} isDk={true} /> },
+    { name: 'Page3', component: <Page3 key={3} view={view} isDk={true} /> },
+    { name: 'Page4', component: <Page4 key={4} view={view} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // デバッグ用: 現在のコンポーネント名をコンソールに出力
+  useEffect(() => {
+    if (config.debug) {
+      console.log(`Current component: ${pages[current].name}`)
+    }
+  }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
+
   const audioSrc = '/cnds2025/cnds2025_intermission.mp3'
   // CM ありの場合
-  const shouldPlayAudio = current !== pages.length - 1
-  // CM なしの場合
-  // const shouldPlayAudio = true
+  const shouldPlayAudio = pages[current].name !== 'Page4'
 
   return (
     <>
@@ -59,6 +63,15 @@ function Pages() {
       </div>
       {config.debug && (
         <>
+          <button
+            onClick={() => {
+              const dayId = view?.selectedTalk.conferenceDayId || 1
+              router.push(`/break-dk/menu/${dayId}`)
+            }}
+            className="font-bold py-0 px-4 mx-2 my-2 rounded bg-red-300 items-right"
+          >
+            Back to Menu
+          </button>
           <button
             onClick={updateCache}
             className="font-bold py-0 px-4 mx-2 my-2 rounded bg-yellow-300 items-right"
@@ -96,11 +109,11 @@ function Pages() {
         {/* コンテンツ */}
         {showContent && (
           <div className="absolute inset-0 content-fade-in">
-            {pages[current]}
+            {pages[current].component}
           </div>
         )}
         {!isLoading && !showContent && (
-          <div className="absolute inset-0">{pages[current]}</div>
+          <div className="absolute inset-0">{pages[current].component}</div>
         )}
       </div>
     </>

@@ -1,8 +1,8 @@
 import { Optional } from '@/utils/types'
-import { TalkView } from './models/talkView'
+import { TalkView } from '../models/talkView'
 import { useContext, useEffect, useRef } from 'react'
-import { PageCtx } from './models/pageContext'
-import VideoPlaylist, { Playlist } from './VideoPlaylist'
+import { PageCtx } from '../models/pageContext'
+import VideoPlaylist, { Playlist } from '../media/VideoPlaylist'
 import { pushPageMeasurement, pushPageEvent } from '@/lib/faro'
 
 type Props = { view: Optional<TalkView> }

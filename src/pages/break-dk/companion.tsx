@@ -1,4 +1,4 @@
-import CompanionConfigGenerate from '@/components/CompanionConfigGenerate'
+import CompanionConfigGenerate from '@/components/tools/CompanionConfigGenerate'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import config from '@/config'

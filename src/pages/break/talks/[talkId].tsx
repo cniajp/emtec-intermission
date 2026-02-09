@@ -1,9 +1,9 @@
-import AudioPlayer from '@/components/AudioPlayer'
-import Page1 from '@/components/Page1'
-import Page2, { AvatarPreLoader } from '@/components/Page2'
-import Page3 from '@/components/Page3'
-import Page4 from '@/components/Page4'
-// import Loading from '@/components/Loading'
+import AudioPlayer from '@/components/media/AudioPlayer'
+import Page1 from '@/components/pages/Page1'
+import Page2, { AvatarPreLoader } from '@/components/pages/Page2'
+import Page3 from '@/components/pages/Page3'
+import Page4 from '@/components/pages/Page4'
+// import Loading from '@/components/common/Loading'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import { TalkView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
@@ -42,19 +42,27 @@ function Pages() {
   // })
 
   const pages = [
-    <Page1 key={1} view={view} isDk={false} />,
-    <Page2 key={2} view={view} isDk={false} />,
-    <Page3 key={3} view={view} isDk={false} />,
-    <Page4 key={4} view={view} />,
+    { name: 'Page1', component: <Page1 key={1} view={view} isDk={false} /> },
+    { name: 'Page2', component: <Page2 key={2} view={view} isDk={false} /> },
+    { name: 'Page3', component: <Page3 key={3} view={view} isDk={false} /> },
+    // { name: 'Page4', component: <Page4 key={4} view={view} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const audioSrc = '/pek2025/pek2025_intermission.mp3'
+  // デバッグ用: 現在のコンポーネント名をコンソールに出力
+  useEffect(() => {
+    if (config.debug) {
+      console.log(`Current component: ${pages[current].name}`)
+    }
+  }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // const shouldPlayAudio = current !== pages.length // Page4を使用しない場合
-  const shouldPlayAudio = current !== pages.length - 1
+  // const audioSrc = '/pek2025/pek2025_intermission.mp3'
+  const audioSrc =
+    'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/bgm/203_fixed.mp3'
+
+  const shouldPlayAudio = pages[current].name !== 'Page4'
 
   return (
     <>
@@ -63,6 +71,15 @@ function Pages() {
       </div>
       {config.debug && (
         <>
+          <button
+            onClick={() => {
+              const dayId = view?.selectedTalk.conferenceDayId || 1
+              router.push(`/break/menu/${dayId}`)
+            }}
+            className="font-bold py-0 px-4 mx-2 my-2 rounded bg-red-300 items-right"
+          >
+            Back to Menu
+          </button>
           <button
             onClick={updateCache}
             className="font-bold py-0 px-4 mx-2 my-2 rounded bg-yellow-300 items-right"
@@ -81,10 +98,11 @@ function Pages() {
       <AvatarPreLoader view={view}></AvatarPreLoader>
       <div className="w-[1920px] h-[1080px] relative">
         <Image
-          src="/pek2025/background.webp"
+          src="/janog57/background.png"
           alt="background"
           className="-z-10"
           fill
+          quality={100}
           style={{ objectFit: 'cover' }}
           priority
         />
@@ -104,7 +122,7 @@ function Pages() {
           </div>
         )} */}
         {/* {!isLoading && !showContent && ( */}
-        <div className="absolute inset-0">{pages[current]}</div>
+        <div className="absolute inset-0">{pages[current].component}</div>
         {/* )} */}
       </div>
     </>
