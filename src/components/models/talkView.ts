@@ -174,12 +174,12 @@ export class MenuView {
       () => null
     )
 
+    const slotStartUnix = getTime(timeSlot.startTime).unix()
+
     this.allTalksOnTimeTable()
       .filter((talk) => {
-        return (
-          timeSlot.startTime === talk.startTime &&
-          timeSlot.endTime === talk.endTime
-        )
+        // 開始時間のみで比較（終了時間が異なるトークも表示）
+        return getTime(talk.startTime).unix() === slotStartUnix
       })
       .forEach((talk) => {
         talks[trackMap[talk.trackId]] = talk

@@ -5,10 +5,77 @@ import { PageCtx } from '../models/pageContext'
 import config from '@/config'
 import type { Speaker, Talk, Track } from '@/data/types'
 import PageHeader from './PageHeader'
-import { getTimeStr } from '@/utils/time'
+import { getTime, getTimeStr } from '@/utils/time'
 import { pushPageMeasurement, pushPageEvent } from '@/lib/faro'
 import { useAvatarSlider } from '../hooks/useAvatarSlider'
 import { RollingAvatar } from '../avatar/RollingAvatar'
+
+// 選択されたトークの時間帯に重なるトークを各トラックごとに取得
+function getOverlappingTalks(view: TalkView): Record<string, Talk> {
+  const nextTalks = view.talksInNextSlot()
+  const baseTalk = Object.values(nextTalks)[0]
+  if (!baseTalk) {
+    return nextTalks
+  }
+
+  const slotStart = getTime(baseTalk.startTime)
+  const slotEnd = getTime(baseTalk.endTime)
+
+  const result: Record<string, Talk> = {}
+
+  // 対象トラックの残りトークを取得するヘルパー
+  const getTracksRemainingTalks = (trackId: number) => {
+    return view.allTalks
+      .filter(
+        (talk) =>
+          talk.trackId === trackId &&
+          talk.showOnTimetable &&
+          !config.excludedTalks.includes(talk.id)
+      )
+      .filter((talk) => {
+        const talkStart = getTime(talk.startTime)
+        return talkStart >= getTime(view.selectedTalk.startTime)
+      })
+      .sort((a, b) => getTime(a.startTime).diff(getTime(b.startTime)))
+  }
+
+  view.allTracks.forEach((track) => {
+    // 既に nextTalks にあればそれを使う
+    if (nextTalks[track.name]) {
+      result[track.name] = nextTalks[track.name]
+      return
+    }
+
+    const remainingTalks = getTracksRemainingTalks(track.id)
+
+    // 時間が重なるトークを探す
+    const overlappingTalk = remainingTalks.filter((talk) => {
+      const talkStart = getTime(talk.startTime)
+      const talkEnd = getTime(talk.endTime)
+      // 時間が重なる条件
+      return talkStart.isBefore(slotEnd) && talkEnd.isAfter(slotStart)
+    })[0]
+
+    if (overlappingTalk) {
+      result[track.name] = overlappingTalk
+      return
+    }
+
+    // 重なるトークがない場合、さらに30分先まで検索
+    const extendedSlotEnd = slotEnd.add(30, 'minute')
+    const extendedOverlappingTalk = remainingTalks.filter((talk) => {
+      const talkStart = getTime(talk.startTime)
+      const talkEnd = getTime(talk.endTime)
+      return talkStart.isBefore(extendedSlotEnd) && talkEnd.isAfter(slotStart)
+    })[0]
+
+    if (extendedOverlappingTalk) {
+      result[track.name] = extendedOverlappingTalk
+    }
+  })
+
+  return result
+}
 
 type PageProps = { view: Optional<TalkView>; isDk: boolean }
 type Props = { view: Optional<TalkView> }
@@ -46,7 +113,7 @@ function Body({ view }: Props) {
   if (!view) {
     return <></>
   }
-  const nextTalks = view.talksInNextSlot()
+  const nextTalks = getOverlappingTalks(view)
   const talk = Object.values(nextTalks)[0]
   if (!talk) {
     return <></>
@@ -144,7 +211,7 @@ export function AvatarPreLoader({ view }: Props) {
   if (!view) {
     return <></>
   }
-  const nextTalks = view.talksInNextSlot()
+  const nextTalks = getOverlappingTalks(view)
   const talk = Object.values(nextTalks)[0]
   if (!talk) {
     return <></>
