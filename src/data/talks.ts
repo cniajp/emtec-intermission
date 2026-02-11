@@ -665,7 +665,7 @@ export const talks: Talk[] = [
       },
     ],
     startTime: '2026-02-12T17:40:00+09:00',
-    endTime: '2026-02-12T17:40:00+09:00',
+    endTime: '2026-02-12T18:00:00+09:00',
     conferenceDayId: 2,
   },
   {
