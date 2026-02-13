@@ -58,7 +58,7 @@ function Pages() {
     }
   }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const audioSrc = '/janog57/bgm.mp3'
+  const audioSrc = '/janog57/bgm_day3.mp3'
   // const audioSrc =
   //   'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/bgm/203_fixed.mp3'
 
