@@ -51,6 +51,9 @@ const images: string[] = [
   'info_037.jpg',
   'info_038.jpg',
   'info_039.jpg',
+  'info_040.jpg',
+  'info_041.jpg',
+  'info_042.jpg',
 ]
 
 export default function Page({ view, isDk }: PageProps) {
