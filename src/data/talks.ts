@@ -761,8 +761,8 @@ export const talks: Talk[] = [
         name: '土屋 師子生',
       },
     ],
-    startTime: '2026-02-13T11:40:00+09:00',
-    endTime: '2026-02-13T12:20:00+09:00',
+    startTime: '2026-02-13T12:00:00+09:00',
+    endTime: '2026-02-13T12:40:00+09:00',
     conferenceDayId: 3,
   },
   {
@@ -838,8 +838,8 @@ export const talks: Talk[] = [
         name: '矢内 直人',
       },
     ],
-    startTime: '2026-02-13T13:40:00+09:00',
-    endTime: '2026-02-13T14:40:00+09:00',
+    startTime: '2026-02-13T14:00:00+09:00',
+    endTime: '2026-02-13T15:00:00+09:00',
     conferenceDayId: 3,
   },
   {
@@ -895,8 +895,8 @@ export const talks: Talk[] = [
         name: '加納 浩輝',
       },
     ],
-    startTime: '2026-02-13T15:00:00+09:00',
-    endTime: '2026-02-13T15:40:00+09:00',
+    startTime: '2026-02-13T15:20:00+09:00',
+    endTime: '2026-02-13T16:00:00+09:00',
     conferenceDayId: 3,
   },
   {
