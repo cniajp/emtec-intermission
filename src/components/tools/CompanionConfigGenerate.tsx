@@ -415,59 +415,58 @@ export function buildCompanionConfig({
         }))
       : []
 
-    // 特殊ボタンリスト
-    const specialButtonItems: ButtonItem[] = []
-    if (specialButtons.count) {
-      specialButtonItems.push({
-        type: 'special',
-        ...SPECIAL_BUTTONS.count,
-      })
-    }
-    if (specialButtons.trackA) {
-      specialButtonItems.push({
-        type: 'special',
-        ...SPECIAL_BUTTONS.trackA,
-      })
-    }
-    if (specialButtons.slido) {
-      specialButtonItems.push({
-        type: 'special',
-        ...SPECIAL_BUTTONS.slido,
-      })
-    }
-
     // ページ計算
-    // row 0: レイアウトボタン (5個)
-    // アタック動画有効時: row 1 に時刻、row 2 にアタック（縦揃え）
-    // アタック動画無効時: row 1, row 2 に順番配置
-
+    //   row 0: レイアウトボタン (5個固定)
+    //   row 1-2 cols 0-2: 時刻 (アタック有効時は row1=時刻 / row2=アタック)
+    //   col 3 row 1: Slido > TrackA (有効時のみ)
+    //   col 3 row 2: Countdown (有効時のみ)
+    //   col 4 row 1: ページ↑ (複数ページ時, 1ページ目以外)
+    //   col 4 row 2: ページ↓ (複数ページ時, 最終ページ以外) /
+    //                Slido & TrackA 両方有効時は最終ページのみ TrackA
+    const TIME_COLS = 3
     const totalTimeSlots = times.length
-    const totalSpecialButtons = specialButtonItems.length
+    const slotsPerPage = includeAttack ? TIME_COLS : TIME_COLS * 2
+    const totalPages = Math.max(1, Math.ceil(totalTimeSlots / slotsPerPage))
 
-    // 複数ページが必要かを判定
-    // アタック有効時: 4スロット/ページ（複数ページの場合）、5スロット/ページ（単一ページ）
-    // アタック無効時: 8ボタン/ページ（複数ページの場合）、10ボタン/ページ（単一ページ）
-    let totalPages: number
-    let slotsPerPage: number
-
-    if (includeAttack) {
-      // アタック有効時は時刻スロット単位で計算
-      // 特殊ボタンは最後のページのrow 2の空きに配置
-      const needsMultiplePages = totalTimeSlots > 4
-      slotsPerPage = needsMultiplePages ? 4 : 5
-      totalPages = Math.max(1, Math.ceil(totalTimeSlots / slotsPerPage))
-    } else {
-      // アタック無効時は従来通り
-      const totalButtons = totalTimeSlots + totalSpecialButtons
-      const needsMultiplePages = totalButtons > 8
-      slotsPerPage = needsMultiplePages ? 8 : 10
-      totalPages = Math.max(1, Math.ceil(totalButtons / slotsPerPage))
+    type PlaceableItem = {
+      text: string
+      obsScene: string
+      macroIndex: number
+      dthCode: string
     }
+
+    const buildActions = (
+      item: PlaceableItem,
+      deviceHeadline: string
+    ): object[] => {
+      const actions: object[] = []
+      if (device === 'gostream') {
+        actions.push(
+          createGoStreamAction(
+            deviceConnectionId,
+            item.macroIndex,
+            deviceHeadline
+          )
+        )
+      } else {
+        actions.push(...createVR6HDActions(deviceConnectionId, item.dthCode))
+      }
+      actions.push(
+        createObsSetSceneAction(
+          obsConnectionId,
+          item.obsScene,
+          `OBSシーン呼び出し: ${item.obsScene}`
+        )
+      )
+      return actions
+    }
+
+    const makeBtn = (item: PlaceableItem, deviceHeadline: string): object =>
+      createButton(item.text, '24', buildActions(item, deviceHeadline))
 
     const pages: Record<string, object> = {}
     const pagePreviews: CompanionPagePreview[] = []
     let timeIndex = 0
-    let specialIndex = 0
 
     for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
       const pageId = generateNanoId()
@@ -475,16 +474,13 @@ export function buildCompanionConfig({
       const isLastPage = pageNum === totalPages
       const hasMultiplePages = totalPages > 1
 
-      // ページごとのコントロール
       const controls: Record<string, Record<string, object>> = {}
 
-      // Row 0: レイアウトボタン（固定）
+      // Row 0: レイアウトボタン（固定 5列）
       controls['0'] = {}
       LAYOUT_BUTTONS.forEach((btn, col) => {
         const actions: object[] = []
         const layoutHeadline = `Layout: ${btn.text}`
-
-        // デバイス用アクション
         if (device === 'gostream') {
           actions.push(
             createGoStreamAction(
@@ -496,227 +492,72 @@ export function buildCompanionConfig({
         } else {
           actions.push(...createVR6HDActions(deviceConnectionId, btn.dthCode))
         }
-
-        // OBS用アクション
         actions.push(
           createObsSetSceneAction(obsConnectionId, '------', 'Clear OBS scene')
         )
-
         controls['0'][col.toString()] = createButton(btn.text, '18', actions)
       })
-
-      // 複数ページの場合は col 4 をナビゲーションに使用
-      const maxColsPerRow = hasMultiplePages ? 4 : 5
 
       controls['1'] = {}
       controls['2'] = {}
 
-      if (includeAttack) {
-        // アタック有効時: row 1 に時刻、row 2 にアタック（縦揃え）
-        const timeSlotsThisPage = Math.min(
-          maxColsPerRow,
-          totalTimeSlots - timeIndex
-        )
+      // 時刻 / アタックを cols 0-2 に配置
+      const slotsThisPage = Math.min(slotsPerPage, totalTimeSlots - timeIndex)
 
-        for (let i = 0; i < timeSlotsThisPage; i++) {
+      if (includeAttack) {
+        // 3列: row1 = 時刻, row2 = アタック
+        for (let i = 0; i < slotsThisPage; i++) {
           const timeBtn = timeButtons[timeIndex + i]
           const attackBtn = attackButtons[timeIndex + i]
-
-          // row 1: 時刻ボタン
-          const timeActions: object[] = []
-          const timeHeadline = `Time ${timeBtn.text}`
-          if (device === 'gostream') {
-            timeActions.push(
-              createGoStreamAction(
-                deviceConnectionId,
-                timeBtn.macroIndex,
-                timeHeadline
-              )
-            )
-          } else {
-            timeActions.push(
-              ...createVR6HDActions(deviceConnectionId, timeBtn.dthCode)
-            )
-          }
-          timeActions.push(
-            createObsSetSceneAction(
-              obsConnectionId,
-              timeBtn.obsScene,
-              `OBSシーン呼び出し: ${timeBtn.obsScene}`
-            )
-          )
-          controls['1'][i.toString()] = createButton(
-            timeBtn.text,
-            '24',
-            timeActions
-          )
-
-          // row 2: アタック動画ボタン
-          const attackActions: object[] = []
-          const attackHeadline = `Attack ${timeBtn.text}`
-          if (device === 'gostream') {
-            attackActions.push(
-              createGoStreamAction(
-                deviceConnectionId,
-                attackBtn.macroIndex,
-                attackHeadline
-              )
-            )
-          } else {
-            attackActions.push(
-              ...createVR6HDActions(deviceConnectionId, attackBtn.dthCode)
-            )
-          }
-          attackActions.push(
-            createObsSetSceneAction(
-              obsConnectionId,
-              attackBtn.obsScene,
-              `OBSシーン呼び出し: ${attackBtn.obsScene}`
-            )
-          )
-          controls['2'][i.toString()] = createButton(
-            attackBtn.text,
-            '24',
-            attackActions
+          controls['1'][i.toString()] = makeBtn(timeBtn, `Time ${timeBtn.text}`)
+          controls['2'][i.toString()] = makeBtn(
+            attackBtn,
+            `Attack ${timeBtn.text}`
           )
         }
-
-        // 最終ページで特殊ボタンをrow 2の空きに配置
-        if (isLastPage) {
-          let specialCol = timeSlotsThisPage
-          while (
-            specialIndex < totalSpecialButtons &&
-            specialCol < maxColsPerRow
-          ) {
-            const specialBtn = specialButtonItems[specialIndex]
-            const specialActions: object[] = []
-            const specialHeadline = `Special: ${specialBtn.text}`
-            if (device === 'gostream') {
-              specialActions.push(
-                createGoStreamAction(
-                  deviceConnectionId,
-                  specialBtn.macroIndex,
-                  specialHeadline
-                )
-              )
-            } else {
-              specialActions.push(
-                ...createVR6HDActions(deviceConnectionId, specialBtn.dthCode)
-              )
-            }
-            specialActions.push(
-              createObsSetSceneAction(
-                obsConnectionId,
-                specialBtn.obsScene,
-                `OBSシーン呼び出し: ${specialBtn.obsScene}`
-              )
-            )
-            controls['2'][specialCol.toString()] = createButton(
-              specialBtn.text,
-              '24',
-              specialActions
-            )
-            specialCol++
-            specialIndex++
-          }
-        }
-
-        timeIndex += timeSlotsThisPage
       } else {
-        // アタック無効時: 従来の順番配置
-        const allButtons = [...timeButtons, ...specialButtonItems]
-        const buttonsThisPage = Math.min(
-          slotsPerPage,
-          allButtons.length - timeIndex
-        )
-
-        // row 1のボタン配置
-        for (let i = 0; i < Math.min(maxColsPerRow, buttonsThisPage); i++) {
-          if (timeIndex + i < allButtons.length) {
-            const item = allButtons[timeIndex + i]
-            const actions: object[] = []
-            const itemHeadline =
-              item.type === 'time'
-                ? `Time ${item.text}`
-                : `Special: ${item.text}`
-
-            if (device === 'gostream') {
-              actions.push(
-                createGoStreamAction(
-                  deviceConnectionId,
-                  item.macroIndex,
-                  itemHeadline
-                )
-              )
-            } else {
-              actions.push(
-                ...createVR6HDActions(deviceConnectionId, item.dthCode)
-              )
-            }
-            actions.push(
-              createObsSetSceneAction(
-                obsConnectionId,
-                item.obsScene,
-                `OBSシーン呼び出し: ${item.obsScene}`
-              )
-            )
-
-            controls['1'][i.toString()] = createButton(item.text, '24', actions)
-          }
+        // 6スロット: row1 cols 0-2, row2 cols 0-2 の順
+        for (let i = 0; i < slotsThisPage; i++) {
+          const row = i < TIME_COLS ? '1' : '2'
+          const col = (i % TIME_COLS).toString()
+          const timeBtn = timeButtons[timeIndex + i]
+          controls[row][col] = makeBtn(timeBtn, `Time ${timeBtn.text}`)
         }
+      }
+      timeIndex += slotsThisPage
 
-        // row 2のボタン配置
-        const row2Start = maxColsPerRow
-        for (let i = 0; i < maxColsPerRow; i++) {
-          const itemIdx = timeIndex + row2Start + i
-          if (itemIdx < allButtons.length && i + row2Start < buttonsThisPage) {
-            const item = allButtons[itemIdx]
-            const actions: object[] = []
-            const itemHeadline =
-              item.type === 'time'
-                ? `Time ${item.text}`
-                : `Special: ${item.text}`
-
-            if (device === 'gostream') {
-              actions.push(
-                createGoStreamAction(
-                  deviceConnectionId,
-                  item.macroIndex,
-                  itemHeadline
-                )
-              )
-            } else {
-              actions.push(
-                ...createVR6HDActions(deviceConnectionId, item.dthCode)
-              )
-            }
-            actions.push(
-              createObsSetSceneAction(
-                obsConnectionId,
-                item.obsScene,
-                `OBSシーン呼び出し: ${item.obsScene}`
-              )
-            )
-
-            controls['2'][i.toString()] = createButton(item.text, '24', actions)
-          }
-        }
-
-        timeIndex += buttonsThisPage
+      // 固定枠 [3][1]: Slido が有効ならSlido、なければ TrackA を割当
+      let trackAFixedAtRow1Col3 = false
+      if (specialButtons.slido) {
+        const sb = SPECIAL_BUTTONS.slido
+        controls['1']['3'] = makeBtn(sb, `Special: ${sb.text}`)
+      } else if (specialButtons.trackA) {
+        const sb = SPECIAL_BUTTONS.trackA
+        controls['1']['3'] = makeBtn(sb, `Special: ${sb.text}`)
+        trackAFixedAtRow1Col3 = true
       }
 
-      // ページナビゲーションボタン (col 4 に縦配置)
-      if (hasMultiplePages) {
-        // row 1 col 4: pageup（戻る）- 1ページ目以外で表示
-        if (!isFirstPage) {
-          // targetPageIndex: 前のページ
-          controls['1']['4'] = createPageNavigationButton('pageup', pageNum)
-        }
-        // row 2 col 4: pagedown（次へ）- 最終ページ以外で表示
-        if (!isLastPage) {
-          // targetPageIndex: 次のページ
-          controls['2']['4'] = createPageNavigationButton('pagedown', pageNum)
-        }
+      // 固定枠 [3][2]: Countdown
+      if (specialButtons.count) {
+        const sb = SPECIAL_BUTTONS.count
+        controls['2']['3'] = makeBtn(sb, `Special: ${sb.text}`)
+      }
+
+      // [4][1] / [4][2]: ページナビ + 最終ページ TrackA フォールバック
+      if (hasMultiplePages && !isFirstPage) {
+        controls['1']['4'] = createPageNavigationButton('pageup', pageNum)
+      }
+      if (hasMultiplePages && !isLastPage) {
+        controls['2']['4'] = createPageNavigationButton('pagedown', pageNum)
+      } else if (
+        isLastPage &&
+        specialButtons.slido &&
+        specialButtons.trackA &&
+        !trackAFixedAtRow1Col3
+      ) {
+        // Slido が [3][1] を占有しているので、TrackA は最終ページの [4][2] に
+        const sb = SPECIAL_BUTTONS.trackA
+        controls['2']['4'] = makeBtn(sb, `Special: ${sb.text}`)
       }
 
       pages[pageNum.toString()] = {
