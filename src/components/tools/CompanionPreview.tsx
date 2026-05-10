@@ -177,9 +177,7 @@ export default function CompanionPreview({ config }: Props) {
     if (allOpen) {
       setOpenActions(new Set())
     } else {
-      setOpenActions(
-        new Set(selectedCell.actions.map((_, i) => i))
-      )
+      setOpenActions(new Set(selectedCell.actions.map((_, i) => i)))
     }
   }
 
@@ -228,7 +226,9 @@ export default function CompanionPreview({ config }: Props) {
                         : 'border-gray-700',
                     ].join(' ')}
                     style={{
-                      backgroundColor: cell ? intToHex(cell.bgcolor) : '#1f2937',
+                      backgroundColor: cell
+                        ? intToHex(cell.bgcolor)
+                        : '#1f2937',
                       color: cell ? intToHex(cell.color) : '#4b5563',
                     }}
                   >
