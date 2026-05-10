@@ -36,7 +36,7 @@ const breakDkPlaylist: Playlist = [
 export const staticConfig = {
   common: {},
   break: {
-    audioSrc: '/janog57/bgm_day3.mp3',
+    audioSrc: '/cnk2026/bgm.mp3',
     page3: {
       alias: 'janog57',
       images: breakImages,
@@ -46,7 +46,7 @@ export const staticConfig = {
     },
   },
   breakDk: {
-    audioSrc: '/cnds2025/cnds2025_intermission.mp3',
+    audioSrc: '/cnk2026/bgm.mp3',
     page3: {
       alias: 'janog57',
       images: breakDkImages,
