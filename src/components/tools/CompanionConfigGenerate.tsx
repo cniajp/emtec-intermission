@@ -50,11 +50,11 @@ function generateNanoId(): string {
 
 // レイアウトボタン定義
 const LAYOUT_BUTTONS = [
-  { text: 'Slide', macroIndex: 0, dthCode: '00' },
-  { text: 'Futae', macroIndex: 1, dthCode: '01' },
-  { text: 'Person', macroIndex: 2, dthCode: '02' },
-  { text: 'Logo', macroIndex: 3, dthCode: '03' },
-  { text: 'End', macroIndex: 4, dthCode: '04' },
+  { text: 'Slide', macroIndex: 0, dthCode: '02' },
+  { text: 'Futae', macroIndex: 1, dthCode: '03' },
+  { text: 'Person', macroIndex: 2, dthCode: '04' },
+  { text: 'Logo', macroIndex: 3, dthCode: '00' },
+  { text: 'End', macroIndex: 4, dthCode: '09' },
 ]
 
 // 特殊ボタン定義
@@ -63,19 +63,19 @@ const SPECIAL_BUTTONS = {
     text: 'Count',
     obsScene: 'CountDown',
     macroIndex: 5,
-    dthCode: '05',
+    dthCode: '01',
   },
   trackA: {
     text: 'TrackA',
     obsScene: 'TrackA',
     macroIndex: 5,
-    dthCode: '05',
+    dthCode: '01',
   },
   slido: {
     text: 'Slido',
     obsScene: '------',
     macroIndex: 6,
-    dthCode: '06',
+    dthCode: '99',
   },
 }
 
@@ -135,12 +135,13 @@ type VR6HDActionKind = keyof typeof VR6HD_ACTION_KINDS
 
 // VR-6HD用アクション作成（2つのsendコマンドを返す）
 //   1つ目: LAN接続信号 (id_send='0000')
-//   2つ目: DTH:<base>,<dthCode>;  種別に応じてマクロ/シーンメモリー呼び出し
+//   2つ目: DTH:<base>,<dthCode>;  種別に応じてマクロ/シーンメモリー実行
 //   dthCode は 0始まり (例 '00' → No.001)
+//   ※ 今イベントはシーンメモリー運用のためデフォルト 'sceneMemory'
 function createVR6HDActions(
   connectionId: string,
   dthCode: string,
-  kind: VR6HDActionKind = 'macro'
+  kind: VR6HDActionKind = 'sceneMemory'
 ): object[] {
   const number = String(parseInt(dthCode, 10) + 1).padStart(3, '0')
   const { dthBase, label } = VR6HD_ACTION_KINDS[kind]
@@ -400,7 +401,7 @@ export function buildCompanionConfig({
       text: time,
       obsScene: `${time} ~`,
       macroIndex: 5,
-      dthCode: '05',
+      dthCode: '01',
     }))
 
     // アタック動画ボタンリスト
@@ -410,7 +411,7 @@ export function buildCompanionConfig({
           text: `Video\n${time}`,
           obsScene: `Attack_${time}`,
           macroIndex: 5,
-          dthCode: '05',
+          dthCode: '01',
         }))
       : []
 
