@@ -7,6 +7,7 @@ import Page4 from '@/components/pages/Page4'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import { TalkView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
+import { staticConfig } from '@/staticConfig'
 import { speakers } from '@/data/speakers'
 import { talks } from '@/data/talks'
 import { tracks } from '@/data/tracks'
@@ -45,7 +46,7 @@ function Pages() {
     { name: 'Page1', component: <Page1 key={1} view={view} isDk={false} /> },
     { name: 'Page2', component: <Page2 key={2} view={view} isDk={false} /> },
     { name: 'Page3', component: <Page3 key={3} view={view} isDk={false} /> },
-    // { name: 'Page4', component: <Page4 key={4} view={view} /> },
+    // { name: 'Page4', component: <Page4 key={4} view={view} isDk={false} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)
@@ -58,9 +59,7 @@ function Pages() {
     }
   }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const audioSrc = '/janog57/bgm_day3.mp3'
-  // const audioSrc =
-  //   'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/bgm/203_fixed.mp3'
+  const audioSrc = staticConfig.break.audioSrc
 
   const shouldPlayAudio = pages[current].name !== 'Page4'
 

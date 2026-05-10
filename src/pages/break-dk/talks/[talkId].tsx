@@ -7,6 +7,7 @@ import Loading from '@/components/common/Loading'
 import { useGetTalksAndTracks } from '@/components/hooks/useGetTalksAndTracks'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import config, { extendConfig } from '@/config'
+import { staticConfig } from '@/staticConfig'
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 import Image from 'next/image'
@@ -39,7 +40,7 @@ function Pages() {
     { name: 'Page1', component: <Page1 key={1} view={view} isDk={true} /> },
     { name: 'Page2', component: <Page2 key={2} view={view} isDk={true} /> },
     { name: 'Page3', component: <Page3 key={3} view={view} isDk={true} /> },
-    { name: 'Page4', component: <Page4 key={4} view={view} /> },
+    { name: 'Page4', component: <Page4 key={4} view={view} isDk={true} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)
@@ -52,7 +53,7 @@ function Pages() {
     }
   }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const audioSrc = '/cnds2025/cnds2025_intermission.mp3'
+  const audioSrc = staticConfig.breakDk.audioSrc
   // CM ありの場合
   const shouldPlayAudio = pages[current].name !== 'Page4'
 

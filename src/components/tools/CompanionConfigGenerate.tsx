@@ -9,6 +9,34 @@ type Props = {
   includeAttack?: boolean
 }
 
+export type ActionInfo = {
+  definitionId: string
+  connectionLabel: string
+  options: Record<string, unknown>
+  headline?: string
+}
+
+export type ButtonCell = {
+  text: string
+  size: string
+  color: number
+  bgcolor: number
+  actions: ActionInfo[]
+  raw: unknown
+}
+
+export type CompanionPagePreview = {
+  pageNumber: number
+  name: string
+  buttons: (ButtonCell | null)[][] // [row][col]
+}
+
+export type CompanionConfig = {
+  json: object
+  device: 'gostream' | 'vr6hd'
+  pagePreviews: CompanionPagePreview[]
+}
+
 // nanoid互換の21文字ID生成
 function generateNanoId(): string {
   const alphabet =
@@ -22,11 +50,11 @@ function generateNanoId(): string {
 
 // レイアウトボタン定義
 const LAYOUT_BUTTONS = [
-  { text: 'Slide', macroIndex: 0, dthCode: '00' },
-  { text: 'Futae', macroIndex: 1, dthCode: '01' },
-  { text: 'Person', macroIndex: 2, dthCode: '02' },
-  { text: 'Logo', macroIndex: 3, dthCode: '03' },
-  { text: 'End', macroIndex: 4, dthCode: '04' },
+  { text: 'Slide', macroIndex: 0, dthCode: '02' },
+  { text: 'Futae', macroIndex: 1, dthCode: '03' },
+  { text: 'Person', macroIndex: 2, dthCode: '04' },
+  { text: 'Logo', macroIndex: 3, dthCode: '00' },
+  { text: 'End', macroIndex: 4, dthCode: '09' },
 ]
 
 // 特殊ボタン定義
@@ -35,19 +63,19 @@ const SPECIAL_BUTTONS = {
     text: 'Count',
     obsScene: 'CountDown',
     macroIndex: 5,
-    dthCode: '05',
+    dthCode: '01',
   },
   trackA: {
     text: 'TrackA',
     obsScene: 'TrackA',
     macroIndex: 5,
-    dthCode: '05',
+    dthCode: '01',
   },
   slido: {
     text: 'Slido',
     obsScene: '------',
     macroIndex: 6,
-    dthCode: '06',
+    dthCode: '99',
   },
 }
 
@@ -73,7 +101,8 @@ const BUTTON_OPTIONS = {
 // GoStream用アクション作成
 function createGoStreamAction(
   connectionId: string,
-  macroIndex: number
+  macroIndex: number,
+  headline?: string
 ): object {
   return {
     type: 'action',
@@ -82,11 +111,40 @@ function createGoStreamAction(
     connectionId,
     options: { MacroIndex: macroIndex },
     upgradeIndex: 5,
+    ...(headline ? { headline } : {}),
   }
 }
 
+// VR-6HD アクション種別定義
+//   dthBase: そのまま実行コマンドとして送出されるDTHベース番号
+//   label:   Companion上でのアクション表示ラベル（VR_6HD_HEADLINE_BASE と組み合わせる）
+const VR6HD_HEADLINE_BASE = 'VR-6HD'
+
+const VR6HD_ACTION_KINDS = {
+  macro: {
+    dthBase: '500504',
+    label: 'マクロ実行',
+  },
+  sceneMemory: {
+    dthBase: '0A0000',
+    label: 'シーンメモリー実行',
+  },
+} as const
+
+type VR6HDActionKind = keyof typeof VR6HD_ACTION_KINDS
+
 // VR-6HD用アクション作成（2つのsendコマンドを返す）
-function createVR6HDActions(connectionId: string, dthCode: string): object[] {
+//   1つ目: LAN接続信号 (id_send='0000')
+//   2つ目: DTH:<base>,<dthCode>;  種別に応じてマクロ/シーンメモリー実行
+//   dthCode は 0始まり (例 '00' → No.001)
+//   ※ 今イベントはシーンメモリー運用のためデフォルト 'sceneMemory'
+function createVR6HDActions(
+  connectionId: string,
+  dthCode: string,
+  kind: VR6HDActionKind = 'sceneMemory'
+): object[] {
+  const number = String(parseInt(dthCode, 10) + 1).padStart(3, '0')
+  const { dthBase, label } = VR6HD_ACTION_KINDS[kind]
   return [
     {
       type: 'action',
@@ -94,25 +152,32 @@ function createVR6HDActions(connectionId: string, dthCode: string): object[] {
       definitionId: 'send',
       connectionId,
       options: { id_send: '0000', id_end: '\n' },
+      headline: `${VR6HD_HEADLINE_BASE} LAN接続信号`,
     },
     {
       type: 'action',
       id: generateNanoId(),
       definitionId: 'send',
       connectionId,
-      options: { id_send: `DTH:500504,${dthCode};`, id_end: '\n' },
+      options: { id_send: `DTH:${dthBase},${dthCode};`, id_end: '\n' },
+      headline: `${VR6HD_HEADLINE_BASE} ${label}: No.${number}`,
     },
   ]
 }
 
 // OBS set_sceneアクション作成
-function createObsSetSceneAction(connectionId: string, scene: string): object {
+function createObsSetSceneAction(
+  connectionId: string,
+  scene: string,
+  headline?: string
+): object {
   return {
     type: 'action',
     id: generateNanoId(),
     definitionId: 'set_scene',
     connectionId,
     options: { scene, customSceneName: '' },
+    ...(headline ? { headline } : {}),
   }
 }
 
@@ -148,6 +213,7 @@ function createPageNavigationButton(
   nowPageNumber: number
 ): object {
   const isUp = direction === 'pageup'
+  const targetPage = nowPageNumber + (isUp ? -1 : 1)
   return {
     type: 'button',
     style: {
@@ -180,11 +246,14 @@ function createPageNavigationButton(
                 controller: 0,
                 controller_variable: '0',
                 page_from_variable: false,
-                page: nowPageNumber + (isUp ? -1 : 1),
+                page: targetPage,
                 page_variable: '1',
               },
               type: 'action',
               children: {},
+              headline: isUp
+                ? `Go to page ${targetPage}`
+                : `Go to page ${targetPage}`,
             },
           ],
           up: [],
@@ -299,16 +368,23 @@ function createSurfaces(firstPageId: string): Record<string, object> {
   }
 }
 
-export default function CompanionConfigGenerate({
+export function buildCompanionConfig({
   device,
   times,
   specialButtons,
   includeAttack = false,
-}: Props) {
-  const generateConfig = () => {
+}: Props): CompanionConfig {
+  const generateConfig = (): CompanionConfig => {
     // 接続設定を生成
     const { instances, deviceConnectionId, obsConnectionId } =
       createInstances(device)
+
+    const connectionLabels: Record<string, string> = {
+      [deviceConnectionId]:
+        device === 'gostream' ? 'gostream-series' : 'VR-6HD',
+      [obsConnectionId]: 'obs',
+      internal: 'internal',
+    }
 
     // 時刻ボタンと特殊ボタンを結合
     type ButtonItem = {
@@ -325,7 +401,7 @@ export default function CompanionConfigGenerate({
       text: time,
       obsScene: `${time} ~`,
       macroIndex: 5,
-      dthCode: '05',
+      dthCode: '01',
     }))
 
     // アタック動画ボタンリスト
@@ -335,7 +411,7 @@ export default function CompanionConfigGenerate({
           text: `Video\n${time}`,
           obsScene: `Attack_${time}`,
           macroIndex: 5,
-          dthCode: '05',
+          dthCode: '01',
         }))
       : []
 
@@ -389,6 +465,7 @@ export default function CompanionConfigGenerate({
     }
 
     const pages: Record<string, object> = {}
+    const pagePreviews: CompanionPagePreview[] = []
     let timeIndex = 0
     let specialIndex = 0
 
@@ -405,16 +482,25 @@ export default function CompanionConfigGenerate({
       controls['0'] = {}
       LAYOUT_BUTTONS.forEach((btn, col) => {
         const actions: object[] = []
+        const layoutHeadline = `Layout: ${btn.text}`
 
         // デバイス用アクション
         if (device === 'gostream') {
-          actions.push(createGoStreamAction(deviceConnectionId, btn.macroIndex))
+          actions.push(
+            createGoStreamAction(
+              deviceConnectionId,
+              btn.macroIndex,
+              layoutHeadline
+            )
+          )
         } else {
           actions.push(...createVR6HDActions(deviceConnectionId, btn.dthCode))
         }
 
         // OBS用アクション
-        actions.push(createObsSetSceneAction(obsConnectionId, '------'))
+        actions.push(
+          createObsSetSceneAction(obsConnectionId, '------', 'Clear OBS scene')
+        )
 
         controls['0'][col.toString()] = createButton(btn.text, '18', actions)
       })
@@ -438,9 +524,14 @@ export default function CompanionConfigGenerate({
 
           // row 1: 時刻ボタン
           const timeActions: object[] = []
+          const timeHeadline = `Time ${timeBtn.text}`
           if (device === 'gostream') {
             timeActions.push(
-              createGoStreamAction(deviceConnectionId, timeBtn.macroIndex)
+              createGoStreamAction(
+                deviceConnectionId,
+                timeBtn.macroIndex,
+                timeHeadline
+              )
             )
           } else {
             timeActions.push(
@@ -448,7 +539,11 @@ export default function CompanionConfigGenerate({
             )
           }
           timeActions.push(
-            createObsSetSceneAction(obsConnectionId, timeBtn.obsScene)
+            createObsSetSceneAction(
+              obsConnectionId,
+              timeBtn.obsScene,
+              `OBSシーン呼び出し: ${timeBtn.obsScene}`
+            )
           )
           controls['1'][i.toString()] = createButton(
             timeBtn.text,
@@ -458,9 +553,14 @@ export default function CompanionConfigGenerate({
 
           // row 2: アタック動画ボタン
           const attackActions: object[] = []
+          const attackHeadline = `Attack ${timeBtn.text}`
           if (device === 'gostream') {
             attackActions.push(
-              createGoStreamAction(deviceConnectionId, attackBtn.macroIndex)
+              createGoStreamAction(
+                deviceConnectionId,
+                attackBtn.macroIndex,
+                attackHeadline
+              )
             )
           } else {
             attackActions.push(
@@ -468,7 +568,11 @@ export default function CompanionConfigGenerate({
             )
           }
           attackActions.push(
-            createObsSetSceneAction(obsConnectionId, attackBtn.obsScene)
+            createObsSetSceneAction(
+              obsConnectionId,
+              attackBtn.obsScene,
+              `OBSシーン呼び出し: ${attackBtn.obsScene}`
+            )
           )
           controls['2'][i.toString()] = createButton(
             attackBtn.text,
@@ -486,9 +590,14 @@ export default function CompanionConfigGenerate({
           ) {
             const specialBtn = specialButtonItems[specialIndex]
             const specialActions: object[] = []
+            const specialHeadline = `Special: ${specialBtn.text}`
             if (device === 'gostream') {
               specialActions.push(
-                createGoStreamAction(deviceConnectionId, specialBtn.macroIndex)
+                createGoStreamAction(
+                  deviceConnectionId,
+                  specialBtn.macroIndex,
+                  specialHeadline
+                )
               )
             } else {
               specialActions.push(
@@ -496,7 +605,11 @@ export default function CompanionConfigGenerate({
               )
             }
             specialActions.push(
-              createObsSetSceneAction(obsConnectionId, specialBtn.obsScene)
+              createObsSetSceneAction(
+                obsConnectionId,
+                specialBtn.obsScene,
+                `OBSシーン呼び出し: ${specialBtn.obsScene}`
+              )
             )
             controls['2'][specialCol.toString()] = createButton(
               specialBtn.text,
@@ -522,10 +635,18 @@ export default function CompanionConfigGenerate({
           if (timeIndex + i < allButtons.length) {
             const item = allButtons[timeIndex + i]
             const actions: object[] = []
+            const itemHeadline =
+              item.type === 'time'
+                ? `Time ${item.text}`
+                : `Special: ${item.text}`
 
             if (device === 'gostream') {
               actions.push(
-                createGoStreamAction(deviceConnectionId, item.macroIndex)
+                createGoStreamAction(
+                  deviceConnectionId,
+                  item.macroIndex,
+                  itemHeadline
+                )
               )
             } else {
               actions.push(
@@ -533,7 +654,11 @@ export default function CompanionConfigGenerate({
               )
             }
             actions.push(
-              createObsSetSceneAction(obsConnectionId, item.obsScene)
+              createObsSetSceneAction(
+                obsConnectionId,
+                item.obsScene,
+                `OBSシーン呼び出し: ${item.obsScene}`
+              )
             )
 
             controls['1'][i.toString()] = createButton(item.text, '24', actions)
@@ -547,10 +672,18 @@ export default function CompanionConfigGenerate({
           if (itemIdx < allButtons.length && i + row2Start < buttonsThisPage) {
             const item = allButtons[itemIdx]
             const actions: object[] = []
+            const itemHeadline =
+              item.type === 'time'
+                ? `Time ${item.text}`
+                : `Special: ${item.text}`
 
             if (device === 'gostream') {
               actions.push(
-                createGoStreamAction(deviceConnectionId, item.macroIndex)
+                createGoStreamAction(
+                  deviceConnectionId,
+                  item.macroIndex,
+                  itemHeadline
+                )
               )
             } else {
               actions.push(
@@ -558,7 +691,11 @@ export default function CompanionConfigGenerate({
               )
             }
             actions.push(
-              createObsSetSceneAction(obsConnectionId, item.obsScene)
+              createObsSetSceneAction(
+                obsConnectionId,
+                item.obsScene,
+                `OBSシーン呼び出し: ${item.obsScene}`
+              )
             )
 
             controls['2'][i.toString()] = createButton(item.text, '24', actions)
@@ -594,6 +731,12 @@ export default function CompanionConfigGenerate({
         },
       }
 
+      pagePreviews.push({
+        pageNumber: pageNum,
+        name: `Page${pageNum}`,
+        buttons: extractPreviewGrid(controls, connectionLabels),
+      })
+
       // 最初のページIDを保存（サーフェス設定用）
       if (isFirstPage) {
         ;(pages as { _firstPageId?: string })._firstPageId = pageId
@@ -623,21 +766,76 @@ export default function CompanionConfigGenerate({
       surfaceGroups: {},
     }
 
-    // JSONをエンコードしてダウンロード
-    const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
-      JSON.stringify(config, null, 2)
-    )}`
-    const link = document.createElement('a')
-    link.href = jsonString
-    link.download = `companion_${device}.companionconfig`
-
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+    return { json: config, device, pagePreviews }
   }
 
-  // 設定を生成
-  generateConfig()
+  return generateConfig()
+}
 
-  return null
+type RawButton = {
+  style: {
+    text: string
+    size: string
+    color?: number
+    bgcolor?: number
+  }
+  steps?: {
+    '0'?: {
+      action_sets?: {
+        down?: {
+          definitionId: string
+          connectionId: string
+          options: Record<string, unknown>
+          headline?: string
+        }[]
+      }
+    }
+  }
+}
+
+function extractPreviewGrid(
+  controls: Record<string, Record<string, object>>,
+  connectionLabels: Record<string, string>
+): (ButtonCell | null)[][] {
+  const grid: (ButtonCell | null)[][] = [
+    [null, null, null, null, null],
+    [null, null, null, null, null],
+    [null, null, null, null, null],
+  ]
+  for (const [rowStr, colsObj] of Object.entries(controls)) {
+    const row = parseInt(rowStr)
+    for (const [colStr, btn] of Object.entries(colsObj)) {
+      const col = parseInt(colStr)
+      const raw = btn as RawButton
+      const downActions = raw.steps?.['0']?.action_sets?.down ?? []
+      const actions: ActionInfo[] = downActions.map((a) => ({
+        definitionId: a.definitionId,
+        connectionLabel: connectionLabels[a.connectionId] ?? a.connectionId,
+        options: a.options,
+        headline: a.headline,
+      }))
+      grid[row][col] = {
+        text: raw.style.text,
+        size: raw.style.size,
+        color: raw.style.color ?? 16777215,
+        bgcolor: raw.style.bgcolor ?? 0,
+        actions,
+        raw: btn,
+      }
+    }
+  }
+  return grid
+}
+
+export function downloadCompanionConfig(config: CompanionConfig) {
+  const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
+    JSON.stringify(config.json, null, 2)
+  )}`
+  const link = document.createElement('a')
+  link.href = jsonString
+  link.download = `companion_${config.device}.companionconfig`
+
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 }
