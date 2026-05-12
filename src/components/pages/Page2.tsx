@@ -201,7 +201,9 @@ function Track({ talk, track, speakers }: TrackProps) {
         <div className="text-base font-semibold mb-4 text-[#1E1E1E]/60">
           {Array.from(companies).join(', ')}
         </div>
-        <div className="text-lg font-semibold leading-relaxed line-clamp-3">{talk.title}</div>
+        <div className="text-lg font-semibold leading-relaxed line-clamp-3">
+          {talk.title}
+        </div>
       </div>
     </div>
   )
