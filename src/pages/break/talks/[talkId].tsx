@@ -59,7 +59,7 @@ function Pages() {
     }
   }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const audioSrc = staticConfig.break.audioSrc
+  const { loadingIconSrc, backgroundSrc, audioSrc } = staticConfig.break.base
 
   const shouldPlayAudio = pages[current].name !== 'Page4'
 
@@ -97,7 +97,7 @@ function Pages() {
       <AvatarPreLoader view={view}></AvatarPreLoader>
       <div className="w-[1920px] h-[1080px] relative">
         <Image
-          src="/janog57/background.png"
+          src={backgroundSrc}
           alt="background"
           className="-z-10"
           fill
@@ -110,7 +110,7 @@ function Pages() {
           <div className="absolute inset-0 z-10">
             <Loading
               isFadingOut={isLogoFadingOut}
-              logoPath="/o11yconjp2025/logo.svg"
+              logoPath={loadingIconSrc}
             />
           </div>
         )} */}

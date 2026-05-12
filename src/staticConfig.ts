@@ -36,7 +36,15 @@ const breakDkPlaylist: Playlist = [
 export const staticConfig = {
   common: {},
   break: {
-    audioSrc: '/cnk2026/bgm.mp3',
+    base: {
+      loadingIconSrc: '/janog57/logo.png',
+      backgroundSrc: '/janog57/background.png',
+      audioSrc: '/cnk2026/bgm.mp3',
+      hashTag: {
+        all: 'janog57',
+        break: 'janog57_',
+      },
+    },
     page3: {
       alias: 'janog57',
       images: breakImages,
@@ -46,9 +54,17 @@ export const staticConfig = {
     },
   },
   breakDk: {
-    audioSrc: '/cnk2026/bgm.mp3',
+    base: {
+      loadingIconSrc: '/cnk2026/logo.png',
+      backgroundSrc: '/cnk2026/new/background.jpg',
+      audioSrc: '/cnk2026/bgm.mp3',
+      hashTag: {
+        all: 'cloudnativekaigi',
+        break: 'cloudnativekaigi_',
+      },
+    },
     page3: {
-      alias: 'janog57',
+      alias: 'cnk2026',
       images: breakDkImages,
     },
     page4: {

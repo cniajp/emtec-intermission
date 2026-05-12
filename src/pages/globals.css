@@ -202,15 +202,43 @@ body {
   animation: fade-in 1.2s ease-in-out forwards;
 }
 
-.longshadow {
+@keyframes spin-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.spin-slow-cw {
+  animation: spin-cw 120s linear infinite;
+  transform-origin: center;
+}
+
+.spin-slow-ccw {
+  animation: spin-ccw 60s linear infinite;
+  transform-origin: center;
+}
+
+/* .longshadow {
   position: relative;
 }
 .longshadow:before,
 .longshadow:after {
   content: '';
   position: absolute;
-}
-.longshadow:before {
+} */
+/* .longshadow:before {
   z-index: 0;
   width: 300px;
   height: 100%;
@@ -237,4 +265,4 @@ body {
   );
   transform: skew(-45deg, 0);
   transform-origin: 0 0;
-}
+} */
