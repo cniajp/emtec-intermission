@@ -2,9 +2,10 @@ import { Optional } from '@/utils/types'
 import { TalkView } from '../models/talkView'
 import { PageCtx } from '../models/pageContext'
 import { useContext } from 'react'
+import Image from 'next/image'
 import config from '@/config'
-import { getTimeStr } from '@/utils/time'
 import { trim } from '@/utils/utils'
+import { staticConfig } from '@/staticConfig'
 
 type Props = { view: Optional<TalkView>; isDk: boolean }
 
@@ -22,54 +23,43 @@ export default function Header({ view, isDk }: Props) {
   if (!eventAbbrToShow) {
     return <div>No eventAbbr configured.</div>
   }
+  const hashTag = isDk
+    ? staticConfig.breakDk.base.hashTag
+    : staticConfig.break.base.hashTag
+
   return (
-    <div className="flex flex-row items-center h-[140px] text-white font-din-2014 font-bold">
-      <div className="pl-30 basis-3/12 ">
-        <div className="text-base  text-center opacity-75 font-ryo-gothic-plusn">
-          トラック
-        </div>
-        <div className="text-4xl  text-center font-video-cond">
-          {view.selectedTrack.name}
-        </div>
+    <div className="px-[20px] pb-[15px] flex flex-row items-center w-[1880px] h-[140px] text-[#1E1E1E] font-din-2014 font-bold bg-[linear-gradient(to_bottom,rgba(255,255,255,0.5)_80%,rgba(255,255,255,0)_100%)]">
+      {/* イベントタイトル */}
+      <div className="basis-1/3 flex justify-center items-center">
+        <Image src="/cnk2026/title.png" alt="logo" width={500} height={130} />
       </div>
 
-      <div className=" basis-2/12 ">
-        <div className="text-base  text-left opacity-75 font-ryo-gothic-plusn">
-          ハッシュタグ
-        </div>
-        <div className="text-2xl text-left font-din-2014">
-          {view.selectedTrack.hashTag ? (
-            <>
-              #{eventAbbrToShow.toUpperCase()}
-              <br />#{view.selectedTrack.hashTag.toUpperCase()}
-            </>
-          ) : (
-            <>
-              {/* #{eventAbbrToShow.toUpperCase()}_{view.selectedTrack.name} */}
-              #{eventAbbrToShow.toUpperCase()}
-            </>
-          )}
-        </div>
-      </div>
-      <div className="basis-1/4">
-        <div className="text-lg text-center font-din-2014 opacity-75">
-          {eventAbbrToShow.toUpperCase()}
-        </div>
-        <div className="text-5xl text-center font-video-cond">
+      {/* 現在時刻 */}
+      <div className="basis-1/3 text-center font-video-cond">
+        <span className="text-5xl tracking-wider">
           {now.format('HH:mm:ss')}
-        </div>
+        </span>
       </div>
-      <div className="basis-1/12">
-        <div className="text-lg text-center opacity-75 font-video-cond">
-          NEXT
+
+      {/* ルーム・ハッシュタグ */}
+      <div className="basis-1/3 flex flex-row font-semibold">
+        <div className="basis-1/3 flex flex-col items-center">
+          {/* ルーム */}
+          <div className="text-xs">トラック</div>
+          <div className="h-[76px] text-4xl">
+            {trim(view.selectedTrack.name, 30)}
+          </div>
         </div>
-      </div>
-      <div className="basis-1/4 pr-4">
-        <div className="text-lg text-left">
-          {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
-        </div>
-        <div className="text-base text-left mt-2 font-ryo-gothic-plusn line-clamp-3">
-          {trim(talk.title, 80)}
+
+        <div className="basis-2/3 flex flex-col items-center">
+          {/* ハッシュタグ */}
+          <div className="text-center text-xs">ハッシュタグ</div>
+          <div>
+            <div className="text-left text-xl">#{hashTag.all}</div>
+            <div className="text-left text-xl">
+              #{hashTag.break + view.selectedTrack.name}
+            </div>
+          </div>
         </div>
       </div>
     </div>

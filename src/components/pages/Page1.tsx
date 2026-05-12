@@ -57,17 +57,17 @@ function Main({ view, isDk }: Props) {
 
   return (
     <div className="mt-4 mb-16">
-      <div className="text-left w-[500px] bg-COLOR-UPCOMING-SESSION-LABEL pr-3 py-10">
-        <div className="text-right text-white font-bold font-din-2014 tracking-wide text-2xl">
+      <div className="text-left w-[500px] pr-10 py-10 bg-[url('/cnk2026/background.jpg')] bg-cover bg-center rounded-r-2xl">
+        <div className="text-right text-[#1E1E1E] font-bold font-din-2014 tracking-wide text-2xl">
           UPCOMING SESSION
         </div>
       </div>
-      <div className="top-[55px] left-[120px] w-[1000px] relative longshadow bg-[rgba(18,151,204)] text-white">
-        <div className="text-center py-2 text-1.5xl text-white bg-slate-400 font-din-2014 font-light">
+      <div className="top-[55px] left-[120px] w-[1000px] relative longshadow bg-[#548A8A] text-white rounded-lg">
+        <div className="text-center py-2 text-2xl text-white bg-[#1E1E1E] font-din-2014 font-medium rounded-t-lg">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>
-        <div className="px-12 py-6 w-full font-ryo-gothic-plusn">
-          <div className="text-center text-3xl pt-4 font-bold break-words">
+        <div className="h-[208px] px-12 py-6 w-full font-ryo-gothic-plusn flex items-center justify-center">
+          <div className="text-center text-3xl font-bold break-words line-clamp-3">
             {talk.title}
           </div>
         </div>
@@ -83,11 +83,11 @@ function Main({ view, isDk }: Props) {
               )}
             </div>
           )}
-          <div className="text-base text-white">
+          <div className="text-base text-white line-clamp-4">
             {talk.abstract && (
               <span>
                 {isDk && 'Abstract: '}
-                {trim(talk.abstract, 200)}
+                {talk.abstract}
               </span>
             )}
           </div>
@@ -119,46 +119,51 @@ function Side({ view }: Props) {
   const keyNoteTalks = view
     .talksInSameTrack()
     .filter((t) => t.talkCategory === 'Keynote' && t.startTime > talkStartTime)
+  const MAX_VISIBLE_CARDS = 4
+  const visibleTalks = talks.slice(
+    0,
+    hasKeynote ? MAX_VISIBLE_CARDS - 1 : MAX_VISIBLE_CARDS
+  )
   return (
-    <div className="p-14 h-[80%]">
+    <div className="p-14 h-[940px] text-[#1E1E1E] overflow-hidden flex-col justify-start items-end gap-4 inline-flex">
       {hasKeynote && (
-        <div className="text-right w-[650px] backdrop-blur-xl bg-white/15 border border-white/30 px-4 pt-2 pb-3 my-3 font-ryo-gothic-plusn rounded-xl shadow-lg">
+        <div className="text-right w-[650px] h-[170px] backdrop-blur-xl bg-white/30 border border-white/20 px-4 pt-2 pb-3 my-3 font-ryo-gothic-plusn rounded-xl shadow-lg">
           <div className="flex flex-row">
-            <div className="text-left basis-1/2 text-white text-sm font-din-2014 font-light">
+            <div className="text-left basis-1/2 text-base font-din-2014 font-light">
               <span>
                 {getTimeStr(keyNoteTalks[0].startTime)} -{' '}
                 {getTimeStr(keyNoteTalks[keyNoteTalks.length - 1].endTime)} :
               </span>
               <span className="ml-2">Keynote</span>
             </div>
-            <div className="basis-1/2 text-white text-sm" />
+            <div className="basis-1/2 text-base" />
           </div>
           {keyNoteTalks.map((talk) => (
             <div
               key={talk.id}
-              className="text-center text-white text-lg min-h-[40px] py-1 font-bold"
+              className="text-center text-lg min-h-[40px] py-1 font-bold line-clamp-3"
             >
-              {trim(talk.title, 80)}
+              {talk.title}
             </div>
           ))}
         </div>
       )}
 
-      {talks.map((talk) => (
+      {visibleTalks.map((talk) => (
         <div
           key={talk.id}
-          className="text-right w-[650px] backdrop-blur-xl bg-white/15 border border-white/30 px-4 pt-3 pb-2 my-3 font-ryo-gothic-plusn rounded-xl shadow-lg"
+          className="flex flex-col text-right w-[650px] h-[170px] backdrop-blur-xl bg-white/50 border border-white/20 px-4 pt-3 pb-2 my-3 font-ryo-gothic-plusn rounded-xl shadow-lg"
         >
           <div className="flex flex-row">
-            <div className="text-left basis-1/2 text-white text-sm font-din-2014 font-light">
+            <div className="text-left basis-1/2 text-base font-din-2014 font-light">
               {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
             </div>
-            <div className="basis-1/2 text-white text-sm">
+            <div className="basis-1/2 text-base">
               {talk.speakers.map((t) => t.name).join(', ')}
             </div>
           </div>
-          <div className="text-center text-white text-lg min-h-[70px] py-2 font-bold">
-            {trim(talk.title, 80)}
+          <div className="flex-1 flex items-center justify-center text-center text-lg font-bold line-clamp-3">
+            {talk.title}
           </div>
         </div>
       ))}

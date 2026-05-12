@@ -120,11 +120,11 @@ function Body({ view }: Props) {
   }
   return (
     <div className=" mt-10 font-ryo-gothic-plusn">
-      <div className="text-left w-[450px] bg-COLOR-UPCOMING-SESSION-LABEL pr-3 py-8">
-        <div className="text-right text-white font-bold font-din-2014 tracking-wide text-1.5xl">
+      <div className="text-left w-[450px] pr-10 py-10 bg-[url('/cnk2026/background.jpg')] bg-cover bg-center rounded-r-2xl">
+        <div className="text-right text-[#1E1E1E] font-bold font-din-2014 tracking-wide text-1.5xl">
           UPCOMING SESSIONS
         </div>
-        <div className="text-right text-white font-bold font-din-2014 text-1.5xl">
+        <div className="text-right text-[#1E1E1E] font-bold font-din-2014 text-1.5xl">
           {getTimeStr(talk.startTime)}-{getTimeStr(talk.endTime)}
         </div>
       </div>
@@ -175,7 +175,7 @@ function Track({ talk, track, speakers }: TrackProps) {
   const prevAvatarUrl = getAvatarUrl(prevIndex)
 
   return (
-    <div className="flex flex-row items-center w-[900px] h-[300px] mt-12 backdrop-blur-xl bg-white/15 border border-white/30 rounded-2xl shadow-2xl text-white p-8">
+    <div className="flex flex-row items-center w-[900px] h-[300px] mt-12 backdrop-blur-xl bg-white/30 border border-white/30 rounded-2xl shadow-2xl text-[#1E1E1E] p-8">
       <div className="basis-1/3 flex justify-center">
         <RollingAvatar
           currentSrc={currentAvatarUrl || DEFAULT_AVATAR}
@@ -186,7 +186,7 @@ function Track({ talk, track, speakers }: TrackProps) {
       </div>
       <div className="basis-2/3 pl-4">
         <div className="mb-3 pl-3 border-l-4 border-white/70">
-          <span className="text-lg text-white/90 font-din-2014 font-bold tracking-widest">
+          <span className="text-lg text-[#1E1E1E]/60 font-din-2014 font-bold tracking-widest">
             TRACK {track.name}
           </span>
         </div>
@@ -198,10 +198,12 @@ function Track({ talk, track, speakers }: TrackProps) {
             </span>
           ))}
         </div>
-        <div className="text-base mb-4 text-white/60">
+        <div className="text-base font-semibold mb-4 text-[#1E1E1E]/60">
           {Array.from(companies).join(', ')}
         </div>
-        <div className="text-lg leading-relaxed">{talk.title}</div>
+        <div className="text-lg font-semibold leading-relaxed line-clamp-3">
+          {talk.title}
+        </div>
       </div>
     </div>
   )

@@ -6,6 +6,9 @@ precacheAndRoute(self.__WB_MANIFEST)
 const CACHE_NAME = 'video-cache'
 const VIDEO_URL = [
   // 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/srekaigi2026/makuai.mp4',
+  'https://im-file.emtec.tv/cnk2026/grafana_vol-7dB.mp4',
+  'https://im-file.emtec.tv/cnk2026/m3vol-0dB.mp4',
+  'https://im-file.emtec.tv/cnk2026/prairie_vol-11dB.mp4',
 ]
 
 async function updateCache() {

@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 import Image from 'next/image'
 import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
+import { stat } from 'fs'
 
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
@@ -52,10 +53,10 @@ function Pages() {
       console.log(`Current component: ${pages[current].name}`)
     }
   }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const audioSrc = staticConfig.breakDk.audioSrc
   // CM ありの場合
   const shouldPlayAudio = pages[current].name !== 'Page4'
+
+  const { loadingIconSrc, backgroundSrc, audioSrc } = staticConfig.breakDk.base
 
   return (
     <>
@@ -89,11 +90,39 @@ function Pages() {
       )}
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view}></AvatarPreLoader>
-      <div className="w-[1920px] h-[1080px] relative">
+      <div className="w-[1920px] h-[1080px] relative text-black overflow-hidden">
         <Image
-          src="/cndw2024/background.png"
+          src={backgroundSrc}
           alt="background"
           className="-z-10"
+          fill
+          style={{ objectFit: 'cover' }}
+          priority
+        />
+        <div className="absolute -z-8 left-[1476px] top-[834px] w-[994px] h-[994px] -translate-x-1/2 -translate-y-1/2">
+          <Image
+            src="/cnk2026/new/layer-1.png"
+            alt="background"
+            className="spin-slow-cw"
+            width={994}
+            height={994}
+            priority
+          />
+        </div>
+        <div className="absolute -z-6 left-[388px] top-[675px] w-[529px] h-[458px] -translate-x-1/2 -translate-y-1/2">
+          <Image
+            src="/cnk2026/new/layer-2.png"
+            alt="background"
+            className="spin-slow-ccw"
+            width={529}
+            height={458}
+            priority
+          />
+        </div>
+        <Image
+          src="/cnk2026/new/layer-3.png"
+          alt="background"
+          className="-z-4"
           fill
           style={{ objectFit: 'cover' }}
           priority
@@ -101,10 +130,7 @@ function Pages() {
         {/* ローディング画面 */}
         {isLoading && (
           <div className="absolute inset-0 z-10">
-            <Loading
-              isFadingOut={isLogoFadingOut}
-              logoPath="/cndw2025/logo.png"
-            />
+            <Loading isFadingOut={isLogoFadingOut} logoPath={loadingIconSrc} />
           </div>
         )}
         {/* コンテンツ */}
