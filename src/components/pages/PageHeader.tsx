@@ -42,7 +42,7 @@ export default function Header({ view, isDk }: Props) {
       </div>
 
       {/* ルーム・ハッシュタグ */}
-      <div className="basis-1/3 flex flex-row">
+      <div className="basis-1/3 flex flex-row font-semibold">
         <div className="basis-1/3 flex flex-col items-center">
           {/* ルーム */}
           <div className="text-xs">トラック</div>
@@ -53,12 +53,10 @@ export default function Header({ view, isDk }: Props) {
 
         <div className="basis-2/3 flex flex-col items-center">
           {/* ハッシュタグ */}
-          <div className="text-center font-normal text-xs">ハッシュタグ</div>
+          <div className="text-center text-xs">ハッシュタグ</div>
           <div>
-            <div className="text-left font-semibold text-xl">
-              #{hashTag.all}
-            </div>
-            <div className="text-left font-semibold text-xl">
+            <div className="text-left text-xl">#{hashTag.all}</div>
+            <div className="text-left text-xl">
               #{hashTag.break + view.selectedTrack.name}
             </div>
           </div>

@@ -1,7 +1,7 @@
 import type { Playlist } from '@/components/media/VideoPlaylist'
 
 const breakImages: string[] = ['info_001.jpg', 'info_002.jpg']
-const breakDkImages: string[] = ['info_001.jpg', 'info_002.jpg']
+const breakDkImages: string[] = []
 
 const breakPlaylist: Playlist = [
   // {
@@ -18,7 +18,15 @@ const breakDkPlaylist: Playlist = [
   {
     sources: [
       {
-        src: 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/srekaigi2026/makuai.mp4',
+        src: 'https://im-file.emtec.tv/cnk2026/grafana_vol-7dB.mp4',
+        type: 'video/mp4',
+      },
+      {
+        src: 'https://im-file.emtec.tv/cnk2026/m3vol-0dB.mp4',
+        type: 'video/mp4',
+      },
+      {
+        src: 'https://im-file.emtec.tv/cnk2026/prairie_vol-11dB.mp4',
         type: 'video/mp4',
       },
     ],
