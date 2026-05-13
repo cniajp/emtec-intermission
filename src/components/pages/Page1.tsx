@@ -72,7 +72,7 @@ function Main({ view, isDk }: Props) {
             {talk.title}
           </div>
         </div>
-        <SpeakerCards speakers={speakers} isDk={isDk} />
+        <SpeakerCards speakers={speakers} isDk={isDk || false} />
         <div className="p-6 font-ryo-gothic-plusn text-white">
           {(talk.talkCategory || talk.talkDifficulty) && (
             <div className="text-base text-gray-300 pb-2">
