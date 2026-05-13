@@ -3,11 +3,15 @@ import { TalkView } from '../models/talkView'
 import { useContext, useEffect, useRef } from 'react'
 import { PageCtx } from '../models/pageContext'
 import config from '@/config'
+import { staticConfig } from '@/staticConfig'
 import type { Speaker, Talk, Track } from '@/data/types'
 import PageHeader from './PageHeader'
 import { getTime, getTimeStr } from '@/utils/time'
 import { pushPageMeasurement, pushPageEvent } from '@/lib/faro'
-import { useAvatarSlider } from '../hooks/useAvatarSlider'
+import {
+  useAvatarSlider,
+  ANIMATION_DURATION_SEC,
+} from '../hooks/useAvatarSlider'
 import { RollingAvatar } from '../avatar/RollingAvatar'
 
 // 選択されたトークの時間帯に重なるトークを各トラックごとに取得
@@ -80,8 +84,10 @@ function getOverlappingTalks(view: TalkView): Record<string, Talk> {
 type PageProps = { view: Optional<TalkView>; isDk: boolean }
 type Props = { view: Optional<TalkView> }
 
-const DEFAULT_AVATAR =
-  'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png'
+const DEFAULT_AVATAR = (isDk: boolean) =>
+  isDk
+    ? staticConfig.breakDk.base.defaultAvatarSrc
+    : staticConfig.break.base.defaultAvatarSrc
 
 export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
@@ -103,13 +109,13 @@ export default function Page({ view, isDk }: PageProps) {
     <div>
       <PageHeader view={view} isDk={isDk} />
       <div className="h-full">
-        <Body view={view} />
+        <Body view={view} isDk={isDk} />
       </div>
     </div>
   )
 }
 
-function Body({ view }: Props) {
+function Body({ view, isDk }: PageProps) {
   if (!view) {
     return <></>
   }
@@ -118,6 +124,7 @@ function Body({ view }: Props) {
   if (!talk) {
     return <></>
   }
+
   return (
     <div className=" mt-10 font-ryo-gothic-plusn">
       <div className="text-left w-[450px] pr-10 py-10 bg-[url('/cnk2026/background.jpg')] bg-cover bg-center rounded-r-2xl">
@@ -141,6 +148,7 @@ function Body({ view }: Props) {
               talk={talk}
               track={track}
               speakers={speakers}
+              isDk={isDk}
             />
           )
         })}
@@ -153,9 +161,10 @@ type TrackProps = {
   talk: Talk
   track: Track
   speakers: Speaker[]
+  isDk: boolean
 }
 
-function Track({ talk, track, speakers }: TrackProps) {
+function Track({ talk, track, speakers, isDk }: TrackProps) {
   const { currentIndex, prevIndex, isSliding } = useAvatarSlider(
     speakers.length
   )
@@ -163,7 +172,6 @@ function Track({ talk, track, speakers }: TrackProps) {
   if (!talk || !track) {
     return <></>
   }
-  const companies = new Set(speakers.map((s) => s.company).filter(Boolean))
   const re = /(https:\/\/.*|\/.*)/
 
   const getAvatarUrl = (index: number) => {
@@ -173,15 +181,16 @@ function Track({ talk, track, speakers }: TrackProps) {
 
   const currentAvatarUrl = getAvatarUrl(currentIndex)
   const prevAvatarUrl = getAvatarUrl(prevIndex)
+  const currentSpeaker = speakers[currentIndex]
 
   return (
     <div className="flex flex-row items-center w-[900px] h-[300px] mt-12 backdrop-blur-xl bg-white/30 border border-white/30 rounded-2xl shadow-2xl text-[#1E1E1E] p-8">
       <div className="basis-1/3 flex justify-center">
         <RollingAvatar
-          currentSrc={currentAvatarUrl || DEFAULT_AVATAR}
-          prevSrc={prevAvatarUrl || DEFAULT_AVATAR}
+          currentSrc={currentAvatarUrl || DEFAULT_AVATAR(isDk)}
+          prevSrc={prevAvatarUrl || DEFAULT_AVATAR(isDk)}
           isSliding={isSliding}
-          defaultAvatar={DEFAULT_AVATAR}
+          defaultAvatar={DEFAULT_AVATAR(isDk)}
         />
       </div>
       <div className="basis-2/3 pl-4">
@@ -190,26 +199,41 @@ function Track({ talk, track, speakers }: TrackProps) {
             TRACK {track.name}
           </span>
         </div>
-        <div className="text-2xl font-bold flex flex-wrap gap-x-1 mb-2">
-          {talk.speakers.map((s, i) => (
-            <span key={i}>
-              {s.name}
-              {i < talk.speakers.length - 1 && ','}
-            </span>
-          ))}
+        <div
+          key={`name-${currentIndex}`}
+          className="text-2xl font-bold mb-2 speaker-fade"
+        >
+          {currentSpeaker?.name}
         </div>
-        <div className="text-base font-semibold mb-4 text-[#1E1E1E]/60">
-          {Array.from(companies).join(', ')}
+        <div
+          key={`company-${currentIndex}`}
+          className="text-base font-semibold mb-4 text-[#1E1E1E]/60 speaker-fade"
+        >
+          {currentSpeaker?.company}
         </div>
         <div className="text-lg font-semibold leading-relaxed line-clamp-3">
           {talk.title}
         </div>
       </div>
+      <style jsx>{`
+        .speaker-fade {
+          animation: speakerFadeIn ${ANIMATION_DURATION_SEC}
+            cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes speakerFadeIn {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   )
 }
 
-export function AvatarPreLoader({ view }: Props) {
+export function AvatarPreLoader({ view, isDk }: PageProps) {
   if (!view) {
     return <></>
   }
@@ -235,7 +259,7 @@ export function AvatarPreLoader({ view }: Props) {
             src={avatarUrl}
             alt="for preload"
             onError={(e) => {
-              e.currentTarget.src = DEFAULT_AVATAR
+              e.currentTarget.src = DEFAULT_AVATAR(isDk)
             }}
           />
         ) : (

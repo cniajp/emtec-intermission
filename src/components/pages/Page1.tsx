@@ -3,6 +3,7 @@ import { TalkView } from '../models/talkView'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { PageCtx } from '../models/pageContext'
 import config from '@/config'
+import { staticConfig } from '@/staticConfig'
 import { getTimeStr } from '@/utils/time'
 import { trim } from '@/utils/utils'
 import PageHeader from './PageHeader'
@@ -37,7 +38,7 @@ export default function Page({ view, isDk }: PageProps) {
             <Main view={view} isDk={isDk} />
           </div>
           <div className="basis-2/5">
-            <Side view={view} />
+            <Side view={view} isDk={isDk} />
           </div>
         </div>
       </div>
@@ -71,7 +72,7 @@ function Main({ view, isDk }: Props) {
             {talk.title}
           </div>
         </div>
-        <SpeakerCards speakers={speakers} />
+        <SpeakerCards speakers={speakers} isDk={isDk} />
         <div className="p-6 font-ryo-gothic-plusn text-white">
           {(talk.talkCategory || talk.talkDifficulty) && (
             <div className="text-base text-gray-300 pb-2">
@@ -97,7 +98,7 @@ function Main({ view, isDk }: Props) {
   )
 }
 
-function Side({ view }: Props) {
+function Side({ view, isDk }: Props) {
   if (!view) {
     return <></>
   }
@@ -171,10 +172,18 @@ function Side({ view }: Props) {
   )
 }
 
-const DEFAULT_AVATAR =
-  'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png'
+const DEFAULT_AVATAR = (isDk: boolean) =>
+  isDk
+    ? staticConfig.breakDk.base.defaultAvatarSrc
+    : staticConfig.break.base.defaultAvatarSrc
 
-function SpeakerCards({ speakers }: { speakers: Speaker[] }) {
+function SpeakerCards({
+  speakers,
+  isDk,
+}: {
+  speakers: Speaker[]
+  isDk: boolean
+}) {
   const containerRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [isOverflow, setIsOverflow] = useState(false)
@@ -196,12 +205,12 @@ function SpeakerCards({ speakers }: { speakers: Speaker[] }) {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={s.avatarUrl || DEFAULT_AVATAR}
+        src={s.avatarUrl || DEFAULT_AVATAR(isDk)}
         alt={s.name}
-        className="rounded-full object-cover border-4 border-white/40 shadow-xl mb-3"
+        className="rounded-full object-cover border-4 border-white/40 shadow-xl mb-3 bg-white"
         style={{ width: 100, height: 100 }}
         onError={(e) => {
-          e.currentTarget.src = DEFAULT_AVATAR
+          e.currentTarget.src = DEFAULT_AVATAR(isDk)
         }}
       />
       <div className="text-white text-lg font-bold text-center leading-tight">
