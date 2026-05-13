@@ -30,7 +30,13 @@ function Pages() {
     extendConfig(router.query as Record<string, string>)
   }, [router.query])
 
-  const { current, setTotalPage, goNextPage } = useContext(PageCtx)
+  const {
+    current,
+    setTotalPage,
+    goNextPage,
+    isNextVideoAvailable,
+    invokeNextVideo,
+  } = useContext(PageCtx)
 
   const view = useMemo(() => {
     if (!talkId) {
@@ -76,9 +82,10 @@ function Pages() {
         }}
         onUpdateCache={updateCache}
         onGoNext={goNextPage}
+        onNextVideo={isNextVideoAvailable ? invokeNextVideo : null}
       />
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
-      <AvatarPreLoader view={view}></AvatarPreLoader>
+      <AvatarPreLoader view={view} isDk={false}></AvatarPreLoader>
       <div className="w-[1920px] h-[1080px] relative">
         <Image
           src={backgroundSrc}

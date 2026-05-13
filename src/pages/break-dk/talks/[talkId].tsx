@@ -28,7 +28,13 @@ function Pages() {
     extendConfig(router.query as Record<string, string>)
   }, [router.query])
 
-  const { current, setTotalPage, goNextPage } = useContext(PageCtx)
+  const {
+    current,
+    setTotalPage,
+    goNextPage,
+    isNextVideoAvailable,
+    invokeNextVideo,
+  } = useContext(PageCtx)
   const { isLoading: isDataLoading, view } = useGetTalksAndTracks(
     talkId as string | null
   )
@@ -39,10 +45,10 @@ function Pages() {
   })
 
   const pages = [
-    // { name: 'Page1', component: <Page1 key={1} view={view} isDk={true} /> },
+    { name: 'Page1', component: <Page1 key={1} view={view} isDk={true} /> },
     { name: 'Page2', component: <Page2 key={2} view={view} isDk={true} /> },
-    // { name: 'Page3', component: <Page3 key={3} view={view} isDk={true} /> },
-    // { name: 'Page4', component: <Page4 key={4} view={view} isDk={true} /> },
+    { name: 'Page3', component: <Page3 key={3} view={view} isDk={true} /> },
+    { name: 'Page4', component: <Page4 key={4} view={view} isDk={true} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)
@@ -71,9 +77,10 @@ function Pages() {
         }}
         onUpdateCache={updateCache}
         onGoNext={goNextPage}
+        onNextVideo={isNextVideoAvailable ? invokeNextVideo : null}
       />
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
-      <AvatarPreLoader view={view}></AvatarPreLoader>
+      <AvatarPreLoader view={view} isDk={true}></AvatarPreLoader>
       <div className="w-[1920px] h-[1080px] relative text-black overflow-hidden">
         <Image
           src={backgroundSrc}

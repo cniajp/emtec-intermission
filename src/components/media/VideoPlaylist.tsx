@@ -2,9 +2,10 @@
 'use client'
 
 import config from '@/config'
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useContext } from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
+import { PageCtx } from '@/components/models/pageContext'
 
 const videojsPlaylistPlugin = require('videojs-playlist')
 console.log('plugin', videojsPlaylistPlugin)
@@ -24,6 +25,7 @@ type Props = {
 export default function VideoPlaylist({ onEnded, playlist }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const playerRef = useRef<any>(null)
+  const { registerNextVideo } = useContext(PageCtx)
 
   useEffect(() => {
     if (!videoRef.current) {
@@ -42,7 +44,14 @@ export default function VideoPlaylist({ onEnded, playlist }: Props) {
       }
     })
 
+    registerNextVideo(() => {
+      if (playerRef.current?.playlist?.next?.() === undefined) {
+        onEnded()
+      }
+    })
+
     return () => {
+      registerNextVideo(null)
       if (playerRef.current) {
         playerRef.current.dispose()
       }

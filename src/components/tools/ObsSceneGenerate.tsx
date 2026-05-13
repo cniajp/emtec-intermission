@@ -300,9 +300,7 @@ function createImageFutaItem(id: number) {
 function injectImageFutaBackground(scene: {
   settings?: { items?: unknown[]; id_counter?: number }
 }) {
-  const items = scene?.settings?.items as
-    | { source_uuid?: string }[]
-    | undefined
+  const items = scene?.settings?.items as { source_uuid?: string }[] | undefined
   if (!Array.isArray(items)) return
   if (items.some((it) => it?.source_uuid === IMAGE_FUTA_UUID)) return
   const nextId = (scene.settings!.id_counter ?? items.length) + 1
