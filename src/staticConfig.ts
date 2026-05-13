@@ -1,7 +1,33 @@
 import type { Playlist } from '@/components/media/VideoPlaylist'
 
 const breakImages: string[] = ['info_001.jpg', 'info_002.jpg']
-const breakDkImages: string[] = []
+const breakDkImages: string[] = [
+  // 'info_001.jpg',
+  // 'info_002.jpg',
+  // 'info_003.jpg',
+  // 'info_004.jpg',
+  // 'info_005.jpg',
+  // 'info_006.jpg',
+  'info_007.jpg',
+  // 'info_008.jpg',
+  // 'info_009.jpg',
+  // 'info_010.jpg',
+  // 'info_011.jpg',
+  'info_012.jpg',
+  'info_013.jpg',
+  'info_014.jpg',
+  'info_015.jpg',
+  // 'info_016.jpg',
+  'info_017.jpg',
+  'info_018.jpg',
+  'info_019.jpg',
+  'info_020.jpg',
+  'info_021.jpg',
+  'info_022.jpg',
+  // 'info_023.jpg',
+  // 'info_024.jpg',
+  // 'info_025.jpg',
+]
 
 const breakPlaylist: Playlist = [
   // {
@@ -88,7 +114,7 @@ export const staticConfig = {
       },
     },
     page3: {
-      alias: 'cnk2026',
+      alias: 'cnk2026/info',
       images: breakDkImages,
     },
     page4: {
