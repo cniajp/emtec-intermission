@@ -4,9 +4,12 @@ type Props = {
   trackName: string | string[]
   template: template[]
   includeAttack?: boolean
+  includeBackground?: boolean
   os?: 'windows' | 'mac'
   username?: string
 }
+
+const IMAGE_FUTA_UUID = 'dcad48eb-ec3f-42fa-a976-5d99b417a9da'
 
 type template = {
   name: string
@@ -217,6 +220,75 @@ function getAttackVideoPath(
     return `/Users/${username}/Desktop/${eventAbbr}/${trackName}/${safeTime}.mp4`
   }
   return `C:/Users/${username}/Desktop/${eventAbbr}/${trackName}/${safeTime}.mp4`
+}
+
+/**
+ * OS別の背景画像パスを生成
+ * パス形式: Desktop/{eventAbbr}/still/LogoOnly_wBG.png
+ */
+function getBackgroundImagePath(
+  os: 'windows' | 'mac',
+  username: string,
+  eventAbbr: string
+): string {
+  if (os === 'mac') {
+    return `/Users/${username}/Desktop/${eventAbbr}/still/LogoOnly_wBG.png`
+  }
+  return `C:/Users/${username}/Desktop/${eventAbbr}/still/LogoOnly_wBG.png`
+}
+
+/**
+ * 背景用 Image_FUTA アイテム定義を作成
+ * obs-fixed-sources.json の FUTAシーン内アイテム定義に準拠
+ */
+function createImageFutaItem(id: number) {
+  return {
+    name: 'Image_FUTA',
+    source_uuid: IMAGE_FUTA_UUID,
+    visible: true,
+    locked: false,
+    rot: 0.0,
+    scale_ref: { x: 1920.0, y: 1080.0 },
+    align: 5,
+    bounds_type: 0,
+    bounds_align: 0,
+    bounds_crop: false,
+    crop_left: 0,
+    crop_top: 0,
+    crop_right: 0,
+    crop_bottom: 0,
+    id,
+    group_item_backup: false,
+    pos: { x: 0.0, y: 0.0 },
+    pos_rel: { x: -1.7777777910232544, y: -1.0 },
+    scale: { x: 1.0, y: 1.0 },
+    scale_rel: { x: 1.0, y: 1.0 },
+    bounds: { x: 0.0, y: 0.0 },
+    bounds_rel: { x: 0.0, y: 0.0 },
+    scale_filter: 'disable',
+    blend_method: 'default',
+    blend_type: 'normal',
+    show_transition: { duration: 0 },
+    hide_transition: { duration: 0 },
+    private_settings: {},
+  }
+}
+
+/**
+ * シーン1つに対して Image_FUTA を背面（items[] 末尾）に挿入
+ * 既に存在する場合はスキップ（FUTAシーンの重複防止）
+ */
+function injectImageFutaBackground(scene: {
+  settings?: { items?: unknown[]; id_counter?: number }
+}) {
+  const items = scene?.settings?.items as
+    | { source_uuid?: string }[]
+    | undefined
+  if (!Array.isArray(items)) return
+  if (items.some((it) => it?.source_uuid === IMAGE_FUTA_UUID)) return
+  const nextId = (scene.settings!.id_counter ?? items.length) + 1
+  items.push(createImageFutaItem(nextId))
+  scene.settings!.id_counter = nextId
 }
 
 /**
@@ -479,6 +551,7 @@ export default function ObsSceneGenerate({
   trackName: _trackName,
   template,
   includeAttack = false,
+  includeBackground = false,
   os = 'windows',
   username = 'emtec',
 }: Props) {
@@ -603,6 +676,28 @@ export default function ObsSceneGenerate({
     // 固定ソースをJSONから読み込んで追加
     const fixedSources = await loadFixedSources()
     sources.push(...fixedSources)
+
+    // 背景画像オプション処理
+    if (includeBackground) {
+      const bgPath = getBackgroundImagePath(os, username, abbr)
+      // すべてのシーンに Image_FUTA を背面挿入（既に持つシーンはスキップ）
+      for (const src of sources) {
+        if ((src as { id?: string }).id === 'scene') {
+          injectImageFutaBackground(
+            src as { settings?: { items?: unknown[]; id_counter?: number } }
+          )
+        }
+      }
+      // Image_FUTA ソース本体のファイルパスをセット
+      const futaSource = sources.find(
+        (s) =>
+          (s as { uuid?: string; id?: string }).uuid === IMAGE_FUTA_UUID &&
+          (s as { uuid?: string; id?: string }).id === 'image_source'
+      ) as { settings?: Record<string, unknown> } | undefined
+      if (futaSource) {
+        futaSource.settings = { ...futaSource.settings, file: bgPath }
+      }
+    }
 
     console.log('sceneOrder:', sceneOrder)
 
