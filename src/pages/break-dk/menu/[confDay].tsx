@@ -457,6 +457,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
   const [os, setOs] = useState<'windows' | 'mac'>('windows')
   const [includeAttack, setIncludeAttack] = useState(false)
   const [includeBackground, setIncludeBackground] = useState(false)
+  const [includeCountdown, setIncludeCountdown] = useState(false)
   const [includeSimul, setIncludeSimul] = useState(false)
   const [simulUrl, setSimulUrl] = useState(
     'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'
@@ -475,6 +476,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
         trackName: track.name,
         includeAttack: includeAttack ? 'true' : 'false',
         includeBackground: includeBackground ? 'true' : 'false',
+        includeCountdown: includeCountdown ? 'true' : 'false',
         includeSimul: includeSimul ? 'true' : 'false',
         simulUrl: simulUrl,
         os: os,
@@ -542,6 +544,15 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                     className="mr-2 w-3 h-3"
                   />
                   アタック動画
+                </label>
+                <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                  <input
+                    type="checkbox"
+                    checked={includeCountdown}
+                    onChange={(e) => setIncludeCountdown(e.target.checked)}
+                    className="mr-2 w-3 h-3"
+                  />
+                  カウントダウン
                 </label>
                 <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
                   <input
@@ -615,7 +626,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
               </div>
             )}
 
-            {(includeAttack || includeBackground) && (
+            {(includeAttack || includeBackground || includeCountdown) && (
               <div className="bg-neutral-900/50 border border-neutral-700 rounded-lg p-3 mb-4">
                 <label className="block text-xs font-medium mb-1 text-neutral-300">
                   Username (for file path)
@@ -632,6 +643,13 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                     {os === 'mac'
                       ? `/Users/${username}/Desktop/{event}/{track}/0900.mp4`
                       : `C:/Users/${username}/Desktop/{event}/{track}/0900.mp4`}
+                  </div>
+                )}
+                {includeCountdown && (
+                  <div className="mt-2 p-2 bg-neutral-900 rounded text-[10px] text-neutral-400 font-mono break-all">
+                    {os === 'mac'
+                      ? `/Users/${username}/Desktop/{event}/countdown.mp4`
+                      : `C:/Users/${username}/Desktop/{event}/countdown.mp4`}
                   </div>
                 )}
                 {includeBackground && (

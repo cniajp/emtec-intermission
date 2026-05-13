@@ -5,6 +5,7 @@ type Props = {
   template: template[]
   includeAttack?: boolean
   includeBackground?: boolean
+  includeCountdown?: boolean
   includeSimul?: boolean
   simulUrl?: string
   os?: 'windows' | 'mac'
@@ -238,6 +239,21 @@ function getBackgroundImagePath(
     return `/Users/${username}/Desktop/${eventAbbr}/still/LogoOnly_wBG.png`
   }
   return `C:/Users/${username}/Desktop/${eventAbbr}/still/LogoOnly_wBG.png`
+}
+
+/**
+ * OS別のカウントダウン動画パスを生成
+ * パス形式: Desktop/{eventAbbr}/countdown.mp4
+ */
+function getCountdownPath(
+  os: 'windows' | 'mac',
+  username: string,
+  eventAbbr: string
+): string {
+  if (os === 'mac') {
+    return `/Users/${username}/Desktop/${eventAbbr}/countdown.mp4`
+  }
+  return `C:/Users/${username}/Desktop/${eventAbbr}/countdown.mp4`
 }
 
 /**
@@ -682,6 +698,7 @@ export default function ObsSceneGenerate({
   template,
   includeAttack = false,
   includeBackground = false,
+  includeCountdown = false,
   includeSimul = false,
   simulUrl = DEFAULT_SIMUL_URL,
   os = 'windows',
@@ -701,12 +718,14 @@ export default function ObsSceneGenerate({
   // 非同期でOBS設定を生成
   const generateObsConfig = async () => {
     // シーン順序を構築
-    const sceneOrder = [
+    const sceneOrder: { name: string }[] = [
       { name: 'FUTA' },
       { name: '------' },
-      { name: 'CountDown' },
-      { name: '-------' },
     ]
+    if (includeCountdown) {
+      sceneOrder.push({ name: 'CountDown' })
+    }
+    sceneOrder.push({ name: '-------' })
 
     // サイマルを CountDown と '-------' の間に挿入
     if (includeSimul) {
@@ -823,7 +842,30 @@ export default function ObsSceneGenerate({
 
     // 固定ソースをJSONから読み込んで追加
     const fixedSources = await loadFixedSources()
-    sources.push(...fixedSources)
+    const filteredFixed = includeCountdown
+      ? fixedSources
+      : fixedSources.filter(
+          (s) =>
+            (s as { name?: string }).name !== 'CountDown' &&
+            (s as { name?: string }).name !== 'Movie_CountDown'
+        )
+    sources.push(...filteredFixed)
+
+    // カウントダウンが有効なら Movie_CountDown の local_file をセット
+    if (includeCountdown) {
+      const countdownPath = getCountdownPath(os, username, abbr)
+      const movieCountdown = sources.find(
+        (s) =>
+          (s as { name?: string; id?: string }).name === 'Movie_CountDown' &&
+          (s as { name?: string; id?: string }).id === 'ffmpeg_source'
+      ) as { settings?: Record<string, unknown> } | undefined
+      if (movieCountdown) {
+        movieCountdown.settings = {
+          ...movieCountdown.settings,
+          local_file: countdownPath,
+        }
+      }
+    }
 
     // 背景画像オプション処理
     if (includeBackground) {
@@ -851,8 +893,8 @@ export default function ObsSceneGenerate({
 
     // 完全なOBS設定を構築
     const obsConfig = {
-      current_scene: 'CountDown',
-      current_program_scene: 'CountDown',
+      current_scene: includeCountdown ? 'CountDown' : 'FUTA',
+      current_program_scene: includeCountdown ? 'CountDown' : 'FUTA',
       scene_order: sceneOrder,
       name: eventName,
       groups: [],

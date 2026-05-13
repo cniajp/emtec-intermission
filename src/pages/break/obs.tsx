@@ -13,6 +13,7 @@ export default function ObsPage() {
     trackName,
     includeAttack,
     includeBackground,
+    includeCountdown,
     os,
     username,
   } = router.query
@@ -54,6 +55,7 @@ export default function ObsPage() {
       template,
       includeAttack: includeAttack === 'true',
       includeBackground: includeBackground === 'true',
+      includeCountdown: includeCountdown === 'true',
       os: (os as 'windows' | 'mac') || 'windows',
       username: (username as string) || 'emtec',
     })
