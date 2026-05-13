@@ -50,13 +50,10 @@ export const PageCtxProvider = (props: PropsWithChildren) => {
     setCurrent((current + 1) % totalPage)
   }, [current, setCurrent, totalPage])
 
-  const registerNextVideo = useCallback(
-    (handler: (() => void) | null) => {
-      nextVideoRef.current = handler
-      setIsNextVideoAvailable(handler !== null)
-    },
-    []
-  )
+  const registerNextVideo = useCallback((handler: (() => void) | null) => {
+    nextVideoRef.current = handler
+    setIsNextVideoAvailable(handler !== null)
+  }, [])
 
   const invokeNextVideo = useCallback(() => {
     nextVideoRef.current?.()

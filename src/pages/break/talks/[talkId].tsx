@@ -74,11 +74,7 @@ function Pages() {
     <>
       <div>
         <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css" />
-        <link
-          rel="preload"
-          as="image"
-          href="/cnk2026/background.jpg"
-        />
+        <link rel="preload" as="image" href="/cnk2026/background.jpg" />
       </div>
       <DebugBar
         onBackToMenu={() => {
