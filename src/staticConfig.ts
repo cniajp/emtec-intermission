@@ -21,10 +21,18 @@ const breakDkPlaylist: Playlist = [
         src: 'https://im-file.emtec.tv/cnk2026/grafana_vol-7dB.mp4',
         type: 'video/mp4',
       },
+    ],
+  },
+  {
+    sources: [
       {
         src: 'https://im-file.emtec.tv/cnk2026/m3vol-0dB.mp4',
         type: 'video/mp4',
       },
+    ],
+  },
+  {
+    sources: [
       {
         src: 'https://im-file.emtec.tv/cnk2026/prairie_vol-11dB.mp4',
         type: 'video/mp4',
