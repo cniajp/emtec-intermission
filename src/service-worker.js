@@ -9,7 +9,7 @@ const VIDEO_URL = [
   'https://im-file.emtec.tv/cnk2026/grafana_vol-7dB.mp4',
   'https://im-file.emtec.tv/cnk2026/m3vol-0dB.mp4',
   'https://im-file.emtec.tv/cnk2026/prairie_vol-11dB.mp4',
-  'https://im-file.emtec.tv/cnk2026/freee.mp4',
+  'https://im-file.emtec.tv/cnk2026/freeevol-3dB.mp4',
 ]
 
 async function updateCache() {
