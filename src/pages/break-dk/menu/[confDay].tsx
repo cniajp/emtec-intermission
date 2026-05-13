@@ -1,5 +1,8 @@
 import '@/pages/globals-sub.css'
-import { useGetTalksAndTracksForMenu } from '@/components/hooks/useGetTalksAndTracks'
+import {
+  useGetTalksAndTracksForMenu,
+  useGetTracks,
+} from '@/components/hooks/useGetTalksAndTracks'
 import { MenuView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
 import type { Talk, Track } from '@/data/types'
@@ -454,8 +457,14 @@ function ObsModal({ confDay, track }: ObsModalProps) {
   const [os, setOs] = useState<'windows' | 'mac'>('windows')
   const [includeAttack, setIncludeAttack] = useState(false)
   const [includeBackground, setIncludeBackground] = useState(false)
+  const [includeSimul, setIncludeSimul] = useState(false)
+  const [simulUrl, setSimulUrl] = useState(
+    'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'
+  )
   const [username, setUsername] = useState('emtec')
   const router = useRouter()
+  const tracksResult = useGetTracks()
+  const trackUrlSuggestions = (tracksResult.data || []).filter((t) => t.videoId)
 
   const handleGenerate = () => {
     router.push({
@@ -466,6 +475,8 @@ function ObsModal({ confDay, track }: ObsModalProps) {
         trackName: track.name,
         includeAttack: includeAttack ? 'true' : 'false',
         includeBackground: includeBackground ? 'true' : 'false',
+        includeSimul: includeSimul ? 'true' : 'false',
+        simulUrl: simulUrl,
         os: os,
         username: username,
       },
@@ -483,7 +494,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
       </button>
       {isOpen && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div className="bg-neutral-800 border border-neutral-700 rounded-lg shadow-2xl p-6 w-[560px] text-sm">
+          <div className="bg-neutral-800 border border-neutral-700 rounded-lg shadow-2xl p-6 w-[900px] text-sm">
             <h3 className="text-sm font-bold mb-4 text-center border-b border-neutral-700 pb-3 text-white">
               OBS Scene Config - Track {track.name}
             </h3>
@@ -535,6 +546,15 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                 <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
                   <input
                     type="checkbox"
+                    checked={includeSimul}
+                    onChange={(e) => setIncludeSimul(e.target.checked)}
+                    className="mr-2 w-3 h-3"
+                  />
+                  サイマル
+                </label>
+                <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                  <input
+                    type="checkbox"
                     checked={includeBackground}
                     onChange={(e) => setIncludeBackground(e.target.checked)}
                     className="mr-2 w-3 h-3"
@@ -543,6 +563,57 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                 </label>
               </div>
             </div>
+
+            {includeSimul && (
+              <div className="bg-neutral-900/50 border border-neutral-700 rounded-lg p-3 mb-4">
+                <div className="flex items-center justify-between mb-3">
+                  <label className="block text-xs font-medium text-neutral-300">
+                    サイマル URL (VLC playlist)
+                  </label>
+                  <a
+                    href="https://players.akamai.com/players/hlsjs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2 py-0.5 rounded bg-neutral-700 hover:bg-neutral-600 text-white text-[10px] transition-colors"
+                  >
+                    HLSテストプレイヤー ↗
+                  </a>
+                </div>
+                <input
+                  type="text"
+                  value={simulUrl}
+                  onChange={(e) => setSimulUrl(e.target.value)}
+                  list={`simul-urls-${track.id}`}
+                  className="w-full px-3 py-1.5 bg-neutral-900 border border-neutral-600 rounded text-xs text-white focus:outline-none focus:border-blue-500"
+                  placeholder="https://..."
+                />
+                <datalist id={`simul-urls-${track.id}`}>
+                  {trackUrlSuggestions.map((t) => (
+                    <option key={t.id} value={t.videoId!}>
+                      Track {t.name}
+                    </option>
+                  ))}
+                </datalist>
+                {simulUrl && (
+                  <div className="mt-2 p-2 bg-neutral-900 rounded text-[10px] text-neutral-400 font-mono flex items-start gap-2">
+                    <div className="break-all flex-1">{simulUrl}</div>
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        try {
+                          await navigator.clipboard.writeText(simulUrl)
+                        } catch (err) {
+                          console.error('Copy failed:', err)
+                        }
+                      }}
+                      className="shrink-0 px-2 py-0.5 rounded bg-neutral-700 hover:bg-neutral-600 text-white text-[10px] transition-colors"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
             {(includeAttack || includeBackground) && (
               <div className="bg-neutral-900/50 border border-neutral-700 rounded-lg p-3 mb-4">

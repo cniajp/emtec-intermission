@@ -17,6 +17,8 @@ export default function ObsPage() {
     trackName,
     includeAttack,
     includeBackground,
+    includeSimul,
+    simulUrl,
     os,
     username,
   } = router.query
@@ -118,6 +120,8 @@ export default function ObsPage() {
       template,
       includeAttack: includeAttack === 'true',
       includeBackground: includeBackground === 'true',
+      includeSimul: includeSimul === 'true',
+      simulUrl: (simulUrl as string) || undefined,
       os: (os as 'windows' | 'mac') || 'windows',
       username: (username as string) || 'emtec',
     })
