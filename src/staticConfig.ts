@@ -39,6 +39,14 @@ const breakDkPlaylist: Playlist = [
       },
     ],
   },
+  {
+    sources: [
+      {
+        src: 'https://im-file.emtec.tv/cnk2026/freee.mp4',
+        type: 'video/mp4',
+      },
+    ],
+  },
   // {
   //   sources: [
   //     {
