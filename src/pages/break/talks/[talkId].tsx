@@ -4,6 +4,7 @@ import Page2, { AvatarPreLoader } from '@/components/pages/Page2'
 import Page3 from '@/components/pages/Page3'
 import Page4 from '@/components/pages/Page4'
 // import Loading from '@/components/common/Loading'
+import DebugBar from '@/components/common/DebugBar'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import { TalkView } from '@/components/models/talkView'
 import config, { extendConfig } from '@/config'
@@ -46,7 +47,7 @@ function Pages() {
     { name: 'Page1', component: <Page1 key={1} view={view} isDk={false} /> },
     { name: 'Page2', component: <Page2 key={2} view={view} isDk={false} /> },
     { name: 'Page3', component: <Page3 key={3} view={view} isDk={false} /> },
-    // { name: 'Page4', component: <Page4 key={4} view={view} isDk={false} /> },
+    { name: 'Page4', component: <Page4 key={4} view={view} isDk={false} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)
@@ -68,31 +69,14 @@ function Pages() {
       <div>
         <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css" />
       </div>
-      {config.debug && (
-        <>
-          <button
-            onClick={() => {
-              const dayId = view?.selectedTalk.conferenceDayId || 1
-              router.push(`/break/menu/${dayId}`)
-            }}
-            className="font-bold py-0 px-4 mx-2 my-2 rounded bg-red-300 items-right"
-          >
-            Back to Menu
-          </button>
-          <button
-            onClick={updateCache}
-            className="font-bold py-0 px-4 mx-2 my-2 rounded bg-yellow-300 items-right"
-          >
-            Update Video Cache
-          </button>
-          <button
-            onClick={goNextPage}
-            className="font-bold py-0 px-4 mx-2 my-2 rounded bg-blue-300 items-right"
-          >
-            Go Next
-          </button>
-        </>
-      )}
+      <DebugBar
+        onBackToMenu={() => {
+          const dayId = view?.selectedTalk.conferenceDayId || 1
+          router.push(`/break/menu/${dayId}`)
+        }}
+        onUpdateCache={updateCache}
+        onGoNext={goNextPage}
+      />
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view}></AvatarPreLoader>
       <div className="w-[1920px] h-[1080px] relative">
