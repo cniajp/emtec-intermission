@@ -39,10 +39,10 @@ function Pages() {
   })
 
   const pages = [
-    { name: 'Page1', component: <Page1 key={1} view={view} isDk={true} /> },
+    // { name: 'Page1', component: <Page1 key={1} view={view} isDk={true} /> },
     { name: 'Page2', component: <Page2 key={2} view={view} isDk={true} /> },
-    { name: 'Page3', component: <Page3 key={3} view={view} isDk={true} /> },
-    { name: 'Page4', component: <Page4 key={4} view={view} isDk={true} /> },
+    // { name: 'Page3', component: <Page3 key={3} view={view} isDk={true} /> },
+    // { name: 'Page4', component: <Page4 key={4} view={view} isDk={true} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)

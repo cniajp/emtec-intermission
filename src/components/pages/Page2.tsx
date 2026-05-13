@@ -89,6 +89,8 @@ const DEFAULT_AVATAR = (isDk: boolean) =>
     ? staticConfig.breakDk.base.defaultAvatarSrc
     : staticConfig.break.base.defaultAvatarSrc
 
+const TRACK_BG_COLORS = ['#861117', '#548A8A', '#CAA85B']
+
 export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
   const renderStartTime = useRef(performance.now())
@@ -135,8 +137,8 @@ function Body({ view, isDk }: PageProps) {
           {getTimeStr(talk.startTime)}-{getTimeStr(talk.endTime)}
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-8 justify-items-center">
-        {view.allTracks.map((track) => {
+      <div className="grid grid-cols-2 gap-6 justify-items-center">
+        {view.allTracks.map((track, i) => {
           const talk = nextTalks[track.name]
           if (!talk) {
             return <></>
@@ -149,6 +151,7 @@ function Body({ view, isDk }: PageProps) {
               track={track}
               speakers={speakers}
               isDk={isDk}
+              bgColor={TRACK_BG_COLORS[i % TRACK_BG_COLORS.length]}
             />
           )
         })}
@@ -162,9 +165,10 @@ type TrackProps = {
   track: Track
   speakers: Speaker[]
   isDk: boolean
+  bgColor: string
 }
 
-function Track({ talk, track, speakers, isDk }: TrackProps) {
+function Track({ talk, track, speakers, isDk, bgColor }: TrackProps) {
   const { currentIndex, prevIndex, isSliding } = useAvatarSlider(
     speakers.length
   )
@@ -184,21 +188,23 @@ function Track({ talk, track, speakers, isDk }: TrackProps) {
   const currentSpeaker = speakers[currentIndex]
 
   return (
-    <div className="flex flex-row items-center w-[900px] h-[300px] mt-12 backdrop-blur-xl bg-white/30 border border-white/30 rounded-2xl shadow-2xl text-[#1E1E1E] p-8">
+    <div className="relative flex flex-row items-center w-[900px] h-[300px] mt-12 backdrop-blur-xl bg-white/30 border border-white/30 rounded-2xl shadow-2xl text-[#1E1E1E] p-6">
+      <span
+        className="absolute top-3 left-4 inline-block px-3 py-1 rounded-full text-sm uppercase tracking-widest font-din-2014 font-bold text-white"
+        style={{ backgroundColor: bgColor }}
+      >
+        TRACK {track.name}
+      </span>
       <div className="basis-1/3 flex justify-center">
         <RollingAvatar
           currentSrc={currentAvatarUrl || DEFAULT_AVATAR(isDk)}
           prevSrc={prevAvatarUrl || DEFAULT_AVATAR(isDk)}
           isSliding={isSliding}
           defaultAvatar={DEFAULT_AVATAR(isDk)}
+          size={180}
         />
       </div>
       <div className="basis-2/3 pl-4">
-        <div className="mb-3 pl-3 border-l-4 border-white/70">
-          <span className="text-lg text-[#1E1E1E]/60 font-din-2014 font-bold tracking-widest">
-            TRACK {track.name}
-          </span>
-        </div>
         <div
           key={`name-${currentIndex}`}
           className="text-2xl font-bold mb-2 speaker-fade"
