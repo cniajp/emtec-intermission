@@ -5,12 +5,15 @@ import Page3 from '@/components/pages/Page3'
 import Page4 from '@/components/pages/Page4'
 import Loading from '@/components/common/Loading'
 import DebugBar from '@/components/common/DebugBar'
-import { useGetTalksAndTracks } from '@/components/hooks/useGetTalksAndTracks'
+import {
+  useGetEvent,
+  useGetTalksAndTracks,
+} from '@/components/hooks/useGetTalksAndTracks'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import config, { extendConfig } from '@/config'
 import { staticConfig } from '@/staticConfig'
 import { useRouter } from 'next/router'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 import { stat } from 'fs'
@@ -38,6 +41,14 @@ function Pages() {
   const { isLoading: isDataLoading, view } = useGetTalksAndTracks(
     talkId as string | null
   )
+  const eventResult = useGetEvent(config.dkEventAbbr)
+  const backToMenuDayNum = useMemo(() => {
+    const apiDayId = view?.selectedTalk.conferenceDayId
+    const days = eventResult.data?.conferenceDays
+    if (!apiDayId || !days) return 1
+    const idx = days.findIndex((d) => d.id === apiDayId)
+    return idx >= 0 ? idx + 1 : 1
+  }, [view, eventResult.data])
 
   const { isLoading, showContent, isLogoFadingOut } = useLoadingTransition({
     isDataReady: !!view,
@@ -69,11 +80,15 @@ function Pages() {
     <>
       <div>
         <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css" />
+        <link
+          rel="preload"
+          as="image"
+          href="/cnk2026/background.jpg"
+        />
       </div>
       <DebugBar
         onBackToMenu={() => {
-          const dayId = view?.selectedTalk.conferenceDayId || 1
-          router.push(`/break-dk/menu/${dayId}`)
+          router.push(`/break-dk/menu/${backToMenuDayNum}`)
         }}
         onUpdateCache={updateCache}
         onGoNext={goNextPage}
