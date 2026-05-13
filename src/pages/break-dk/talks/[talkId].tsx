@@ -4,6 +4,7 @@ import Page2, { AvatarPreLoader } from '@/components/pages/Page2'
 import Page3 from '@/components/pages/Page3'
 import Page4 from '@/components/pages/Page4'
 import Loading from '@/components/common/Loading'
+import DebugBar from '@/components/common/DebugBar'
 import { useGetTalksAndTracks } from '@/components/hooks/useGetTalksAndTracks'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import config, { extendConfig } from '@/config'
@@ -63,31 +64,14 @@ function Pages() {
       <div>
         <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css" />
       </div>
-      {config.debug && (
-        <>
-          <button
-            onClick={() => {
-              const dayId = view?.selectedTalk.conferenceDayId || 1
-              router.push(`/break-dk/menu/${dayId}`)
-            }}
-            className="font-bold py-0 px-4 mx-2 my-2 rounded bg-red-300 items-right"
-          >
-            Back to Menu
-          </button>
-          <button
-            onClick={updateCache}
-            className="font-bold py-0 px-4 mx-2 my-2 rounded bg-yellow-300 items-right"
-          >
-            Update Video Cache
-          </button>
-          <button
-            onClick={goNextPage}
-            className="font-bold py-0 px-4 mx-2 my-2 rounded bg-blue-300 items-right"
-          >
-            Go Next
-          </button>
-        </>
-      )}
+      <DebugBar
+        onBackToMenu={() => {
+          const dayId = view?.selectedTalk.conferenceDayId || 1
+          router.push(`/break-dk/menu/${dayId}`)
+        }}
+        onUpdateCache={updateCache}
+        onGoNext={goNextPage}
+      />
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view}></AvatarPreLoader>
       <div className="w-[1920px] h-[1080px] relative text-black overflow-hidden">
