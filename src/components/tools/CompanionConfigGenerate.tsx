@@ -54,7 +54,7 @@ const LAYOUT_BUTTONS = [
   { text: 'Futae', macroIndex: 1, dthCode: '03' },
   { text: 'Person', macroIndex: 2, dthCode: '04' },
   { text: 'Logo', macroIndex: 3, dthCode: '00' },
-  { text: 'End', macroIndex: 4, dthCode: '09' },
+  { text: 'End', macroIndex: 4, dthCode: '10' },
 ]
 
 // 特殊ボタン定義
