@@ -4,12 +4,14 @@ type Props = {
   onBackToMenu: () => void
   onUpdateCache: () => void
   onGoNext: () => void
+  onNextVideo?: (() => void) | null
 }
 
 export default function DebugBar({
   onBackToMenu,
   onUpdateCache,
   onGoNext,
+  onNextVideo,
 }: Props) {
   if (!config.debug) return null
   return (
@@ -32,6 +34,14 @@ export default function DebugBar({
       >
         Go Next
       </button>
+      {onNextVideo && (
+        <button
+          onClick={onNextVideo}
+          className="font-bold py-0 px-4 mx-2 my-2 rounded bg-green-300 items-right"
+        >
+          Next Video
+        </button>
+      )}
     </>
   )
 }

@@ -39,9 +39,9 @@ export default function Page({ view, isDk }: PageProps) {
       <Image
         src={`/${alias}/${images[count]}`}
         alt={'information'}
-        width={1670}
-        height={940}
-        className="m-auto"
+        width={1600}
+        height={900}
+        className="m-auto rounded-3xl shadow-lg my-[20px]"
       />
     </div>
   )

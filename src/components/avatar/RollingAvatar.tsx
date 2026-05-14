@@ -28,7 +28,7 @@ export function RollingAvatar({
       <img
         src={prevSrc || defaultAvatar}
         alt="avatar-prev"
-        className="w-full h-full object-cover absolute inset-0"
+        className="w-full h-full object-cover absolute inset-0 bg-white"
         onError={(e) => {
           e.currentTarget.src = defaultAvatar
         }}
@@ -38,7 +38,7 @@ export function RollingAvatar({
       <img
         src={currentSrc || defaultAvatar}
         alt="avatar"
-        className="w-full h-full object-cover absolute inset-0 rounded-full"
+        className="w-full h-full object-cover absolute inset-0 rounded-full bg-white"
         onError={(e) => {
           e.currentTarget.src = defaultAvatar
         }}

@@ -450,6 +450,8 @@ function ObsModal({ confDay, track }: ObsModalProps) {
   useBodyScrollLock(isOpen)
   const [os, setOs] = useState<'windows' | 'mac'>('windows')
   const [includeAttack, setIncludeAttack] = useState(false)
+  const [includeBackground, setIncludeBackground] = useState(false)
+  const [includeCountdown, setIncludeCountdown] = useState(false)
   const [username, setUsername] = useState('emtec')
   const router = useRouter()
 
@@ -461,6 +463,8 @@ function ObsModal({ confDay, track }: ObsModalProps) {
         trackId: track.id,
         trackName: track.name,
         includeAttack: includeAttack ? 'true' : 'false',
+        includeBackground: includeBackground ? 'true' : 'false',
+        includeCountdown: includeCountdown ? 'true' : 'false',
         os: os,
         username: username,
       },
@@ -525,15 +529,33 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                     onChange={(e) => setIncludeAttack(e.target.checked)}
                     className="mr-2 w-3 h-3"
                   />
-                  Include Attack Videos
+                  アタック動画
+                </label>
+                <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                  <input
+                    type="checkbox"
+                    checked={includeCountdown}
+                    onChange={(e) => setIncludeCountdown(e.target.checked)}
+                    className="mr-2 w-3 h-3"
+                  />
+                  カウントダウン
+                </label>
+                <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                  <input
+                    type="checkbox"
+                    checked={includeBackground}
+                    onChange={(e) => setIncludeBackground(e.target.checked)}
+                    className="mr-2 w-3 h-3"
+                  />
+                  すべてシーンに背景画像を敷く
                 </label>
               </div>
             </div>
 
-            {includeAttack && (
+            {(includeAttack || includeBackground || includeCountdown) && (
               <div className="bg-neutral-900/50 border border-neutral-700 rounded-lg p-3 mb-4">
                 <label className="block text-xs font-medium mb-1 text-neutral-300">
-                  Username (for video path)
+                  Username (for file path)
                 </label>
                 <input
                   type="text"
@@ -542,11 +564,27 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                   className="w-full px-3 py-1.5 bg-neutral-900 border border-neutral-600 rounded text-xs text-white focus:outline-none focus:border-blue-500"
                   placeholder="OS username"
                 />
-                <div className="mt-2 p-2 bg-neutral-900 rounded text-[10px] text-neutral-400 font-mono break-all">
-                  {os === 'mac'
-                    ? `/Users/${username}/Desktop/{event}/{track}/0900.mp4`
-                    : `C:/Users/${username}/Desktop/{event}/{track}/0900.mp4`}
-                </div>
+                {includeAttack && (
+                  <div className="mt-2 p-2 bg-neutral-900 rounded text-[10px] text-neutral-400 font-mono break-all">
+                    {os === 'mac'
+                      ? `/Users/${username}/Desktop/{event}/{track}/0900.mp4`
+                      : `C:/Users/${username}/Desktop/{event}/{track}/0900.mp4`}
+                  </div>
+                )}
+                {includeCountdown && (
+                  <div className="mt-2 p-2 bg-neutral-900 rounded text-[10px] text-neutral-400 font-mono break-all">
+                    {os === 'mac'
+                      ? `/Users/${username}/Desktop/{event}/countdown.mp4`
+                      : `C:/Users/${username}/Desktop/{event}/countdown.mp4`}
+                  </div>
+                )}
+                {includeBackground && (
+                  <div className="mt-2 p-2 bg-neutral-900 rounded text-[10px] text-neutral-400 font-mono break-all">
+                    {os === 'mac'
+                      ? `/Users/${username}/Desktop/{event}/still/LogoOnly_wBG.png`
+                      : `C:/Users/${username}/Desktop/{event}/still/LogoOnly_wBG.png`}
+                  </div>
+                )}
               </div>
             )}
 

@@ -4,9 +4,16 @@ type Props = {
   trackName: string | string[]
   template: template[]
   includeAttack?: boolean
+  includeBackground?: boolean
+  includeCountdown?: boolean
+  includeSimul?: boolean
+  simulUrl?: string
   os?: 'windows' | 'mac'
   username?: string
 }
+
+const IMAGE_FUTA_UUID = 'dcad48eb-ec3f-42fa-a976-5d99b417a9da'
+const DEFAULT_SIMUL_URL = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'
 
 type template = {
   name: string
@@ -220,6 +227,88 @@ function getAttackVideoPath(
 }
 
 /**
+ * OS別の背景画像パスを生成
+ * パス形式: Desktop/{eventAbbr}/still/LogoOnly_wBG.png
+ */
+function getBackgroundImagePath(
+  os: 'windows' | 'mac',
+  username: string,
+  eventAbbr: string
+): string {
+  if (os === 'mac') {
+    return `/Users/${username}/Desktop/${eventAbbr}/still/LogoOnly_wBG.png`
+  }
+  return `C:/Users/${username}/Desktop/${eventAbbr}/still/LogoOnly_wBG.png`
+}
+
+/**
+ * OS別のカウントダウン動画パスを生成
+ * パス形式: Desktop/{eventAbbr}/countdown.mp4
+ */
+function getCountdownPath(
+  os: 'windows' | 'mac',
+  username: string,
+  eventAbbr: string
+): string {
+  if (os === 'mac') {
+    return `/Users/${username}/Desktop/${eventAbbr}/countdown.mp4`
+  }
+  return `C:/Users/${username}/Desktop/${eventAbbr}/countdown.mp4`
+}
+
+/**
+ * 背景用 Image_FUTA アイテム定義を作成
+ * obs-fixed-sources.json の FUTAシーン内アイテム定義に準拠
+ */
+function createImageFutaItem(id: number) {
+  return {
+    name: 'Image_FUTA',
+    source_uuid: IMAGE_FUTA_UUID,
+    visible: true,
+    locked: false,
+    rot: 0.0,
+    scale_ref: { x: 1920.0, y: 1080.0 },
+    align: 5,
+    bounds_type: 0,
+    bounds_align: 0,
+    bounds_crop: false,
+    crop_left: 0,
+    crop_top: 0,
+    crop_right: 0,
+    crop_bottom: 0,
+    id,
+    group_item_backup: false,
+    pos: { x: 0.0, y: 0.0 },
+    pos_rel: { x: -1.7777777910232544, y: -1.0 },
+    scale: { x: 1.0, y: 1.0 },
+    scale_rel: { x: 1.0, y: 1.0 },
+    bounds: { x: 0.0, y: 0.0 },
+    bounds_rel: { x: 0.0, y: 0.0 },
+    scale_filter: 'disable',
+    blend_method: 'default',
+    blend_type: 'normal',
+    show_transition: { duration: 0 },
+    hide_transition: { duration: 0 },
+    private_settings: {},
+  }
+}
+
+/**
+ * シーン1つに対して Image_FUTA を背面（items[] 末尾）に挿入
+ * 既に存在する場合はスキップ（FUTAシーンの重複防止）
+ */
+function injectImageFutaBackground(scene: {
+  settings?: { items?: unknown[]; id_counter?: number }
+}) {
+  const items = scene?.settings?.items as { source_uuid?: string }[] | undefined
+  if (!Array.isArray(items)) return
+  if (items.some((it) => it?.source_uuid === IMAGE_FUTA_UUID)) return
+  const nextId = (scene.settings!.id_counter ?? items.length) + 1
+  items.push(createImageFutaItem(nextId))
+  scene.settings!.id_counter = nextId
+}
+
+/**
  * アタック動画ソース（ffmpeg_source）を作成
  */
 function createAttackVideoSource(
@@ -371,6 +460,133 @@ function createSceneWithAttackVideo(
 }
 
 /**
+ * VLCソース（vlc_source）を作成
+ */
+function createVlcSource(
+  name: string,
+  sourceUuid: string,
+  playlistUrl: string
+) {
+  return {
+    prev_ver: 536870913,
+    name,
+    uuid: sourceUuid,
+    id: 'vlc_source',
+    versioned_id: 'vlc_source',
+    settings: {
+      playlist: [
+        {
+          value: playlistUrl,
+          uuid: generateUUID(),
+          selected: false,
+          hidden: false,
+        },
+      ],
+    },
+    mixers: 255,
+    sync: 0,
+    flags: 0,
+    volume: 1.0,
+    balance: 0.5,
+    enabled: true,
+    muted: false,
+    'push-to-mute': false,
+    'push-to-mute-delay': 0,
+    'push-to-talk': false,
+    'push-to-talk-delay': 0,
+    hotkeys: {
+      'libobs.mute': [],
+      'libobs.unmute': [],
+      'libobs.push-to-mute': [],
+      'libobs.push-to-talk': [],
+      'VLCSource.PlayPause': [],
+      'VLCSource.Restart': [],
+      'VLCSource.Stop': [],
+      'VLCSource.PlaylistNext': [],
+      'VLCSource.PlaylistPrev': [],
+    },
+    deinterlace_mode: 0,
+    deinterlace_field_order: 0,
+    monitoring_type: 2,
+    private_settings: {},
+  }
+}
+
+/**
+ * サイマルシーンを作成（VLCソースを1つ含む）
+ */
+function createSimulScene(
+  sceneUuid: string,
+  vlcSourceName: string,
+  vlcSourceUuid: string
+) {
+  return {
+    prev_ver: 536870913,
+    name: 'サイマル',
+    uuid: sceneUuid,
+    id: 'scene',
+    versioned_id: 'scene',
+    settings: {
+      id_counter: 1,
+      custom_size: false,
+      items: [
+        {
+          name: vlcSourceName,
+          source_uuid: vlcSourceUuid,
+          visible: true,
+          locked: false,
+          rot: 0.0,
+          scale_ref: { x: 1920.0, y: 1080.0 },
+          align: 5,
+          bounds_type: 0,
+          bounds_align: 0,
+          bounds_crop: false,
+          crop_left: 0,
+          crop_top: 0,
+          crop_right: 0,
+          crop_bottom: 0,
+          id: 1,
+          group_item_backup: false,
+          pos: { x: 0.0, y: 0.0 },
+          pos_rel: { x: -1.7777777910232544, y: -1.0 },
+          scale: { x: 1.0, y: 1.0 },
+          scale_rel: { x: 1.0, y: 1.0 },
+          bounds: { x: 0.0, y: 0.0 },
+          bounds_rel: { x: 0.0, y: 0.0 },
+          scale_filter: 'disable',
+          blend_method: 'default',
+          blend_type: 'normal',
+          show_transition: { duration: 300 },
+          hide_transition: { duration: 300 },
+          private_settings: {},
+        },
+      ],
+    },
+    mixers: 0,
+    sync: 0,
+    flags: 0,
+    volume: 1.0,
+    balance: 0.5,
+    enabled: true,
+    muted: false,
+    'push-to-mute': false,
+    'push-to-mute-delay': 0,
+    'push-to-talk': false,
+    'push-to-talk-delay': 0,
+    hotkeys: {
+      'OBSBasic.SelectScene': [],
+      'libobs.show_scene_item.1': [],
+      'libobs.hide_scene_item.1': [],
+    },
+    deinterlace_mode: 0,
+    deinterlace_field_order: 0,
+    monitoring_type: 0,
+    canvas_uuid: '6c69626f-6273-4c00-9d88-c5136d61696e',
+    private_settings: {},
+  }
+}
+
+/**
  * 区切り線シーンをJSONファイルから読み込み
  */
 async function loadSeparatorScenes(): Promise<object[]> {
@@ -479,6 +695,10 @@ export default function ObsSceneGenerate({
   trackName: _trackName,
   template,
   includeAttack = false,
+  includeBackground = false,
+  includeCountdown = false,
+  includeSimul = false,
+  simulUrl = DEFAULT_SIMUL_URL,
   os = 'windows',
   username = 'emtec',
 }: Props) {
@@ -496,12 +716,20 @@ export default function ObsSceneGenerate({
   // 非同期でOBS設定を生成
   const generateObsConfig = async () => {
     // シーン順序を構築
-    const sceneOrder = [
+    const sceneOrder: { name: string }[] = [
       { name: 'FUTA' },
       { name: '------' },
-      { name: 'CountDown' },
-      { name: '-------' },
     ]
+    if (includeCountdown) {
+      sceneOrder.push({ name: 'CountDown' })
+    }
+    sceneOrder.push({ name: '-------' })
+
+    // サイマルを CountDown と '-------' の間に挿入
+    if (includeSimul) {
+      const insertIndex = sceneOrder.findIndex((s) => s.name === '-------')
+      sceneOrder.splice(insertIndex, 0, { name: 'サイマル' })
+    }
 
     console.log('eventName:', eventName)
     console.log('roomName:', tName)
@@ -522,6 +750,16 @@ export default function ObsSceneGenerate({
     // 固定シーン（区切り線）をJSONから読み込んで追加
     const separatorScenes = await loadSeparatorScenes()
     sources.push(...separatorScenes)
+
+    // サイマルシーンとVLCソースを追加
+    if (includeSimul) {
+      const vlcSourceUuid = generateUUID()
+      const simulSceneUuid = generateUUID()
+      sources.push(
+        createSimulScene(simulSceneUuid, 'VLC_サイマル', vlcSourceUuid)
+      )
+      sources.push(createVlcSource('VLC_サイマル', vlcSourceUuid, simulUrl))
+    }
 
     // アタック動画用の一時リスト
     const attackSceneOrders: { name: string }[] = []
@@ -602,14 +840,59 @@ export default function ObsSceneGenerate({
 
     // 固定ソースをJSONから読み込んで追加
     const fixedSources = await loadFixedSources()
-    sources.push(...fixedSources)
+    const filteredFixed = includeCountdown
+      ? fixedSources
+      : fixedSources.filter(
+          (s) =>
+            (s as { name?: string }).name !== 'CountDown' &&
+            (s as { name?: string }).name !== 'Movie_CountDown'
+        )
+    sources.push(...filteredFixed)
+
+    // カウントダウンが有効なら Movie_CountDown の local_file をセット
+    if (includeCountdown) {
+      const countdownPath = getCountdownPath(os, username, abbr)
+      const movieCountdown = sources.find(
+        (s) =>
+          (s as { name?: string; id?: string }).name === 'Movie_CountDown' &&
+          (s as { name?: string; id?: string }).id === 'ffmpeg_source'
+      ) as { settings?: Record<string, unknown> } | undefined
+      if (movieCountdown) {
+        movieCountdown.settings = {
+          ...movieCountdown.settings,
+          local_file: countdownPath,
+        }
+      }
+    }
+
+    // 背景画像オプション処理
+    if (includeBackground) {
+      const bgPath = getBackgroundImagePath(os, username, abbr)
+      // すべてのシーンに Image_FUTA を背面挿入（既に持つシーンはスキップ）
+      for (const src of sources) {
+        if ((src as { id?: string }).id === 'scene') {
+          injectImageFutaBackground(
+            src as { settings?: { items?: unknown[]; id_counter?: number } }
+          )
+        }
+      }
+      // Image_FUTA ソース本体のファイルパスをセット
+      const futaSource = sources.find(
+        (s) =>
+          (s as { uuid?: string; id?: string }).uuid === IMAGE_FUTA_UUID &&
+          (s as { uuid?: string; id?: string }).id === 'image_source'
+      ) as { settings?: Record<string, unknown> } | undefined
+      if (futaSource) {
+        futaSource.settings = { ...futaSource.settings, file: bgPath }
+      }
+    }
 
     console.log('sceneOrder:', sceneOrder)
 
     // 完全なOBS設定を構築
     const obsConfig = {
-      current_scene: 'CountDown',
-      current_program_scene: 'CountDown',
+      current_scene: includeCountdown ? 'CountDown' : 'FUTA',
+      current_program_scene: includeCountdown ? 'CountDown' : 'FUTA',
       scene_order: sceneOrder,
       name: eventName,
       groups: [],
