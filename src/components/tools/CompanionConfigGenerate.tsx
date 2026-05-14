@@ -67,7 +67,7 @@ const SPECIAL_BUTTONS = {
   },
   trackA: {
     text: 'TrackA',
-    obsScene: 'TrackA',
+    obsScene: 'サイマル',
     macroIndex: 5,
     dthCode: '01',
   },
