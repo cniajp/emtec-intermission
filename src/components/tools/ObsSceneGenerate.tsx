@@ -294,7 +294,9 @@ function createImageFutaItem(id: number) {
 }
 
 /**
- * シーン1つに対して Image_FUTA を背面（items[] 末尾）に挿入
+ * シーン1つに対して Image_FUTA を最背面（items[] 先頭）に挿入
+ * OBSのシーンJSONでは items[] の先頭が最背面レイヤーになるため、
+ * 他の素材（ブラウザソース・動画など）より下に表示される
  * 既に存在する場合はスキップ（FUTAシーンの重複防止）
  */
 function injectImageFutaBackground(scene: {
@@ -304,7 +306,7 @@ function injectImageFutaBackground(scene: {
   if (!Array.isArray(items)) return
   if (items.some((it) => it?.source_uuid === IMAGE_FUTA_UUID)) return
   const nextId = (scene.settings!.id_counter ?? items.length) + 1
-  items.push(createImageFutaItem(nextId))
+  items.unshift(createImageFutaItem(nextId))
   scene.settings!.id_counter = nextId
 }
 
