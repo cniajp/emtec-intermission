@@ -1,4 +1,4 @@
-import { toPlaylist, type Playlist } from '@/components/media/VideoPlaylist'
+import { toPlaylist, type Playlist } from './components/media/playlist'
 
 const breakImages: string[] = []
 const breakDkImages: string[] = []

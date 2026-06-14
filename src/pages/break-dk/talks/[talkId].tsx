@@ -18,9 +18,16 @@ import Image from 'next/image'
 import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 import { stat } from 'fs'
 
+const breakDkVideoUrls = staticConfig.breakDk.page4.playlist.flatMap((item) =>
+  item.sources.map((s) => s.src)
+)
+
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-    navigator.serviceWorker.controller.postMessage({ type: 'UPDATE_CACHE' })
+    navigator.serviceWorker.controller.postMessage({
+      type: 'UPDATE_CACHE',
+      urls: breakDkVideoUrls,
+    })
   }
 }
 

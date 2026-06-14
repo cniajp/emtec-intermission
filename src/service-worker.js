@@ -4,28 +4,31 @@ import { precacheAndRoute } from 'workbox-precaching'
 precacheAndRoute(self.__WB_MANIFEST)
 
 const CACHE_NAME = 'video-cache'
-const VIDEO_URL = [
-  // 'https://pub-ac15e822806e471884e2b63b26f353c6.r2.dev/srekaigi2026/makuai.mp4',
-  'https://im-file.emtec.tv/cnk2026/grafana_vol-7dB.mp4',
-  'https://im-file.emtec.tv/cnk2026/m3vol-0dB.mp4',
-  'https://im-file.emtec.tv/cnk2026/prairie_vol-11dB.mp4',
-  'https://im-file.emtec.tv/cnk2026/freeevol-3dB.mp4',
-]
 
-async function updateCache() {
-  const status = VIDEO_URL.reduce((acc, url) => {
+async function updateCache(urls) {
+  if (!Array.isArray(urls) || urls.length === 0) {
+    console.warn('updateCache: skip — no urls')
+    return
+  }
+
+  const status = urls.reduce((acc, url) => {
     acc[url] = false
     return acc
   }, {})
 
   return Promise.all(
-    VIDEO_URL.map(async (url) => {
+    urls.map(async (url) => {
       console.log('start cache update:', url)
-      const response = await fetch(url, { mode: 'no-cors' }).catch((e) => {
+      const response = await fetch(url).catch((e) => {
         console.error('==> failed to fetch video:', e)
         return
       })
-      if (!response) {
+      if (!response || !response.ok) {
+        console.error(
+          '==> bad response for cache update:',
+          url,
+          response?.status
+        )
         return
       }
 
@@ -39,11 +42,10 @@ async function updateCache() {
   )
 }
 
-self.addEventListener('install', (event) => {
+self.addEventListener('install', () => {
   console.warn(
     'Reload is required to activate the service worker since this is the first time to install it. Please reload this page after loading all movies is completed.'
   )
-  event.waitUntil(updateCache())
 })
 
 // https://developer.mozilla.org/ja/docs/Web/API/Service_Worker_API/Using_Service_Workers
@@ -72,7 +74,7 @@ self.addEventListener('fetch', (event) => {
 self.addEventListener('message', (event) => {
   console.log('message:', event.data)
   if (event.data && event.data.type === 'UPDATE_CACHE') {
-    event.waitUntil(updateCache())
+    event.waitUntil(updateCache(event.data.urls))
     return
   }
   console.warn('unknown message: ', event.data)

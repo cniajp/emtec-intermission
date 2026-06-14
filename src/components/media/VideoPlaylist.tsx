@@ -6,25 +6,12 @@ import React, { useRef, useEffect, useContext } from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
 import { PageCtx } from '@/components/models/pageContext'
+import type { Playlist } from './playlist'
+
+export { type Playlist, toPlaylist } from './playlist'
 
 const videojsPlaylistPlugin = require('videojs-playlist')
 console.log('plugin', videojsPlaylistPlugin)
-
-/**
- * videojs-playlist プラグインのプレイリスト型。
- * - 外側の配列: プレイリストの各項目（順番に再生される）
- * - 内側 sources: 同一動画の代替フォーマット（MP4/WebM 等のフォールバック、video.js 標準）
- */
-export type Playlist = {
-  sources: {
-    src: string
-    type: string
-  }[]
-}[]
-
-export const toPlaylist = (
-  items: ReadonlyArray<{ src: string; type: string }>
-): Playlist => items.map((item) => ({ sources: [item] }))
 
 type Props = {
   onEnded: () => void

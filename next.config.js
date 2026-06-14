@@ -19,7 +19,7 @@ const withPWA = require('next-pwa')({
       if (
         asset.name.startsWith('server/') ||
         asset.name.match(
-          /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
+          /^((app-|^)build-manifest\.json|react-loadable-manifest\.json|dynamic-css-manifest\.json)$/
         )
       ) {
         return true
