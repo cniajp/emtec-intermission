@@ -35,7 +35,7 @@ export default function Header({ view, isDk }: Props) {
       : view.selectedTrack.name
 
   return (
-    <div className="px-[20px] pb-[15px] flex flex-row items-center w-[1920px] h-[140px] text-[#1E1E1E] font-din-2014 font-bold bg-[linear-gradient(to_bottom,rgba(255,255,255,0.5)_80%,rgba(255,255,255,0)_100%)]">
+    <div className="px-[20px] py-[7.5px] flex flex-row items-center w-[1920px] h-[140px] text-[#1E1E1E] font-din-2014 font-bold bg-[rgba(255,255,255,0.5)]">
       {/* イベントタイトル */}
       <div className="basis-1/3 flex justify-center items-center">
         <Image
