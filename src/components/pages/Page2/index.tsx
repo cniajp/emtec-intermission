@@ -1,88 +1,24 @@
 import { Optional } from '@/utils/types'
-import { TalkView } from '../models/talkView'
+import { TalkView } from '../../models/talkView'
 import { useContext, useEffect, useRef } from 'react'
-import { PageCtx } from '../models/pageContext'
+import { PageCtx } from '../../models/pageContext'
 import config from '@/config'
 import { staticConfig } from '@/staticConfig'
 import type { Speaker, Talk, Track } from '@/data/types'
-import PageHeader from './PageHeader'
-import { getTime, getTimeStr } from '@/utils/time'
+import PageHeader from '../PageHeader'
+import { getTimeStr } from '@/utils/time'
 import { pushPageMeasurement, pushPageEvent } from '@/lib/faro'
 import {
   useAvatarSlider,
   ANIMATION_DURATION_SEC,
-} from '../hooks/useAvatarSlider'
-import { RollingAvatar } from '../avatar/RollingAvatar'
+} from '../../hooks/useAvatarSlider'
+import { RollingAvatar } from '../../avatar/RollingAvatar'
+import { getOverlappingTalks } from './getOverlappingTalks'
 
-// 選択されたトークの時間帯に重なるトークを各トラックごとに取得
-function getOverlappingTalks(view: TalkView): Record<string, Talk> {
-  const nextTalks = view.talksInNextSlot()
-  const baseTalk = Object.values(nextTalks)[0]
-  if (!baseTalk) {
-    return nextTalks
-  }
-
-  const slotStart = getTime(baseTalk.startTime)
-  const slotEnd = getTime(baseTalk.endTime)
-
-  const result: Record<string, Talk> = {}
-
-  // 対象トラックの残りトークを取得するヘルパー
-  const getTracksRemainingTalks = (trackId: number) => {
-    return view.allTalks
-      .filter(
-        (talk) =>
-          talk.trackId === trackId &&
-          talk.showOnTimetable &&
-          !config.excludedTalks.includes(talk.id)
-      )
-      .filter((talk) => {
-        const talkStart = getTime(talk.startTime)
-        return talkStart >= getTime(view.selectedTalk.startTime)
-      })
-      .sort((a, b) => getTime(a.startTime).diff(getTime(b.startTime)))
-  }
-
-  view.allTracks.forEach((track) => {
-    // 既に nextTalks にあればそれを使う
-    if (nextTalks[track.name]) {
-      result[track.name] = nextTalks[track.name]
-      return
-    }
-
-    const remainingTalks = getTracksRemainingTalks(track.id)
-
-    // 時間が重なるトークを探す
-    const overlappingTalk = remainingTalks.filter((talk) => {
-      const talkStart = getTime(talk.startTime)
-      const talkEnd = getTime(talk.endTime)
-      // 時間が重なる条件
-      return talkStart.isBefore(slotEnd) && talkEnd.isAfter(slotStart)
-    })[0]
-
-    if (overlappingTalk) {
-      result[track.name] = overlappingTalk
-      return
-    }
-
-    // 重なるトークがない場合、さらに30分先まで検索
-    const extendedSlotEnd = slotEnd.add(30, 'minute')
-    const extendedOverlappingTalk = remainingTalks.filter((talk) => {
-      const talkStart = getTime(talk.startTime)
-      const talkEnd = getTime(talk.endTime)
-      return talkStart.isBefore(extendedSlotEnd) && talkEnd.isAfter(slotStart)
-    })[0]
-
-    if (extendedOverlappingTalk) {
-      result[track.name] = extendedOverlappingTalk
-    }
-  })
-
-  return result
-}
+export { AvatarPreLoader } from './AvatarPreLoader'
+export { Page3ImagePreLoader } from './Page3ImagePreLoader'
 
 type PageProps = { view: Optional<TalkView>; isDk: boolean }
-type Props = { view: Optional<TalkView> }
 
 const DEFAULT_AVATAR = (isDk: boolean) =>
   isDk
@@ -145,7 +81,7 @@ function Body({ view, isDk }: PageProps) {
           }
           const speakers = view.speakersOf(talk.id)
           return (
-            <Track
+            <TrackRow
               key={track.id}
               talk={talk}
               track={track}
@@ -168,7 +104,7 @@ type TrackProps = {
   bgColor: string
 }
 
-function Track({ talk, track, speakers, isDk, bgColor }: TrackProps) {
+function TrackRow({ talk, track, speakers, isDk, bgColor }: TrackProps) {
   const { currentIndex, prevIndex, isSliding } = useAvatarSlider(
     speakers.length
   )
@@ -235,43 +171,6 @@ function Track({ talk, track, speakers, isDk, bgColor }: TrackProps) {
           }
         }
       `}</style>
-    </div>
-  )
-}
-
-export function AvatarPreLoader({ view, isDk }: PageProps) {
-  if (!view) {
-    return <></>
-  }
-  const nextTalks = getOverlappingTalks(view)
-  const talk = Object.values(nextTalks)[0]
-  if (!talk) {
-    return <></>
-  }
-  return (
-    <div className="hidden">
-      {view.allTracks.map((track, i) => {
-        const talk = nextTalks[track.name]
-        if (!talk) {
-          return <></>
-        }
-        const speakers = view.speakersOf(talk.id)
-        const avatarUrl = speakers[0]?.avatarUrl
-        return avatarUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={i}
-            rel="preload"
-            src={avatarUrl}
-            alt="for preload"
-            onError={(e) => {
-              e.currentTarget.src = DEFAULT_AVATAR(isDk)
-            }}
-          />
-        ) : (
-          <></>
-        )
-      })}
     </div>
   )
 }

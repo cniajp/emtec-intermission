@@ -1,6 +1,6 @@
 import { Optional } from '@/utils/types'
-import { TalkView } from '../models/talkView'
-import { PageCtx } from '../models/pageContext'
+import { TalkView } from '../../models/talkView'
+import { PageCtx } from '../../models/pageContext'
 import { useContext } from 'react'
 import Image from 'next/image'
 import config from '@/config'
@@ -43,6 +43,7 @@ export default function Header({ view, isDk }: Props) {
           alt="logo"
           width={450}
           height={110}
+          style={{ width: '450px', height: 'auto' }}
         />
       </div>
 

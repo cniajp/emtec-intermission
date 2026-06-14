@@ -1,10 +1,10 @@
 import { Optional } from '@/utils/types'
-import { TalkView } from '../models/talkView'
+import { TalkView } from '../../models/talkView'
 import { useContext, useEffect, useState, useRef } from 'react'
-import { PageCtx } from '../models/pageContext'
+import { PageCtx } from '../../models/pageContext'
 import config from '@/config'
 import { staticConfig } from '@/staticConfig'
-import PageHeader from './PageHeader'
+import PageHeader from '../PageHeader'
 import Image from 'next/image'
 import { pushPageMeasurement, pushPageEvent } from '@/lib/faro'
 
@@ -15,7 +15,8 @@ export default function Page({ view, isDk }: PageProps) {
   const { alias, images } = isDk
     ? staticConfig.breakDk.page3
     : staticConfig.break.page3
-  const { count } = useCounter(images.length)
+  const isEmpty = images.length === 0
+  const { count } = useCounter(isEmpty ? 1 : images.length)
   const renderStartTime = useRef(performance.now())
   const hasMeasured = useRef(false)
 
@@ -27,11 +28,15 @@ export default function Page({ view, isDk }: PageProps) {
       hasMeasured.current = true
     }
 
-    if (count >= images.length) {
+    if (isEmpty || count >= images.length) {
       pushPageEvent('Page3', 'page_exit')
       goNextPage()
     }
-  }, [count, goNextPage, images.length])
+  }, [count, goNextPage, images.length, isEmpty])
+
+  if (isEmpty) {
+    return <PageHeader view={view} isDk={isDk} />
+  }
 
   return (
     <div>

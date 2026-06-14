@@ -1,8 +1,8 @@
 import { Optional } from '@/utils/types'
-import { TalkView } from '../models/talkView'
+import { TalkView } from '../../models/talkView'
 import { useContext, useEffect, useRef } from 'react'
-import { PageCtx } from '../models/pageContext'
-import VideoPlaylist from '../media/VideoPlaylist'
+import { PageCtx } from '../../models/pageContext'
+import VideoPlaylist from '../../media/VideoPlaylist'
 import { staticConfig } from '@/staticConfig'
 import { pushPageMeasurement, pushPageEvent } from '@/lib/faro'
 

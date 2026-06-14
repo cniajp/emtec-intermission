@@ -4,6 +4,7 @@ const nextConfig = {
   optimizeFonts: false,
   images: {
     domains: ['www.janog.gr.jp'],
+    qualities: [100],
   },
 }
 
@@ -11,6 +12,7 @@ const isDev = process.env.NODE_ENV !== 'production'
 const withPWA = require('next-pwa')({
   dest: 'public',
   swSrc: 'src/service-worker.js',
+  disable: isDev,
 
   // https://github.com/shadowwalker/next-pwa/issues/424#issuecomment-1857499715
   exclude: [

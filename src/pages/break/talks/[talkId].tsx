@@ -1,6 +1,9 @@
 import AudioPlayer from '@/components/media/AudioPlayer'
 import Page1 from '@/components/pages/Page1'
-import Page2, { AvatarPreLoader } from '@/components/pages/Page2'
+import Page2, {
+  AvatarPreLoader,
+  Page3ImagePreLoader,
+} from '@/components/pages/Page2'
 import Page3 from '@/components/pages/Page3'
 import Page4 from '@/components/pages/Page4'
 // import Loading from '@/components/common/Loading'
@@ -94,6 +97,7 @@ function Pages() {
       />
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view} isDk={false}></AvatarPreLoader>
+      <Page3ImagePreLoader isDk={false} />
       <div className="w-[1920px] h-[1080px] relative">
         <Image
           src={backgroundSrc}
