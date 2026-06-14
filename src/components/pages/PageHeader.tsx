@@ -23,15 +23,27 @@ export default function Header({ view, isDk }: Props) {
   if (!eventAbbrToShow) {
     return <div>No eventAbbr configured.</div>
   }
-  const hashTag = isDk
-    ? staticConfig.breakDk.base.hashTag
-    : staticConfig.break.base.hashTag
+  const base = isDk ? staticConfig.breakDk.base : staticConfig.break.base
+  const { hashTag, useHashTagAsTrackName } = base
+  const trackHashTag =
+    !isDk && view.selectedTrack.hashTag
+      ? hashTag.break + view.selectedTrack.hashTag
+      : hashTag.break + view.selectedTrack.name
+  const trackName =
+    useHashTagAsTrackName && view.selectedTrack.hashTag
+      ? view.selectedTrack.hashTag.toUpperCase()
+      : view.selectedTrack.name
 
   return (
-    <div className="px-[20px] pb-[15px] flex flex-row items-center w-[1880px] h-[140px] text-[#1E1E1E] font-din-2014 font-bold bg-[linear-gradient(to_bottom,rgba(255,255,255,0.5)_80%,rgba(255,255,255,0)_100%)]">
+    <div className="px-[20px] pb-[15px] flex flex-row items-center w-[1920px] h-[140px] text-[#1E1E1E] font-din-2014 font-bold bg-[linear-gradient(to_bottom,rgba(255,255,255,0.5)_80%,rgba(255,255,255,0)_100%)]">
       {/* イベントタイトル */}
       <div className="basis-1/3 flex justify-center items-center">
-        <Image src="/cnk2026/title.png" alt="logo" width={500} height={130} />
+        <Image
+          src="/kinoko2026/title.png"
+          alt="logo"
+          width={450}
+          height={110}
+        />
       </div>
 
       {/* 現在時刻 */}
@@ -46,9 +58,7 @@ export default function Header({ view, isDk }: Props) {
         <div className="basis-1/3 flex flex-col items-center">
           {/* ルーム */}
           <div className="text-xs">トラック</div>
-          <div className="h-[76px] text-4xl">
-            {trim(view.selectedTrack.name, 30)}
-          </div>
+          <div className="h-[76px] text-4xl">{trim(trackName, 30)}</div>
         </div>
 
         <div className="basis-2/3 flex flex-col items-center">
@@ -56,9 +66,7 @@ export default function Header({ view, isDk }: Props) {
           <div className="text-center text-xs">ハッシュタグ</div>
           <div>
             <div className="text-left text-xl">#{hashTag.all}</div>
-            <div className="text-left text-xl">
-              #{hashTag.break + view.selectedTrack.name}
-            </div>
+            <div className="text-left text-xl">#{trackHashTag}</div>
           </div>
         </div>
       </div>

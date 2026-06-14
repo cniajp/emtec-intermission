@@ -19,6 +19,11 @@ export default function Page({ isDk }: Props) {
     const duration = performance.now() - renderStartTime.current
     pushPageMeasurement('Page4', duration)
     pushPageEvent('Page4', 'page_displayed')
+
+    if (playlist.length === 0) {
+      pushPageEvent('Page4', 'page_exit')
+      goNextPage()
+    }
   }, [])
 
   const handleEnded = () => {
@@ -28,7 +33,9 @@ export default function Page({ isDk }: Props) {
 
   return (
     <div className="w-full h-full">
-      <VideoPlaylist onEnded={handleEnded} playlist={playlist}></VideoPlaylist>
+      {playlist.length > 0 && (
+        <VideoPlaylist onEnded={handleEnded} playlist={playlist} />
+      )}
     </div>
   )
 }

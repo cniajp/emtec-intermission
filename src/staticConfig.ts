@@ -1,33 +1,7 @@
 import type { Playlist } from '@/components/media/VideoPlaylist'
 
-const breakImages: string[] = ['info_001.jpg', 'info_002.jpg']
-const breakDkImages: string[] = [
-  // 'info_001.jpg',
-  // 'info_002.jpg',
-  // 'info_003.jpg',
-  // 'info_004.jpg',
-  // 'info_005.jpg',
-  // 'info_006.jpg',
-  'info_007.jpg',
-  // 'info_008.jpg',
-  // 'info_009.jpg',
-  // 'info_010.jpg',
-  // 'info_011.jpg',
-  // 'info_012.jpg',
-  // 'info_013.jpg',
-  'info_014.jpg',
-  'info_015.jpg',
-  // 'info_016.jpg',
-  'info_017.jpg',
-  'info_018.jpg',
-  'info_019.jpg',
-  'info_020.jpg',
-  'info_021.jpg',
-  'info_022.jpg',
-  // 'info_023.jpg',
-  // 'info_024.jpg',
-  // 'info_025.jpg',
-]
+const breakImages: string[] = []
+const breakDkImages: string[] = []
 
 const breakPlaylist: Playlist = [
   // {
@@ -86,18 +60,18 @@ const breakDkPlaylist: Playlist = [
 export const staticConfig = {
   break: {
     base: {
-      loadingIconSrc: '/janog57/logo.png',
-      backgroundSrc: '/janog57/background.png',
-      audioSrc: '/cnk2026/bgm.mp3',
+      loadingIconSrc: '/kinoko2026/logo-bg-white.png',
+      backgroundSrc: '/kinoko2026/background.png',
+      audioSrc: '/pek2025/pek2025_intermission.mp3',
       hashTag: {
-        all: 'janog57',
-        break: 'janog57_',
+        all: 'きのこ2026',
+        break: '',
       },
-      defaultAvatarSrc:
-        'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
+      useHashTagAsTrackName: true,
+      defaultAvatarSrc: '/kinoko2026/logo-bg-white.png',
     },
     page3: {
-      alias: 'janog57',
+      alias: 'kinoko2026/info',
       images: breakImages,
     },
     page4: {
@@ -113,6 +87,7 @@ export const staticConfig = {
         all: 'cloudnativekaigi',
         break: 'cloudnativekaigi_',
       },
+      useHashTagAsTrackName: false,
       defaultAvatarSrc: '/cnk2026/logo.png',
     },
     page3: {

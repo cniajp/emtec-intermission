@@ -4,7 +4,7 @@ export const speakers: Speaker[] = [
   {
     id: 0,
     name: '運営',
-    avatarUrl: 'https://fortee.jp/files/kinoko-2026/image/avatar.jpg',
+    avatarUrl: '/kinoko2026/logo-bg-white.png',
   },
   {
     id: 18,
@@ -57,7 +57,7 @@ export const speakers: Speaker[] = [
   {
     id: 26,
     name: '新井翔太、小倉隆宏',
-    avatarUrl: 'https://fortee.jp/files/kinoko-2026/image/avatar.jpg',
+    avatarUrl: '/kinoko2026/logo-bg-white.png',
   },
   {
     id: 27,

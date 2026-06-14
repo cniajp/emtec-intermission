@@ -11,7 +11,8 @@ import { exportEventData } from '../common/utils.js'
 
 const EVENT_ALIAS: string = 'kinoko-2026'
 
-const eventImageUrl: string = `https://fortee.jp/files/${EVENT_ALIAS}/image/avatar.jpg`
+// const eventImageUrl: string = `https://fortee.jp/files/${EVENT_ALIAS}/image/avatar.jpg`
+const eventImageUrl: string = `/kinoko2026/logo-bg-white.png`
 
 const conferenceDays = [{ id: 1, date: '2026-06-28' }]
 
