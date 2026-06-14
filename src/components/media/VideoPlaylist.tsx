@@ -22,6 +22,10 @@ export type Playlist = {
   }[]
 }[]
 
+export const toPlaylist = (
+  items: ReadonlyArray<{ src: string; type: string }>
+): Playlist => items.map((item) => ({ sources: [item] }))
+
 type Props = {
   onEnded: () => void
   playlist: Playlist
