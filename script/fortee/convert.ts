@@ -9,17 +9,17 @@ import { forteeProposal, forteeTimetableItem } from './type.js'
 import { Track, Speaker, Talk } from '../../src/data/types.js'
 import { exportEventData } from '../common/utils.js'
 
-const EVENT_ALIAS: string = 'sre-kaigi-2026'
+const EVENT_ALIAS: string = 'kinoko-2026'
 
 const eventImageUrl: string = `https://fortee.jp/files/${EVENT_ALIAS}/image/avatar.jpg`
 
-const conferenceDays = [{ id: 1, date: '2026-01-31' }]
+const conferenceDays = [{ id: 1, date: '2026-06-28' }]
 
 // Track情報を生成する
 const tracks: Track[] = [
-  { id: 1, name: 'ホール', hashTag: 'HALL' },
-  { id: 2, name: 'ルーム A', hashTag: 'RoomA' },
-  { id: 3, name: 'ルーム B', hashTag: 'RoomB' },
+  { id: 1, name: 'Track A', hashTag: 'a' },
+  { id: 2, name: 'Track B', hashTag: 'b' },
+  { id: 3, name: 'Track C', hashTag: 'c' },
 ]
 
 // 手動で追加するトーク（最小限の情報）
@@ -28,21 +28,41 @@ const manualTalks: Partial<Talk>[] = [
   {
     id: 9001,
     trackId: 1,
-    title: '開会式',
+    title: 'オープニング',
     abstract: '',
     speakers: [{ id: 0, name: '運営' }],
-    startTime: '2026-01-31T10:00:00+09:00',
-    endTime: '2026-01-31T10:10:00+09:00',
+    startTime: '2026-06-28T10:30:00+09:00',
+    endTime: '2026-06-28T10:50:00+09:00',
     conferenceDayId: 1,
   },
   {
     id: 9002,
     trackId: 1,
-    title: '閉会式',
+    title: 'hacomono体操',
     abstract: '',
     speakers: [{ id: 0, name: '運営' }],
-    startTime: '2026-01-31T17:50:00+09:00',
-    endTime: '2026-01-31T18:00:00+09:00',
+    startTime: '2026-06-28T10:50:00+09:00',
+    endTime: '2026-06-28T11:00:00+09:00',
+    conferenceDayId: 1,
+  },
+  {
+    id: 9003,
+    trackId: 1,
+    title: 'お楽しみ企画',
+    abstract: '',
+    speakers: [{ id: 0, name: '運営' }],
+    startTime: '2026-06-28T17:30:00+09:00',
+    endTime: '2026-06-28T18:00:00+09:00',
+    conferenceDayId: 1,
+  },
+  {
+    id: 9004,
+    trackId: 1,
+    title: 'クロージング',
+    abstract: '',
+    speakers: [{ id: 0, name: '運営' }],
+    startTime: '2026-06-28T18:00:00+09:00',
+    endTime: '2026-06-28T18:20:00+09:00',
     conferenceDayId: 1,
   },
 ]

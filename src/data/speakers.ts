@@ -3,578 +3,228 @@ import { Speaker } from './types'
 export const speakers: Speaker[] = [
   {
     id: 0,
-    name: 'JANOG57',
+    name: '運営',
+    avatarUrl: 'https://fortee.jp/files/kinoko-2026/image/avatar.jpg',
+  },
+  {
+    id: 18,
+    name: 'katzumi',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2024/11/JANOG57-logo.png',
+      'https://fortee.jp/files/kinoko-2026/speaker/8d6688f2-0338-46b9-9b3a-98fa090e2699.jpg',
+  },
+  {
+    id: 19,
+    name: '高橋直規',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/08d3f53f-d622-45a3-8c53-ca4dc0c5b698.jpg',
+  },
+  {
+    id: 20,
+    name: 'chinoppy',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/ef109c63-4ece-4a22-bb1e-18c1d62abd0b.jpg',
+  },
+  {
+    id: 21,
+    name: '桝田 草一',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/f161a181-b874-43fc-a22d-eb1500316cd1.jpg',
+  },
+  {
+    id: 22,
+    name: '杉山貴章',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/5be04a94-81d7-403f-9976-bf6fb54a9bba.jpg',
+  },
+  {
+    id: 23,
+    name: '卜部昌紀',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/827107a3-6db0-42e8-ac67-06e937ecf9eb.png',
+  },
+  {
+    id: 24,
+    name: '小泉岳人',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/9c798913-0f12-483d-926a-0a3f8e23ae63.jpg',
+  },
+  {
+    id: 25,
+    name: 'けん・うすすぎ',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/2dab6104-86d2-4da9-81ee-f549719b4ec8.png',
+  },
+  {
+    id: 26,
+    name: '新井翔太、小倉隆宏',
+    avatarUrl: 'https://fortee.jp/files/kinoko-2026/image/avatar.jpg',
+  },
+  {
+    id: 27,
+    name: '三上 崇',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/e00f8d47-07de-4166-a7ef-b63b23b2e681.jpg',
+  },
+  {
+    id: 28,
+    name: '横山司',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/59dfafbf-dbd0-4182-894f-b3f6626a01ae.jpg',
+  },
+  {
+    id: 29,
+    name: '井上大輔',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/91e10cfc-622c-4722-b156-d42f9617dcf8.jpg',
+  },
+  {
+    id: 30,
+    name: '大庭 亮（Relic代表取締役CTO）',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/5abb4b7e-a200-4a3a-b641-de63c93e6351.jpg',
+  },
+  {
+    id: 31,
+    name: 'ゆきお',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/ef90f0a1-68ef-4b57-a6f7-56df9b1bf91b.png',
+  },
+  {
+    id: 32,
+    name: 'にしはら ちひろ',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/d01f04f9-d9dc-4783-b5c3-a887a80b0ed9.jpeg',
+  },
+  {
+    id: 33,
+    name: '竹本さとし',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/a100b25a-251d-462f-a579-f01cbcaa2526.jpg',
+  },
+  {
+    id: 34,
+    name: '稲垣剛之',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/820dc805-543a-41b7-8fad-aa6834a44fcf.jpg',
   },
   {
     id: 35,
-    name: '佐藤 克賢',
+    name: 'さおりん',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/17669218483812.jpg',
+      'https://fortee.jp/files/kinoko-2026/speaker/ed8e8e96-520c-4b24-aeb3-da009c1d73b5.jpg',
   },
   {
     id: 36,
-    name: '井上 祐一郎',
+    name: 'rince',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/y-inoue.png',
+      'https://fortee.jp/files/kinoko-2026/speaker/f867fa70-b83f-4adc-a06f-f630eb30244e.jpg',
   },
   {
     id: 37,
-    name: '宮坂 拓也',
+    name: '貴島 純子',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/miyacchi.jpg',
+      'https://fortee.jp/files/kinoko-2026/speaker/50d4d80c-6979-4ce9-bbeb-89dfbf845a1d.jpg',
   },
   {
     id: 38,
-    name: '冨永 良明',
+    name: 'さわでぃー',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/10/tominaga.jpg',
-  },
-  {
-    id: 46,
-    name: '浅野 慶太',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 50,
-    name: '中川 あきら',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/DSC01732トリミング2.jpg',
+      'https://fortee.jp/files/kinoko-2026/speaker/7f3fa2fe-010c-4724-8771-31f01d076402.jpg',
   },
   {
     id: 39,
-    name: '江草 陽太',
+    name: 'おーざわ',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/江草陽太_YotaEgusa_さくらインターネット_Leader.jpg',
-  },
-  {
-    id: 47,
-    name: '三浦 洋輔',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
+      'https://fortee.jp/files/kinoko-2026/speaker/7cceaf7f-4638-4d52-8a03-3faf5584040a.jpg',
   },
   {
     id: 40,
-    name: '竹林 正豊',
+    name: 'ナカミチ',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 48,
-    name: '神藤 駿介',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
+      'https://fortee.jp/files/kinoko-2026/speaker/fcc6b28c-6efc-4f01-9dc1-cc5773fa9483.png',
   },
   {
     id: 41,
-    name: '増田 崇志',
+    name: '伊藤いづみ',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 49,
-    name: '堀江 直樹',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
+      'https://fortee.jp/files/kinoko-2026/speaker/d7595d15-f7da-4af5-9a82-1c6a57174f74.jpg',
   },
   {
     id: 42,
-    name: '三谷 公美',
+    name: 'つの',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/三谷公美_KumiMitani_さくらインターネット_Host.jpg',
+      'https://fortee.jp/files/kinoko-2026/speaker/b960e467-7621-4990-b5c7-b45f847ad844.jpg',
   },
   {
     id: 43,
-    name: '佐藤 亮介',
+    name: 'きのこカンファレンスお楽しみ企画',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/T072C6Z55PX-U0975TDCX2S-2bb875153118-512.png',
+      'https://fortee.jp/files/kinoko-2026/speaker/0da3b12a-72b8-4166-b625-362c73431369.png',
   },
   {
-    id: 44,
-    name: '熊本 豊',
+    id: 46,
+    name: 'ありす ゆう',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/T072C6Z55PX-U09764UTURK-0f546131d688-512.jpg',
+      'https://fortee.jp/files/kinoko-2026/speaker/6bde9bfe-bd61-46fe-968d-dc6e79b76f51.jpg',
   },
   {
-    id: 45,
-    name: '前大 光稔',
+    id: 47,
+    name: 'げっしー',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/10/MitsutoshiMaeo.jpg',
+      'https://fortee.jp/files/kinoko-2026/speaker/add29b2b-f87f-442d-9175-fe8cbfca020e.png',
+  },
+  {
+    id: 48,
+    name: '白栁隆司@エンジニアカウンセラー',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/0818ed36-6c9e-4276-9c10-acad17ee60ee.jpg',
+  },
+  {
+    id: 49,
+    name: 'きのこカンファレンスお楽しみ企画',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/0da3b12a-72b8-4166-b625-362c73431369.png',
+  },
+  {
+    id: 50,
+    name: 'たまい',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/e62ed0b9-5abb-4b89-a1f7-72cb84aa73b6.jpg',
   },
   {
     id: 51,
-    name: '金井 瑛',
+    name: 'satei',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/10/AkiraKanai.jpg',
-  },
-  {
-    id: 53,
-    name: '黒澤 潔裕',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/黒澤_写真-scaled.jpeg',
-  },
-  {
-    id: 54,
-    name: '宮城 勝',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
+      'https://fortee.jp/files/kinoko-2026/speaker/4d79ca47-c550-4357-8922-3aeade38e701.jpg',
   },
   {
     id: 52,
-    name: '久保 京介',
+    name: 'kumaaaan',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/10/KyosukeKubo.png',
+      'https://fortee.jp/files/kinoko-2026/speaker/00f1e83a-5e56-4302-8478-24a1bc8eebf3.png',
+  },
+  {
+    id: 53,
+    name: 'いっちー',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/72926957-206d-4395-8008-869a1e3cecd2.jpg',
+  },
+  {
+    id: 54,
+    name: '楠 輝彦',
+    avatarUrl:
+      'https://fortee.jp/files/kinoko-2026/speaker/d0a4e930-2286-4f68-b3a5-005caefb05dc.jpg',
   },
   {
     id: 57,
-    name: '池尻 雄一',
+    name: 'bash',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 55,
-    name: '佐藤 元彦',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/Janog57_Profile_Konami_Sato.jpg',
-  },
-  {
-    id: 60,
-    name: '長谷川 秀寿',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2026/01/profile-noc-hasegawa.jpg',
-  },
-  {
-    id: 56,
-    name: '川島 正伸',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/Janog57_Profile_Nec_Kawashima.jpg',
+      'https://fortee.jp/files/kinoko-2026/speaker/0ac0ad3d-44c8-42c1-88ad-6587bae6d787.png',
   },
   {
     id: 58,
-    name: '武田 知典',
+    name: 'hit',
     avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 61,
-    name: '槇原 大祐',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2026/01/profile-noc-makihara.png',
-  },
-  {
-    id: 59,
-    name: '宮坂 拓也',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 62,
-    name: '沖 修平',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2026/01/profile-noc-oki-scaled.jpg',
-  },
-  {
-    id: 63,
-    name: '篠澤 亮介',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2026/01/profile-noc-shinozawa.jpg',
-  },
-  {
-    id: 64,
-    name: '村田 粛人',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2026/01/profile-noc-murata.png',
-  },
-  {
-    id: 65,
-    name: '片岡 征也',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2026/01/profile-noc-kataoka.jpg',
-  },
-  {
-    id: 66,
-    name: '藤原 稔',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/NTT-AT_藤原.jpg',
-  },
-  {
-    id: 70,
-    name: '田島 照久',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/image2025-12-4_19-7-39.jpg',
-  },
-  {
-    id: 73,
-    name: '石島 貴市',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/石島.jpg',
-  },
-  {
-    id: 67,
-    name: '村上 雅之',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/NTT-AT_村上-scaled.jpg',
-  },
-  {
-    id: 71,
-    name: '萩原 学',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/image2025-12-4_19-7-21.png',
-  },
-  {
-    id: 74,
-    name: '鈴木 伸',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/鈴木.jpg',
-  },
-  {
-    id: 68,
-    name: '田中 淳史',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/毎日放送_田中.webp',
-  },
-  {
-    id: 72,
-    name: '山口 大樹',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/image2025-12-4_19-7-51.jpg',
-  },
-  {
-    id: 75,
-    name: '北崎 恵凡',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/北崎.png',
-  },
-  {
-    id: 69,
-    name: '若宮 義志',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/古河電工_若宮.jpg',
-  },
-  {
-    id: 76,
-    name: '角 一樹',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/janog_logo_favicon_sq.png',
-  },
-  {
-    id: 80,
-    name: '秋野 佑奈',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/janog_logo_favicon_sq.png',
-  },
-  {
-    id: 78,
-    name: '筒見 拓也',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/3g_tsutsumi.png',
-  },
-  {
-    id: 81,
-    name: '神戸 悠希',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/IMG_7294.jpg',
-  },
-  {
-    id: 79,
-    name: '滝田 和輝',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/janog_logo_favicon_sq.png',
-  },
-  {
-    id: 77,
-    name: '中村 海音',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/janog_logo_favicon_sq.png',
-  },
-  {
-    id: 82,
-    name: '中野 寛二',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2026/01/J57-grown-nakano.png',
-  },
-  {
-    id: 83,
-    name: '吉野 純平',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/janog_logo_favicon_sq.png',
-  },
-  {
-    id: 84,
-    name: '岸 祐斗',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 86,
-    name: '柳瀬 駿',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/shun_yanase.jpg',
-  },
-  {
-    id: 89,
-    name: '鈴木 康平',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/j57_ts_koheisuzuki.jpg',
-  },
-  {
-    id: 85,
-    name: '竹﨑 友哉',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 87,
-    name: '田島 裕也',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/yuya_tajima.png',
-  },
-  {
-    id: 90,
-    name: '井戸 哲也',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/IMG_7801_nict_ido-scaled.jpg',
-  },
-  {
-    id: 88,
-    name: '吉川 尚吾',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/shogo_yoshikawa.jpg',
-  },
-  {
-    id: 91,
-    name: '石田 慶樹',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/石田慶樹_YoshikiIshida_INGスタジオ_サポート.jpg',
-  },
-  {
-    id: 92,
-    name: '土屋 師子生',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/土屋さん_写真.jpg',
-  },
-  {
-    id: 93,
-    name: '杉崎 克哉',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/杉崎.png',
-  },
-  {
-    id: 94,
-    name: '豊増 和博',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/豊増.png',
-  },
-  {
-    id: 95,
-    name: '小林 融',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/小林.jpg',
-  },
-  {
-    id: 96,
-    name: '山岸 祐大',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/image2025-12-5_0-41-0.png',
-  },
-  {
-    id: 97,
-    name: '清水 貴史',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/ZTV清水.jpg',
-  },
-  {
-    id: 100,
-    name: '辻  広志',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/tsuji.jpg',
-  },
-  {
-    id: 98,
-    name: '仁村 聖',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/MSYS仁村.jpg',
-  },
-  {
-    id: 101,
-    name: '飛岡 良明',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/tobioka.png',
-  },
-  {
-    id: 99,
-    name: '遠藤 敏秋',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/NTTデバイス遠藤.jpg',
-  },
-  {
-    id: 102,
-    name: '土屋 太二',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/241004_sakumaga2-9.jpg',
-  },
-  {
-    id: 103,
-    name: '冨樫 良介',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/ipv6-togashi.jpg',
-  },
-  {
-    id: 104,
-    name: '佐藤 友暉',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 108,
-    name: '猪野 裕司',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/猪野さん_写真.png',
-  },
-  {
-    id: 105,
-    name: '宇賀治 元樹',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 106,
-    name: '奥田 太郎',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 107,
-    name: '神田 莉央',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 109,
-    name: '木佐木 皓平',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/顔写真_木佐木皓平.png',
-  },
-  {
-    id: 110,
-    name: '岡田 嘉',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/Okada.jpg',
-  },
-  {
-    id: 112,
-    name: '土屋 師子生',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/uec-speaker-ShishioTsuchiya.jpg',
-  },
-  {
-    id: 111,
-    name: '大浦 晋',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/Oura.png',
-  },
-  {
-    id: 117,
-    name: '佐藤 亮介',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 113,
-    name: '仙谷 悠',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/写真-仙谷.jpg',
-  },
-  {
-    id: 121,
-    name: '高橋 康',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2026/01/高橋顔写真.jpg',
-  },
-  {
-    id: 122,
-    name: '矢内 直人',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2026/01/yanai_photo.png',
-  },
-  {
-    id: 118,
-    name: '重松 史哉',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 114,
-    name: '浅香 芳晴',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/写真-浅香さん.png',
-  },
-  {
-    id: 119,
-    name: '荒井 新太郎',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 115,
-    name: '鷲津 光貴',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/鮃ｲ豢･蜈芽ｲｴ_KokiWashizu_蜷榊商螻句ｭｦ髯｢螟ｧ蟄ｦ_CB-e1765190998436.jpg',
-  },
-  {
-    id: 116,
-    name: '今井 広兼',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/莉贋ｺ募ｮ剰ｬ兩HironoriImai_譬ｪ蠑丈ｼ夂､ｾJ繧ｹ繝医Μ繝ｼ繝_CB.jpg',
-  },
-  {
-    id: 120,
-    name: '関谷 郵政',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 123,
-    name: '吉川 知輝',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/IMG_20240504_140906.jpg',
-  },
-  {
-    id: 125,
-    name: '新納 和樹',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 127,
-    name: '加納 浩輝',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/MG_0854-scaled.jpg',
-  },
-  {
-    id: 124,
-    name: '米田 悠人',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/12/米田悠人_YutoYoneda_さくらインターネット株式会社_全体リーダ.png',
-  },
-  {
-    id: 126,
-    name: '岡田 嘉',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/cropped-janog_logo_favicon_sq.png',
-  },
-  {
-    id: 128,
-    name: '井上 祐一郎',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/y-inoue.png',
-  },
-  {
-    id: 129,
-    name: '宮坂 拓也',
-    avatarUrl:
-      'https://www.janog.gr.jp/meeting/janog57/wp-content/uploads/2025/08/miyacchi.jpg',
+      'https://fortee.jp/files/kinoko-2026/speaker/98ae4b23-11ff-46ca-a5ce-40d619b11ca1.jpg',
   },
 ]
