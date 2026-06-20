@@ -1,10 +1,19 @@
-import { staticConfig } from '@/staticConfig'
+import { buildPage3Images, staticConfig } from '@/staticConfig'
+import { Optional } from '@/utils/types'
+import { TalkView } from '../../models/talkView'
 
-export function Page3ImagePreLoader({ isDk }: { isDk: boolean }) {
-  const { alias, images } = isDk
+type Props = { isDk: boolean; view: Optional<TalkView> }
+
+export function Page3ImagePreLoader({ isDk, view }: Props) {
+  const { alias, images, trackImages } = isDk
     ? staticConfig.breakDk.page3
     : staticConfig.break.page3
-  const first = images[0]
+  const trackId = view?.selectedTalk.trackId
+  const merged = buildPage3Images(
+    images,
+    trackId != null ? trackImages[trackId] : undefined
+  )
+  const first = merged[0]
   if (!first) return <></>
   return (
     <div className="hidden">

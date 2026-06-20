@@ -1,9 +1,9 @@
 import { Optional } from '@/utils/types'
 import { TalkView } from '../../models/talkView'
-import { useContext, useEffect, useState, useRef } from 'react'
+import { useContext, useEffect, useMemo, useState, useRef } from 'react'
 import { PageCtx } from '../../models/pageContext'
 import config from '@/config'
-import { staticConfig } from '@/staticConfig'
+import { staticConfig, buildPage3Images } from '@/staticConfig'
 import PageHeader from '../PageHeader'
 import Image from 'next/image'
 import { pushPageMeasurement, pushPageEvent } from '@/lib/faro'
@@ -12,11 +12,20 @@ type PageProps = { view: Optional<TalkView>; isDk: boolean }
 
 export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
-  const { alias, images } = isDk
+  const { alias, images, trackImages } = isDk
     ? staticConfig.breakDk.page3
     : staticConfig.break.page3
-  const isEmpty = images.length === 0
-  const { count } = useCounter(isEmpty ? 1 : images.length)
+  const trackId = view?.selectedTalk.trackId
+  const mergedImages = useMemo(
+    () =>
+      buildPage3Images(
+        images,
+        trackId != null ? trackImages[trackId] : undefined
+      ),
+    [images, trackImages, trackId]
+  )
+  const isEmpty = mergedImages.length === 0
+  const { count } = useCounter(isEmpty ? 1 : mergedImages.length)
   const renderStartTime = useRef(performance.now())
   const hasMeasured = useRef(false)
 
@@ -28,11 +37,11 @@ export default function Page({ view, isDk }: PageProps) {
       hasMeasured.current = true
     }
 
-    if (isEmpty || count >= images.length) {
+    if (isEmpty || count >= mergedImages.length) {
       pushPageEvent('Page3', 'page_exit')
       goNextPage()
     }
-  }, [count, goNextPage, images.length, isEmpty])
+  }, [count, goNextPage, mergedImages.length, isEmpty])
 
   if (isEmpty) {
     return <PageHeader view={view} isDk={isDk} />
@@ -42,7 +51,7 @@ export default function Page({ view, isDk }: PageProps) {
     <div>
       <PageHeader view={view} isDk={isDk} />
       <Image
-        src={`/${alias}/${images[count]}`}
+        src={`/${alias}/${mergedImages[count]}`}
         alt={'information'}
         width={1600}
         height={900}

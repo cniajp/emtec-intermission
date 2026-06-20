@@ -97,7 +97,7 @@ function Pages() {
       />
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view} isDk={false}></AvatarPreLoader>
-      <Page3ImagePreLoader isDk={false} />
+      <Page3ImagePreLoader isDk={false} view={view} />
       <div className="w-[1920px] h-[1080px] relative">
         <Image
           src={backgroundSrc}
