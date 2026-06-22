@@ -21,6 +21,10 @@ const breakPlaylist: Playlist = toPlaylist([
     type: 'video/mp4',
   },
   {
+    src: 'https://im-file.emtec.tv/kinoko2026/kakehashi.mp4',
+    type: 'video/mp4',
+  },
+  {
     src: 'https://im-file.emtec.tv/kinoko2026/mybest.mp4',
     type: 'video/mp4',
   },
