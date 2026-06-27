@@ -19,7 +19,6 @@ import { useRouter } from 'next/router'
 import { useContext, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
-import { stat } from 'fs'
 
 const breakDkVideoUrls = staticConfig.breakDk.page4.playlist.flatMap((item) =>
   item.sources.map((s) => s.src)
@@ -84,7 +83,13 @@ function Pages() {
   // CM ありの場合
   const shouldPlayAudio = pages[current].name !== 'Page4'
 
-  const { loadingIconSrc, backgroundSrc, audioSrc } = staticConfig.breakDk.base
+  const {
+    loadingIconSrc,
+    loadingEnabled,
+    loadingLogoClassName,
+    backgroundSrc,
+    audioSrc,
+  } = staticConfig.breakDk.base
 
   return (
     <>
@@ -140,19 +145,29 @@ function Pages() {
           style={{ objectFit: 'cover' }}
           priority
         />
-        {/* ローディング画面 */}
-        {isLoading && (
-          <div className="absolute inset-0 z-10">
-            <Loading isFadingOut={isLogoFadingOut} logoPath={loadingIconSrc} />
-          </div>
-        )}
-        {/* コンテンツ */}
-        {showContent && (
-          <div className="absolute inset-0 content-fade-in">
-            {pages[current].component}
-          </div>
-        )}
-        {!isLoading && !showContent && (
+        {loadingEnabled ? (
+          <>
+            {/* ローディング画面 */}
+            {isLoading && (
+              <div className="absolute inset-0 z-10">
+                <Loading
+                  isFadingOut={isLogoFadingOut}
+                  logoPath={loadingIconSrc}
+                  logoClassName={loadingLogoClassName}
+                />
+              </div>
+            )}
+            {/* コンテンツ */}
+            {showContent && (
+              <div className="absolute inset-0 content-fade-in">
+                {pages[current].component}
+              </div>
+            )}
+            {!isLoading && !showContent && (
+              <div className="absolute inset-0">{pages[current].component}</div>
+            )}
+          </>
+        ) : (
           <div className="absolute inset-0">{pages[current].component}</div>
         )}
       </div>

@@ -35,7 +35,7 @@ export default function Header({ view, isDk }: Props) {
       : view.selectedTrack.name
 
   return (
-    <div className="px-[20px] py-[7.5px] flex flex-row items-center w-[1920px] h-[140px] text-[#1E1E1E] font-din-2014 font-bold bg-[rgba(255,255,255,0.5)]">
+    <div className="px-[20px] py-[7.5px] flex flex-row items-center w-[1920px] h-[140px] text-[#ffffff] font-din-2014 font-bold bg-[#763F03]">
       {/* イベントタイトル */}
       <div className="basis-1/3 flex justify-center items-center">
         <Image
@@ -44,11 +44,12 @@ export default function Header({ view, isDk }: Props) {
           width={450}
           height={110}
           style={{ width: '450px', height: 'auto' }}
+          priority
         />
       </div>
 
       {/* 現在時刻 */}
-      <div className="basis-1/3 text-center font-video-cond">
+      <div className="basis-1/3 text-center">
         <span className="text-5xl tracking-wider">
           {now.format('HH:mm:ss')}
         </span>

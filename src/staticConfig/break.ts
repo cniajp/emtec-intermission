@@ -37,6 +37,8 @@ const breakPlaylist: Playlist = toPlaylist([
 export const breakConfig = {
   base: {
     loadingIconSrc: '/kinoko2026/logo-bg-white.png',
+    loadingEnabled: true,
+    loadingLogoClassName: 'loading-logo-circle',
     backgroundSrc: '/kinoko2026/background.jpg',
     audioSrc: '/kinoko2026/bgm.mp3',
     hashTag: {

@@ -3,11 +3,13 @@ import Image from 'next/image'
 type LoadingProps = {
   logoPath?: string
   isFadingOut?: boolean
+  logoClassName?: string
 }
 
 export default function Loading({
   logoPath = '/intermission.png',
   isFadingOut = false,
+  logoClassName = '',
 }: LoadingProps) {
   return (
     <div className="h-full w-full loading-container">
@@ -17,7 +19,7 @@ export default function Loading({
           alt="Logo"
           width={400}
           height={100}
-          className={`loading-logo ${isFadingOut ? 'loading-logo-fade-out' : ''}`}
+          className={`loading-logo ${isFadingOut ? 'loading-logo-fade-out' : ''} ${logoClassName}`}
           priority
         />
       </div>

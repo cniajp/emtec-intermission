@@ -31,6 +31,8 @@ const breakDkPlaylist: Playlist = toPlaylist([
 export const breakDkConfig = {
   base: {
     loadingIconSrc: '/cnk2026/logo.png',
+    loadingEnabled: true,
+    loadingLogoClassName: '',
     backgroundSrc: '/cnk2026/new/background.jpg',
     audioSrc: '/cnk2026/bgm.mp3',
     hashTag: {

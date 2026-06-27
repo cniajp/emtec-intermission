@@ -25,7 +25,7 @@ const DEFAULT_AVATAR = (isDk: boolean) =>
     ? staticConfig.breakDk.base.defaultAvatarSrc
     : staticConfig.break.base.defaultAvatarSrc
 
-const TRACK_BG_COLORS = ['#861117', '#548A8A', '#CAA85B']
+const TRACK_BG_COLORS = ['#f14e35', '#387c61', '#e5b73d']
 
 export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
