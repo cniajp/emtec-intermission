@@ -13,15 +13,7 @@ const breakTrackImages: TrackImageInserts = {
 
 const breakPlaylist: Playlist = toPlaylist([
   {
-    src: 'https://im-file.emtec.tv/kinoko2026/collabostyle.mp4',
-    type: 'video/mp4',
-  },
-  {
     src: 'https://im-file.emtec.tv/kinoko2026/hokan.mp4',
-    type: 'video/mp4',
-  },
-  {
-    src: 'https://im-file.emtec.tv/kinoko2026/kakehashi.mp4',
     type: 'video/mp4',
   },
   {
@@ -29,7 +21,15 @@ const breakPlaylist: Playlist = toPlaylist([
     type: 'video/mp4',
   },
   {
+    src: 'https://im-file.emtec.tv/kinoko2026/collabostyle.mp4',
+    type: 'video/mp4',
+  },
+  {
     src: 'https://im-file.emtec.tv/kinoko2026/tenshokudraft.mp4',
+    type: 'video/mp4',
+  },
+  {
+    src: 'https://im-file.emtec.tv/kinoko2026/kakehashi.mp4',
     type: 'video/mp4',
   },
 ])
@@ -37,11 +37,11 @@ const breakPlaylist: Playlist = toPlaylist([
 export const breakConfig = {
   base: {
     loadingIconSrc: '/kinoko2026/logo-bg-white.png',
-    backgroundSrc: '/kinoko2026/background.png',
-    audioSrc: '/pek2025/pek2025_intermission.mp3',
+    backgroundSrc: '/kinoko2026/background.jpg',
+    audioSrc: '/kinoko2026/bgm.mp3',
     hashTag: {
       all: 'きのこ2026',
-      break: '',
+      break: 'きのこセッション',
     },
     useHashTagAsTrackName: true,
     defaultAvatarSrc: '/kinoko2026/logo-bg-white.png',
