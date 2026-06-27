@@ -1,6 +1,9 @@
 import AudioPlayer from '@/components/media/AudioPlayer'
 import Page1 from '@/components/pages/Page1'
-import Page2, { AvatarPreLoader } from '@/components/pages/Page2'
+import Page2, {
+  AvatarPreLoader,
+  Page3ImagePreLoader,
+} from '@/components/pages/Page2'
 import Page3 from '@/components/pages/Page3'
 import Page4 from '@/components/pages/Page4'
 import Loading from '@/components/common/Loading'
@@ -18,9 +21,16 @@ import Image from 'next/image'
 import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 import { stat } from 'fs'
 
+const breakDkVideoUrls = staticConfig.breakDk.page4.playlist.flatMap((item) =>
+  item.sources.map((s) => s.src)
+)
+
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-    navigator.serviceWorker.controller.postMessage({ type: 'UPDATE_CACHE' })
+    navigator.serviceWorker.controller.postMessage({
+      type: 'UPDATE_CACHE',
+      urls: breakDkVideoUrls,
+    })
   }
 }
 
@@ -92,6 +102,7 @@ function Pages() {
       />
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view} isDk={true}></AvatarPreLoader>
+      <Page3ImagePreLoader isDk={true} view={view} />
       <div className="w-[1920px] h-[1080px] relative text-black overflow-hidden">
         <Image
           src={backgroundSrc}
