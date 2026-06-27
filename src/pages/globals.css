@@ -159,6 +159,13 @@ body {
   animation-delay: 0s !important;
 }
 
+.loading-logo-circle {
+  width: 320px !important;
+  height: 320px !important;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .loading-ripple {
   position: absolute;
   width: 200px;

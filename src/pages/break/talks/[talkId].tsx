@@ -6,7 +6,7 @@ import Page2, {
 } from '@/components/pages/Page2'
 import Page3 from '@/components/pages/Page3'
 import Page4 from '@/components/pages/Page4'
-// import Loading from '@/components/common/Loading'
+import Loading from '@/components/common/Loading'
 import DebugBar from '@/components/common/DebugBar'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
 import { TalkView } from '@/components/models/talkView'
@@ -18,7 +18,7 @@ import { tracks } from '@/data/tracks'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useMemo } from 'react'
 import Image from 'next/image'
-// import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
+import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 
 const breakVideoUrls = staticConfig.break.page4.playlist.flatMap((item) =>
   item.sources.map((s) => s.src)
@@ -55,9 +55,10 @@ function Pages() {
     return TalkView.withoutDk(talkId as string, talks, tracks, speakers)
   }, [talkId])
 
-  // const { isLoading, showContent, isLogoFadingOut } = useLoadingTransition({
-  //   isDataReady: !!view,
-  // })
+  const { isLoading, showContent, isLogoFadingOut } = useLoadingTransition({
+    isDataReady: !!view,
+    forceAnimation: true,
+  })
 
   const pages = [
     { name: 'Page1', component: <Page1 key={1} view={view} isDk={false} /> },
@@ -76,7 +77,13 @@ function Pages() {
     }
   }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { loadingIconSrc, backgroundSrc, audioSrc } = staticConfig.break.base
+  const {
+    loadingIconSrc,
+    loadingEnabled,
+    loadingLogoClassName,
+    backgroundSrc,
+    audioSrc,
+  } = staticConfig.break.base
 
   const shouldPlayAudio = pages[current].name !== 'Page4'
 
@@ -108,24 +115,31 @@ function Pages() {
           style={{ objectFit: 'cover' }}
           priority
         />
-        {/* ローディング画面 */}
-        {/* {isLoading && (
-          <div className="absolute inset-0 z-10">
-            <Loading
-              isFadingOut={isLogoFadingOut}
-              logoPath={loadingIconSrc}
-            />
-          </div>
-        )} */}
-        {/* コンテンツ */}
-        {/* {showContent && (
-          <div className="absolute inset-0 content-fade-in">
-            {pages[current]}
-          </div>
-        )} */}
-        {/* {!isLoading && !showContent && ( */}
-        <div className="absolute inset-0">{pages[current].component}</div>
-        {/* )} */}
+        {loadingEnabled ? (
+          <>
+            {/* ローディング画面 */}
+            {isLoading && (
+              <div className="absolute inset-0 z-10">
+                <Loading
+                  isFadingOut={isLogoFadingOut}
+                  logoPath={loadingIconSrc}
+                  logoClassName={loadingLogoClassName}
+                />
+              </div>
+            )}
+            {/* コンテンツ */}
+            {showContent && (
+              <div className="absolute inset-0 content-fade-in">
+                {pages[current].component}
+              </div>
+            )}
+            {!isLoading && !showContent && (
+              <div className="absolute inset-0">{pages[current].component}</div>
+            )}
+          </>
+        ) : (
+          <div className="absolute inset-0">{pages[current].component}</div>
+        )}
       </div>
     </>
   )
