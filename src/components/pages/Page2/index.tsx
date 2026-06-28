@@ -27,6 +27,9 @@ const DEFAULT_AVATAR = (isDk: boolean) =>
 
 const TRACK_BG_COLORS = ['#f14e35', '#387c61', '#e5b73d']
 
+// TODO: kinoko2026 一時対応 - オープニング/hacomono体操の時間帯は並行セッションがないため他トラックを非表示にする
+const HIDE_OTHER_TRACKS_TALK_IDS = [9001, 9002]
+
 export default function Page({ view, isDk }: PageProps) {
   const { goNextPage } = useContext(PageCtx)
   const renderStartTime = useRef(performance.now())
@@ -63,6 +66,13 @@ function Body({ view, isDk }: PageProps) {
     return <></>
   }
 
+  const hideOtherTracks = HIDE_OTHER_TRACKS_TALK_IDS.includes(
+    view.selectedTalk.id
+  )
+  const tracksToShow = hideOtherTracks
+    ? view.allTracks.filter((t) => t.id === view.selectedTalk.trackId)
+    : view.allTracks
+
   return (
     <div className=" mt-10 font-ryo-gothic-plusn">
       <div className="text-left w-[450px] pr-10 py-10 bg-[url('/cnk2026/background.jpg')] bg-cover bg-center rounded-r-2xl">
@@ -74,7 +84,7 @@ function Body({ view, isDk }: PageProps) {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-6 justify-items-center">
-        {view.allTracks.map((track, i) => {
+        {tracksToShow.map((track, i) => {
           const talk = nextTalks[track.name]
           if (!talk) {
             return <></>
