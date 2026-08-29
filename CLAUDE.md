@@ -31,7 +31,7 @@
 1. **Dreamkast API連携** (`/break-dk/*`)
    - CloudNativeDaysのイベント管理システムのAPIからリアルタイムでデータ取得
    - Redux Toolkit Queryを使用
-   - ファイル: `src/pages/break-dk/`, `src/components/hooks/useGetTalksAndTracks.ts`
+   - ファイル: `src/pages/break-dk/`, `src/logic/data/dreamkast/useGetTalksAndTracks.ts`
 
 2. **静的TSファイル** (`/break/*`)
    - `src/data/talks.ts`, `src/data/speakers.ts`, `src/data/tracks.ts` からデータ取得
@@ -54,34 +54,35 @@
 
 ### インターミッション表示の構造
 
-インターミッション画面は**4ページ構成**のアニメーションで構成されています：
+インターミッション画面は**4ページ構成**のアニメーションで構成されています。
+各ページは「ロジックとデザインの接続役」と「デザイン（Presenter）」に分かれています。
 
-1. **Page1** (`src/components/Page1.tsx`)
-   - 次のセッション情報（UPCOMING SESSION）を表示
-   - タイトル、登壇者、所属、時間、概要を表示
+| ページ | 接続役 | Presenter（defaultテーマ） | 内容 |
+|--------|--------|---------------------------|------|
+| Page1 | `src/components/pages/Page1.tsx` | `src/themes/default/page1/` | 次のセッション情報（UPCOMING SESSION）。タイトル、登壇者、所属、時間、概要 |
+| Page2 | `src/components/pages/Page2.tsx` | `src/themes/default/page2/` | 登壇者のアバター画像（なければプレースホルダー） |
+| Page3 | `src/components/pages/Page3.tsx` | `src/themes/default/page3/` | 追加情報やタイムテーブル |
+| Page4 | `src/components/pages/Page4.tsx` | `src/themes/default/page4/` | 最終ページ（プロジェクトによって使用有無が異なる） |
 
-2. **Page2** (`src/components/Page2.tsx`)
-   - 登壇者のアバター画像を表示
-   - アバターがない場合はプレースホルダーを使用
+接続役は ViewModel フック（`src/logic/page-view-models/`）を呼び、結果を `useTheme()` で取得した
+Presenter に渡すだけです。**JSXやTailwindクラスは Presenter 側にしかありません。**
 
-3. **Page3** (`src/components/Page3.tsx`)
-   - 追加情報やタイムテーブルを表示
-
-4. **Page4** (`src/components/Page4.tsx`)
-   - 最終ページ（プロジェクトによって使用有無が異なる）
+デザイン層の詳細は [CONTRIBUTING.md の「テーマ（デザイン層）」](./CONTRIBUTING.md#テーマデザイン層) を参照してください。
 
 ### ページ遷移の仕組み
 
-- **PageContext** (`src/components/models/pageContext.tsx`) でページ状態を管理
+- **PageContext** (`src/logic/page-flow/PageContext.tsx`) でページ状態を管理
+- 遷移タイマーは `src/logic/page-flow/usePageTransition.ts`
 - 各ページは設定された時間（`config.transTimePageN`）後に自動遷移
 - BGMの長さと同期するように時間を調整
 
 ### アニメーション
 
-- **PixiApp** (`src/components/PixiApp.tsx`)
+- **PixiApp** (`src/themes/pixi-legacy/PixiApp.tsx`)
   - PixiJSを使用した2Dグラフィックスレンダリング
   - ベジェ曲線によるスムーズなイージング効果
   - BGMの再生とフェードアウト制御
+  - `Theme` インターフェイスには属さず、`/animation` `/player` `/talks/[talkId]` から直接 dynamic import される
 
 ## 設定管理
 
@@ -131,7 +132,7 @@ public/
 
 ### 2. TalkViewモデル
 
-`src/components/models/talkView.ts` に `TalkView` と `MenuView` クラスがあります：
+`src/logic/models/talkView.ts` に `TalkView` と `MenuView` クラスがあります：
 - データソースの違いを吸収する抽象化レイヤー
 - 静的メソッド `withoutDk()` で静的データ版を、コンストラクタで Dreamkast版を生成
 
@@ -202,15 +203,23 @@ npm run rtk-query-codegen
 
 ### ページデザインを変更する場合
 
-1. `src/components/Page1.tsx` などの対象ページを編集
-2. Tailwind CSSクラスで調整
-3. 必要に応じてカスタムフォントやアニメーションを追加
+1. `src/themes/default/page1/` などの対象 Presenter を編集する（`src/components/pages/` ではない）
+2. Tailwind CSSクラスで調整する
+3. keyframes などの素のCSSが必要なら `src/themes/default/theme.module.css` に追加する。
+   **`src/pages/globals.css` には書かない**（全テーマに漏れ、クラス名が衝突するため）
+4. テーマ外（`Loading.tsx` やページシェル）からそのクラスを使う場合は、
+   `src/themes/types.ts` の `ThemeClasses` に足して `Theme.classes` 経由で渡す
+
+### 新しいテーマを追加する場合
+
+[CONTRIBUTING.md の「新しいテーマを追加する」](./CONTRIBUTING.md#新しいテーマを追加する) を参照。
+既存のテーマやページシェルには手を入れず、`src/themes/<name>/` の追加と registry への登録だけで済みます。
 
 ### BGMの長さを変更する場合
 
 1. 新しいBGMファイルを `public/[event]/` に配置
 2. `.env.production` の `NEXT_PUBLIC_TRANS_TIME_PAGE*` を調整
-3. `src/components/PixiApp.tsx` の `duration` を更新
+3. `src/themes/pixi-legacy/PixiApp.tsx` の `duration` を更新
 4. 合計時間がBGMの長さと一致するように調整
 
 ### APIエンドポイントを追加する場合

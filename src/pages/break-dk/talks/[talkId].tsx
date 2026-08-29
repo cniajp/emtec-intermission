@@ -1,34 +1,32 @@
 import AudioPlayer from '@/components/media/AudioPlayer'
 import Page1 from '@/components/pages/Page1'
-import Page2, {
-  AvatarPreLoader,
-  Page3ImagePreLoader,
-} from '@/components/pages/Page2'
+import Page2 from '@/components/pages/Page2'
 import Page3 from '@/components/pages/Page3'
 import Page4 from '@/components/pages/Page4'
 import Loading from '@/components/common/Loading'
 import DebugBar from '@/components/common/DebugBar'
-import {
-  useGetEvent,
-  useGetTalksAndTracks,
-} from '@/components/hooks/useGetTalksAndTracks'
-import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
+import { useGetEvent } from '@/logic/data/dreamkast'
+import { PageCtx, PageCtxProvider } from '@/logic/page-flow/PageContext'
+import { getDataSource } from '@/logic/data/registry'
+import { getBrand } from '@/brand/registry'
+import { BrandProvider, useBrand } from '@/brand/BrandProvider'
+import { selectTheme } from '@/themes/registry'
+import { ThemeProvider, useTheme } from '@/themes/ThemeProvider'
+import { AvatarPreLoader, Page3ImagePreLoader } from '@/themes/default'
 import config, { extendConfig } from '@/config'
-import { staticConfig } from '@/staticConfig'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 
-const breakDkVideoUrls = staticConfig.breakDk.page4.playlist.flatMap((item) =>
-  item.sources.map((s) => s.src)
-)
+const dataSource = getDataSource('dreamkast')
+const brand = getBrand('dreamkast')
 
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
     navigator.serviceWorker.controller.postMessage({
       type: 'UPDATE_CACHE',
-      urls: breakDkVideoUrls,
+      urls: dataSource.videoCacheUrls,
     })
   }
 }
@@ -47,8 +45,8 @@ function Pages() {
     isNextVideoAvailable,
     invokeNextVideo,
   } = useContext(PageCtx)
-  const { isLoading: isDataLoading, view } = useGetTalksAndTracks(
-    talkId as string | null
+  const { isLoading: isDataLoading, view } = dataSource.useTalkView(
+    typeof talkId === 'string' ? talkId : null
   )
   const eventResult = useGetEvent(config.dkEventAbbr)
   const backToMenuDayNum = useMemo(() => {
@@ -65,10 +63,10 @@ function Pages() {
   })
 
   const pages = [
-    { name: 'Page1', component: <Page1 key={1} view={view} isDk={true} /> },
-    { name: 'Page2', component: <Page2 key={2} view={view} isDk={true} /> },
-    { name: 'Page3', component: <Page3 key={3} view={view} isDk={true} /> },
-    { name: 'Page4', component: <Page4 key={4} view={view} isDk={true} /> },
+    { name: 'Page1', component: <Page1 key={1} view={view} /> },
+    { name: 'Page2', component: <Page2 key={2} view={view} /> },
+    { name: 'Page3', component: <Page3 key={3} view={view} /> },
+    { name: 'Page4', component: <Page4 key={4} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)
@@ -83,13 +81,15 @@ function Pages() {
   // CM ありの場合
   const shouldPlayAudio = pages[current].name !== 'Page4'
 
+  const activeBrand = useBrand()
+  const { classes } = useTheme()
   const {
     loadingIconSrc,
     loadingEnabled,
-    loadingLogoClassName,
+    loadingLogoShape,
     backgroundSrc,
     audioSrc,
-  } = staticConfig.breakDk.base
+  } = activeBrand.base
 
   return (
     <>
@@ -99,15 +99,15 @@ function Pages() {
       </div>
       <DebugBar
         onBackToMenu={() => {
-          router.push(`/break-dk/menu/${backToMenuDayNum}`)
+          router.push(`${activeBrand.routePrefix}/menu/${backToMenuDayNum}`)
         }}
         onUpdateCache={updateCache}
         onGoNext={goNextPage}
         onNextVideo={isNextVideoAvailable ? invokeNextVideo : null}
       />
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
-      <AvatarPreLoader view={view} isDk={true}></AvatarPreLoader>
-      <Page3ImagePreLoader isDk={true} view={view} />
+      <AvatarPreLoader view={view} />
+      <Page3ImagePreLoader view={view} />
       <div className="w-[1920px] h-[1080px] relative text-black overflow-hidden">
         <Image
           src={backgroundSrc}
@@ -121,7 +121,7 @@ function Pages() {
           <Image
             src="/cnk2026/new/layer-1.png"
             alt="background"
-            className="spin-slow-cw"
+            className={classes.spinSlowCw}
             width={994}
             height={994}
             priority
@@ -131,7 +131,7 @@ function Pages() {
           <Image
             src="/cnk2026/new/layer-2.png"
             alt="background"
-            className="spin-slow-ccw"
+            className={classes.spinSlowCcw}
             width={529}
             height={458}
             priority
@@ -153,13 +153,13 @@ function Pages() {
                 <Loading
                   isFadingOut={isLogoFadingOut}
                   logoPath={loadingIconSrc}
-                  logoClassName={loadingLogoClassName}
+                  logoShape={loadingLogoShape}
                 />
               </div>
             )}
             {/* コンテンツ */}
             {showContent && (
-              <div className="absolute inset-0 content-fade-in">
+              <div className={`absolute inset-0 ${classes.contentFadeIn}`}>
                 {pages[current].component}
               </div>
             )}
@@ -176,9 +176,15 @@ function Pages() {
 }
 
 export default function Index() {
+  const router = useRouter()
+  const theme = selectTheme(router.query.theme as string | undefined)
   return (
-    <PageCtxProvider>
-      <Pages />
-    </PageCtxProvider>
+    <BrandProvider brand={brand}>
+      <ThemeProvider theme={theme}>
+        <PageCtxProvider>
+          <Pages />
+        </PageCtxProvider>
+      </ThemeProvider>
+    </BrandProvider>
   )
 }

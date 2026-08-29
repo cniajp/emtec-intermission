@@ -5,7 +5,7 @@ import config from '@/config'
 import React, { useRef, useEffect, useContext } from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
-import { PageCtx } from '@/components/models/pageContext'
+import { PageCtx } from '@/logic/page-flow/PageContext'
 import type { Playlist } from './playlist'
 
 export { type Playlist, toPlaylist } from './playlist'

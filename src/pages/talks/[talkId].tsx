@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { Talk, getTalk } from '../../api/endpoint/talks'
 
 // PixiAppを動的にインポートし、SSRを無効にする
-const PixiApp = dynamic(() => import('../../components/media/PixiApp'), {
+const PixiApp = dynamic(() => import('@/themes/pixi-legacy/PixiApp'), {
   ssr: false,
 })
 

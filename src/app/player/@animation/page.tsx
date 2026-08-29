@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import { useContext } from 'react'
 import { ContentContext } from '../context'
 
-const PixiApp = dynamic(() => import('../../../components/media/PixiApp'), {
+const PixiApp = dynamic(() => import('@/themes/pixi-legacy/PixiApp'), {
   ssr: false,
 })
 

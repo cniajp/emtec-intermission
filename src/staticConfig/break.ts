@@ -38,8 +38,8 @@ export const breakConfig = {
   base: {
     loadingIconSrc: '/kinoko2026/logo-bg-white.png',
     loadingEnabled: true,
-    loadingLogoClassName: 'loading-logo-circle',
-    backgroundSrc: '/kinoko2026/background.jpg',
+    loadingLogoShape: 'circle',
+    backgroundSrc: '/pde2026/background.png',
     audioSrc: '/kinoko2026/bgm.mp3',
     hashTag: {
       all: 'きのこ2026',

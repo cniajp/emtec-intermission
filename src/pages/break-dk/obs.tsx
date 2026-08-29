@@ -7,7 +7,7 @@ import {
   useGetTalks,
   useGetEvent,
   useGetTracks,
-} from '@/components/hooks/useGetTalksAndTracks'
+} from '@/logic/data/dreamkast/useGetTalksAndTracks'
 
 export default function ObsPage() {
   const router = useRouter()

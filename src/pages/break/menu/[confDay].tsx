@@ -1,5 +1,5 @@
 import '@/pages/globals-sub.css'
-import { MenuView } from '@/components/models/talkView'
+import { MenuView } from '@/logic/models/talkView'
 import config, { extendConfig } from '@/config'
 import type { Talk, Track } from '@/data/types'
 import { getTimeStr } from '@/utils/time'
