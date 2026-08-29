@@ -56,9 +56,9 @@ function Pages() {
 
   const pages = [
     { name: 'Page1', component: <Page1 key={1} view={view} /> },
-    { name: 'Page2', component: <Page2 key={2} view={view} /> },
-    { name: 'Page3', component: <Page3 key={3} view={view} /> },
-    { name: 'Page4', component: <Page4 key={4} /> },
+    // { name: 'Page2', component: <Page2 key={2} view={view} /> },
+    // { name: 'Page3', component: <Page3 key={3} view={view} /> },
+    // { name: 'Page4', component: <Page4 key={4} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)
@@ -86,7 +86,7 @@ function Pages() {
     <>
       <div>
         <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css" />
-        <link rel="preload" as="image" href="/cnk2026/background.jpg" />
+        <link rel="preload" as="image" href={backgroundSrc} />
       </div>
       <DebugBar
         onBackToMenu={() => {

@@ -1,11 +1,9 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  // src 配下全体を対象にする。デザインは src/themes/<name>/ に追加していくため、
+  // ディレクトリを個別列挙するとスキャン漏れでクラスが purge される事故が起きる。
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       fontFamily: {
