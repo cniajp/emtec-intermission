@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export function Logo() {
   return (
-    <Link href="/" className="inline-block rounded bg-white px-3 py-1.5">
+    <Link href="/" className="inline-block rounded-sm bg-white px-3 py-1.5">
       <Image
         src="/intermission.png"
         alt="EMTEC Intermission"

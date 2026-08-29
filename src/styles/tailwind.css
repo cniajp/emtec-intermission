@@ -1,0 +1,66 @@
+/*
+  Tailwind CSS のエントリと共通デザイントークン。
+
+  App Router (src/app/globals.css) と Pages Router (src/pages/globals.css) の
+  両方から import される。v3 までは tailwind.config.ts 1 ファイルが唯一の定義元
+  だったので、v4 移行後も定義を 1 箇所に保つためにこのファイルへ集約している。
+  各 globals.css には、そのルータ固有の body スタイルだけを置くこと。
+
+  注意: このファイルのコメント内に「アスタリスク + スラッシュ」の並びを書かない
+  こと。コメントがそこで終了し、以降の @theme が丸ごと無視される。
+*/
+@import 'tailwindcss';
+
+/*
+  v3 の theme.fontSize は extend ではなく完全上書きだった。
+  先頭の「--text-アスタリスク: initial」でデフォルトスケールを消して再現している。
+  これを外すと、v3 では未定義だった text-xs が 12px として復活し、
+  src/app/page.tsx や各 menu ページの文字サイズが変わってしまう。
+
+  --text-1_5xl と --text-3_5xl はクラス名 text-1.5xl / text-3.5xl に対応する
+  （v4 は変数名の _ をクラス名の . として扱う）。
+*/
+@theme {
+  --text-*: initial;
+  --text-xxs: 11px;
+  --text-xxs--line-height: 16px;
+  --text-semi: 18px;
+  --text-semi--line-height: 22px;
+  --text-sm: 20px;
+  --text-sm--line-height: 24px;
+  --text-base: 24px;
+  --text-base--line-height: 30px;
+  --text-lg: 28px;
+  --text-lg--line-height: 34px;
+  --text-xl: 32px;
+  --text-xl--line-height: 38px;
+  --text-1_5xl: 34px;
+  --text-1_5xl--line-height: 35px;
+  --text-2xl: 36px;
+  --text-2xl--line-height: 44px;
+  --text-3xl: 40px;
+  --text-3xl--line-height: 48px;
+  --text-3_5xl: 50px;
+  --text-3_5xl--line-height: 58px;
+  --text-4xl: 60px;
+  --text-4xl--line-height: 68px;
+  --text-5xl: 80px;
+  --text-5xl--line-height: 88px;
+  --font-din-2014: din-2014, sans-serif;
+  --font-ryo-gothic-plusn: ryo-gothic-plusn, sans-serif;
+}
+
+/*
+  v4 では border のデフォルト色が currentcolor に変わったため、
+  色指定のない border が v3 と同じ gray-200 になるよう互換スタイルを当てる。
+  外す場合は、既定色に依存している要素すべてに明示的な border 色を付けること。
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}

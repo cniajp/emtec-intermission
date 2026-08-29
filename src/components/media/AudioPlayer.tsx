@@ -33,7 +33,7 @@ export default function AudioPlayer({ src, shouldPlay }: Props) {
       {config.debug && (
         <button
           onClick={play}
-          className="font-bold py-0 px-4 mx-2 my-2 rounded bg-blue-300 items-right"
+          className="font-bold py-0 px-4 mx-2 my-2 rounded-sm bg-blue-300 items-right"
         >
           Audio AutoPlay
         </button>

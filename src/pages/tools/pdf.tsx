@@ -287,7 +287,7 @@ export default function PdfConverter() {
 
         {progress.show && (
           <div className="mb-6">
-            <div className="h-2 bg-neutral-800 rounded overflow-hidden">
+            <div className="h-2 bg-neutral-800 rounded-sm overflow-hidden">
               <div
                 className="h-full bg-blue-500 transition-all"
                 style={{ width: `${progress.percent}%` }}

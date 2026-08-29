@@ -30,7 +30,7 @@ export function Main({ view }: Props) {
         </div>
         <div className="flex flex-col items-center justify-center">
           <div className="h-[208px] px-12 py-6 w-full font-ryo-gothic-plusn flex items-center justify-center">
-            <div className="text-center text-3xl font-bold break-words line-clamp-3">
+            <div className="text-center text-3xl font-bold wrap-break-word line-clamp-3">
               {talk.title}
             </div>
           </div>

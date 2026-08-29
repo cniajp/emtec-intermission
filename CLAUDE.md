@@ -13,14 +13,14 @@
 
 ## 技術スタック
 
-- **Next.js 15** (App Router + Pages Router併用)
+- **Next.js 16** (App Router + Pages Router併用、ビルドは Turbopack)
 - **React 19**
 - **TypeScript**
 - **PixiJS** - 2Dアニメーション
 - **Redux Toolkit (RTK Query)** - API状態管理
-- **Tailwind CSS**
+- **Tailwind CSS 4** - 設定は `src/styles/tailwind.css` の `@theme`（`tailwind.config.ts` は廃止）
 - **Video.js** - 動画再生
-- **next-pwa** - PWA対応
+- **Serwist** (`@serwist/turbopack`) - PWA対応
 
 ## アーキテクチャ
 
@@ -206,7 +206,8 @@ npm run rtk-query-codegen
 1. `src/themes/default/page1/` などの対象 Presenter を編集する（`src/components/pages/` ではない）
 2. Tailwind CSSクラスで調整する
 3. keyframes などの素のCSSが必要なら `src/themes/default/theme.module.css` に追加する。
-   **`src/pages/globals.css` には書かない**（全テーマに漏れ、クラス名が衝突するため）
+   **`src/pages/globals.css` や `src/styles/tailwind.css` には書かない**
+   （全テーマに漏れ、クラス名が衝突するため）
 4. テーマ外（`Loading.tsx` やページシェル）からそのクラスを使う場合は、
    `src/themes/types.ts` の `ThemeClasses` に足して `Theme.classes` 経由で渡す
 
