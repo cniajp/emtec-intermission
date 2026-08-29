@@ -1,4 +1,5 @@
 {
+  // Cloudflare Workers configuration for OpenNext deployment
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
   "name": "emtec-intermission",
