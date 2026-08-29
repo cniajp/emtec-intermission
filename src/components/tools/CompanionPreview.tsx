@@ -60,7 +60,7 @@ function ActionAccordion({
 }: ActionAccordionProps) {
   const optionEntries = Object.entries(action.options)
   return (
-    <div className="border border-neutral-700 rounded overflow-hidden bg-neutral-950/40">
+    <div className="border border-neutral-700 rounded-sm overflow-hidden bg-neutral-950/40">
       <button
         type="button"
         onClick={onToggle}
@@ -188,7 +188,7 @@ export default function CompanionPreview({ config }: Props) {
           <button
             onClick={() => changePage(Math.max(0, pageIndex - 1))}
             disabled={pageIndex === 0}
-            className="px-3 py-1 bg-gray-700 rounded disabled:opacity-30"
+            className="px-3 py-1 bg-gray-700 rounded-sm disabled:opacity-30"
           >
             ←
           </button>
@@ -198,13 +198,13 @@ export default function CompanionPreview({ config }: Props) {
           <button
             onClick={() => changePage(Math.min(totalPages - 1, pageIndex + 1))}
             disabled={pageIndex === totalPages - 1}
-            className="px-3 py-1 bg-gray-700 rounded disabled:opacity-30"
+            className="px-3 py-1 bg-gray-700 rounded-sm disabled:opacity-30"
           >
             →
           </button>
         </div>
 
-        <div className="inline-block bg-gray-900 p-2 rounded">
+        <div className="inline-block bg-gray-900 p-2 rounded-sm">
           {page.buttons.map((row, rowIdx) => (
             <div key={rowIdx} className="flex">
               {row.map((cell, colIdx) => {
@@ -217,7 +217,7 @@ export default function CompanionPreview({ config }: Props) {
                     onClick={() => handleCellClick(rowIdx, colIdx)}
                     disabled={!cell}
                     className={[
-                      'w-20 h-20 m-1 rounded flex items-center justify-center text-center text-xs leading-tight whitespace-pre-line break-all p-1 border transition-all',
+                      'w-20 h-20 m-1 rounded-sm flex items-center justify-center text-center text-xs leading-tight whitespace-pre-line break-all p-1 border transition-all',
                       cell
                         ? 'cursor-pointer hover:brightness-125'
                         : 'cursor-default',
@@ -241,12 +241,12 @@ export default function CompanionPreview({ config }: Props) {
         </div>
       </div>
 
-      <div className="flex-1 min-w-[420px] bg-neutral-900 border border-neutral-700 rounded text-xs min-h-[440px] max-h-[680px] overflow-auto">
+      <div className="flex-1 min-w-[420px] bg-neutral-900 border border-neutral-700 rounded-sm text-xs min-h-[440px] max-h-[680px] overflow-auto">
         {selectedCell ? (
           <div className="p-3">
             <div className="pb-3 mb-3 border-b border-neutral-800">
               <div className="flex items-baseline gap-2 mb-1.5">
-                <span className="text-[10px] font-mono text-neutral-500 px-1.5 py-0.5 bg-neutral-800 rounded border border-neutral-700">
+                <span className="text-[10px] font-mono text-neutral-500 px-1.5 py-0.5 bg-neutral-800 rounded-sm border border-neutral-700">
                   R{selected!.row}·C{selected!.col}
                 </span>
                 <span className="text-white font-semibold whitespace-pre-line">
@@ -257,14 +257,14 @@ export default function CompanionPreview({ config }: Props) {
                 <span>size {selectedCell.size}</span>
                 <span className="flex items-center gap-1">
                   <span
-                    className="w-3 h-3 rounded-sm border border-neutral-700"
+                    className="w-3 h-3 rounded-xs border border-neutral-700"
                     style={{ backgroundColor: intToHex(selectedCell.color) }}
                   />
                   {intToHex(selectedCell.color)}
                 </span>
                 <span className="flex items-center gap-1">
                   <span
-                    className="w-3 h-3 rounded-sm border border-neutral-700"
+                    className="w-3 h-3 rounded-xs border border-neutral-700"
                     style={{ backgroundColor: intToHex(selectedCell.bgcolor) }}
                   />
                   {intToHex(selectedCell.bgcolor)}
@@ -310,7 +310,7 @@ export default function CompanionPreview({ config }: Props) {
               <summary className="cursor-pointer text-neutral-500 hover:text-neutral-300 select-none text-[10px] uppercase tracking-wider">
                 Raw JSON
               </summary>
-              <pre className="mt-2 p-2 bg-black/50 rounded text-[10px] text-neutral-300 overflow-auto max-h-48">
+              <pre className="mt-2 p-2 bg-black/50 rounded-sm text-[10px] text-neutral-300 overflow-auto max-h-48">
                 {JSON.stringify(selectedCell.raw, null, 2)}
               </pre>
             </details>

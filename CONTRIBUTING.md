@@ -6,7 +6,7 @@
 
 ### 必要要件
 
-- Node.js 18以上
+- Node.js 24.20.0（`.node-version` / `volta.node` で固定。CI と Docker も同じバージョン）
 - npm
 
 ### インストール
@@ -116,7 +116,7 @@ Presenter が受け取る props は `src/themes/types.ts` の `PageNPresenterPro
 
 ### CSSはグローバルに置かない
 
-**テーマ固有のCSSは `src/themes/<name>/*.module.css` に置きます。** `src/pages/globals.css` には `@tailwind` ディレクティブと `body` リセットしか置きません。
+**テーマ固有のCSSは `src/themes/<name>/*.module.css` に置きます。** `src/pages/globals.css` には `body` リセットしか置きません。Tailwind のエントリと共通デザイントークンは `src/styles/tailwind.css` にまとめてあり、`src/pages/globals.css`（Pages Router）と `src/app/globals.css`（App Router）の両方がそれを import します。
 
 グローバルCSSに書くと全テーマに漏れ、テーマを増やしたときにクラス名が衝突するためです。CSS Modules ならクラス名は自動でスコープされ、Next.js の「素のCSSは `_app.tsx` からしか import できない」制約も回避できます。
 
@@ -141,9 +141,23 @@ logoShape: { circle: styles.logoCircle, none: '' }
 
 Brand に生のクラス名を書くと、テーマを差し替えた瞬間に壊れます。
 
-### Tailwind の content 設定に注意
+### Tailwind のスキャン対象に注意
 
-`tailwind.config.ts` の `content` は `./src/**/*.{js,ts,jsx,tsx,mdx}` を指しています。Presenter の Tailwind ユーティリティはこのスキャンではじめてCSSが生成されるため、**このグロブを狭めるとテーマのデザインが崩れます**（実際に `src/themes` がスキャン対象外だったときに全崩れした事例あり）。
+Tailwind v4 には `content` 設定がなく、リポジトリ全体を自動でスキャンします。Presenter の Tailwind ユーティリティはこのスキャンではじめてCSSが生成されるため、**`@source` などで対象を狭めるとテーマのデザインが崩れます**（v3 時代に `content` から `src/themes` が漏れて全崩れした事例あり）。
+
+### `src/styles/tailwind.css` の注意点
+
+デザイントークンは `@theme` ブロックにあります。2点だけ落とし穴があります。
+
+1. **コメント内に「アスタリスク + スラッシュ」の並びを書かないこと。** そこでコメントが終了し、後続の `@theme` が丸ごと無視されます。エラーにはならず、カスタムフォントや文字サイズが静かに効かなくなります。
+2. **先頭の `--text-*: initial` を消さないこと。** v3 の `theme.fontSize` は完全上書きだったため `text-xs` は未定義でした。これを消すと v4 のデフォルト（12px）が復活し、`text-xs` を使っている箇所の文字サイズが変わります。
+
+変更したら、生成CSSにクラスが出ているかを確認してください：
+
+```bash
+npm run build
+cat .next/static/chunks/*.css | grep -c 'font-ryo-gothic-plusn'   # 0 なら @theme が壊れている
+```
 
 ### テーマの切り替え
 

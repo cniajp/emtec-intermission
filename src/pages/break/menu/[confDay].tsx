@@ -243,7 +243,7 @@ function CompanionModal({ track, talks }: CompanionModalProps) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="rounded bg-green-600/20 px-2 py-1 text-xs text-green-400 hover:bg-green-600/30 transition-colors"
+        className="rounded-sm bg-green-600/20 px-2 py-1 text-xs text-green-400 hover:bg-green-600/30 transition-colors"
       >
         Companion
       </button>
@@ -267,7 +267,7 @@ function CompanionModal({ track, talks }: CompanionModalProps) {
                       Device
                     </label>
                     <div className="flex flex-col gap-1">
-                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded-sm text-xs text-white">
                         <input
                           type="radio"
                           name={`device-${track.id}`}
@@ -278,7 +278,7 @@ function CompanionModal({ track, talks }: CompanionModalProps) {
                         />
                         GoStream
                       </label>
-                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded-sm text-xs text-white">
                         <input
                           type="radio"
                           name={`device-${track.id}`}
@@ -297,7 +297,7 @@ function CompanionModal({ track, talks }: CompanionModalProps) {
                       Special Buttons
                     </label>
                     <div className="flex flex-col gap-1">
-                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded-sm text-xs text-white">
                         <input
                           type="checkbox"
                           checked={includeCount}
@@ -306,7 +306,7 @@ function CompanionModal({ track, talks }: CompanionModalProps) {
                         />
                         Countdown
                       </label>
-                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded-sm text-xs text-white">
                         <input
                           type="checkbox"
                           checked={includeTrackA}
@@ -315,7 +315,7 @@ function CompanionModal({ track, talks }: CompanionModalProps) {
                         />
                         TrackA
                       </label>
-                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded-sm text-xs text-white">
                         <input
                           type="checkbox"
                           checked={includeSlido}
@@ -324,7 +324,7 @@ function CompanionModal({ track, talks }: CompanionModalProps) {
                         />
                         Slido
                       </label>
-                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                      <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded-sm text-xs text-white">
                         <input
                           type="checkbox"
                           checked={includeAttack}
@@ -340,13 +340,13 @@ function CompanionModal({ track, talks }: CompanionModalProps) {
                 <div className="flex gap-3 justify-end pt-3 border-t border-neutral-700">
                   <button
                     onClick={closeModal}
-                    className="px-4 py-1.5 text-xs bg-neutral-700 hover:bg-neutral-600 rounded transition-colors text-white"
+                    className="px-4 py-1.5 text-xs bg-neutral-700 hover:bg-neutral-600 rounded-sm transition-colors text-white"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleBuildPreview}
-                    className="px-4 py-1.5 text-xs bg-green-600 hover:bg-green-500 rounded transition-colors font-medium text-white"
+                    className="px-4 py-1.5 text-xs bg-green-600 hover:bg-green-500 rounded-sm transition-colors font-medium text-white"
                   >
                     Preview
                   </button>
@@ -362,20 +362,20 @@ function CompanionModal({ track, talks }: CompanionModalProps) {
                 <div className="flex gap-3 justify-between pt-3 border-t border-neutral-700">
                   <button
                     onClick={() => setStep('form')}
-                    className="px-4 py-1.5 text-xs bg-neutral-700 hover:bg-neutral-600 rounded transition-colors text-white"
+                    className="px-4 py-1.5 text-xs bg-neutral-700 hover:bg-neutral-600 rounded-sm transition-colors text-white"
                   >
                     ← Back
                   </button>
                   <div className="flex gap-3">
                     <button
                       onClick={closeModal}
-                      className="px-4 py-1.5 text-xs bg-neutral-700 hover:bg-neutral-600 rounded transition-colors text-white"
+                      className="px-4 py-1.5 text-xs bg-neutral-700 hover:bg-neutral-600 rounded-sm transition-colors text-white"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={handleExport}
-                      className="px-4 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded transition-colors font-medium text-white"
+                      className="px-4 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded-sm transition-colors font-medium text-white"
                     >
                       Export
                     </button>
@@ -476,7 +476,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="rounded bg-blue-600/20 px-2 py-1 text-xs text-blue-400 hover:bg-blue-600/30 transition-colors"
+        className="rounded-sm bg-blue-600/20 px-2 py-1 text-xs text-blue-400 hover:bg-blue-600/30 transition-colors"
       >
         OBS
       </button>
@@ -493,7 +493,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                   Operating System
                 </label>
                 <div className="flex flex-col gap-1">
-                  <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                  <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded-sm text-xs text-white">
                     <input
                       type="radio"
                       name={`os-${track.id}`}
@@ -504,7 +504,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                     />
                     Windows
                   </label>
-                  <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                  <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded-sm text-xs text-white">
                     <input
                       type="radio"
                       name={`os-${track.id}`}
@@ -522,7 +522,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                 <label className="block text-xs font-medium mb-2 text-neutral-300">
                   Options
                 </label>
-                <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded-sm text-xs text-white">
                   <input
                     type="checkbox"
                     checked={includeAttack}
@@ -531,7 +531,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                   />
                   アタック動画
                 </label>
-                <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded-sm text-xs text-white">
                   <input
                     type="checkbox"
                     checked={includeCountdown}
@@ -540,7 +540,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                   />
                   カウントダウン
                 </label>
-                <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded text-xs text-white">
+                <label className="flex items-center cursor-pointer hover:bg-neutral-700/50 p-1.5 rounded-sm text-xs text-white">
                   <input
                     type="checkbox"
                     checked={includeBackground}
@@ -561,25 +561,25 @@ function ObsModal({ confDay, track }: ObsModalProps) {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-3 py-1.5 bg-neutral-900 border border-neutral-600 rounded text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3 py-1.5 bg-neutral-900 border border-neutral-600 rounded-sm text-xs text-white focus:outline-hidden focus:border-blue-500"
                   placeholder="OS username"
                 />
                 {includeAttack && (
-                  <div className="mt-2 p-2 bg-neutral-900 rounded text-[10px] text-neutral-400 font-mono break-all">
+                  <div className="mt-2 p-2 bg-neutral-900 rounded-sm text-[10px] text-neutral-400 font-mono break-all">
                     {os === 'mac'
                       ? `/Users/${username}/Desktop/{event}/{track}/0900.mp4`
                       : `C:/Users/${username}/Desktop/{event}/{track}/0900.mp4`}
                   </div>
                 )}
                 {includeCountdown && (
-                  <div className="mt-2 p-2 bg-neutral-900 rounded text-[10px] text-neutral-400 font-mono break-all">
+                  <div className="mt-2 p-2 bg-neutral-900 rounded-sm text-[10px] text-neutral-400 font-mono break-all">
                     {os === 'mac'
                       ? `/Users/${username}/Desktop/{event}/countdown.mp4`
                       : `C:/Users/${username}/Desktop/{event}/countdown.mp4`}
                   </div>
                 )}
                 {includeBackground && (
-                  <div className="mt-2 p-2 bg-neutral-900 rounded text-[10px] text-neutral-400 font-mono break-all">
+                  <div className="mt-2 p-2 bg-neutral-900 rounded-sm text-[10px] text-neutral-400 font-mono break-all">
                     {os === 'mac'
                       ? `/Users/${username}/Desktop/{event}/still/LogoOnly_wBG.png`
                       : `C:/Users/${username}/Desktop/{event}/still/LogoOnly_wBG.png`}
@@ -591,13 +591,13 @@ function ObsModal({ confDay, track }: ObsModalProps) {
             <div className="flex gap-3 justify-end pt-3 border-t border-neutral-700">
               <button
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-1.5 text-xs bg-neutral-700 hover:bg-neutral-600 rounded transition-colors text-white"
+                className="px-4 py-1.5 text-xs bg-neutral-700 hover:bg-neutral-600 rounded-sm transition-colors text-white"
               >
                 Cancel
               </button>
               <button
                 onClick={handleGenerate}
-                className="px-4 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded transition-colors font-medium text-white"
+                className="px-4 py-1.5 text-xs bg-blue-600 hover:bg-blue-500 rounded-sm transition-colors font-medium text-white"
               >
                 Generate JSON
               </button>

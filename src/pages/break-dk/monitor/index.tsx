@@ -171,7 +171,7 @@ export default function MonitorPage() {
             <div
               className={`p-6 h-full flex flex-col ${
                 index >= 2 ? 'justify-end' : ''
-              } bg-black/40 backdrop-blur-sm`}
+              } bg-black/40 backdrop-blur-xs`}
             >
               <div className="flex items-center justify-between mb-4">
                 <h2
@@ -266,7 +266,7 @@ export default function MonitorPage() {
 
       {/* 現在時刻と更新時間を画面中央に表示 */}
       <div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center bg-black/40 rounded-2xl px-8 py-6 backdrop-blur-sm"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center bg-black/40 rounded-2xl px-8 py-6 backdrop-blur-xs"
         style={{ zIndex: 10 }}
       >
         <div className="text-2xl font-bold mb-2">
