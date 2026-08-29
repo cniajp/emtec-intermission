@@ -1,34 +1,31 @@
 import AudioPlayer from '@/components/media/AudioPlayer'
 import Page1 from '@/components/pages/Page1'
-import Page2, {
-  AvatarPreLoader,
-  Page3ImagePreLoader,
-} from '@/components/pages/Page2'
+import Page2 from '@/components/pages/Page2'
 import Page3 from '@/components/pages/Page3'
 import Page4 from '@/components/pages/Page4'
 import Loading from '@/components/common/Loading'
 import DebugBar from '@/components/common/DebugBar'
-import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
-import { TalkView } from '@/components/models/talkView'
+import { PageCtx, PageCtxProvider } from '@/logic/page-flow/PageContext'
+import { getDataSource } from '@/logic/data/registry'
+import { getBrand } from '@/brand/registry'
+import { BrandProvider, useBrand } from '@/brand/BrandProvider'
+import { selectTheme } from '@/themes/registry'
+import { ThemeProvider } from '@/themes/ThemeProvider'
+import { AvatarPreLoader, Page3ImagePreLoader } from '@/themes/default'
 import config, { extendConfig } from '@/config'
-import { staticConfig } from '@/staticConfig'
-import { speakers } from '@/data/speakers'
-import { talks } from '@/data/talks'
-import { tracks } from '@/data/tracks'
 import { useRouter } from 'next/router'
-import { useContext, useEffect, useMemo } from 'react'
+import { useContext, useEffect } from 'react'
 import Image from 'next/image'
 import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 
-const breakVideoUrls = staticConfig.break.page4.playlist.flatMap((item) =>
-  item.sources.map((s) => s.src)
-)
+const dataSource = getDataSource('static')
+const brand = getBrand('static')
 
 function updateCache() {
   if (navigator.serviceWorker && navigator.serviceWorker.controller) {
     navigator.serviceWorker.controller.postMessage({
       type: 'UPDATE_CACHE',
-      urls: breakVideoUrls,
+      urls: dataSource.videoCacheUrls,
     })
   }
 }
@@ -48,12 +45,9 @@ function Pages() {
     invokeNextVideo,
   } = useContext(PageCtx)
 
-  const view = useMemo(() => {
-    if (!talkId) {
-      return null
-    }
-    return TalkView.withoutDk(talkId as string, talks, tracks, speakers)
-  }, [talkId])
+  const { view } = dataSource.useTalkView(
+    typeof talkId === 'string' ? talkId : null
+  )
 
   const { isLoading, showContent, isLogoFadingOut } = useLoadingTransition({
     isDataReady: !!view,
@@ -61,10 +55,10 @@ function Pages() {
   })
 
   const pages = [
-    { name: 'Page1', component: <Page1 key={1} view={view} isDk={false} /> },
-    { name: 'Page2', component: <Page2 key={2} view={view} isDk={false} /> },
-    { name: 'Page3', component: <Page3 key={3} view={view} isDk={false} /> },
-    { name: 'Page4', component: <Page4 key={4} view={view} isDk={false} /> },
+    { name: 'Page1', component: <Page1 key={1} view={view} /> },
+    { name: 'Page2', component: <Page2 key={2} view={view} /> },
+    { name: 'Page3', component: <Page3 key={3} view={view} /> },
+    { name: 'Page4', component: <Page4 key={4} /> },
   ]
   useEffect(() => {
     setTotalPage(pages.length)
@@ -77,13 +71,14 @@ function Pages() {
     }
   }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  const activeBrand = useBrand()
   const {
     loadingIconSrc,
     loadingEnabled,
     loadingLogoClassName,
     backgroundSrc,
     audioSrc,
-  } = staticConfig.break.base
+  } = activeBrand.base
 
   const shouldPlayAudio = pages[current].name !== 'Page4'
 
@@ -96,15 +91,15 @@ function Pages() {
       <DebugBar
         onBackToMenu={() => {
           const dayId = view?.selectedTalk.conferenceDayId || 1
-          router.push(`/break/menu/${dayId}`)
+          router.push(`${activeBrand.routePrefix}/menu/${dayId}`)
         }}
         onUpdateCache={updateCache}
         onGoNext={goNextPage}
         onNextVideo={isNextVideoAvailable ? invokeNextVideo : null}
       />
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
-      <AvatarPreLoader view={view} isDk={false}></AvatarPreLoader>
-      <Page3ImagePreLoader isDk={false} view={view} />
+      <AvatarPreLoader view={view} />
+      <Page3ImagePreLoader view={view} />
       <div className="w-[1920px] h-[1080px] relative">
         <Image
           src={backgroundSrc}
@@ -146,9 +141,15 @@ function Pages() {
 }
 
 export default function Index() {
+  const router = useRouter()
+  const theme = selectTheme(router.query.theme as string | undefined)
   return (
-    <PageCtxProvider>
-      <Pages />
-    </PageCtxProvider>
+    <BrandProvider brand={brand}>
+      <ThemeProvider theme={theme}>
+        <PageCtxProvider>
+          <Pages />
+        </PageCtxProvider>
+      </ThemeProvider>
+    </BrandProvider>
   )
 }

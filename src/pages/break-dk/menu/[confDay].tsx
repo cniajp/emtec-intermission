@@ -2,8 +2,8 @@ import '@/pages/globals-sub.css'
 import {
   useGetTalksAndTracksForMenu,
   useGetTracks,
-} from '@/components/hooks/useGetTalksAndTracks'
-import { MenuView } from '@/components/models/talkView'
+} from '@/logic/data/dreamkast/useGetTalksAndTracks'
+import { MenuView } from '@/logic/models/talkView'
 import config, { extendConfig } from '@/config'
 import type { Talk, Track } from '@/data/types'
 import { getTimeStr } from '@/utils/time'
