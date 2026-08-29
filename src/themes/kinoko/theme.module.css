@@ -1,0 +1,123 @@
+/*
+ * default テーマ固有の CSS。
+ * globals.css に置くと全テーマに漏れる & クラス名が衝突するため、
+ * CSS Modules としてテーマ配下に共置する。クラス名は自動でスコープされる。
+ * テーマ外 (Loading.tsx / ページシェル) へは Theme.classes 経由で渡す。
+ */
+
+/* ローディング画面 */
+
+@keyframes logo-float {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-18px);
+    opacity: 1;
+  }
+}
+
+@keyframes logo-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes logo-fade-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.loadingContainer {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+}
+
+.loadingLogoContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.loadingLogo {
+  opacity: 0;
+  animation:
+    logo-fade-in 1.5s ease-out forwards,
+    logo-float 4s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  animation-delay: 0s, 1.5s;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+}
+
+.loadingLogoFadeOut {
+  animation: logo-fade-out 0.8s ease-out forwards !important;
+  animation-delay: 0s !important;
+}
+
+/* ロゴ形状。brand は 'circle' という意味だけを持ち、クラスへの変換はテーマ側の責務。
+   next/image がインラインで width/height を書くため !important が必要。 */
+.logoCircle {
+  width: 320px !important;
+  height: 320px !important;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ローディング → 本編のフェードイン */
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.contentFadeIn {
+  animation: fade-in 1.2s ease-in-out forwards;
+}
+
+/* 背景の回転レイヤー */
+
+@keyframes spin-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.spinSlowCw {
+  animation: spin-cw 120s linear infinite;
+  transform-origin: center;
+}
+
+.spinSlowCcw {
+  animation: spin-ccw 60s linear infinite;
+  transform-origin: center;
+}

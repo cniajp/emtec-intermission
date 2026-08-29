@@ -26,7 +26,7 @@ export type Page4PresenterProps = {
   onEnded: () => void
 }
 
-export type ThemeName = 'default'
+export type ThemeName = 'default' | 'kinoko'
 
 // brand はロゴの「意味」だけを持ち、CSS クラス名は知らない。
 // 実際のクラスへの変換は各テーマの ThemeClasses.logoShape が担う。

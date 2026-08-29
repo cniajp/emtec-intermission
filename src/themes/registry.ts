@@ -1,8 +1,10 @@
 import type { Theme, ThemeName } from './types'
 import { defaultTheme } from './default'
+import { defaultTheme as kinokoTheme } from './kinoko'
 
 const REGISTRY: Record<ThemeName, Theme> = {
   default: defaultTheme,
+  kinoko: kinokoTheme,
 }
 
 const DEFAULT_THEME: ThemeName = 'default'

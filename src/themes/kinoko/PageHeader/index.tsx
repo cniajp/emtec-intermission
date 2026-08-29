@@ -34,7 +34,7 @@ export default function Header({ view }: Props) {
       : view.selectedTrack.name
 
   return (
-    <div className="px-[20px] py-[7.5px] flex flex-row items-center w-[1920px] h-[140px] text-[#ffffff] font-din-2014 font-bold">
+    <div className="px-[20px] py-[7.5px] flex flex-row items-center w-[1920px] h-[140px] text-[#ffffff] font-din-2014 font-bold bg-[#763F03]">
       {/* イベントタイトル */}
       <div className="basis-1/3 flex justify-center items-center">
         <Image
