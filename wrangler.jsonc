@@ -5,6 +5,9 @@
   "name": "emtec-intermission",
   "compatibility_date": "2024-12-30",
   "compatibility_flags": ["nodejs_compat"],
+  // wrangler versions upload したバージョンごとに
+  // <version>-emtec-intermission.<subdomain>.workers.dev のプレビューURLを発行する
+  "preview_urls": true,
   "build": {
     "command": "npm run build:cloudflare"
   },
