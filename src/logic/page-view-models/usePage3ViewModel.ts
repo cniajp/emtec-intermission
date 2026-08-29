@@ -43,9 +43,14 @@ export function usePage3ViewModel(view: Optional<TalkView>): Page3ViewModel {
     }
   }, [count, goNextPage, mergedImages.length, isEmpty])
 
+  // 最後の画像を出し終えた tick では count が length に達する。上の useEffect が
+  // 次ページへ遷移させるが、それが走る前に一度レンダリングされるため、ここで
+  // 素直に添字を引くと undefined になり `/{alias}/undefined` を取りに行って 404 になる。
+  const current = mergedImages[count]
+
   return {
     isEmpty,
-    currentImageSrc: isEmpty ? null : `/${alias}/${mergedImages[count]}`,
+    currentImageSrc: current ? `/${alias}/${current}` : null,
   }
 }
 
