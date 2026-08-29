@@ -1,7 +1,15 @@
-// https://github.com/GoogleChrome/workbox/issues/2519
-import { precacheAndRoute } from 'workbox-precaching'
+import { Serwist } from 'serwist'
 
-precacheAndRoute(self.__WB_MANIFEST)
+// `self.__SW_MANIFEST` はビルド時にプリキャッシュ一覧へ置換される。
+// skipWaiting / clientsClaim は有効にしない（下の install リスナが警告している通り、
+// 初回インストール後はリロードで有効化する挙動を維持する）。
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+})
+
+// プリキャッシュ用の fetch リスナを先に登録しておく。
+// 下の .mp4 用リスナは、プリキャッシュが応答しなかったときだけ respondWith する。
+serwist.addEventListeners()
 
 const CACHE_NAME = 'video-cache'
 
