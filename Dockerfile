@@ -1,13 +1,13 @@
 # syntax = docker/dockerfile:1.4
 
-FROM node:20.5.1-slim AS base
+FROM node:24.20.0-slim AS base
 WORKDIR /base
 COPY --link package.json package-lock.json ./
 RUN npm install
 
-FROM node:20.5.1-slim
+FROM node:24.20.0-slim
 WORKDIR /base
-RUN apt-get update && apt-get install -y tini \ 
+RUN apt-get update && apt-get install -y tini \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 COPY --link --from=base /base ./
