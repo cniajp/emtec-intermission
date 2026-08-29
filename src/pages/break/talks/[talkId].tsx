@@ -10,7 +10,7 @@ import { getDataSource } from '@/logic/data/registry'
 import { getBrand } from '@/brand/registry'
 import { BrandProvider, useBrand } from '@/brand/BrandProvider'
 import { selectTheme } from '@/themes/registry'
-import { ThemeProvider } from '@/themes/ThemeProvider'
+import { ThemeProvider, useTheme } from '@/themes/ThemeProvider'
 import { AvatarPreLoader, Page3ImagePreLoader } from '@/themes/default'
 import config, { extendConfig } from '@/config'
 import { useRouter } from 'next/router'
@@ -72,10 +72,11 @@ function Pages() {
   }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const activeBrand = useBrand()
+  const { classes } = useTheme()
   const {
     loadingIconSrc,
     loadingEnabled,
-    loadingLogoClassName,
+    loadingLogoShape,
     backgroundSrc,
     audioSrc,
   } = activeBrand.base
@@ -118,13 +119,13 @@ function Pages() {
                 <Loading
                   isFadingOut={isLogoFadingOut}
                   logoPath={loadingIconSrc}
-                  logoClassName={loadingLogoClassName}
+                  logoShape={loadingLogoShape}
                 />
               </div>
             )}
             {/* コンテンツ */}
             {showContent && (
-              <div className="absolute inset-0 content-fade-in">
+              <div className={`absolute inset-0 ${classes.contentFadeIn}`}>
                 {pages[current].component}
               </div>
             )}

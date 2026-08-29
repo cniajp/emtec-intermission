@@ -28,8 +28,26 @@ export type Page4PresenterProps = {
 
 export type ThemeName = 'default'
 
+// brand はロゴの「意味」だけを持ち、CSS クラス名は知らない。
+// 実際のクラスへの変換は各テーマの ThemeClasses.logoShape が担う。
+export type LoadingLogoShape = 'circle' | 'none'
+
+// テーマ外にあるコンポーネント (Loading, ページシェル) が使うクラス。
+// テーマ側の CSS Modules から生成されたスコープ済みクラス名が入る。
+export interface ThemeClasses {
+  loadingContainer: string
+  loadingLogoContainer: string
+  loadingLogo: string
+  loadingLogoFadeOut: string
+  contentFadeIn: string
+  spinSlowCw: string
+  spinSlowCcw: string
+  logoShape: Record<LoadingLogoShape, string>
+}
+
 export interface Theme {
   name: ThemeName
+  classes: ThemeClasses
   Page1: ComponentType<Page1PresenterProps>
   Page2: ComponentType<Page2PresenterProps>
   Page3: ComponentType<Page3PresenterProps>

@@ -1,5 +1,6 @@
 import type { Playlist } from '@/components/media/playlist'
 import type { TrackImageInserts } from '@/staticConfig'
+import type { LoadingLogoShape } from '@/themes/types'
 
 export type BrandName = 'static' | 'dreamkast'
 
@@ -10,7 +11,7 @@ export interface Brand {
   base: {
     loadingIconSrc: string
     loadingEnabled: boolean
-    loadingLogoClassName: string
+    loadingLogoShape: LoadingLogoShape
     backgroundSrc: string
     audioSrc: string
     hashTag: { all: string; break: string }

@@ -24,7 +24,7 @@ export function Main({ view }: Props) {
           UPCOMING SESSION
         </div>
       </div>
-      <div className="top-[55px] left-[120px] w-[1000px] h-[630px] relative longshadow bg-[#387c61] text-white rounded-lg">
+      <div className="top-[55px] left-[120px] w-[1000px] h-[630px] relative bg-[#387c61] text-white rounded-lg">
         <div className="text-center py-2 text-2xl text-white bg-[#1E1E1E] font-din-2014 font-medium rounded-t-lg">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>

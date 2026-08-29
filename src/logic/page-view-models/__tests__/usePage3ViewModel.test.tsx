@@ -25,7 +25,7 @@ function makeBrand(overrides?: {
     base: {
       loadingIconSrc: '',
       loadingEnabled: false,
-      loadingLogoClassName: '',
+      loadingLogoShape: 'none',
       backgroundSrc: '',
       audioSrc: '',
       hashTag: { all: '', break: '' },

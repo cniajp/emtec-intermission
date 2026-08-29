@@ -16,7 +16,7 @@ function makeBrand(playlist: Playlist): Brand {
     base: {
       loadingIconSrc: '',
       loadingEnabled: false,
-      loadingLogoClassName: '',
+      loadingLogoShape: 'none',
       backgroundSrc: '',
       audioSrc: '',
       hashTag: { all: '', break: '' },
