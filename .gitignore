@@ -33,6 +33,9 @@ yarn-error.log*
 # opennext
 .open-next
 
+# wrangler（miniflare のローカル状態と一時ファイル。マシンごとに再生成される）
+.wrangler
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
