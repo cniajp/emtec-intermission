@@ -45,9 +45,11 @@ export function RollingAvatar({
       />
       <style jsx>{`
         img:last-of-type {
-          animation: ${isSliding
-            ? `rollIn ${ANIMATION_DURATION_SEC} cubic-bezier(0.16, 1, 0.3, 1) forwards`
-            : 'none'};
+          animation: ${
+            isSliding
+              ? `rollIn ${ANIMATION_DURATION_SEC} cubic-bezier(0.16, 1, 0.3, 1) forwards`
+              : 'none'
+          };
         }
         @keyframes rollIn {
           0% {
