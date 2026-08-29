@@ -171,7 +171,9 @@ Dreamkast APIのTypeScript型定義は自動生成されています：
 npm run rtk-query-codegen
 ```
 
-- 設定: `rtk-query-codegen-openapi.config.ts`
+- 設定: `rtk-query-codegen-openapi.config.js`
+  （CLI が TS 設定を読むには ts-node か esbuild-runner が要るため、あえて JS。
+  型は JSDoc の `@type` で効く）
 - 生成先: `src/generated/dreamkast-api.generated.ts`
 - OpenAPI仕様からRTK Queryのエンドポイントとフックを生成
 
@@ -225,7 +227,7 @@ npm run rtk-query-codegen
 
 ### APIエンドポイントを追加する場合
 
-1. `rtk-query-codegen-openapi.config.ts` を更新（必要に応じて）
+1. `rtk-query-codegen-openapi.config.js` を更新（必要に応じて）
 2. `npm run rtk-query-codegen` を実行
 3. 生成されたフックを使用してコンポーネントを実装
 

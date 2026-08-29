@@ -14,7 +14,7 @@
     "test": "npm install --frozen-lockfile && jest",
     "test:update": "jest -u",
     "test:coverage": "jest --collect-coverage",
-    "rtk-query-codegen": "TS_NODE_PROJECT=tsconfig.rtk.json rtk-query-codegen-openapi ./rtk-query-codegen-openapi.config.ts"
+    "rtk-query-codegen": "rtk-query-codegen-openapi ./rtk-query-codegen-openapi.config.js"
   },
   "dependencies": {
     "@grafana/faro-web-sdk": "^2.11.0",
@@ -55,8 +55,7 @@
     "jest-environment-jsdom": "^30.5.0",
     "postcss": "^8.5.26",
     "prettier": "^3.9.6",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.3",
     "wrangler": "^4.127.1"
   },
   "volta": {
