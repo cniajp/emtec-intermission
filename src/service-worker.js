@@ -5,6 +5,10 @@ import { Serwist } from 'serwist'
 // 初回インストール後はリロードで有効化する挙動を維持する）。
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
+  // 世代交代した古いプリキャッシュ（`-precache-` を含むキャッシュ）を activate 時に削除する。
+  // next-pwa から移行した際の `workbox-precache-v2-*` のような孤児が溜まるのを防ぐ。
+  // `video-cache` は名前に `-precache-` を含まないので影響を受けない。
+  cleanupOutdatedCaches: true,
 })
 
 // プリキャッシュ用の fetch リスナを先に登録しておく。
@@ -27,7 +31,13 @@ async function updateCache(urls) {
   return Promise.all(
     urls.map(async (url) => {
       console.log('start cache update:', url)
-      const response = await fetch(url).catch((e) => {
+      // `cache: 'reload'` で HTTP キャッシュを迂回して必ずネットワークから取り直す。
+      // 動画配信元は Origin ヘッダ付きのリクエストにしか CORS ヘッダを返さない。
+      // <video> は crossorigin 無し（no-cors・Origin ヘッダ無し）で取りに行くので、
+      // 一度再生すると ACAO も Vary も持たないレスポンスが HTTP キャッシュに残る。
+      // Vary が無いエントリは後続のどのリクエストにもマッチしてしまうため、
+      // ここで素の fetch を使うとそれを再利用して CORS エラーになる。
+      const response = await fetch(url, { cache: 'reload' }).catch((e) => {
         console.error('==> failed to fetch video:', e)
         return
       })
@@ -40,12 +50,16 @@ async function updateCache(urls) {
         return
       }
 
-      caches.open(CACHE_NAME).then((cache) => {
-        cache.put(url, response).then(() => {
-          status[url] = true
-          console.log('==> completed cache update:', url, status)
-        })
-      })
+      // put を await する。await しないと event.waitUntil が書き込み完了前に解決し、
+      // quota 超過などの失敗も未処理の rejection として握り潰されてしまう。
+      try {
+        const cache = await caches.open(CACHE_NAME)
+        await cache.put(url, response)
+        status[url] = true
+        console.log('==> completed cache update:', url, status)
+      } catch (e) {
+        console.error('==> failed to store video:', url, e)
+      }
     })
   )
 }
