@@ -1,0 +1,306 @@
+{
+  "_note": "fortee に timetable がないセッションの時刻を補完する。sessions は fortee のトーク(uuidキー)で、track/starts_at/length_min が揃っている項目は fortee より優先される。extras は fortee に無い枠(オープニング・スポンサーセッション等)で、enabled:false のものは出力されない。アンダースコア始まりのキーは注釈で、変換時は無視される。雛形の再生成: just fortee-scaffold（既存エントリは上書きされない）",
+  "sessions": {
+    "5434e989-74b9-4db1-9c00-bffcca9e341e": {
+      "_title": "エンジニアリングは、どこまで拡大解釈できるか 心技体をつないだままで事業責任者になった話",
+      "track": "Hall A",
+      "starts_at": "2026-09-05T11:30:00+09:00",
+      "length_min": 30,
+      "speaker": {
+        "name": "柳川 慶太"
+      }
+    },
+    "c2e20a66-62d0-4869-ad08-804e0817d9fa": {
+      "_title": "営業・CSを「開発の当事者」にする — 少人数チームで複数プロダクトを動かすDev<>Ops連携の方法",
+      "track": "Hall B",
+      "starts_at": "2026-09-05T11:30:00+09:00",
+      "length_min": 30,
+      "speaker": {
+        "name": "山本 龍平"
+      }
+    },
+    "9bdfe567-182c-47ee-bd61-2c67335923c9": {
+      "_title": "『止めない』を設計する — 制約の中で、事業の根幹を支える判断",
+      "track": "Hall C",
+      "starts_at": "2026-09-05T11:30:00+09:00",
+      "length_min": 15,
+      "speaker": {
+        "name": "Hiroya Terui"
+      }
+    },
+    "de102dc1-077f-4a1c-8ba6-f7c74ced2ba3": {
+      "_title": "現場に行くだけでは足りない——プロダクトエンジニアが業務の流れを捉える観点と、その鍛え方",
+      "track": "Hall C",
+      "starts_at": "2026-09-05T11:50:00+09:00",
+      "length_min": 15,
+      "speaker": {
+        "name": "田中 杏直",
+        "avatarUrl": "/pde2026/speakers/de102dc1-077f-4a1c-8ba6-f7c74ced2ba3.webp"
+      }
+    },
+    "37ee67cb-f6fc-4d68-b982-b9b0a0b16822": {
+      "_title": "AI時代に、プロダクトの数だけ積み上がる所有コストをどうエンジニアリングするか",
+      "track": "Hall A",
+      "starts_at": "2026-09-05T13:30:00+09:00",
+      "length_min": 30,
+      "speaker": {
+        "name": "前田 和樹"
+      }
+    },
+    "56be91ba-b986-41bf-a11b-66ee765f6c0e": {
+      "_title": "全員がプロダクトへ向き合う組織を持続成長させるために —— 組織づくりのフライホイールと4象限",
+      "track": "Hall B",
+      "starts_at": "2026-09-05T13:30:00+09:00",
+      "length_min": 30,
+      "speaker": {
+        "name": "とりい"
+      }
+    },
+    "1363dd14-e2dd-4112-96c1-8e030b1316fe": {
+      "_title": "エンジニアが「なぜ作るか」を知っている組織は、速い ── 上流参加型DevExを設計した2年間",
+      "track": "Hall C",
+      "starts_at": "2026-09-05T13:30:00+09:00",
+      "length_min": 15,
+      "speaker": {
+        "name": "稲垣 剛之"
+      }
+    },
+    "d1f694d4-419d-4677-9e69-1c1e8db5930e": {
+      "_title": "全員が全部やる」体制でスループット3倍 ― 1人1案件×AI開発を支えた\"プロセス監督\"の2ヶ月",
+      "track": "Hall C",
+      "starts_at": "2026-09-05T13:50:00+09:00",
+      "length_min": 15,
+      "speaker": {
+        "name": "のんちゃん"
+      }
+    },
+    "5f1e369b-bf29-4bd6-b157-a7b1ed259540": {
+      "_title": "デザインハーネス：AIが生成する\"デザイン\"の妥当性を、誰がどう担保するのか",
+      "track": "Hall A",
+      "starts_at": "2026-09-05T14:10:00+09:00",
+      "length_min": 30,
+      "speaker": {
+        "name": "こぎそ"
+      }
+    },
+    "dfcd864d-0512-4de8-a800-b8489dfe2f02": {
+      "_title": "なぜSRE・セキュリティは評価されないのか？守りの組織を事業成長エンジンに変えた実践",
+      "track": "Hall B",
+      "starts_at": "2026-09-05T14:10:00+09:00",
+      "length_min": 30,
+      "speaker": {
+        "name": "川崎 雄太"
+      }
+    },
+    "45c3f2c8-9070-4859-aa92-aeb5d7658c1f": {
+      "_title": "KPIだけでは運用できないプロダクトが考えるべき「Evals」という第2の評価系",
+      "track": "Hall C",
+      "starts_at": "2026-09-05T14:10:00+09:00",
+      "length_min": 15,
+      "speaker": {
+        "name": "飯沼 亜紀"
+      }
+    },
+    "699ae128-b601-43e2-bf3d-49c5af5a4646": {
+      "_title": "クロスボーダーM&AのValue Upを支えるプロダクト開発。日米チームのハブになったプロダクトエンジニアの実践",
+      "track": "Hall C",
+      "starts_at": "2026-09-05T14:30:00+09:00",
+      "length_min": 15,
+      "speaker": {
+        "name": "西尾 健人"
+      }
+    },
+    "5909a5cd-67a4-48e1-894e-624a1feb6828": {
+      "_title": "AIで実装は速くなった。なのにプロダクトは速くならない。職能の壁を越えて価値のフローを設計する",
+      "track": "Hall A",
+      "starts_at": "2026-09-05T15:10:00+09:00",
+      "length_min": 30,
+      "speaker": {
+        "name": "nwiizo"
+      }
+    },
+    "581b87a6-eafd-46b4-9df7-bfab45d5ca23": {
+      "_title": "その機能が使われないのは、業務の捉え方を間違えたから？─プロダクトエンジニアのメタモデル設計論",
+      "track": "Hall B",
+      "starts_at": "2026-09-05T15:10:00+09:00",
+      "length_min": 30,
+      "speaker": {
+        "name": "前川 裕一"
+      }
+    },
+    "7e35e9b3-07c0-4dd7-aa2f-807d68ffad81": {
+      "_title": "師匠と弟子が「現場」で戦う——フルリモート時代のプロダクトエンジニアJEDI育成プログラムの全貌",
+      "track": "Hall C",
+      "starts_at": "2026-09-05T15:10:00+09:00",
+      "length_min": 30,
+      "speaker": {
+        "name": "Tatsu"
+      }
+    },
+    "b72a7aaa-c31c-4d95-851e-94a6cd615264": {
+      "_title": "越境負債：称賛されるほど、負債は返済されない",
+      "track": "Hall A",
+      "starts_at": "2026-09-05T15:50:00+09:00",
+      "length_min": 30,
+      "speaker": {
+        "name": "shopetan"
+      }
+    },
+    "c3851a11-b22a-458d-b647-f4c5ecf818fe": {
+      "_title": "作り直せるコードは迅速に、作り直せないDBは慎重に — AI時代のプロダクトエンジニアが「判断の不可逆性」で開発速度を変える話",
+      "track": "Hall B",
+      "starts_at": "2026-09-05T15:50:00+09:00",
+      "length_min": 30,
+      "speaker": {
+        "name": "きのすけ"
+      }
+    },
+    "f70ca6c6-ee7b-4b71-943f-23004bf4c05e": {
+      "_title": "通常6名のプロジェクトをPdM一人で本番リリースへ — 9リポジトリ・22PRを一人でマージ・リリースした記録と学び",
+      "track": "Hall C",
+      "starts_at": "2026-09-05T15:50:00+09:00",
+      "length_min": 15,
+      "speaker": {
+        "name": "Inoue Naoya"
+      }
+    },
+    "a07ca5bf-e05c-4396-9669-018027866e7a": {
+      "_title": "プロダクト思考 × 基盤思考をAIで実現する、Compound Engineering",
+      "track": "Hall C",
+      "starts_at": "2026-09-05T16:10:00+09:00",
+      "length_min": 15,
+      "speaker": {
+        "name": "Takeshi Watanabe"
+      }
+    }
+  },
+  "extras": {
+    "0915-hall-a": {
+      "_todo": "終了時刻がサイトにありません。次の枠の開始(10:00)を仮置きしています",
+      "enabled": false,
+      "id": 9001,
+      "track": "Hall A",
+      "starts_at": "2026-09-05T09:15:00+09:00",
+      "length_min": 45,
+      "title": "スポンサー受付開始",
+      "abstract": "",
+      "speaker": null
+    },
+    "1000-hall-a": {
+      "_todo": "終了時刻がサイトにありません。次の枠の開始(10:30)を仮置きしています",
+      "enabled": false,
+      "id": 9002,
+      "track": "Hall A",
+      "starts_at": "2026-09-05T10:00:00+09:00",
+      "length_min": 30,
+      "title": "開場（一般参加者受付開始）",
+      "abstract": "",
+      "speaker": null
+    },
+    "1030-hall-a": {
+      "enabled": true,
+      "id": 9003,
+      "track": "Hall A",
+      "starts_at": "2026-09-05T10:30:00+09:00",
+      "length_min": 10,
+      "title": "オープニング",
+      "abstract": "",
+      "speaker": null
+    },
+    "1045-hall-a": {
+      "enabled": true,
+      "id": 9004,
+      "track": "Hall A",
+      "starts_at": "2026-09-05T10:45:00+09:00",
+      "length_min": 30,
+      "title": "より使われるサービスに。行政プロダクトのグロース戦略",
+      "abstract": "招待講演",
+      "speaker": {
+        "name": "デジタル庁 岡田 康豊",
+        "company": null
+      }
+    },
+    "1215-hall-a": {
+      "enabled": true,
+      "id": 9005,
+      "track": "Hall A",
+      "starts_at": "2026-09-05T12:15:00+09:00",
+      "length_min": 60,
+      "title": "スポンサーセッション",
+      "abstract": "株式会社mento様 / 株式会社タイミー様 / 株式会社リンクアンドモチベーション様 / 株式会社RightTouch様",
+      "speaker": null
+    },
+    "1215-hall-b": {
+      "enabled": true,
+      "id": 9006,
+      "track": "Hall B",
+      "starts_at": "2026-09-05T12:15:00+09:00",
+      "length_min": 60,
+      "title": "スポンサーセッション",
+      "abstract": "株式会社メドレー様 / Dress Code株式会社様 / 株式会社アシュアード様 / 株式会社エス・エム・エス様",
+      "speaker": null
+    },
+    "1215-hall-c": {
+      "enabled": true,
+      "id": 9007,
+      "track": "Hall C",
+      "starts_at": "2026-09-05T12:15:00+09:00",
+      "length_min": 60,
+      "title": "スポンサーセッション",
+      "abstract": "サイボウズ株式会社様 / 株式会社ハイヤールー様 / 株式会社BuySell Technologies様 / Sotas株式会社様",
+      "speaker": null
+    },
+    "1445-hall-a": {
+      "enabled": false,
+      "id": 9008,
+      "track": "Hall A",
+      "starts_at": "2026-09-05T14:45:00+09:00",
+      "length_min": 20,
+      "title": "coffee break",
+      "abstract": "",
+      "speaker": null
+    },
+    "1640-hall-a": {
+      "enabled": true,
+      "id": 9009,
+      "track": "Hall A",
+      "starts_at": "2026-09-05T16:40:00+09:00",
+      "length_min": 80,
+      "title": "ワークショップ（運営企画）",
+      "abstract": "",
+      "speaker": null
+    },
+    "1810-hall-a": {
+      "_todo": "終了時刻がサイトにありません。次の枠の開始(18:45)を仮置きしています",
+      "enabled": true,
+      "id": 9010,
+      "track": "Hall A",
+      "starts_at": "2026-09-05T18:10:00+09:00",
+      "length_min": 35,
+      "title": "クロージング",
+      "abstract": "",
+      "speaker": null
+    },
+    "1845-hall-a": {
+      "enabled": true,
+      "id": 9011,
+      "track": "Hall A",
+      "starts_at": "2026-09-05T18:45:00+09:00",
+      "length_min": 105,
+      "title": "懇親会",
+      "abstract": "",
+      "speaker": null
+    },
+    "2045-hall-a": {
+      "_todo": "終了時刻がサイトにありません。length_min を手で入れてください",
+      "enabled": false,
+      "id": 9012,
+      "track": "Hall A",
+      "starts_at": "2026-09-05T20:45:00+09:00",
+      "length_min": null,
+      "title": "参加者完全撤収",
+      "abstract": "",
+      "speaker": null
+    }
+  }
+}

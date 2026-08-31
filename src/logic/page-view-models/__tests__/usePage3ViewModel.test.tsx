@@ -31,6 +31,8 @@ function makeBrand(overrides?: {
       hashTag: { all: '', break: '' },
       useHashTagAsTrackName: false,
       defaultAvatarSrc: '',
+      headerLogoSrc: '',
+      headerBackgroundColor: '',
     },
     page3: {
       alias: overrides?.alias ?? 'test-alias',
@@ -38,8 +40,6 @@ function makeBrand(overrides?: {
       trackImages: overrides?.trackImages ?? {},
     },
     page4: { playlist: [] as unknown as Brand['page4']['playlist'] },
-    headerLogoSrc: '',
-    headerBackgroundColor: '',
     eventAbbrConfigKey: 'eventAbbr',
     useTrackHashTagProperty: false,
     showAbstractPrefix: false,

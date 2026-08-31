@@ -38,11 +38,13 @@ export default function Header({ view }: Props) {
       {/* イベントタイトル */}
       <div className="basis-1/3 flex justify-center items-center">
         <Image
-          src={brand.headerLogoSrc}
+          src={brand.base.headerLogoSrc}
           alt="logo"
           width={450}
           height={110}
-          style={{ width: '450px', height: 'auto' }}
+          /* 幅で固定すると縦長のロゴが 140px の帯からはみ出すので高さ基準にする。
+             横長のロゴが枠を食い潰さないよう maxWidth も入れておく */
+          style={{ height: '110px', width: 'auto', maxWidth: '450px' }}
           priority
         />
       </div>
