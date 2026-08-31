@@ -41,6 +41,10 @@ export const breakDkConfig = {
     },
     useHashTagAsTrackName: false,
     defaultAvatarSrc: '/cnk2026/logo.png',
+    // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
+    // 横長のタイトル画像を指定すること
+    headerLogoSrc: '/kinoko2026/title.png',
+    headerBackgroundColor: '#763F03',
   },
   page3: {
     alias: 'cnk2026/info',

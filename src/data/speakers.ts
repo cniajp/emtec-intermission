@@ -4,239 +4,123 @@ export const speakers: Speaker[] = [
   {
     id: 0,
     name: '運営',
-    avatarUrl: '/kinoko2026/logo-bg-white.png',
+    avatarUrl: '/pde2026/logo-bg-white.png',
+  },
+  {
+    id: 1,
+    name: '稲垣 剛之',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/0d6dc293-3982-43d3-973c-e784789d1318.jpg',
+  },
+  {
+    id: 2,
+    name: '川崎 雄太',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/f7d8efed-57c3-48f3-a923-fe7f8d542d3d.jpg',
+  },
+  {
+    id: 3,
+    name: '柳川 慶太',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/569c1c4a-844b-4265-8bb8-753edbfe5797.jpg',
+  },
+  {
+    id: 4,
+    name: '山本 龍平',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/abdfcbfc-6b80-4792-915e-3b720907a261.jpg',
+  },
+  {
+    id: 5,
+    name: 'こぎそ',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/358e1e17-df43-4b54-a135-b4a6e71b6317.jpg',
+  },
+  {
+    id: 6,
+    name: 'Tatsu',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/23d4c7f5-dc5d-442b-9569-ba296aff295f.jpg',
+  },
+  {
+    id: 7,
+    name: 'とりい',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/799a05ff-a5bb-4680-b50c-41f6ecf83368.jpg',
+  },
+  {
+    id: 8,
+    name: 'Takeshi Watanabe',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/20002cea-1bcc-4ff0-a7d1-f8611069dbc2.jpg',
+  },
+  {
+    id: 9,
+    name: 'Hiroya Terui',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/ae44738d-084a-4e13-8742-ee355a26f2db.jpg',
+  },
+  {
+    id: 10,
+    name: 'のんちゃん',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/d7663534-d88a-4f78-b096-c01362e302ba.jpg',
+  },
+  {
+    id: 11,
+    name: 'shopetan',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/51a7ceab-4e99-47fb-8864-2b278247e7da.jpg',
+  },
+  {
+    id: 12,
+    name: 'きのすけ',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/58eab950-bb2c-4ec0-b9df-8c33dc36cb9e.jpg',
+  },
+  {
+    id: 13,
+    name: 'nwiizo',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/221563ca-6549-4654-9d75-5d935bca1e98.jpg',
+  },
+  {
+    id: 14,
+    name: 'Inoue Naoya',
+    avatarUrl: '/pde2026/logo-bg-white.png',
+  },
+  {
+    id: 15,
+    name: '西尾 健人',
+    avatarUrl: '/pde2026/logo-bg-white.png',
+  },
+  {
+    id: 16,
+    name: '前田 和樹',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/3a4e5b03-2867-4b52-9471-d90e4ebf9440.jpg',
+  },
+  {
+    id: 17,
+    name: '田中 杏直',
+    avatarUrl: '/pde2026/speakers/de102dc1-077f-4a1c-8ba6-f7c74ced2ba3.webp',
+  },
+  {
+    id: 18,
+    name: '飯沼 亜紀',
+    avatarUrl:
+      'https://fortee.jp/files/pdeconf-2026/speaker/8d778f12-dc43-470f-835b-c39d93e06983.jpg',
   },
   {
     id: 19,
-    name: '卜部昌紀',
+    name: '前川 裕一',
     avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/827107a3-6db0-42e8-ac67-06e937ecf9eb.png',
+      'https://fortee.jp/files/pdeconf-2026/speaker/a5eff692-532f-48d6-9a34-56ab8e614f05.jpg',
   },
   {
     id: 20,
-    name: 'katzumi',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/8d6688f2-0338-46b9-9b3a-98fa090e2699.jpg',
-  },
-  {
-    id: 21,
-    name: '高橋直規',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/08d3f53f-d622-45a3-8c53-ca4dc0c5b698.jpg',
-  },
-  {
-    id: 22,
-    name: 'chinoppy',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/ef109c63-4ece-4a22-bb1e-18c1d62abd0b.jpg',
-  },
-  {
-    id: 23,
-    name: '桝田 草一',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/f161a181-b874-43fc-a22d-eb1500316cd1.jpg',
-  },
-  {
-    id: 24,
-    name: '杉山貴章',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/5be04a94-81d7-403f-9976-bf6fb54a9bba.jpg',
-  },
-  {
-    id: 25,
-    name: '卜部昌紀',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/827107a3-6db0-42e8-ac67-06e937ecf9eb.png',
-  },
-  {
-    id: 26,
-    name: '三上 崇',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/e00f8d47-07de-4166-a7ef-b63b23b2e681.jpg',
-  },
-  {
-    id: 27,
-    name: '横山司',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/59dfafbf-dbd0-4182-894f-b3f6626a01ae.jpg',
-  },
-  {
-    id: 28,
-    name: '井上大輔',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/91e10cfc-622c-4722-b156-d42f9617dcf8.jpg',
-  },
-  {
-    id: 29,
-    name: '大庭 亮（Relic代表取締役CTO）',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/5abb4b7e-a200-4a3a-b641-de63c93e6351.jpg',
-  },
-  {
-    id: 30,
-    name: '小泉岳人',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/9c798913-0f12-483d-926a-0a3f8e23ae63.jpg',
-  },
-  {
-    id: 31,
-    name: 'けん・うすすぎ',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/2dab6104-86d2-4da9-81ee-f549719b4ec8.png',
-  },
-  {
-    id: 32,
-    name: '新井翔太、小倉隆宏',
-    avatarUrl: '/kinoko2026/logo-bg-white.png',
-  },
-  {
-    id: 33,
-    name: 'ゆきお',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/ef90f0a1-68ef-4b57-a6f7-56df9b1bf91b.png',
-  },
-  {
-    id: 34,
-    name: 'にしはら ちひろ',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/d01f04f9-d9dc-4783-b5c3-a887a80b0ed9.jpeg',
-  },
-  {
-    id: 35,
-    name: '竹本さとし',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/a100b25a-251d-462f-a579-f01cbcaa2526.jpg',
-  },
-  {
-    id: 36,
-    name: '稲垣剛之',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/820dc805-543a-41b7-8fad-aa6834a44fcf.jpg',
-  },
-  {
-    id: 37,
-    name: 'さおりん',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/ed8e8e96-520c-4b24-aeb3-da009c1d73b5.jpg',
-  },
-  {
-    id: 38,
-    name: 'rince',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/f867fa70-b83f-4adc-a06f-f630eb30244e.jpg',
-  },
-  {
-    id: 39,
-    name: '貴島 純子',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/50d4d80c-6979-4ce9-bbeb-89dfbf845a1d.jpg',
-  },
-  {
-    id: 40,
-    name: 'さわでぃー',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/7f3fa2fe-010c-4724-8771-31f01d076402.jpg',
-  },
-  {
-    id: 41,
-    name: 'おーざわ',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/7cceaf7f-4638-4d52-8a03-3faf5584040a.jpg',
-  },
-  {
-    id: 42,
-    name: 'きのこカンファレンスお楽しみ企画',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/0da3b12a-72b8-4166-b625-362c73431369.png',
-  },
-  {
-    id: 43,
-    name: '横山司',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/59dfafbf-dbd0-4182-894f-b3f6626a01ae.jpg',
-  },
-  {
-    id: 44,
-    name: 'ナカミチ',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/fcc6b28c-6efc-4f01-9dc1-cc5773fa9483.png',
-  },
-  {
-    id: 45,
-    name: '伊藤いづみ',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/d7595d15-f7da-4af5-9a82-1c6a57174f74.jpg',
-  },
-  {
-    id: 46,
-    name: 'つの',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/b960e467-7621-4990-b5c7-b45f847ad844.jpg',
-  },
-  {
-    id: 47,
-    name: 'ありす ゆう',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/6bde9bfe-bd61-46fe-968d-dc6e79b76f51.jpg',
-  },
-  {
-    id: 48,
-    name: 'げっしー',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/add29b2b-f87f-442d-9175-fe8cbfca020e.png',
-  },
-  {
-    id: 49,
-    name: '白栁隆司@エンジニアカウンセラー',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/0818ed36-6c9e-4276-9c10-acad17ee60ee.jpg',
-  },
-  {
-    id: 50,
-    name: 'きのこカンファレンスお楽しみ企画',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/0da3b12a-72b8-4166-b625-362c73431369.png',
-  },
-  {
-    id: 51,
-    name: 'たまい',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/e62ed0b9-5abb-4b89-a1f7-72cb84aa73b6.jpg',
-  },
-  {
-    id: 52,
-    name: 'satei',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/4d79ca47-c550-4357-8922-3aeade38e701.jpg',
-  },
-  {
-    id: 54,
-    name: 'kumaaaan',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/00f1e83a-5e56-4302-8478-24a1bc8eebf3.png',
-  },
-  {
-    id: 55,
-    name: 'いっちー',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/72926957-206d-4395-8008-869a1e3cecd2.jpg',
-  },
-  {
-    id: 56,
-    name: '楠 輝彦',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/d0a4e930-2286-4f68-b3a5-005caefb05dc.jpg',
-  },
-  {
-    id: 57,
-    name: 'bash',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/0ac0ad3d-44c8-42c1-88ad-6587bae6d787.png',
-  },
-  {
-    id: 58,
-    name: 'hit',
-    avatarUrl:
-      'https://fortee.jp/files/kinoko-2026/speaker/98ae4b23-11ff-46ca-a5ce-40d619b11ca1.jpg',
+    name: 'デジタル庁 岡田 康豊',
+    company: null,
+    avatarUrl: '/pde2026/logo-bg-white.png',
   },
 ]

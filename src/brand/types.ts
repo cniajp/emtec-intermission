@@ -17,6 +17,10 @@ export interface Brand {
     hashTag: { all: string; break: string }
     useHashTagAsTrackName: boolean
     defaultAvatarSrc: string
+    // Page ヘッダに使うロゴ画像
+    headerLogoSrc: string
+    // Page ヘッダの帯背景色 (Tailwind 経由できないので raw で持つ)
+    headerBackgroundColor: string
   }
   page3: {
     alias: string
@@ -26,10 +30,6 @@ export interface Brand {
   page4: {
     playlist: Playlist
   }
-  // Page ヘッダに使うロゴ画像（現状 kinoko2026/title.png 固定）
-  headerLogoSrc: string
-  // Page ヘッダの帯背景色 (Tailwind 経由できないので raw で持つ)
-  headerBackgroundColor: string
   // eventAbbr は brand と 1:1 対応 (config.eventAbbr / config.dkEventAbbr のどちらを使うか)
   eventAbbrConfigKey: 'eventAbbr' | 'dkEventAbbr'
   // トークの hashTag プロパティを使うか（現状 isDk=false のみ true）

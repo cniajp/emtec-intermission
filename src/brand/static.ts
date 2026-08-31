@@ -6,8 +6,6 @@ export const staticBrand: Brand = {
   base: staticConfig.break.base,
   page3: staticConfig.break.page3,
   page4: staticConfig.break.page4,
-  headerLogoSrc: '/kinoko2026/title.png',
-  headerBackgroundColor: '#763F03',
   eventAbbrConfigKey: 'eventAbbr',
   useTrackHashTagProperty: true,
   showAbstractPrefix: false,
