@@ -49,7 +49,9 @@ export default function AudioPlayer({ src, shouldPlay }: Props) {
       console.log(`[AudioPlayer] ${event}`, snapshot(el), e)
     }
 
-    const handlers: Array<[keyof HTMLMediaElementEventMap, (e: Event) => void]> = [
+    const handlers: Array<
+      [keyof HTMLMediaElementEventMap, (e: Event) => void]
+    > = [
       ['loadstart', log('loadstart')],
       ['loadedmetadata', log('loadedmetadata')],
       ['loadeddata', log('loadeddata')],
@@ -64,9 +66,12 @@ export default function AudioPlayer({ src, shouldPlay }: Props) {
       ['abort', log('abort')],
       ['emptied', log('emptied')],
       ['ended', log('ended')],
-      ['error', (e) => {
-        console.error(`[AudioPlayer] error`, snapshot(el), e)
-      }],
+      [
+        'error',
+        (e) => {
+          console.error(`[AudioPlayer] error`, snapshot(el), e)
+        },
+      ],
     ]
     handlers.forEach(([name, h]) => el.addEventListener(name, h))
     console.log(`[AudioPlayer] mount`, snapshot(el))
