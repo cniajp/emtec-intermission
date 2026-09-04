@@ -80,7 +80,39 @@ export default function AudioPlayer({ src, shouldPlay }: Props) {
     const el = audioRef.current
     if (!el) return
     console.log(`[AudioPlayer] shouldPlay=${shouldPlay}`, snapshot(el))
-    if (shouldPlay) {
+
+    let cancelled = false
+    let unarmFallback: (() => void) | null = null
+
+    const armInteractionFallback = () => {
+      if (unarmFallback) return
+      console.log(`[AudioPlayer] arming interaction fallback`)
+      const events: Array<keyof DocumentEventMap> = [
+        'pointerdown',
+        'keydown',
+        'touchstart',
+      ]
+      const onInteract = () => {
+        console.log(`[AudioPlayer] user interaction detected, retrying play()`)
+        unarm()
+        if (cancelled || !audioRef.current) return
+        tryPlay()
+      }
+      const unarm = () => {
+        events.forEach((name) =>
+          document.removeEventListener(name, onInteract, true)
+        )
+        unarmFallback = null
+      }
+      events.forEach((name) =>
+        document.addEventListener(name, onInteract, true)
+      )
+      unarmFallback = unarm
+    }
+
+    const tryPlay = () => {
+      const el = audioRef.current
+      if (!el) return
       const p = el.play()
       if (p && typeof p.then === 'function') {
         p.then(() => {
@@ -91,10 +123,23 @@ export default function AudioPlayer({ src, shouldPlay }: Props) {
               ? { name: err.name, message: err.message }
               : { raw: err }
           console.warn(`[AudioPlayer] play() rejected`, info, snapshot(el))
+          const name = err instanceof Error ? err.name : ''
+          if (!cancelled && name === 'NotAllowedError') {
+            armInteractionFallback()
+          }
         })
       }
+    }
+
+    if (shouldPlay) {
+      tryPlay()
     } else {
       el.pause()
+    }
+
+    return () => {
+      cancelled = true
+      if (unarmFallback) unarmFallback()
     }
   }, [shouldPlay])
 
