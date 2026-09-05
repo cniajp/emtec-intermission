@@ -22,10 +22,20 @@ export interface Brand {
     // Page ヘッダの帯背景色 (Tailwind 経由できないので raw で持つ)
     headerBackgroundColor: string
   }
+  page1: {
+    // 表示秒数（config.transTimePage1 で一時上書き可能）
+    seconds: number
+  }
+  page2: {
+    seconds: number
+  }
   page3: {
     alias: string
     images: ReadonlyArray<string>
     trackImages: TrackImageInserts
+    // 1枚あたりの表示秒数。Page3 の合計時間 = 枚数 × この値
+    // （config.transTimePage3 で一時上書き可能）
+    secondsPerImage: number
   }
   page4: {
     playlist: Playlist

@@ -4,35 +4,12 @@ import { BrandProvider } from '@/brand/BrandProvider'
 import type { Brand } from '@/brand/types'
 import { PageCtx } from '@/logic/page-flow/PageContext'
 import { usePage4ViewModel } from '@/logic/page-view-models/usePage4ViewModel'
+import { makeBrand } from '@/logic/__fixtures__/brandFixtures'
 import type { Playlist } from '@/components/media/playlist'
 import { pushPageEvent } from '@/lib/faro'
 import { now } from '@/utils/time'
 
 jest.mock('@/lib/faro')
-
-function makeBrand(playlist: Playlist): Brand {
-  return {
-    name: 'static',
-    base: {
-      loadingIconSrc: '',
-      loadingEnabled: false,
-      loadingLogoShape: 'none',
-      backgroundSrc: '',
-      audioSrc: '',
-      hashTag: { all: '', break: '' },
-      useHashTagAsTrackName: false,
-      defaultAvatarSrc: '',
-      headerLogoSrc: '',
-      headerBackgroundColor: '',
-    },
-    page3: { alias: '', images: [], trackImages: {} },
-    page4: { playlist },
-    eventAbbrConfigKey: 'eventAbbr',
-    useTrackHashTagProperty: false,
-    showAbstractPrefix: false,
-    routePrefix: '/break',
-  }
-}
 
 function makeWrapper(brand: Brand, goNextPage: jest.Mock) {
   return function Wrapper({ children }: PropsWithChildren) {
@@ -61,7 +38,7 @@ function makeWrapper(brand: Brand, goNextPage: jest.Mock) {
 describe('usePage4ViewModel', () => {
   it('playlist が空: マウント時に page_exit + goNextPage を呼ぶ', () => {
     const goNextPage = jest.fn()
-    const brand = makeBrand([])
+    const brand = makeBrand({ playlist: [] })
     renderHook(() => usePage4ViewModel(), {
       wrapper: makeWrapper(brand, goNextPage),
     })
@@ -76,7 +53,7 @@ describe('usePage4ViewModel', () => {
         sources: [{ src: 'http://example.com/a.mp4', type: 'video/mp4' }],
       } as unknown as Playlist[number],
     ]
-    const brand = makeBrand(playlist)
+    const brand = makeBrand({ playlist })
     const { result } = renderHook(() => usePage4ViewModel(), {
       wrapper: makeWrapper(brand, goNextPage),
     })
