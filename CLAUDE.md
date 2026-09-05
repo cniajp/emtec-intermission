@@ -92,9 +92,9 @@ Presenter に渡すだけです。**JSXやTailwindクラスは Presenter 側に�
 NEXT_PUBLIC_API_BASE_URL       # DreamkastのAPIエンドポイント
 NEXT_PUBLIC_EVENT_ABBR         # 静的データ用イベント略称
 NEXT_PUBLIC_DK_EVENT_ABBR      # Dreamkast用イベント略称
-NEXT_PUBLIC_TRANS_TIME_PAGE1   # Page1の表示時間（秒）
-NEXT_PUBLIC_TRANS_TIME_PAGE2   # Page2の表示時間（秒）
-NEXT_PUBLIC_TRANS_TIME_PAGE3   # Page3の表示時間（秒）
+NEXT_PUBLIC_TRANS_TIME_PAGE1   # Page1の表示時間の一時上書き（秒）
+NEXT_PUBLIC_TRANS_TIME_PAGE2   # Page2の表示時間の一時上書き（秒）
+NEXT_PUBLIC_TRANS_TIME_PAGE3   # Page3の「1枚あたり」表示時間の一時上書き（秒）
 NEXT_PUBLIC_DEBUG              # デバッグモード（'true' で有効）
 NEXT_PUBLIC_EXCLUDED_TALKS     # 除外するトークID（カンマ区切り）
 ```
@@ -103,6 +103,9 @@ NEXT_PUBLIC_EXCLUDED_TALKS     # 除外するトークID（カンマ区切り）
 
 - 環境変数を型安全に管理
 - `extendConfig()` でクエリパラメータから動的に設定を上書き可能
+- ページ表示時間の**基本値は `src/staticConfig/*.ts`（brand）側**に持つ:
+  `page1.seconds` / `page2.seconds` / `page3.secondsPerImage`（1枚あたり秒数）。
+  `NEXT_PUBLIC_TRANS_TIME_PAGE*` はビルドせずに一時上書きする用
 
 ## イベントごとのアセット管理
 
@@ -139,7 +142,8 @@ public/
 ### 3. BGMと画面遷移の同期
 
 - BGMの長さに合わせて各ページの表示時間を調整
-- 合計時間 = `transTimePage1 + transTimePage2 + transTimePage3`
+- 合計時間 = `page1.seconds + page2.seconds + (Page3の画像枚数 × page3.secondsPerImage)`
+  （`src/staticConfig/*.ts` で設定。Page3 は1枚あたり固定なので枚数を増やすと合計が伸びる）
 - PixiAppの `duration` 変数も適宜調整が必要
 
 ### 4. フォント
@@ -221,7 +225,8 @@ npm run rtk-query-codegen
 ### BGMの長さを変更する場合
 
 1. 新しいBGMファイルを `public/[event]/` に配置
-2. `.env.production` の `NEXT_PUBLIC_TRANS_TIME_PAGE*` を調整
+2. `src/staticConfig/*.ts` の `page1.seconds` / `page2.seconds` / `page3.secondsPerImage` を調整
+   （ビルドせずに試すときは `NEXT_PUBLIC_TRANS_TIME_PAGE*` かクエリパラメータで一時上書き）
 3. `src/themes/pixi-legacy/PixiApp.tsx` の `duration` を更新
 4. 合計時間がBGMの長さと一致するように調整
 

@@ -36,10 +36,17 @@ export const breakConfig = {
     headerLogoSrc: '/pde2026/title.png',
     headerBackgroundColor: '#763F03',
   },
+  page1: {
+    seconds: 32.5,
+  },
+  page2: {
+    seconds: 32.5,
+  },
   page3: {
     alias: 'pde2026/info',
     images: breakImages,
     trackImages: breakTrackImages,
+    secondsPerImage: 10,
   },
   page4: {
     playlist: breakPlaylist,

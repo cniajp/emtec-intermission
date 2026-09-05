@@ -1,7 +1,9 @@
 import { renderHook } from '@testing-library/react'
 import { PropsWithChildren } from 'react'
+import { BrandProvider } from '@/brand/BrandProvider'
 import { PageCtx } from '@/logic/page-flow/PageContext'
 import { usePage2ViewModel } from '@/logic/page-view-models/usePage2ViewModel'
+import { makeBrand } from '@/logic/__fixtures__/brandFixtures'
 import {
   makeSpeaker,
   makeStandardTalkView,
@@ -15,21 +17,23 @@ jest.mock('@/lib/faro')
 
 function wrapper({ children }: PropsWithChildren) {
   return (
-    <PageCtx.Provider
-      value={{
-        current: 0,
-        totalPage: 4,
-        goNextPage: jest.fn(),
-        setTotalPage: jest.fn(),
-        now: now(),
-        hasTimeDrift: false,
-        isNextVideoAvailable: false,
-        registerNextVideo: jest.fn(),
-        invokeNextVideo: jest.fn(),
-      }}
-    >
-      {children}
-    </PageCtx.Provider>
+    <BrandProvider brand={makeBrand()}>
+      <PageCtx.Provider
+        value={{
+          current: 0,
+          totalPage: 4,
+          goNextPage: jest.fn(),
+          setTotalPage: jest.fn(),
+          now: now(),
+          hasTimeDrift: false,
+          isNextVideoAvailable: false,
+          registerNextVideo: jest.fn(),
+          invokeNextVideo: jest.fn(),
+        }}
+      >
+        {children}
+      </PageCtx.Provider>
+    </BrandProvider>
   )
 }
 

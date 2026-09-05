@@ -1,10 +1,11 @@
 import { act, renderHook } from '@testing-library/react'
 import { PropsWithChildren } from 'react'
-import config from '@/config'
+import config, { extendConfig } from '@/config'
 import { BrandProvider } from '@/brand/BrandProvider'
 import type { Brand } from '@/brand/types'
 import { PageCtx } from '@/logic/page-flow/PageContext'
 import { usePage3ViewModel } from '@/logic/page-view-models/usePage3ViewModel'
+import { makeBrand } from '@/logic/__fixtures__/brandFixtures'
 import {
   makeStandardTalkView,
   makeTalk,
@@ -14,38 +15,6 @@ import { TalkView } from '@/logic/models/talkView'
 import { now } from '@/utils/time'
 
 jest.mock('@/lib/faro')
-
-function makeBrand(overrides?: {
-  images?: string[]
-  trackImages?: Brand['page3']['trackImages']
-  alias?: string
-}): Brand {
-  return {
-    name: 'static',
-    base: {
-      loadingIconSrc: '',
-      loadingEnabled: false,
-      loadingLogoShape: 'none',
-      backgroundSrc: '',
-      audioSrc: '',
-      hashTag: { all: '', break: '' },
-      useHashTagAsTrackName: false,
-      defaultAvatarSrc: '',
-      headerLogoSrc: '',
-      headerBackgroundColor: '',
-    },
-    page3: {
-      alias: overrides?.alias ?? 'test-alias',
-      images: overrides?.images ?? [],
-      trackImages: overrides?.trackImages ?? {},
-    },
-    page4: { playlist: [] as unknown as Brand['page4']['playlist'] },
-    eventAbbrConfigKey: 'eventAbbr',
-    useTrackHashTagProperty: false,
-    showAbstractPrefix: false,
-    routePrefix: '/break',
-  }
-}
 
 function makeWrapper(brand: Brand, goNextPage: jest.Mock) {
   return function Wrapper({ children }: PropsWithChildren) {
@@ -76,6 +45,11 @@ describe('usePage3ViewModel', () => {
     jest.useFakeTimers()
   })
 
+  afterEach(() => {
+    // extendConfig は module スコープの config を直接書き換えるので後始末する
+    delete config.transTimePage3
+  })
+
   it('画像が空なら isEmpty=true で即 goNextPage', () => {
     const goNextPage = jest.fn()
     const brand = makeBrand({ images: [] })
@@ -88,11 +62,12 @@ describe('usePage3ViewModel', () => {
     expect(goNextPage).toHaveBeenCalledTimes(1)
   })
 
-  it('画像あり: alias 付きの最初の URL を返し、interval 経過で次の画像へ、全消化後に goNextPage', () => {
+  it('画像あり: alias 付きの最初の URL を返し、1枚あたり secondsPerImage 秒で次の画像へ、全消化後に goNextPage', () => {
     const goNextPage = jest.fn()
     const brand = makeBrand({
       alias: 'kinoko2026/info',
       images: ['a.jpg', 'b.jpg'],
+      secondsPerImage: 10,
     })
     const view = makeStandardTalkView({ selectedTalkId: 1 })
     const { result } = renderHook(() => usePage3ViewModel(view), {
@@ -103,8 +78,8 @@ describe('usePage3ViewModel', () => {
     expect(result.current.currentImageSrc).toBe('/kinoko2026/info/a.jpg')
     expect(goNextPage).not.toHaveBeenCalled()
 
-    // interval = transTimePage3 * 1000 / total
-    const intervalMs = (config.transTimePage3 * 1000) / 2
+    // interval = secondsPerImage（枚数に依らず1枚あたり固定）
+    const intervalMs = brand.page3.secondsPerImage * 1000
     act(() => {
       jest.advanceTimersByTime(intervalMs)
     })
@@ -115,6 +90,26 @@ describe('usePage3ViewModel', () => {
       jest.advanceTimersByTime(intervalMs)
     })
     expect(goNextPage).toHaveBeenCalledTimes(1)
+  })
+
+  it('config.transTimePage3 が設定されていれば brand の secondsPerImage より優先される', () => {
+    extendConfig({ transTimePage3: '3' })
+    const goNextPage = jest.fn()
+    const brand = makeBrand({
+      alias: 'ev',
+      images: ['a.jpg', 'b.jpg'],
+      secondsPerImage: 10,
+    })
+    const view = makeStandardTalkView({ selectedTalkId: 1 })
+    const { result } = renderHook(() => usePage3ViewModel(view), {
+      wrapper: makeWrapper(brand, goNextPage),
+    })
+
+    expect(result.current.currentImageSrc).toBe('/ev/a.jpg')
+    act(() => {
+      jest.advanceTimersByTime(3 * 1000)
+    })
+    expect(result.current.currentImageSrc).toBe('/ev/b.jpg')
   })
 
   it('選択トークの trackId に対応する trackImages を挿入する', () => {
