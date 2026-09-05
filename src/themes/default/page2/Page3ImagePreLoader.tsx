@@ -13,12 +13,13 @@ export function Page3ImagePreLoader({ view }: Props) {
     images,
     trackId != null ? trackImages[trackId] : undefined
   )
-  const first = merged[0]
-  if (!first) return <></>
+  if (merged.length === 0) return <></>
   return (
     <div className="hidden">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`/${alias}/${first}`} alt="for preload" />
+      {merged.map((image) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img key={image} src={`/${alias}/${image}`} alt="for preload" />
+      ))}
     </div>
   )
 }
