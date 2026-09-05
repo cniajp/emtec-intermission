@@ -15,10 +15,12 @@ export type Page3ViewModel = {
   currentImageSrc: string | null
 }
 
-// Page3 は画像リストを一定間隔で切り替えつつ、全画像を出し終えたら次のページへ遷移する。
+// Page3 は画像リストを1枚あたり secondsPerImage 秒ずつ表示し、全画像を出し終えたら
+// 次のページへ遷移する（合計時間 = 枚数 × secondsPerImage）。
+// config.transTimePage3 が設定されていれば「1枚あたり秒数」の一時上書きとして優先する。
 export function usePage3ViewModel(view: Optional<TalkView>): Page3ViewModel {
   const brand = useBrand()
-  const { alias, images, trackImages } = brand.page3
+  const { alias, images, trackImages, secondsPerImage } = brand.page3
   const trackId = view?.selectedTalk.trackId
 
   const mergedImages = useMemo(
@@ -31,7 +33,7 @@ export function usePage3ViewModel(view: Optional<TalkView>): Page3ViewModel {
   )
   const isEmpty = mergedImages.length === 0
 
-  const { count } = useCounter(isEmpty ? 1 : mergedImages.length)
+  const { count } = useCounter(config.transTimePage3 ?? secondsPerImage)
   const { goNextPage } = useContext(PageCtx)
 
   usePageDisplayTelemetry('Page3')
@@ -54,16 +56,13 @@ export function usePage3ViewModel(view: Optional<TalkView>): Page3ViewModel {
   }
 }
 
-const useCounter = (total: number) => {
+const useCounter = (secondsPerImage: number) => {
   const [count, setCount] = useState<number>(0)
   useEffect(() => {
-    const timer = setInterval(
-      () => {
-        setCount((c) => c + 1)
-      },
-      (config.transTimePage3 * 1000) / total
-    )
+    const timer = setInterval(() => {
+      setCount((c) => c + 1)
+    }, secondsPerImage * 1000)
     return () => clearInterval(timer)
-  }, [total])
+  }, [secondsPerImage])
   return { count }
 }
