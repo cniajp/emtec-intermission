@@ -93,7 +93,7 @@ function TrackRow({ talk, track, speakers, bgColor }: TrackProps) {
   const currentSpeaker = speakers[currentIndex]
 
   return (
-    <div className="relative flex flex-row items-center w-[900px] h-[300px] mt-12 backdrop-blur-xl bg-white/30 border border-white/30 rounded-2xl shadow-2xl text-[#1E1E1E] p-6">
+    <div className="relative flex flex-row items-center w-[900px] h-[300px] mt-12 backdrop-blur-xl bg-white/85 border border-white/40 rounded-2xl shadow-2xl text-[#1E1E1E] p-6">
       <span
         className="absolute top-3 left-4 inline-block px-3 py-1 rounded-full text-sm uppercase tracking-widest font-din-2014 font-bold text-white"
         style={{ backgroundColor: bgColor }}
