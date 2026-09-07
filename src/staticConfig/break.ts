@@ -1,7 +1,7 @@
 import { toPlaylist, type Playlist } from '../components/media/playlist'
 import type { TrackImageInserts } from './shared'
 
-const breakImages: string[] = ['info_001.jpg']
+const breakImages: string[] = []
 
 // trackId ごとに、共通カルーセル(images)の「N枚目(1始まり)」に差し込む画像
 // 例: { 1: [{ position: 1, src: 'track_a_intro.jpg' }] }
@@ -20,22 +20,23 @@ const breakPlaylist: Playlist = toPlaylist([
 
 export const breakConfig = {
   base: {
-    eventAbbr: 'pde2026',
-    loadingIconSrc: '/pde2026/logo-bg-white.png',
+    eventAbbr: 'gocon2026',
+    loadingIconSrc: '/gocon2026/logo-bg-white.png',
     loadingEnabled: true,
     loadingLogoShape: 'circle',
-    backgroundSrc: '/pde2026/background.png',
-    audioSrc: '/pde2026/bgm.mp3',
+    backgroundSrc: '/gocon2026/background.png',
+    audioSrc: '/gocon2026/bgm.mp3',
+    // break を空にして tracks.hashTag（gocon_A など）をそのままトラック別ハッシュタグにする
     hashTag: {
-      all: 'PdEConf',
-      break: 'PdEConf_Hall',
+      all: 'gocon',
+      break: '',
     },
-    useHashTagAsTrackName: true,
-    defaultAvatarSrc: '/pde2026/logo-bg-white.png',
+    useHashTagAsTrackName: false,
+    defaultAvatarSrc: '/gocon2026/logo-bg-white.png',
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
-    headerLogoSrc: '/pde2026/title.png',
-    headerBackgroundColor: '#763F03',
+    headerLogoSrc: '/gocon2026/title.png',
+    headerBackgroundColor: '#103972',
   },
   page1: {
     seconds: 32.5,
@@ -44,7 +45,7 @@ export const breakConfig = {
     seconds: 32.5,
   },
   page3: {
-    alias: 'pde2026/info',
+    alias: 'gocon2026/info',
     images: breakImages,
     trackImages: breakTrackImages,
     secondsPerImage: 10,
