@@ -24,7 +24,7 @@ export const breakConfig = {
     loadingIconSrc: '/gocon2026/logo-bg-white.png',
     loadingEnabled: true,
     loadingLogoShape: 'circle',
-    backgroundSrc: '/gocon2026/background.png',
+    backgroundSrc: '/gocon2026/background.jpg',
     audioSrc: '/gocon2026/bgm.mp3',
     // break を空にして tracks.hashTag（gocon_A など）をそのままトラック別ハッシュタグにする
     hashTag: {
