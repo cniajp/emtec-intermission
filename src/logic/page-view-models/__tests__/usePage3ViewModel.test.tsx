@@ -14,8 +14,6 @@ import {
 import { TalkView } from '@/logic/models/talkView'
 import { now } from '@/utils/time'
 
-jest.mock('@/lib/faro')
-
 function makeWrapper(brand: Brand, goNextPage: jest.Mock) {
   return function Wrapper({ children }: PropsWithChildren) {
     return (

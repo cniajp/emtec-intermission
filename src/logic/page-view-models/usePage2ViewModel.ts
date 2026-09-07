@@ -3,7 +3,6 @@ import { useBrand } from '@/brand/BrandProvider'
 import type { Optional } from '@/utils/types'
 import type { Speaker, Talk, Track } from '@/data/types'
 import type { TalkView } from '@/logic/models/talkView'
-import { usePageDisplayTelemetry } from '@/logic/page-flow/usePageTelemetry'
 import { useTimedPageTransition } from '@/logic/page-flow/usePageTransition'
 import { getOverlappingTalks } from './getOverlappingTalks'
 
@@ -27,7 +26,6 @@ const EMPTY_VM: Page2ViewModel = { timeRange: null, rows: [] }
 
 export function usePage2ViewModel(view: Optional<TalkView>): Page2ViewModel {
   const brand = useBrand()
-  usePageDisplayTelemetry('Page2')
   useTimedPageTransition('Page2', config.transTimePage2 ?? brand.page2.seconds)
 
   if (!view) return EMPTY_VM

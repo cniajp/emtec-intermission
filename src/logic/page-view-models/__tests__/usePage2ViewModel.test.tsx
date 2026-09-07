@@ -13,8 +13,6 @@ import {
 import { TalkView } from '@/logic/models/talkView'
 import { now } from '@/utils/time'
 
-jest.mock('@/lib/faro')
-
 function wrapper({ children }: PropsWithChildren) {
   return (
     <BrandProvider brand={makeBrand()}>

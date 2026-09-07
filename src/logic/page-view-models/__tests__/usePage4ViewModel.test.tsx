@@ -6,10 +6,7 @@ import { PageCtx } from '@/logic/page-flow/PageContext'
 import { usePage4ViewModel } from '@/logic/page-view-models/usePage4ViewModel'
 import { makeBrand } from '@/logic/__fixtures__/brandFixtures'
 import type { Playlist } from '@/components/media/playlist'
-import { pushPageEvent } from '@/lib/faro'
 import { now } from '@/utils/time'
-
-jest.mock('@/lib/faro')
 
 function makeWrapper(brand: Brand, goNextPage: jest.Mock) {
   return function Wrapper({ children }: PropsWithChildren) {
@@ -36,14 +33,13 @@ function makeWrapper(brand: Brand, goNextPage: jest.Mock) {
 }
 
 describe('usePage4ViewModel', () => {
-  it('playlist が空: マウント時に page_exit + goNextPage を呼ぶ', () => {
+  it('playlist が空: マウント時に goNextPage を呼ぶ', () => {
     const goNextPage = jest.fn()
     const brand = makeBrand({ playlist: [] })
     renderHook(() => usePage4ViewModel(), {
       wrapper: makeWrapper(brand, goNextPage),
     })
     expect(goNextPage).toHaveBeenCalledTimes(1)
-    expect(pushPageEvent).toHaveBeenCalledWith('Page4', 'page_exit')
   })
 
   it('playlist が非空: goNextPage は呼ばれず、onEnded を叩いた時のみ呼ばれる', () => {
@@ -62,7 +58,6 @@ describe('usePage4ViewModel', () => {
     expect(result.current.playlist).toBe(playlist)
 
     result.current.onEnded()
-    expect(pushPageEvent).toHaveBeenCalledWith('Page4', 'page_exit')
     expect(goNextPage).toHaveBeenCalledTimes(1)
   })
 })

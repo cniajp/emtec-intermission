@@ -16,7 +16,6 @@ const customJestConfig = {
   collectCoverageFrom: [
     'src/logic/models/**/*.{ts,tsx}',
     'src/logic/page-view-models/**/*.{ts,tsx}',
-    'src/logic/page-flow/usePageTelemetry.ts',
     'src/logic/page-flow/usePageTransition.ts',
     'src/staticConfig/shared.ts',
     '!src/logic/**/__tests__/**',
