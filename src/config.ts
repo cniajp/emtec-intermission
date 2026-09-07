@@ -1,10 +1,12 @@
+import { staticConfig } from './staticConfig'
+
 const envVars = {
   apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL ?? '',
-  eventAbbr: process.env.NEXT_PUBLIC_EVENT_ABBR ?? '',
-  dkEventAbbr: process.env.NEXT_PUBLIC_DK_EVENT_ABBR ?? '',
-  transTimePage1: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE1 ?? '24',
-  transTimePage2: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE2 ?? '24',
-  transTimePage3: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE3 ?? '24',
+  // ページ表示時間の一時上書き（秒）。基本値は staticConfig（brand）側にあるので
+  // 未設定なら空のままにして config に載せない。PAGE3 は「1枚あたり」の秒数。
+  transTimePage1: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE1 ?? '',
+  transTimePage2: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE2 ?? '',
+  transTimePage3: process.env.NEXT_PUBLIC_TRANS_TIME_PAGE3 ?? '',
   debug: process.env.NEXT_PUBLIC_DEBUG ?? '',
   excludedTalks: process.env.NEXT_PUBLIC_EXCLUDED_TALKS ?? '',
 }
@@ -13,27 +15,27 @@ export type EnvVars = typeof envVars
 
 export type Config = {
   apiBaseUrl: string
+  // イベント略称。基本値は staticConfig（brand）側の base.eventAbbr で、env/クエリでは上書きしない
   eventAbbr: string
   dkEventAbbr: string
-  transTimePage1: number
-  transTimePage2: number
-  transTimePage3: number
+  // 一時上書き用。基本値は brand.page1.seconds / page2.seconds / page3.secondsPerImage
+  transTimePage1?: number
+  transTimePage2?: number
+  transTimePage3?: number
   debug: boolean
   excludedTalks: number[]
 }
 
-const config = makeConfig(envVars) as Config
+const config = {
+  eventAbbr: staticConfig.break.base.eventAbbr,
+  dkEventAbbr: staticConfig.breakDk.base.eventAbbr,
+  ...makeConfig(envVars),
+} as Config
 
 function makeConfig(vars: Partial<EnvVars>): Partial<Config> {
   const conf: Partial<Config> = {}
   if (vars.apiBaseUrl) {
     conf.apiBaseUrl = vars.apiBaseUrl
-  }
-  if (vars.eventAbbr) {
-    conf.eventAbbr = vars.eventAbbr
-  }
-  if (vars.dkEventAbbr) {
-    conf.dkEventAbbr = vars.dkEventAbbr
   }
   if (vars.transTimePage1) {
     conf.transTimePage1 = parseFloat(vars.transTimePage1)

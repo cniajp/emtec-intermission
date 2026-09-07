@@ -30,6 +30,7 @@ const breakDkPlaylist: Playlist = toPlaylist([
 
 export const breakDkConfig = {
   base: {
+    eventAbbr: 'cnk',
     loadingIconSrc: '/cnk2026/logo.png',
     loadingEnabled: true,
     loadingLogoShape: 'none',
@@ -46,10 +47,17 @@ export const breakDkConfig = {
     headerLogoSrc: '/kinoko2026/title.png',
     headerBackgroundColor: '#763F03',
   },
+  page1: {
+    seconds: 32.5,
+  },
+  page2: {
+    seconds: 32.5,
+  },
   page3: {
     alias: 'cnk2026/info',
     images: breakDkImages,
     trackImages: breakDkTrackImages,
+    secondsPerImage: 10,
   },
   page4: {
     playlist: breakDkPlaylist,

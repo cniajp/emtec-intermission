@@ -17,8 +17,6 @@
     "rtk-query-codegen": "rtk-query-codegen-openapi ./rtk-query-codegen-openapi.config.js"
   },
   "dependencies": {
-    "@grafana/faro-web-sdk": "^2.11.0",
-    "@grafana/faro-web-tracing": "^2.11.0",
     "@opennextjs/cloudflare": "^1.20.4",
     "@pixi/react": "^8.0.5",
     "@pixi/sound": "^6.0.1",
