@@ -9,6 +9,8 @@ export type BrandName = 'static' | 'dreamkast'
 export interface Brand {
   name: BrandName
   base: {
+    // イベント略称。Dreamkast 版は API に渡す値、静的版は OBS シーン名などに使う
+    eventAbbr: string
     loadingIconSrc: string
     loadingEnabled: boolean
     loadingLogoShape: LoadingLogoShape
@@ -40,8 +42,6 @@ export interface Brand {
   page4: {
     playlist: Playlist
   }
-  // eventAbbr は brand と 1:1 対応 (config.eventAbbr / config.dkEventAbbr のどちらを使うか)
-  eventAbbrConfigKey: 'eventAbbr' | 'dkEventAbbr'
   // トークの hashTag プロパティを使うか（現状 isDk=false のみ true）
   useTrackHashTagProperty: boolean
   // Page1 の abstract に "Abstract: " プレフィックスを付けるか (現状 isDk=true のみ)

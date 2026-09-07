@@ -12,6 +12,7 @@ export function makeBrand(overrides?: {
   return {
     name: 'static',
     base: {
+      eventAbbr: 'test-event',
       loadingIconSrc: '',
       loadingEnabled: false,
       loadingLogoShape: 'none',
@@ -32,7 +33,6 @@ export function makeBrand(overrides?: {
       secondsPerImage: overrides?.secondsPerImage ?? 10,
     },
     page4: { playlist: overrides?.playlist ?? [] },
-    eventAbbrConfigKey: 'eventAbbr',
     useTrackHashTagProperty: false,
     showAbstractPrefix: false,
     routePrefix: '/break',

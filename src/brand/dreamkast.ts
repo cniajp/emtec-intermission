@@ -8,7 +8,6 @@ export const dreamkastBrand: Brand = {
   page2: staticConfig.breakDk.page2,
   page3: staticConfig.breakDk.page3,
   page4: staticConfig.breakDk.page4,
-  eventAbbrConfigKey: 'dkEventAbbr',
   useTrackHashTagProperty: false,
   showAbstractPrefix: true,
   routePrefix: '/break-dk',

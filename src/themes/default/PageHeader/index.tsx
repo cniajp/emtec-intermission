@@ -3,7 +3,6 @@ import { TalkView } from '@/logic/models/talkView'
 import { PageCtx } from '@/logic/page-flow/PageContext'
 import { useContext } from 'react'
 import Image from 'next/image'
-import config from '@/config'
 import { trim } from '@/utils/utils'
 import { useBrand } from '@/brand/BrandProvider'
 
@@ -12,16 +11,12 @@ type Props = { view: Optional<TalkView> }
 export default function Header({ view }: Props) {
   const brand = useBrand()
   const { now } = useContext(PageCtx)
-  const eventAbbrToShow = config[brand.eventAbbrConfigKey]
   if (!view) {
     return <></>
   }
   const talk = view.talksLeftInSameTrack()[0]
   if (!talk) {
     return <div>No talks left.</div>
-  }
-  if (!eventAbbrToShow) {
-    return <div>No eventAbbr configured.</div>
   }
   const { hashTag, useHashTagAsTrackName } = brand.base
   const trackHashTag =

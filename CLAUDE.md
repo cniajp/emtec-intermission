@@ -90,8 +90,6 @@ Presenter に渡すだけです。**JSXやTailwindクラスは Presenter 側に�
 
 ```bash
 NEXT_PUBLIC_API_BASE_URL       # DreamkastのAPIエンドポイント
-NEXT_PUBLIC_EVENT_ABBR         # 静的データ用イベント略称
-NEXT_PUBLIC_DK_EVENT_ABBR      # Dreamkast用イベント略称
 NEXT_PUBLIC_TRANS_TIME_PAGE1   # Page1の表示時間の一時上書き（秒）
 NEXT_PUBLIC_TRANS_TIME_PAGE2   # Page2の表示時間の一時上書き（秒）
 NEXT_PUBLIC_TRANS_TIME_PAGE3   # Page3の「1枚あたり」表示時間の一時上書き（秒）
@@ -106,6 +104,8 @@ NEXT_PUBLIC_EXCLUDED_TALKS     # 除外するトークID（カンマ区切り）
 - ページ表示時間の**基本値は `src/staticConfig/*.ts`（brand）側**に持つ:
   `page1.seconds` / `page2.seconds` / `page3.secondsPerImage`（1枚あたり秒数）。
   `NEXT_PUBLIC_TRANS_TIME_PAGE*` はビルドせずに一時上書きする用
+- イベント略称（`config.eventAbbr` / `config.dkEventAbbr`）も `src/staticConfig/*.ts` の
+  `base.eventAbbr` が唯一の情報源。環境変数やクエリパラメータでは上書きできない
 
 ## イベントごとのアセット管理
 
@@ -204,7 +204,7 @@ npm run rtk-query-codegen
 
 1. `public/` に新しいイベントフォルダを作成
 2. 必要なアセット（背景画像、BGM）を配置
-3. `.env.production` の環境変数を更新
+3. `src/staticConfig/*.ts` の `base.eventAbbr` とアセットパスを更新
 4. 必要に応じて `src/data/*.ts` を更新（静的データ版の場合）
 
 ### ページデザインを変更する場合

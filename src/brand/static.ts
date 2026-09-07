@@ -8,7 +8,6 @@ export const staticBrand: Brand = {
   page2: staticConfig.break.page2,
   page3: staticConfig.break.page3,
   page4: staticConfig.break.page4,
-  eventAbbrConfigKey: 'eventAbbr',
   useTrackHashTagProperty: true,
   showAbstractPrefix: false,
   routePrefix: '/break',

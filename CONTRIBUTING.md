@@ -30,8 +30,6 @@ npm run dev
 | 変数名 | 説明 |
 |--------|------|
 | `NEXT_PUBLIC_API_BASE_URL` | DreamkastのAPIエンドポイント |
-| `NEXT_PUBLIC_EVENT_ABBR` | 静的データ用イベント略称 |
-| `NEXT_PUBLIC_DK_EVENT_ABBR` | Dreamkast用イベント略称 |
 | `NEXT_PUBLIC_TRANS_TIME_PAGE1` | Page1の表示時間（秒） |
 | `NEXT_PUBLIC_TRANS_TIME_PAGE2` | Page2の表示時間（秒） |
 | `NEXT_PUBLIC_TRANS_TIME_PAGE3` | Page3の表示時間（秒） |

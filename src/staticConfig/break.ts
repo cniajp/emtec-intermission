@@ -20,6 +20,7 @@ const breakPlaylist: Playlist = toPlaylist([
 
 export const breakConfig = {
   base: {
+    eventAbbr: 'pde2026',
     loadingIconSrc: '/pde2026/logo-bg-white.png',
     loadingEnabled: true,
     loadingLogoShape: 'circle',
