@@ -24,8 +24,8 @@ export function makeBrand(overrides?: {
       headerLogoSrc: '',
       headerBackgroundColor: '',
     },
-    page1: { seconds: 10 },
-    page2: { seconds: 10 },
+    page1: { seconds: 10, cardBackgroundColor: '', cardTextColor: '' },
+    page2: { seconds: 10, trackColors: [] },
     page3: {
       alias: overrides?.alias ?? 'test-alias',
       images: overrides?.images ?? [],

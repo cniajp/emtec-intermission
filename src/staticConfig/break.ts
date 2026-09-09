@@ -12,27 +12,26 @@ const breakTrackImages: TrackImageInserts = {
 }
 
 const breakPlaylist: Playlist = toPlaylist([
-  // {
-  //   src: 'https://im-file.emtec.tv/kinoko2026/hokan.mp4',
-  //   type: 'video/mp4',
-  // }
+  {
+    src: 'https://im-file.emtec.tv/kinoko2026/hokan.mp4',
+    type: 'video/mp4',
+  },
 ])
 
 export const breakConfig = {
   base: {
     eventAbbr: 'gocon2026',
-    loadingIconSrc: '/gocon2026/logo-bg-white.png',
+    loadingIconSrc: '/gocon2026/logo-bg-white.jpg',
     loadingEnabled: true,
     loadingLogoShape: 'circle',
     backgroundSrc: '/gocon2026/background.jpg',
     audioSrc: '/gocon2026/bgm.mp3',
-    // break を空にして tracks.hashTag（gocon_A など）をそのままトラック別ハッシュタグにする
     hashTag: {
       all: 'gocon',
       break: '',
     },
     useHashTagAsTrackName: false,
-    defaultAvatarSrc: '/gocon2026/logo-bg-white.png',
+    defaultAvatarSrc: '/gocon2026/logo-bg-white.jpg',
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
     headerLogoSrc: '/gocon2026/title.png',
@@ -40,9 +39,12 @@ export const breakConfig = {
   },
   page1: {
     seconds: 32.5,
+    cardBackgroundColor: '#387c61',
+    cardTextColor: '#ffffff',
   },
   page2: {
     seconds: 32.5,
+    trackColors: ['#f14e35', '#387c61', '#e5b73d'],
   },
   page3: {
     alias: 'gocon2026/info',

@@ -12,8 +12,6 @@ import { RollingAvatar } from '@/components/avatar/RollingAvatar'
 export { AvatarPreLoader } from './AvatarPreLoader'
 export { Page3ImagePreLoader } from './Page3ImagePreLoader'
 
-const TRACK_BG_COLORS = ['#f14e35', '#387c61', '#e5b73d']
-
 export default function Page2Presenter({
   view,
   timeRange,
@@ -36,6 +34,7 @@ function Body({
   timeRange: Page2PresenterProps['timeRange']
   rows: Page2PresenterProps['rows']
 }) {
+  const { trackColors } = useBrand().page2
   if (!timeRange || rows.length === 0) {
     return <></>
   }
@@ -56,7 +55,7 @@ function Body({
             talk={row.talk}
             track={row.track}
             speakers={row.speakers}
-            bgColor={TRACK_BG_COLORS[row.trackIndex % TRACK_BG_COLORS.length]}
+            bgColor={trackColors[row.trackIndex % trackColors.length]}
           />
         ))}
       </div>
