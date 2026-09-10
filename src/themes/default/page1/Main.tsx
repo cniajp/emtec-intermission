@@ -25,7 +25,7 @@ export function Main({ view }: Props) {
         </div>
       </div>
       <div
-        className="top-[55px] left-[120px] w-[1000px] h-[630px] relative rounded-lg"
+        className="top-[55px] left-[120px] w-[1000px] h-[640px] relative rounded-lg"
         style={{
           backgroundColor: brand.page1.cardBackgroundColor,
           color: brand.page1.cardTextColor,

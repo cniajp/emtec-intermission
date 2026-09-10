@@ -39,7 +39,7 @@ export const breakConfig = {
   },
   page1: {
     seconds: 32.5,
-    cardBackgroundColor: '#387c61',
+    cardBackgroundColor: '#103972',
     cardTextColor: '#ffffff',
   },
   page2: {
