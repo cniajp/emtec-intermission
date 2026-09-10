@@ -143,4 +143,16 @@ export const speakers: Speaker[] = [
     company: 'Community',
     avatarUrl: '/gocon2026/speakers/22.svg',
   },
+  {
+    id: 23,
+    name: 'sanposhiho',
+    company: 'Kubernetes SIG Scheduling TL / Chair',
+    avatarUrl: '/gocon2026/speakers/sanposhiho.jpeg',
+  },
+  {
+    id: 24,
+    name: '運営',
+    company: '',
+    avatarUrl: '/gocon2026/logo-bg-white.jpg',
+  }
 ]
