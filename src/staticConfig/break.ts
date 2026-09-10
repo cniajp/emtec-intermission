@@ -13,7 +13,7 @@ const breakTrackImages: TrackImageInserts = {
 
 const breakPlaylist: Playlist = toPlaylist([
   {
-    src: 'https://im-file.emtec.tv/kinoko2026/hokan.mp4',
+    src: 'https://im-file.emtec.tv/gocon2026/cm.mp4',
     type: 'video/mp4',
   },
 ])
