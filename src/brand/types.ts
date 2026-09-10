@@ -27,9 +27,14 @@ export interface Brand {
   page1: {
     // 表示秒数（config.transTimePage1 で一時上書き可能）
     seconds: number
+    // セッション情報カードの背景色・文字色 (Tailwind 経由できないので raw で持つ)
+    cardBackgroundColor: string
+    cardTextColor: string
   }
   page2: {
     seconds: number
+    // トラックごとのラベル背景色。trackIndex % length で循環して使う
+    trackColors: ReadonlyArray<string>
   }
   page3: {
     alias: string

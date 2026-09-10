@@ -49,9 +49,12 @@ export const breakDkConfig = {
   },
   page1: {
     seconds: 32.5,
+    cardBackgroundColor: '#387c61',
+    cardTextColor: '#ffffff',
   },
   page2: {
     seconds: 32.5,
+    trackColors: ['#f14e35', '#387c61', '#e5b73d'],
   },
   page3: {
     alias: 'cnk2026/info',

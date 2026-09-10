@@ -34,7 +34,7 @@ export function Side({ view }: Props) {
   return (
     <div className="p-14 h-[940px] text-[#1E1E1E] overflow-hidden flex-col justify-start items-end gap-4 inline-flex">
       {hasKeynote && (
-        <div className="text-right w-[650px] h-[170px] backdrop-blur-xl bg-white/30 border border-white/20 px-4 pt-2 pb-3 my-3 font-ryo-gothic-plusn rounded-xl shadow-lg">
+        <div className="text-right w-[650px] h-[170px] backdrop-blur-xl bg-white/75 border border-white/40 px-4 pt-2 pb-3 my-3 font-ryo-gothic-plusn rounded-xl shadow-lg">
           <div className="flex flex-row">
             <div className="text-left basis-1/2 text-base font-din-2014 font-light">
               <span>
@@ -59,7 +59,7 @@ export function Side({ view }: Props) {
       {visibleTalks.map((talk) => (
         <div
           key={talk.id}
-          className="flex flex-col text-right w-[650px] h-[170px] backdrop-blur-xl bg-white/50 border border-white/20 px-4 pt-3 pb-2 my-3 font-ryo-gothic-plusn rounded-xl shadow-lg"
+          className="flex flex-col text-right w-[650px] h-[170px] backdrop-blur-xl bg-white/85 border border-white/40 px-4 pt-3 pb-2 my-3 font-ryo-gothic-plusn rounded-xl shadow-lg"
         >
           <div className="flex flex-row">
             <div className="text-left basis-1/2 text-base font-din-2014 font-light">
