@@ -154,5 +154,5 @@ export const speakers: Speaker[] = [
     name: '運営',
     company: '',
     avatarUrl: '/gocon2026/logo-bg-white.jpg',
-  }
+  },
 ]
