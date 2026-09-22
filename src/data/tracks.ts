@@ -1,8 +1,19 @@
 import { Track } from './types'
 
 export const tracks: Track[] = [
-  { id: 1, name: 'RoomA', hashTag: 'gocon_A' },
-  { id: 2, name: 'RoomB', hashTag: 'gocon_B' },
-  // { id: 3, name: 'WorkshopA', hashTag: 'gocon_WA' },
-  // { id: 4, name: 'WorkshopB', hashTag: 'gocon_WB' },
+  {
+    id: 1,
+    name: 'Hall',
+    hashTag: 'PEK2026_hall',
+  },
+  {
+    id: 2,
+    name: 'Room A',
+    hashTag: 'PEK2026_a',
+  },
+  {
+    id: 3,
+    name: 'Room B',
+    hashTag: 'PEK2026_b',
+  },
 ]

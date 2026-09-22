@@ -12,42 +12,45 @@ const breakTrackImages: TrackImageInserts = {
 }
 
 const breakPlaylist: Playlist = toPlaylist([
-  {
-    src: 'https://im-file.emtec.tv/gocon2026/cm.mp4',
-    type: 'video/mp4',
-  },
+  // {
+  //   src: 'https://im-file.emtec.tv/pek2026/cm.mp4',
+  //   type: 'video/mp4',
+  // },
 ])
 
 export const breakConfig = {
   base: {
-    eventAbbr: 'gocon2026',
-    loadingIconSrc: '/gocon2026/logo-bg-white.jpg',
+    eventAbbr: 'pek2026',
+    loadingIconSrc: '/pek2026/logo-bg-white.png',
     loadingEnabled: true,
     loadingLogoShape: 'circle',
-    backgroundSrc: '/gocon2026/background.jpg',
-    audioSrc: '/gocon2026/bgm.mp3',
+    backgroundSrc: '/pek2026/background.png',
+    audioSrc: '/pek2026/bgm.mp3',
     hashTag: {
-      all: 'gocon',
+      all: 'PEK2026',
       break: '',
     },
     useHashTagAsTrackName: false,
-    defaultAvatarSrc: '/gocon2026/logo-bg-white.jpg',
+    defaultAvatarSrc: '/pek2026/logo-bg-white.png',
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
-    headerLogoSrc: '/gocon2026/title.png',
-    headerBackgroundColor: '#103972',
+    headerLogoSrc: '/pek2026/title.png',
+    // 公式サイトの primary-700
+    headerBackgroundColor: '#005a93',
   },
   page1: {
     seconds: 32.5,
-    cardBackgroundColor: '#387c61',
+    // 公式サイトの primary-500
+    cardBackgroundColor: '#0087d7',
     cardTextColor: '#ffffff',
   },
   page2: {
     seconds: 32.5,
-    trackColors: ['#f14e35', '#387c61', '#e5b73d'],
+    // 公式サイトのタイムテーブル列ヘッダ配色 (Hall=紫 / Room A=青 / Room B=橙)
+    trackColors: ['#5f5f9d', '#0087d7', '#ed951d'],
   },
   page3: {
-    alias: 'gocon2026/info',
+    alias: 'pek2026/info',
     images: breakImages,
     trackImages: breakTrackImages,
     secondsPerImage: 10,
