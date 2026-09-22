@@ -24,7 +24,7 @@ export const breakConfig = {
     loadingIconSrc: '/pek2026/logo-bg-white.png',
     loadingEnabled: true,
     loadingLogoShape: 'circle',
-    backgroundSrc: '/pek2026/background.webp',
+    backgroundSrc: '/pek2026/background.png',
     audioSrc: '/pek2026/bgm.mp3',
     hashTag: {
       all: 'PEK2026',

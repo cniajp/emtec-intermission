@@ -45,13 +45,31 @@ export function ShrinkToFit({
     }
 
     fit()
-    // Web フォント（Adobe Fonts）の読み込み後は字幅が変わるので再計測
+
+    // Web フォント（Adobe Fonts）が後から適用されると字幅が変わる。
+    // このプロジェクトは line-height が固定 px なので要素の高さは変わらず、
+    // ResizeObserver では検知できない。fonts.ready と loadingdone の両方で再計測する。
     let cancelled = false
-    document.fonts?.ready.then(() => {
+    const fonts = document.fonts
+    fonts?.ready.then(() => {
       if (!cancelled) fit()
     })
+    const onFontsLoaded = () => fit()
+    fonts?.addEventListener('loadingdone', onFontsLoaded)
+
+    // 子要素の内容が後から変わる（PhraseText の <wbr> 挿入など）と折り返しが変わるので、
+    // DOM の変更を監視して再計測する。fit() は冪等なのでループしない。
+    const observer = new MutationObserver(() => fit())
+    observer.observe(el, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    })
+
     return () => {
       cancelled = true
+      fonts?.removeEventListener('loadingdone', onFontsLoaded)
+      observer.disconnect()
     }
   }, [resetKey, minFontSize, step])
 
