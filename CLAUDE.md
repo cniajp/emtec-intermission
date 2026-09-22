@@ -122,7 +122,7 @@ public/
 
 各イベントフォルダには以下を含みます：
 - `background.webp` / `background.png` - 背景画像
-- `*_intermission.mp3` - BGM
+- `bgm/*.mp3` - BGM（複数曲を `base.audioSrcs` に列挙した順で連続再生。詳細は `docs/bgm-playlist.md`）
 - その他イベント固有のアセット
 
 ## 開発時の重要な注意事項
@@ -224,7 +224,7 @@ npm run rtk-query-codegen
 
 ### BGMの長さを変更する場合
 
-1. 新しいBGMファイルを `public/[event]/` に配置
+1. 新しいBGMファイルを `public/[event]/bgm/` に配置し、`src/staticConfig/*.ts` の `base.audioSrcs` に列挙（複数可、順に再生して末尾で先頭に戻る）
 2. `src/staticConfig/*.ts` の `page1.seconds` / `page2.seconds` / `page3.secondsPerImage` を調整
    （ビルドせずに試すときは `NEXT_PUBLIC_TRANS_TIME_PAGE*` かクエリパラメータで一時上書き）
 3. `src/themes/pixi-legacy/PixiApp.tsx` の `duration` を更新

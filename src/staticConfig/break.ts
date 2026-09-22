@@ -25,7 +25,11 @@ export const breakConfig = {
     loadingEnabled: true,
     loadingLogoShape: 'circle',
     backgroundSrc: '/pek2026/background.png',
-    audioSrc: '/pek2026/bgm.mp3',
+    audioSrcs: [
+      '/pek2026/bgm/01-busy-city-streets.mp3',
+      '/pek2026/bgm/02-cnk-theme-city-arrange.mp3',
+      '/pek2026/bgm/03-rhodes-lounge.mp3',
+    ],
     hashTag: {
       all: 'PEK2026',
       break: '',

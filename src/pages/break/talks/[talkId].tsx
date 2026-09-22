@@ -78,7 +78,7 @@ function Pages() {
     loadingEnabled,
     loadingLogoShape,
     backgroundSrc,
-    audioSrc,
+    audioSrcs,
   } = activeBrand.base
 
   const shouldPlayAudio = pages[current].name !== 'Page4'
@@ -97,7 +97,7 @@ function Pages() {
         onGoNext={goNextPage}
         onNextVideo={isNextVideoAvailable ? invokeNextVideo : null}
       />
-      <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
+      <AudioPlayer srcs={audioSrcs} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view} />
       <Page3ImagePreLoader view={view} />
       <div className="w-[1920px] h-[1080px] relative">
