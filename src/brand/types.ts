@@ -15,7 +15,8 @@ export interface Brand {
     loadingEnabled: boolean
     loadingLogoShape: LoadingLogoShape
     backgroundSrc: string
-    audioSrc: string
+    // BGM。配列の順に再生し、末尾まで来たら先頭に戻る。空なら無音
+    audioSrcs: ReadonlyArray<string>
     hashTag: { all: string; break: string }
     useHashTagAsTrackName: boolean
     defaultAvatarSrc: string

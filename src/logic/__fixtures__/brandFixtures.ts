@@ -17,7 +17,7 @@ export function makeBrand(overrides?: {
       loadingEnabled: false,
       loadingLogoShape: 'none',
       backgroundSrc: '',
-      audioSrc: '',
+      audioSrcs: [],
       hashTag: { all: '', break: '' },
       useHashTagAsTrackName: false,
       defaultAvatarSrc: '',
