@@ -12,10 +12,18 @@ const breakTrackImages: TrackImageInserts = {
 }
 
 const breakPlaylist: Playlist = toPlaylist([
-  // {
-  //   src: 'https://im-file.emtec.tv/pek2026/cm.mp4',
-  //   type: 'video/mp4',
-  // },
+  {
+    src: 'https://im-file.emtec.tv/pek2026/mercari.mp4',
+    type: 'video/mp4',
+  },
+  {
+    src: 'https://im-file.emtec.tv/pek2026/softbank.mp4',
+    type: 'video/mp4',
+  },
+  {
+    src: 'https://im-file.emtec.tv/pek2026/aws.mp4',
+    type: 'video/mp4',
+  },
 ])
 
 export const breakConfig = {
