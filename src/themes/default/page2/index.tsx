@@ -40,7 +40,7 @@ function Body({
   }
   return (
     <div className=" mt-10 font-ryo-gothic-plusn">
-      <div className="text-left w-[450px] pr-10 py-10 bg-[url('/cnk2026/background.jpg')] bg-cover bg-center rounded-r-2xl">
+      <div className="text-left w-[450px] pr-10 py-10 bg-[#ffffff] bg-cover bg-center rounded-r-2xl">
         <div className="text-right text-[#1E1E1E] font-bold font-din-2014 tracking-wide text-1.5xl">
           UPCOMING SESSIONS
         </div>
