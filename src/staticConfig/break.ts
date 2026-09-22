@@ -12,10 +12,10 @@ const breakTrackImages: TrackImageInserts = {
 }
 
 const breakPlaylist: Playlist = toPlaylist([
-  {
-    src: 'https://im-file.emtec.tv/pek2026/cm.mp4',
-    type: 'video/mp4',
-  },
+  // {
+  //   src: 'https://im-file.emtec.tv/pek2026/cm.mp4',
+  //   type: 'video/mp4',
+  // },
 ])
 
 export const breakConfig = {
@@ -27,7 +27,7 @@ export const breakConfig = {
     backgroundSrc: '/pek2026/background.webp',
     audioSrc: '/pek2026/bgm.mp3',
     hashTag: {
-      all: 'pek2026',
+      all: 'PEK2026',
       break: '',
     },
     useHashTagAsTrackName: false,
