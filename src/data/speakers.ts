@@ -23,9 +23,9 @@ export const speakers: Speaker[] = [
   },
   {
     id: 2,
-    name: '福井慎也',
+    name: '河野智則',
     company: '株式会社リンクアンドモチベーション',
-    avatarUrl: '/pek2026/speakers/shinyafuk.png',
+    avatarUrl: '/pek2026/speakers/dad4370b-55a2-4d74-99ce-1e9482a9b59b.png',
   },
   {
     id: 3,
