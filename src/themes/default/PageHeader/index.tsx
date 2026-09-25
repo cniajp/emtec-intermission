@@ -40,6 +40,9 @@ export default function Header({ view }: Props) {
           /* 幅で固定すると縦長のロゴが 140px の帯からはみ出すので高さ基準にする。
              横長のロゴが枠を食い潰さないよう maxWidth も入れておく */
           style={{ height: '110px', width: 'auto', maxWidth: '450px' }}
+          /* 透過PNGの輪郭に沿わせたいので box-shadow ではなく drop-shadow。
+             右側のテキストの text-shadow と同程度の控えめな濃さに合わせる */
+          className="drop-shadow-sm drop-shadow-black/25"
           priority
         />
       </div>

@@ -1,7 +1,16 @@
 import { toPlaylist, type Playlist } from '../components/media/playlist'
 import type { TrackImageInserts } from './shared'
 
-const breakImages: string[] = []
+const breakImages: string[] = [
+  'info_002.jpg',
+  'info_003.jpg',
+  'info_004.jpg',
+  'info_005.jpg',
+  'info_006.jpg',
+  'info_007.jpg',
+  'info_008.jpg',
+  'info_009.jpg',
+]
 
 // trackId ごとに、共通カルーセル(images)の「N枚目(1始まり)」に差し込む画像
 // 例: { 1: [{ position: 1, src: 'track_a_intro.jpg' }] }

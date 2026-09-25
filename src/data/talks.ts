@@ -54,7 +54,7 @@ export const talks: Talk[] = [
     speakers: [
       {
         id: 2,
-        name: '福井慎也',
+        name: '河野智則',
       },
     ],
     startTime: '2026-09-26T12:15:00+09:00',
