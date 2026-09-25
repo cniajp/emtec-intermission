@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type {
   CompanionConfig,
   ButtonCell,
@@ -9,105 +9,337 @@ type Props = {
   config: CompanionConfig
 }
 
+type Position = { row: number; col: number }
+
 function intToHex(n: number): string {
   return `#${n.toString(16).padStart(6, '0')}`
 }
 
+/**
+ * アクションを人が読める1行にする
+ */
 function summarizeAction(action: ActionInfo): string {
   const opts = action.options
   switch (action.definitionId) {
     case 'macroRunStart':
-      return `Run macro #${opts.MacroIndex}`
-    case 'send': {
-      const payload = String(opts.id_send ?? '')
-      return `Send "${payload}"`
-    }
+      return `マクロ #${opts.MacroIndex} を実行`
+    case 'send':
+      return `コマンド "${String(opts.id_send ?? '').trim()}" を送信`
     case 'set_scene':
-      return `Set scene → ${opts.scene}`
+      return `シーン「${opts.scene}」に切り替え`
     case 'set_page_byindex':
-      return `Go to page ${opts.page}`
+      return `ページ ${opts.page} へ移動`
     default:
       return action.definitionId
   }
 }
 
-const CONNECTION_CHIP_STYLES: Record<string, string> = {
-  'gostream-series': 'bg-purple-500/20 text-purple-300 border-purple-500/40',
-  'VR-6HD': 'bg-purple-500/20 text-purple-300 border-purple-500/40',
-  obs: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
-  internal: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+// 接続ごとの表示名と色。スイッチャー / OBS / Companion 自身
+const CONNECTIONS: Record<string, { label: string; className: string }> = {
+  'gostream-series': {
+    label: 'GoStream',
+    className: 'bg-purple-500/15 text-purple-300',
+  },
+  'VR-6HD': { label: 'VR-6HD', className: 'bg-purple-500/15 text-purple-300' },
+  obs: { label: 'OBS', className: 'bg-emerald-500/15 text-emerald-300' },
+  internal: {
+    label: 'Companion',
+    className: 'bg-amber-500/15 text-amber-300',
+  },
 }
 
-function connectionChipClass(label: string): string {
+function ConnectionChip({ label }: { label: string }) {
+  const conn = CONNECTIONS[label] ?? {
+    label,
+    className: 'bg-neutral-700/60 text-neutral-300',
+  }
   return (
-    CONNECTION_CHIP_STYLES[label] ??
-    'bg-neutral-700/60 text-neutral-300 border-neutral-600'
+    <span
+      className={`inline-block shrink-0 rounded-sm px-1.5 py-0.5 text-[10px] font-medium ${conn.className}`}
+    >
+      {conn.label}
+    </span>
   )
 }
 
-type ActionAccordionProps = {
-  index: number
-  action: ActionInfo
-  isOpen: boolean
-  onToggle: () => void
+// ボタンが切り替える OBS シーン (なければ null)
+function obsSceneOf(cell: ButtonCell): string | null {
+  const action = cell.actions.find((a) => a.definitionId === 'set_scene')
+  return action ? String(action.options.scene) : null
 }
 
-function ActionAccordion({
-  index,
-  action,
-  isOpen,
-  onToggle,
-}: ActionAccordionProps) {
-  const optionEntries = Object.entries(action.options)
+// ページ移動ボタンなら移動先の説明
+function pageMoveOf(cell: ButtonCell): string | null {
+  const action = cell.actions.find((a) => a.definitionId === 'set_page_byindex')
+  return action ? `ページ ${action.options.page} へ移動` : null
+}
+
+function positionLabel({ row, col }: Position) {
+  return `${row + 1}行 ${col + 1}列`
+}
+
+export default function CompanionPreview({ config }: Props) {
+  const [pageIndex, setPageIndex] = useState(0)
+  const [selected, setSelected] = useState<Position | null>(null)
+  const page = config.pagePreviews[pageIndex]
+  if (!page) return null
+
+  const selectedCell: ButtonCell | null = selected
+    ? page.buttons[selected.row][selected.col]
+    : null
+
+  const changePage = (next: number) => {
+    setPageIndex(next)
+    setSelected(null)
+  }
+
+  const handleCellClick = (row: number, col: number) => {
+    if (selected?.row === row && selected?.col === col) {
+      setSelected(null)
+    } else if (page.buttons[row][col]) {
+      setSelected({ row, col })
+    }
+  }
+
   return (
-    <div className="border border-neutral-700 rounded-sm overflow-hidden bg-neutral-950/40">
+    <div className="flex gap-5 items-start text-[12px] text-white">
+      <div className="shrink-0 flex flex-col gap-3">
+        {config.pagePreviews.length > 1 && (
+          <div className="inline-flex w-fit rounded-sm border border-neutral-600 bg-neutral-900 p-0.5">
+            {config.pagePreviews.map((p, i) => (
+              <button
+                key={p.name}
+                type="button"
+                onClick={() => changePage(i)}
+                className={`px-3 py-1 rounded-sm transition-colors ${
+                  i === pageIndex
+                    ? 'bg-blue-600 text-white'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                {p.name}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Stream Deck (5×3) を模した盤面 */}
+        <div className="rounded-xl border border-neutral-700 bg-neutral-950 p-3 shadow-inner">
+          <div className="grid grid-cols-5 gap-2">
+            {page.buttons.flatMap((row, rowIdx) =>
+              row.map((cell, colIdx) => {
+                const isSelected =
+                  selected?.row === rowIdx && selected?.col === colIdx
+                return (
+                  <button
+                    type="button"
+                    key={`${rowIdx}-${colIdx}`}
+                    onClick={() => handleCellClick(rowIdx, colIdx)}
+                    disabled={!cell}
+                    className={`w-[76px] h-[76px] rounded-lg p-1 flex items-center justify-center text-center text-[13px] font-medium leading-tight whitespace-pre-line break-all transition ${
+                      cell
+                        ? 'cursor-pointer border border-neutral-700 hover:border-neutral-400'
+                        : 'cursor-default border border-dashed border-neutral-800'
+                    } ${isSelected ? 'ring-2 ring-blue-400 ring-offset-2 ring-offset-neutral-950' : ''}`}
+                    style={
+                      cell
+                        ? {
+                            backgroundColor: intToHex(cell.bgcolor),
+                            color: intToHex(cell.color),
+                          }
+                        : undefined
+                    }
+                  >
+                    {cell?.text}
+                  </button>
+                )
+              })
+            )}
+          </div>
+        </div>
+        <p className="text-[11px] text-neutral-500">
+          ボタンをクリックすると実行内容を表示
+        </p>
+      </div>
+
+      <div className="flex-1 min-w-0 h-[380px] rounded-lg border border-neutral-700 bg-neutral-900 overflow-auto">
+        {selectedCell && selected ? (
+          <ButtonDetail
+            cell={selectedCell}
+            position={selected}
+            onClose={() => setSelected(null)}
+          />
+        ) : (
+          <PageSummary buttons={page.buttons} onSelect={handleCellClick} />
+        )}
+      </div>
+    </div>
+  )
+}
+
+/**
+ * 未選択時: このページのボタンと切り替わる OBS シーンの一覧
+ */
+function PageSummary({
+  buttons,
+  onSelect,
+}: {
+  buttons: (ButtonCell | null)[][]
+  onSelect: (row: number, col: number) => void
+}) {
+  const items = buttons.flatMap((row, r) =>
+    row.flatMap((cell, c) => (cell ? [{ cell, row: r, col: c }] : []))
+  )
+  return (
+    <div className="p-4">
+      <div className="mb-2 text-[11px] font-medium text-neutral-400">
+        このページのボタン
+      </div>
+      <table className="w-full">
+        <thead>
+          <tr className="text-left text-[11px] text-neutral-500">
+            <th className="pb-1.5 font-normal">位置</th>
+            <th className="pb-1.5 font-normal">ボタン</th>
+            <th className="pb-1.5 font-normal">OBS シーン</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.map(({ cell, row, col }) => {
+            const scene = obsSceneOf(cell)
+            return (
+              <tr
+                key={`${row}-${col}`}
+                onClick={() => onSelect(row, col)}
+                className="cursor-pointer border-t border-neutral-800 hover:bg-neutral-800/60"
+              >
+                <td className="py-1.5 pr-3 text-[11px] text-neutral-500 whitespace-nowrap">
+                  {positionLabel({ row, col })}
+                </td>
+                <td className="py-1.5 pr-3 whitespace-nowrap">
+                  {cell.text.replace(/\n/g, ' ')}
+                </td>
+                <td className="py-1.5 font-mono text-[11px] text-neutral-300">
+                  {scene ?? (
+                    <span className="font-sans text-neutral-500">
+                      {pageMoveOf(cell) ?? '—'}
+                    </span>
+                  )}
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+/**
+ * 選択時: ボタンが押されたときに順に実行されるアクション
+ */
+function ButtonDetail({
+  cell,
+  position,
+  onClose,
+}: {
+  cell: ButtonCell
+  position: Position
+  onClose: () => void
+}) {
+  return (
+    <div className="p-4 flex flex-col gap-4">
+      <div className="flex items-start gap-3">
+        <div
+          className="w-12 h-12 shrink-0 rounded-md border border-neutral-700 flex items-center justify-center text-center text-[10px] leading-tight whitespace-pre-line"
+          style={{
+            backgroundColor: intToHex(cell.bgcolor),
+            color: intToHex(cell.color),
+          }}
+        >
+          {cell.text}
+        </div>
+        <div className="min-w-0">
+          <div className="text-[14px] font-bold whitespace-pre-line">
+            {cell.text.replace(/\n/g, ' ') || '(ラベルなし)'}
+          </div>
+          <div className="text-[11px] text-neutral-500">
+            {positionLabel(position)} ・ 文字サイズ {cell.size}
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="ml-auto text-[11px] text-neutral-400 hover:text-white"
+        >
+          一覧に戻る
+        </button>
+      </div>
+
+      <div>
+        <div className="mb-2 text-[11px] font-medium text-neutral-400">
+          押したときの動作 ({cell.actions.length})
+        </div>
+        {cell.actions.length === 0 ? (
+          <div className="text-neutral-500">アクションなし</div>
+        ) : (
+          <ol className="flex flex-col gap-1.5">
+            {cell.actions.map((action, i) => (
+              <ActionItem key={i} index={i} action={action} />
+            ))}
+          </ol>
+        )}
+      </div>
+
+      <details>
+        <summary className="cursor-pointer select-none text-[11px] text-neutral-500 hover:text-neutral-300">
+          ボタンの JSON
+        </summary>
+        <pre className="mt-2 max-h-48 overflow-auto rounded-sm bg-black/50 p-2 text-[10px] text-neutral-300">
+          {JSON.stringify(cell.raw, null, 2)}
+        </pre>
+      </details>
+    </div>
+  )
+}
+
+function ActionItem({ index, action }: { index: number; action: ActionInfo }) {
+  const [open, setOpen] = useState(false)
+  const options = Object.entries(action.options)
+  return (
+    <li className="rounded-md border border-neutral-700 bg-neutral-950/40">
       <button
         type="button"
-        onClick={onToggle}
-        className="w-full flex items-center gap-2 px-2.5 py-2 hover:bg-neutral-800/60 transition-colors text-left"
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-neutral-800/60"
       >
+        <span className="w-4 shrink-0 text-[11px] text-neutral-500">
+          {index + 1}.
+        </span>
+        <ConnectionChip label={action.connectionLabel} />
+        <span className="flex-1 truncate">{summarizeAction(action)}</span>
         <span
-          className={`inline-block w-3 transition-transform text-neutral-500 ${
-            isOpen ? 'rotate-90' : ''
-          }`}
+          className={`shrink-0 text-[10px] text-neutral-500 transition-transform ${open ? 'rotate-90' : ''}`}
         >
           ▶
         </span>
-        <span className="text-neutral-500 font-mono text-[10px] w-4">
-          {index + 1}
-        </span>
-        <span
-          className={`inline-block px-1.5 py-0.5 rounded border text-[10px] font-mono ${connectionChipClass(
-            action.connectionLabel
-          )}`}
-        >
-          {action.connectionLabel}
-        </span>
-        <span className="text-neutral-200 flex-1 truncate">
-          {action.headline ?? summarizeAction(action)}
-        </span>
-        <span className="text-neutral-500 text-[10px] font-mono shrink-0">
-          {action.definitionId}
-        </span>
       </button>
-      {isOpen && (
-        <div className="px-3 py-2 border-t border-neutral-800 bg-black/30 space-y-2">
-          {action.headline && (
-            <div className="text-[11px] text-neutral-400">
-              {summarizeAction(action)}
-            </div>
-          )}
-          {optionEntries.length === 0 ? (
-            <div className="text-neutral-500 text-[11px]">No options</div>
+      {open && (
+        <div className="border-t border-neutral-800 px-3 py-2 text-[11px]">
+          <div className="mb-1 font-mono text-neutral-500">
+            {action.definitionId}
+            {action.headline && ` — ${action.headline}`}
+          </div>
+          {options.length === 0 ? (
+            <div className="text-neutral-500">オプションなし</div>
           ) : (
-            <table className="w-full font-mono text-[11px]">
+            <table className="w-full font-mono">
               <tbody>
-                {optionEntries.map(([k, v]) => (
+                {options.map(([k, v]) => (
                   <tr key={k} className="align-top">
-                    <td className="text-neutral-500 pr-3 py-0.5 whitespace-nowrap">
+                    <td className="py-0.5 pr-3 whitespace-nowrap text-neutral-500">
                       {k}
                     </td>
-                    <td className="text-neutral-200 py-0.5 break-all">
+                    <td className="py-0.5 break-all text-neutral-200">
                       {JSON.stringify(v)}
                     </td>
                   </tr>
@@ -117,210 +349,6 @@ function ActionAccordion({
           )}
         </div>
       )}
-    </div>
-  )
-}
-
-export default function CompanionPreview({ config }: Props) {
-  const [pageIndex, setPageIndex] = useState(0)
-  const [selected, setSelected] = useState<{
-    row: number
-    col: number
-  } | null>(null)
-  const [openActions, setOpenActions] = useState<Set<number>>(new Set())
-  const totalPages = config.pagePreviews.length
-  const page = config.pagePreviews[pageIndex]
-
-  const selectedCell: ButtonCell | null =
-    selected !== null && page ? page.buttons[selected.row][selected.col] : null
-
-  // 選択が変わったらアコーディオンを初期化（最初のアクションだけ展開）
-  useEffect(() => {
-    if (selectedCell && selectedCell.actions.length > 0) {
-      setOpenActions(new Set([0]))
-    } else {
-      setOpenActions(new Set())
-    }
-  }, [selected, pageIndex, selectedCell])
-
-  if (!page) return null
-
-  const changePage = (next: number) => {
-    setPageIndex(next)
-    setSelected(null)
-  }
-
-  const handleCellClick = (row: number, col: number) => {
-    if (selected && selected.row === row && selected.col === col) {
-      setSelected(null)
-    } else if (page.buttons[row][col]) {
-      setSelected({ row, col })
-    }
-  }
-
-  const toggleAction = (i: number) => {
-    setOpenActions((prev) => {
-      const next = new Set(prev)
-      if (next.has(i)) next.delete(i)
-      else next.add(i)
-      return next
-    })
-  }
-
-  const allOpen =
-    selectedCell !== null &&
-    selectedCell.actions.length > 0 &&
-    openActions.size === selectedCell.actions.length
-
-  const toggleAllActions = () => {
-    if (!selectedCell) return
-    if (allOpen) {
-      setOpenActions(new Set())
-    } else {
-      setOpenActions(new Set(selectedCell.actions.map((_, i) => i)))
-    }
-  }
-
-  return (
-    <div className="text-white flex flex-wrap gap-4 items-start">
-      <div className="shrink-0">
-        <div className="flex items-center justify-center gap-4 mb-4">
-          <button
-            onClick={() => changePage(Math.max(0, pageIndex - 1))}
-            disabled={pageIndex === 0}
-            className="px-3 py-1 bg-gray-700 rounded-sm disabled:opacity-30"
-          >
-            ←
-          </button>
-          <span className="font-mono">
-            {page.name} ({pageIndex + 1} / {totalPages})
-          </span>
-          <button
-            onClick={() => changePage(Math.min(totalPages - 1, pageIndex + 1))}
-            disabled={pageIndex === totalPages - 1}
-            className="px-3 py-1 bg-gray-700 rounded-sm disabled:opacity-30"
-          >
-            →
-          </button>
-        </div>
-
-        <div className="inline-block bg-gray-900 p-2 rounded-sm">
-          {page.buttons.map((row, rowIdx) => (
-            <div key={rowIdx} className="flex">
-              {row.map((cell, colIdx) => {
-                const isSelected =
-                  selected?.row === rowIdx && selected?.col === colIdx
-                return (
-                  <button
-                    type="button"
-                    key={colIdx}
-                    onClick={() => handleCellClick(rowIdx, colIdx)}
-                    disabled={!cell}
-                    className={[
-                      'w-20 h-20 m-1 rounded-sm flex items-center justify-center text-center text-xs leading-tight whitespace-pre-line break-all p-1 border transition-all',
-                      cell
-                        ? 'cursor-pointer hover:brightness-125'
-                        : 'cursor-default',
-                      isSelected
-                        ? 'border-blue-400 ring-2 ring-blue-400'
-                        : 'border-gray-700',
-                    ].join(' ')}
-                    style={{
-                      backgroundColor: cell
-                        ? intToHex(cell.bgcolor)
-                        : '#1f2937',
-                      color: cell ? intToHex(cell.color) : '#4b5563',
-                    }}
-                  >
-                    {cell ? cell.text : ''}
-                  </button>
-                )
-              })}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex-1 min-w-[420px] bg-neutral-900 border border-neutral-700 rounded-sm text-xs min-h-[440px] max-h-[680px] overflow-auto">
-        {selectedCell ? (
-          <div className="p-3">
-            <div className="pb-3 mb-3 border-b border-neutral-800">
-              <div className="flex items-baseline gap-2 mb-1.5">
-                <span className="text-[10px] font-mono text-neutral-500 px-1.5 py-0.5 bg-neutral-800 rounded-sm border border-neutral-700">
-                  R{selected!.row}·C{selected!.col}
-                </span>
-                <span className="text-white font-semibold whitespace-pre-line">
-                  {selectedCell.text || '(empty)'}
-                </span>
-              </div>
-              <div className="flex items-center gap-3 text-[10px] font-mono text-neutral-500">
-                <span>size {selectedCell.size}</span>
-                <span className="flex items-center gap-1">
-                  <span
-                    className="w-3 h-3 rounded-xs border border-neutral-700"
-                    style={{ backgroundColor: intToHex(selectedCell.color) }}
-                  />
-                  {intToHex(selectedCell.color)}
-                </span>
-                <span className="flex items-center gap-1">
-                  <span
-                    className="w-3 h-3 rounded-xs border border-neutral-700"
-                    style={{ backgroundColor: intToHex(selectedCell.bgcolor) }}
-                  />
-                  {intToHex(selectedCell.bgcolor)}
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-neutral-400 text-[11px] font-medium uppercase tracking-wider">
-                Actions
-                <span className="ml-1.5 text-neutral-600">
-                  ({selectedCell.actions.length})
-                </span>
-              </div>
-              {selectedCell.actions.length > 1 && (
-                <button
-                  type="button"
-                  onClick={toggleAllActions}
-                  className="text-[10px] text-neutral-400 hover:text-neutral-200 transition-colors"
-                >
-                  {allOpen ? 'Collapse all' : 'Expand all'}
-                </button>
-              )}
-            </div>
-
-            {selectedCell.actions.length === 0 ? (
-              <div className="text-neutral-500 italic">No actions</div>
-            ) : (
-              <div className="space-y-1.5">
-                {selectedCell.actions.map((a, i) => (
-                  <ActionAccordion
-                    key={i}
-                    index={i}
-                    action={a}
-                    isOpen={openActions.has(i)}
-                    onToggle={() => toggleAction(i)}
-                  />
-                ))}
-              </div>
-            )}
-
-            <details className="mt-3 group">
-              <summary className="cursor-pointer text-neutral-500 hover:text-neutral-300 select-none text-[10px] uppercase tracking-wider">
-                Raw JSON
-              </summary>
-              <pre className="mt-2 p-2 bg-black/50 rounded-sm text-[10px] text-neutral-300 overflow-auto max-h-48">
-                {JSON.stringify(selectedCell.raw, null, 2)}
-              </pre>
-            </details>
-          </div>
-        ) : (
-          <div className="p-6 text-neutral-500 text-center">
-            Click a button to see its actions
-          </div>
-        )}
-      </div>
-    </div>
+    </li>
   )
 }

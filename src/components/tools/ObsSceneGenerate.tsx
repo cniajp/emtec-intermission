@@ -1,3 +1,5 @@
+import { OBS_SCENE, attackSceneName, talkSceneName } from './obsSceneNames'
+
 type Props = {
   eventAbbr: string | string[]
   confDay: string | string[]
@@ -7,18 +9,41 @@ type Props = {
   includeBackground?: boolean
   includeCountdown?: boolean
   includeSimul?: boolean
+  // サイマルの取り込み方。vlc: HLS などを VLC ソースで再生 / browser: Web プレイヤーをブラウザソースで表示
+  simulType?: SimulType
   simulUrl?: string
   os?: 'windows' | 'mac'
   username?: string
+  // 各ソースの音量 (dB)。OBS の音声ミキサーと同じ単位で指定する
+  talkVolumeDb?: number
+  countdownVolumeDb?: number
+  simulVolumeDb?: number
 }
 
 const IMAGE_FUTA_UUID = 'dcad48eb-ec3f-42fa-a976-5d99b417a9da'
 const DEFAULT_SIMUL_URL = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'
 
+export type SimulType = 'vlc' | 'browser'
+
 type template = {
   name: string
   url_path?: string
   full_url?: string
+}
+
+/**
+ * dB を OBS の JSON に保存される線形の volume (倍率) に変換
+ */
+function dbToVolume(db: number): number {
+  return Math.pow(10, db / 20)
+}
+
+/**
+ * クエリパラメータの dB 値をパース。未指定・不正値は 0dB (等倍)
+ */
+export function parseVolumeDb(value: string | string[] | undefined): number {
+  const n = Number(Array.isArray(value) ? value[0] : value)
+  return Number.isFinite(n) ? n : 0
 }
 
 /**
@@ -467,7 +492,8 @@ function createSceneWithAttackVideo(
 function createVlcSource(
   name: string,
   sourceUuid: string,
-  playlistUrl: string
+  playlistUrl: string,
+  volume: number = 1.0
 ) {
   return {
     prev_ver: 536870913,
@@ -488,7 +514,7 @@ function createVlcSource(
     mixers: 255,
     sync: 0,
     flags: 0,
-    volume: 1.0,
+    volume,
     balance: 0.5,
     enabled: true,
     muted: false,
@@ -515,16 +541,16 @@ function createVlcSource(
 }
 
 /**
- * サイマルシーンを作成（VLCソースを1つ含む）
+ * サイマルシーンを作成（VLC またはブラウザのソースを1つ含む）
  */
 function createSimulScene(
   sceneUuid: string,
-  vlcSourceName: string,
-  vlcSourceUuid: string
+  sourceName: string,
+  sourceUuid: string
 ) {
   return {
     prev_ver: 536870913,
-    name: 'サイマル',
+    name: OBS_SCENE.simul,
     uuid: sceneUuid,
     id: 'scene',
     versioned_id: 'scene',
@@ -533,8 +559,8 @@ function createSimulScene(
       custom_size: false,
       items: [
         {
-          name: vlcSourceName,
-          source_uuid: vlcSourceUuid,
+          name: sourceName,
+          source_uuid: sourceUuid,
           visible: true,
           locked: false,
           rot: 0.0,
@@ -700,9 +726,13 @@ export default function ObsSceneGenerate({
   includeBackground = false,
   includeCountdown = false,
   includeSimul = false,
+  simulType = 'vlc',
   simulUrl = DEFAULT_SIMUL_URL,
   os = 'windows',
   username = 'emtec',
+  talkVolumeDb = 0,
+  countdownVolumeDb = 0,
+  simulVolumeDb = 0,
 }: Props) {
   const host = window.location.host
   const protocol = window.location.protocol
@@ -719,18 +749,18 @@ export default function ObsSceneGenerate({
   const generateObsConfig = async () => {
     // シーン順序を構築
     const sceneOrder: { name: string }[] = [
-      { name: 'FUTA' },
-      { name: '------' },
+      { name: OBS_SCENE.futa },
+      { name: OBS_SCENE.separator },
     ]
     if (includeCountdown) {
-      sceneOrder.push({ name: 'CountDown' })
+      sceneOrder.push({ name: OBS_SCENE.countdown })
     }
     sceneOrder.push({ name: '-------' })
 
     // サイマルを CountDown と '-------' の間に挿入
     if (includeSimul) {
       const insertIndex = sceneOrder.findIndex((s) => s.name === '-------')
-      sceneOrder.splice(insertIndex, 0, { name: 'サイマル' })
+      sceneOrder.splice(insertIndex, 0, { name: OBS_SCENE.simul })
     }
 
     console.log('eventName:', eventName)
@@ -753,14 +783,35 @@ export default function ObsSceneGenerate({
     const separatorScenes = await loadSeparatorScenes()
     sources.push(...separatorScenes)
 
-    // サイマルシーンとVLCソースを追加
+    // サイマルシーンとソース (VLC / ブラウザ) を追加。
+    // シーン名は種別によらず OBS_SCENE.simul (Companion の TrackA ボタンが参照する)
     if (includeSimul) {
-      const vlcSourceUuid = generateUUID()
+      const simulSourceUuid = generateUUID()
       const simulSceneUuid = generateUUID()
+      const simulVolume = dbToVolume(simulVolumeDb)
+      const simulSourceName =
+        simulType === 'browser' ? 'Browser_サイマル' : 'VLC_サイマル'
       sources.push(
-        createSimulScene(simulSceneUuid, 'VLC_サイマル', vlcSourceUuid)
+        createSimulScene(simulSceneUuid, simulSourceName, simulSourceUuid)
       )
-      sources.push(createVlcSource('VLC_サイマル', vlcSourceUuid, simulUrl))
+      sources.push(
+        simulType === 'browser'
+          ? // 裏で再生し続けて切り替えた瞬間に映るよう、非表示でも止めない
+            createBrowserSource(
+              simulSourceName,
+              simulUrl,
+              simulSourceUuid,
+              false,
+              false,
+              simulVolume
+            )
+          : createVlcSource(
+              simulSourceName,
+              simulSourceUuid,
+              simulUrl,
+              simulVolume
+            )
+      )
     }
 
     // アタック動画用の一時リスト
@@ -769,7 +820,7 @@ export default function ObsSceneGenerate({
     // テンプレートからシーンとブラウザソースを生成
     template.forEach((tmpl) => {
       const isDefault = tmpl.name !== 'Slido'
-      const sceneName = isDefault ? tmpl.name + ' ~' : tmpl.name
+      const sceneName = isDefault ? talkSceneName(tmpl.name) : tmpl.name
       const browserName = `Browser_${tmpl.name}`
       const browserUuid = generateUUID()
       const sceneUuid = generateUUID()
@@ -794,23 +845,25 @@ export default function ObsSceneGenerate({
         generateSceneUrl(protocol, host, tmpl),
         browserUuid,
         isDefault ? true : false,
-        isDefault ? true : false
+        isDefault ? true : false,
+        // Slido は音声を持たないので等倍のまま
+        isDefault ? dbToVolume(talkVolumeDb) : 1.0
       )
       sources.push(browserSource)
 
       // アタック動画シーンを作成（includeAttack=trueかつ通常のトーク枠の場合）
       if (includeAttack && isDefault) {
-        const attackSceneName = `Attack_${tmpl.name}`
+        const attackSceneTitle = attackSceneName(tmpl.name)
         const attackVideoName = `Movie_Attack_${tmpl.name}`
         const attackVideoUuid = generateUUID()
         const attackSceneUuid = generateUUID()
 
         // アタック動画シーン順序を一時リストに追加
-        attackSceneOrders.push({ name: attackSceneName })
+        attackSceneOrders.push({ name: attackSceneTitle })
 
         // アタック動画シーンを作成
         const attackScene = createSceneWithAttackVideo(
-          attackSceneName,
+          attackSceneTitle,
           attackVideoName,
           attackVideoUuid,
           attackSceneUuid
@@ -846,7 +899,7 @@ export default function ObsSceneGenerate({
       ? fixedSources
       : fixedSources.filter(
           (s) =>
-            (s as { name?: string }).name !== 'CountDown' &&
+            (s as { name?: string }).name !== OBS_SCENE.countdown &&
             (s as { name?: string }).name !== 'Movie_CountDown'
         )
     sources.push(...filteredFixed)
@@ -858,12 +911,13 @@ export default function ObsSceneGenerate({
         (s) =>
           (s as { name?: string; id?: string }).name === 'Movie_CountDown' &&
           (s as { name?: string; id?: string }).id === 'ffmpeg_source'
-      ) as { settings?: Record<string, unknown> } | undefined
+      ) as { settings?: Record<string, unknown>; volume?: number } | undefined
       if (movieCountdown) {
         movieCountdown.settings = {
           ...movieCountdown.settings,
           local_file: countdownPath,
         }
+        movieCountdown.volume = dbToVolume(countdownVolumeDb)
       }
     }
 
@@ -893,8 +947,10 @@ export default function ObsSceneGenerate({
 
     // 完全なOBS設定を構築
     const obsConfig = {
-      current_scene: includeCountdown ? 'CountDown' : 'FUTA',
-      current_program_scene: includeCountdown ? 'CountDown' : 'FUTA',
+      current_scene: includeCountdown ? OBS_SCENE.countdown : OBS_SCENE.futa,
+      current_program_scene: includeCountdown
+        ? OBS_SCENE.countdown
+        : OBS_SCENE.futa,
       scene_order: sceneOrder,
       name: eventName,
       groups: [],

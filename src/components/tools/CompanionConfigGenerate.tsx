@@ -1,12 +1,46 @@
-type Props = {
+import { OBS_SCENE, attackSceneName, talkSceneName } from './obsSceneNames'
+import type { ParsedUrlQuery } from 'querystring'
+
+// エクスポート画面で選ぶ項目。URL (`/break/companion?...`) でも同じものを受け渡す
+export type CompanionOptions = {
   device: 'gostream' | 'vr6hd'
-  times: string[]
   specialButtons: {
     count?: boolean
     trackA?: boolean
     slido?: boolean
   }
   includeAttack?: boolean
+}
+
+type Props = CompanionOptions & {
+  times: string[]
+}
+
+export function companionOptionsToQuery(
+  options: CompanionOptions
+): Record<string, string> {
+  return {
+    device: options.device,
+    count: String(!!options.specialButtons.count),
+    trackA: String(!!options.specialButtons.trackA),
+    slido: String(!!options.specialButtons.slido),
+    includeAttack: String(!!options.includeAttack),
+  }
+}
+
+export function companionOptionsFromQuery(
+  query: ParsedUrlQuery
+): CompanionOptions {
+  const flag = (key: string) => query[key] === 'true'
+  return {
+    device: query.device === 'vr6hd' ? 'vr6hd' : 'gostream',
+    specialButtons: {
+      count: flag('count'),
+      trackA: flag('trackA'),
+      slido: flag('slido'),
+    },
+    includeAttack: flag('includeAttack'),
+  }
 }
 
 export type ActionInfo = {
@@ -61,19 +95,19 @@ const LAYOUT_BUTTONS = [
 const SPECIAL_BUTTONS = {
   count: {
     text: 'Count',
-    obsScene: 'CountDown',
+    obsScene: OBS_SCENE.countdown,
     macroIndex: 5,
     dthCode: '01',
   },
   trackA: {
     text: 'TrackA',
-    obsScene: 'サイマル',
+    obsScene: OBS_SCENE.simul,
     macroIndex: 5,
     dthCode: '01',
   },
   slido: {
     text: 'Slido',
-    obsScene: '------',
+    obsScene: OBS_SCENE.separator,
     macroIndex: 6,
     dthCode: '99',
   },
@@ -399,7 +433,7 @@ export function buildCompanionConfig({
     const timeButtons: ButtonItem[] = times.map((time) => ({
       type: 'time' as const,
       text: time,
-      obsScene: `${time} ~`,
+      obsScene: talkSceneName(time),
       macroIndex: 5,
       dthCode: '01',
     }))
@@ -409,7 +443,7 @@ export function buildCompanionConfig({
       ? times.map((time) => ({
           type: 'time' as const,
           text: `Video\n${time}`,
-          obsScene: `Attack_${time}`,
+          obsScene: attackSceneName(time),
           macroIndex: 5,
           dthCode: '01',
         }))
@@ -493,7 +527,11 @@ export function buildCompanionConfig({
           actions.push(...createVR6HDActions(deviceConnectionId, btn.dthCode))
         }
         actions.push(
-          createObsSetSceneAction(obsConnectionId, '------', 'Clear OBS scene')
+          createObsSetSceneAction(
+            obsConnectionId,
+            OBS_SCENE.separator,
+            'Clear OBS scene'
+          )
         )
         controls['0'][col.toString()] = createButton(btn.text, '18', actions)
       })
@@ -668,13 +706,19 @@ function extractPreviewGrid(
   return grid
 }
 
-export function downloadCompanionConfig(config: CompanionConfig) {
+/**
+ * ダウンロードする。ファイル名は OBS 側 (obs_scene_{event}_day{N}_track{name}.json) と揃える
+ */
+export function downloadCompanionConfig(
+  config: CompanionConfig,
+  target: { eventAbbr: string; confDay: string; trackName: string }
+) {
   const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
     JSON.stringify(config.json, null, 2)
   )}`
   const link = document.createElement('a')
   link.href = jsonString
-  link.download = `companion_${config.device}.companionconfig`
+  link.download = `companion_${target.eventAbbr}_day${target.confDay}_track${target.trackName}_${config.device}.companionconfig`
 
   document.body.appendChild(link)
   link.click()
