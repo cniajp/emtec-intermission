@@ -22,6 +22,7 @@ export function makeBrand(overrides?: {
       useHashTagAsTrackName: false,
       defaultAvatarSrc: '',
       headerLogoSrc: '',
+      headerLogoShadow: false,
       headerBackgroundColor: '',
     },
     page1: { seconds: 10, cardBackgroundColor: '', cardTextColor: '' },
