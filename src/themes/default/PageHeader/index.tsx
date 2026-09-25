@@ -42,7 +42,11 @@ export default function Header({ view }: Props) {
           style={{ height: '110px', width: 'auto', maxWidth: '450px' }}
           /* 透過PNGの輪郭に沿わせたいので box-shadow ではなく drop-shadow。
              右側のテキストの text-shadow と同程度の控えめな濃さに合わせる */
-          className="drop-shadow-sm drop-shadow-black/25"
+          className={
+            brand.base.headerLogoShadow
+              ? 'drop-shadow-sm drop-shadow-black/25'
+              : undefined
+          }
           priority
         />
       </div>

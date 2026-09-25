@@ -56,6 +56,7 @@ export const breakConfig = {
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
     headerLogoSrc: '/pek2026/title.png',
+    headerLogoShadow: true,
     // 公式サイトの primary-700
     headerBackgroundColor: '#005a93',
   },

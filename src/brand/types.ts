@@ -22,6 +22,8 @@ export interface Brand {
     defaultAvatarSrc: string
     // Page ヘッダに使うロゴ画像
     headerLogoSrc: string
+    // ヘッダロゴに drop-shadow を付けるか (背景とロゴの色が近く輪郭が埋もれるとき用)
+    headerLogoShadow: boolean
     // Page ヘッダの帯背景色 (Tailwind 経由できないので raw で持つ)
     headerBackgroundColor: string
   }

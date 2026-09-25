@@ -45,6 +45,7 @@ export const breakDkConfig = {
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
     headerLogoSrc: '/kinoko2026/title.png',
+    headerLogoShadow: false,
     headerBackgroundColor: '#763F03',
   },
   page1: {
