@@ -1,6 +1,9 @@
-import ObsSceneGenerate from '@/components/tools/ObsSceneGenerate'
+import ObsSceneGenerate, {
+  parseVolumeDb,
+} from '@/components/tools/ObsSceneGenerate'
+import { sceneTimeOf } from '@/components/tools/obsSceneNames'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import config from '@/config'
 import { Talk } from '@/data/types'
 import {
@@ -12,6 +15,8 @@ import {
 export default function ObsPage() {
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
+  // router は遷移中にも更新されるので、二重ダウンロードしないよう1回に限る
+  const done = useRef(false)
   const {
     confDay,
     trackName,
@@ -19,9 +24,13 @@ export default function ObsPage() {
     includeBackground,
     includeCountdown,
     includeSimul,
+    simulType,
     simulUrl,
     os,
     username,
+    talkVolumeDb,
+    countdownVolumeDb,
+    simulVolumeDb,
   } = router.query
   const { dkEventAbbr } = config
 
@@ -40,7 +49,16 @@ export default function ObsPage() {
     eventResult.data?.conferenceDays?.[Number(confDay)]?.id
 
   useEffect(() => {
-    if (!isClient) return
+    if (!isClient || !router.isReady || done.current) return
+    // URL を直接開いたときは API の取得を待つ (キャッシュが無いので最初は未取得)
+    if (
+      eventResult.isLoading ||
+      trackResult.isLoading ||
+      talkResult.isLoading
+    ) {
+      return
+    }
+    done.current = true
 
     if (!eventResult.data) {
       alert('Event data not found')
@@ -96,13 +114,10 @@ export default function ObsPage() {
     })
 
     const template: { name: string; url_path: string }[] = talkList.map(
-      (talk) => {
-        const startTime = new Date(talk.startTime)
-        const hours = startTime.getHours().toString().padStart(2, '0')
-        const minutes = startTime.getMinutes().toString().padStart(2, '0')
-        const formattedTime = `${hours}:${minutes}`
-        return { name: formattedTime, url_path: `/break-dk/talks/${talk.id}` }
-      }
+      (talk) => ({
+        name: sceneTimeOf(talk.startTime),
+        url_path: `/break-dk/talks/${talk.id}`,
+      })
     )
 
     if (nextDayId) {
@@ -123,15 +138,22 @@ export default function ObsPage() {
       includeBackground: includeBackground === 'true',
       includeCountdown: includeCountdown === 'true',
       includeSimul: includeSimul === 'true',
+      simulType: simulType === 'browser' ? 'browser' : 'vlc',
       simulUrl: (simulUrl as string) || undefined,
       os: (os as 'windows' | 'mac') || 'windows',
       username: (username as string) || 'emtec',
+      talkVolumeDb: parseVolumeDb(talkVolumeDb),
+      countdownVolumeDb: parseVolumeDb(countdownVolumeDb),
+      simulVolumeDb: parseVolumeDb(simulVolumeDb),
     })
 
     // menuページにリダイレクト
     router.push(`/break-dk/menu/${confDay}`)
   }, [
     isClient,
+    eventResult.isLoading,
+    trackResult.isLoading,
+    talkResult.isLoading,
     eventResult.data,
     trackResult.data,
     talkResult.data,
