@@ -4,6 +4,7 @@ import { buildPage3Images } from '@/staticConfig'
 import type { Optional } from '@/utils/types'
 import type { TalkView } from '@/logic/models/talkView'
 import { PageCtx } from '@/logic/page-flow/PageContext'
+import { useAnnouncePageEnd } from '@/logic/page-flow/usePageTransition'
 import { useBrand } from '@/brand/BrandProvider'
 
 export type Page3ViewModel = {
@@ -29,7 +30,9 @@ export function usePage3ViewModel(view: Optional<TalkView>): Page3ViewModel {
   )
   const isEmpty = mergedImages.length === 0
 
-  const { count } = useCounter(config.transTimePage3 ?? secondsPerImage)
+  const perImage = config.transTimePage3 ?? secondsPerImage
+  const { count } = useCounter(perImage)
+  useAnnouncePageEnd(isEmpty ? null : mergedImages.length * perImage)
   const { goNextPage } = useContext(PageCtx)
 
   useEffect(() => {

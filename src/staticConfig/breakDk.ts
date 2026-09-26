@@ -36,6 +36,9 @@ export const breakDkConfig = {
     loadingLogoShape: 'none',
     backgroundSrc: '/cnk2026/new/background.jpg',
     audioSrcs: ['/cnk2026/bgm.mp3'],
+    audioShuffle: true,
+    audioFadeSeconds: 3,
+    audioFadeOutBeforeCm: true,
     hashTag: {
       all: 'cloudnativekaigi',
       break: 'cloudnativekaigi_',

@@ -24,6 +24,10 @@ type PageCtxType = {
   isNextVideoAvailable: boolean
   registerNextVideo: (handler: (() => void) | null) => void
   invokeNextVideo: () => void
+  // 表示中のページが次へ遷移する予定時刻（performance.now() 基準の ms）。
+  // 終わりが決まっていないページ（動画の Page4 など）では null。BGM のフェードアウトに使う
+  pageEndsAt: number | null
+  setPageEndsAt: (endsAt: number | null) => void
 }
 
 export const PageCtx = createContext<PageCtxType>({
@@ -36,6 +40,8 @@ export const PageCtx = createContext<PageCtxType>({
   isNextVideoAvailable: false,
   registerNextVideo: () => {},
   invokeNextVideo: () => {},
+  pageEndsAt: null,
+  setPageEndsAt: () => {},
 })
 
 export const PageCtxProvider = (props: PropsWithChildren) => {
@@ -45,6 +51,7 @@ export const PageCtxProvider = (props: PropsWithChildren) => {
   const [timeDrift, setTimeDrift] = useState<boolean>(false)
   const [isNextVideoAvailable, setIsNextVideoAvailable] = useState(false)
   const nextVideoRef = useRef<(() => void) | null>(null)
+  const [pageEndsAt, setPageEndsAt] = useState<number | null>(null)
 
   const goNextPage = useCallback(() => {
     setCurrent((current + 1) % totalPage)
@@ -90,6 +97,8 @@ export const PageCtxProvider = (props: PropsWithChildren) => {
     isNextVideoAvailable,
     registerNextVideo,
     invokeNextVideo,
+    pageEndsAt,
+    setPageEndsAt,
   }
 
   return <PageCtx.Provider value={ctx}>{props.children}</PageCtx.Provider>

@@ -43,6 +43,7 @@ function Pages() {
     goNextPage,
     isNextVideoAvailable,
     invokeNextVideo,
+    pageEndsAt,
   } = useContext(PageCtx)
 
   const { view } = dataSource.useTalkView(
@@ -79,9 +80,16 @@ function Pages() {
     loadingLogoShape,
     backgroundSrc,
     audioSrcs,
+    audioShuffle,
+    audioFadeSeconds,
+    audioFadeOutBeforeCm,
   } = activeBrand.base
 
   const shouldPlayAudio = pages[current].name !== 'Page4'
+  // 次が Page4（CM）なら、今のページの終わりに向けて BGM をフェードアウトする
+  const nextPageName = pages[(current + 1) % pages.length].name
+  const fadeOutBeforeCmAt =
+    audioFadeOutBeforeCm && nextPageName === 'Page4' ? pageEndsAt : null
 
   return (
     <>
@@ -97,7 +105,13 @@ function Pages() {
         onGoNext={goNextPage}
         onNextVideo={isNextVideoAvailable ? invokeNextVideo : null}
       />
-      <AudioPlayer srcs={audioSrcs} shouldPlay={shouldPlayAudio} />
+      <AudioPlayer
+        srcs={audioSrcs}
+        shuffle={audioShuffle}
+        fadeSeconds={audioFadeSeconds}
+        fadeOutAt={fadeOutBeforeCmAt}
+        shouldPlay={shouldPlayAudio}
+      />
       <AvatarPreLoader view={view} />
       <Page3ImagePreLoader view={view} />
       <div className="w-[1920px] h-[1080px] relative">

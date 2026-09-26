@@ -23,6 +23,8 @@ function wrapper(goNextPage: jest.Mock) {
             isNextVideoAvailable: false,
             registerNextVideo: jest.fn(),
             invokeNextVideo: jest.fn(),
+            pageEndsAt: null,
+            setPageEndsAt: jest.fn(),
           }}
         >
           {children}
