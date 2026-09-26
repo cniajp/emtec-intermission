@@ -4,7 +4,7 @@ import { PageCtx } from '@/logic/page-flow/PageContext'
 import { useTimedPageTransition } from '@/logic/page-flow/usePageTransition'
 import { now } from '@/utils/time'
 
-function makeWrapper(goNextPage: jest.Mock) {
+function makeWrapper(goNextPage: jest.Mock, setPageEndsAt = jest.fn()) {
   return function Wrapper({ children }: PropsWithChildren) {
     return (
       <PageCtx.Provider
@@ -18,6 +18,8 @@ function makeWrapper(goNextPage: jest.Mock) {
           isNextVideoAvailable: false,
           registerNextVideo: jest.fn(),
           invokeNextVideo: jest.fn(),
+          pageEndsAt: null,
+          setPageEndsAt,
         }}
       >
         {children}
@@ -59,5 +61,22 @@ describe('useTimedPageTransition', () => {
       jest.advanceTimersByTime(10_000)
     })
     expect(goNextPage).not.toHaveBeenCalled()
+  })
+
+  it('終了予定時刻（N秒後）を知らせ、unmount で取り消す', () => {
+    jest.useFakeTimers()
+    const setPageEndsAt = jest.fn()
+    const before = performance.now()
+    const { unmount } = renderHook(() => useTimedPageTransition('Page1', 5), {
+      wrapper: makeWrapper(jest.fn(), setPageEndsAt),
+    })
+
+    expect(setPageEndsAt).toHaveBeenCalledTimes(1)
+    const endsAt = setPageEndsAt.mock.calls[0][0] as number
+    expect(endsAt - before).toBeGreaterThanOrEqual(5000)
+    expect(endsAt - before).toBeLessThan(5100)
+
+    unmount()
+    expect(setPageEndsAt).toHaveBeenLastCalledWith(null)
   })
 })

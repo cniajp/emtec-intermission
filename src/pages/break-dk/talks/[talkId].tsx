@@ -44,6 +44,7 @@ function Pages() {
     goNextPage,
     isNextVideoAvailable,
     invokeNextVideo,
+    pageEndsAt,
   } = useContext(PageCtx)
   const { isLoading: isDataLoading, view } = dataSource.useTalkView(
     typeof talkId === 'string' ? talkId : null
@@ -80,6 +81,8 @@ function Pages() {
   }, [current]) // eslint-disable-line react-hooks/exhaustive-deps
   // CM ありの場合
   const shouldPlayAudio = pages[current].name !== 'Page4'
+  // 次が Page4（CM）なら、今のページの終わりに向けて BGM をフェードアウトする
+  const nextPageName = pages[(current + 1) % pages.length].name
 
   const activeBrand = useBrand()
   const { classes } = useTheme()
@@ -89,7 +92,12 @@ function Pages() {
     loadingLogoShape,
     backgroundSrc,
     audioSrcs,
+    audioShuffle,
+    audioFadeSeconds,
+    audioFadeOutBeforeCm,
   } = activeBrand.base
+  const fadeOutBeforeCmAt =
+    audioFadeOutBeforeCm && nextPageName === 'Page4' ? pageEndsAt : null
 
   return (
     <>
@@ -104,7 +112,13 @@ function Pages() {
         onGoNext={goNextPage}
         onNextVideo={isNextVideoAvailable ? invokeNextVideo : null}
       />
-      <AudioPlayer srcs={audioSrcs} shouldPlay={shouldPlayAudio} />
+      <AudioPlayer
+        srcs={audioSrcs}
+        shuffle={audioShuffle}
+        fadeSeconds={audioFadeSeconds}
+        fadeOutAt={fadeOutBeforeCmAt}
+        shouldPlay={shouldPlayAudio}
+      />
       <AvatarPreLoader view={view} />
       <Page3ImagePreLoader view={view} />
       <div className="w-[1920px] h-[1080px] relative text-black overflow-hidden">

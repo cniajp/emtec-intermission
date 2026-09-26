@@ -17,6 +17,12 @@ export interface Brand {
     backgroundSrc: string
     // BGM。配列の順に再生し、末尾まで来たら先頭に戻る。空なら無音
     audioSrcs: ReadonlyArray<string>
+    // true なら audioSrcs をシャッフルして再生する（一周ごとに並べ直す）
+    audioShuffle: boolean
+    // 曲間のクロスフェード秒数。0 ならクロスフェードしない（Page4 へはフェードせず止める）
+    audioFadeSeconds: number
+    // 次が Page4（CM）のとき、その前のページの終わり 3 秒で BGM をフェードアウトするか
+    audioFadeOutBeforeCm: boolean
     hashTag: { all: string; break: string }
     useHashTagAsTrackName: boolean
     defaultAvatarSrc: string

@@ -47,6 +47,9 @@ export const breakConfig = {
       '/pek2026/bgm/02-cnk-theme-city-arrange.mp3',
       '/pek2026/bgm/03-rhodes-lounge.mp3',
     ],
+    audioShuffle: true,
+    audioFadeSeconds: 0,
+    audioFadeOutBeforeCm: true,
     hashTag: {
       all: 'PEK2026',
       break: '',
