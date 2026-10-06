@@ -1,77 +1,59 @@
 import { toPlaylist, type Playlist } from '../components/media/playlist'
 import type { TrackImageInserts } from './shared'
 
-const breakImages: string[] = [
-  'info_002.jpg',
-  'info_003.jpg',
-  'info_004.jpg',
-  'info_005.jpg',
-  'info_006.jpg',
-  'info_007.jpg',
-  'info_008.jpg',
-  'info_009.jpg',
-]
+// TODO: 告知画像が届いたら public/honoconf2026/info/ に置いて列挙する
+// (空の間は Page3 をスキップして次のページへ進む)
+const breakImages: string[] = []
 
 // trackId ごとに、共通カルーセル(images)の「N枚目(1始まり)」に差し込む画像
 // 例: { 1: [{ position: 1, src: 'track_a_intro.jpg' }] }
 const breakTrackImages: TrackImageInserts = {
   // 1: [{ position: 2, src: 'info_002.jpg' }],
   // 2: [{ position: 2, src: 'info_003.jpg' }],
-  // 3: [{ position: 2, src: 'info_004.jpg' }],
 }
 
-const breakPlaylist: Playlist = toPlaylist([
-  {
-    src: 'https://im-file.emtec.tv/pek2026/mercari.mp4',
-    type: 'video/mp4',
-  },
-  {
-    src: 'https://im-file.emtec.tv/pek2026/aws.mp4',
-    type: 'video/mp4',
-  },
-])
+// TODO: CM 動画が届いたら追加する
+const breakPlaylist: Playlist = toPlaylist([])
 
 export const breakConfig = {
   base: {
-    eventAbbr: 'pek2026',
-    loadingIconSrc: '/pek2026/logo-bg-white.png',
+    eventAbbr: 'honoconf2026',
+    loadingIconSrc: '/honoconf2026/logo.png',
     loadingEnabled: true,
     loadingLogoShape: 'circle',
-    backgroundSrc: '/pek2026/background.png',
-    audioSrcs: [
-      '/pek2026/bgm/01-busy-city-streets.mp3',
-      '/pek2026/bgm/02-cnk-theme-city-arrange.mp3',
-      '/pek2026/bgm/03-rhodes-lounge.mp3',
-    ],
+    // 公式サイト https://honoconf.dev/2026 の背景
+    backgroundSrc: '/honoconf2026/background.png',
+    // TODO: BGM を public/honoconf2026/bgm/ に置いて列挙する
+    audioSrcs: [],
     audioShuffle: true,
     audioFadeSeconds: 0,
     audioFadeOutBeforeCm: true,
     hashTag: {
-      all: 'PEK2026',
+      all: 'honoconf',
       break: '',
     },
     useHashTagAsTrackName: false,
-    defaultAvatarSrc: '/pek2026/logo-bg-white.png',
+    defaultAvatarSrc: '/honoconf2026/logo.png',
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
-    headerLogoSrc: '/pek2026/title.png',
-    headerLogoShadow: true,
-    // 公式サイトの primary-700
-    headerBackgroundColor: '#005a93',
+    // 公式サイトのロゴタイプ (白文字なので暗い背景色と組み合わせる)
+    headerLogoSrc: '/honoconf2026/title.png',
+    headerLogoShadow: false,
+    headerBackgroundColor: '#000000',
   },
   page1: {
     seconds: 32.5,
-    // 公式サイトの primary-500
-    cardBackgroundColor: '#0087d7',
+    // 公式サイトのアクセントカラー
+    cardBackgroundColor: '#ff0006',
     cardTextColor: '#ffffff',
   },
   page2: {
     seconds: 32.5,
-    // 公式サイトのタイムテーブル列ヘッダ配色 (Hall=紫 / Room A=青 / Room B=橙)
-    trackColors: ['#5f5f9d', '#0087d7', '#ed951d'],
+    // ユーザートラック=赤 / ディープトラック=ロゴの淡い赤
+    trackColors: ['#ff0006', '#f77d83'],
   },
   page3: {
-    alias: 'pek2026/info',
+    alias: 'honoconf2026/info',
     images: breakImages,
     trackImages: breakTrackImages,
     secondsPerImage: 10,
