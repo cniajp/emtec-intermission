@@ -23,8 +23,8 @@ export const breakConfig = {
     loadingLogoShape: 'circle',
     // 公式サイト https://honoconf.dev/2026 の背景
     backgroundSrc: '/honoconf2026/background.png',
-    // TODO: BGM を public/honoconf2026/bgm/ に置いて列挙する
-    audioSrcs: [],
+    // CNDW2025 と同じ BGM (public/cnds2025 からコピー)
+    audioSrcs: ['/honoconf2026/bgm/cnds2025_intermission.mp3'],
     audioShuffle: true,
     audioFadeSeconds: 0,
     audioFadeOutBeforeCm: true,
