@@ -5,12 +5,12 @@ import { Track } from './types'
 export const tracks: Track[] = [
   {
     id: 1,
-    name: 'UserTrack',
+    name: 'User',
     hashTag: 'honoconf_user',
   },
   {
     id: 2,
-    name: 'DeepTrack',
+    name: 'Deep',
     hashTag: 'honoconf_deep',
   },
 ]
