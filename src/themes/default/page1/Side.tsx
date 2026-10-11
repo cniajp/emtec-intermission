@@ -1,6 +1,7 @@
 import { Optional } from '@/utils/types'
 import { TalkView } from '@/logic/models/talkView'
 import { getTimeStr } from '@/utils/time'
+import { CancelledBadge } from '../CancelledBadge'
 
 type Props = { view: Optional<TalkView> }
 
@@ -64,12 +65,15 @@ export function Side({ view }: Props) {
           <div className="flex flex-row">
             <div className="text-left basis-1/2 text-base font-din-2014 font-light">
               {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
+              {talk.cancelled && <CancelledBadge className="ml-3 text-sm" />}
             </div>
             <div className="basis-1/2 text-base">
               {talk.speakers.map((t) => t.name).join(', ')}
             </div>
           </div>
-          <div className="flex-1 flex items-center justify-center text-center text-lg font-bold line-clamp-3">
+          <div
+            className={`flex-1 flex items-center justify-center text-center text-lg font-bold line-clamp-3 ${talk.cancelled ? 'line-through opacity-60' : ''}`}
+          >
             {talk.title}
           </div>
         </div>

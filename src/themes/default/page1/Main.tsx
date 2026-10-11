@@ -5,6 +5,7 @@ import { SpeakerCards } from './SpeakerCards'
 import { useBrand } from '@/brand/BrandProvider'
 import { PhraseText } from '@/components/common/PhraseText'
 import { ShrinkToFit } from '@/components/common/ShrinkToFit'
+import { CancelledBadge } from '../CancelledBadge'
 
 type Props = { view: Optional<TalkView> }
 
@@ -36,11 +37,12 @@ export function Main({ view }: Props) {
       >
         <div className="text-center py-2 text-2xl text-white bg-[#1E1E1E] font-din-2014 font-medium rounded-t-lg">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
+          {talk.cancelled && <CancelledBadge className="ml-4 text-xl" />}
         </div>
         <div className="flex flex-col items-center justify-center">
           <div className="h-[208px] px-12 py-6 w-full font-ryo-gothic-plusn flex items-center justify-center">
             <ShrinkToFit
-              className="text-center text-3xl font-bold break-keep wrap-anywhere text-balance"
+              className={`text-center text-3xl font-bold break-keep wrap-anywhere text-balance ${talk.cancelled ? 'line-through opacity-60' : ''}`}
               resetKey={talk.title}
             >
               <PhraseText text={talk.title} />
@@ -60,14 +62,20 @@ export function Main({ view }: Props) {
                 )}
               </div>
             )}
-            <div className="text-base text-white line-clamp-4">
-              {talk.abstract && (
-                <span>
-                  {brand.showAbstractPrefix && 'Abstract: '}
-                  {talk.abstract}
-                </span>
-              )}
-            </div>
+            {talk.cancelled ? (
+              <div className="text-center text-3xl font-bold text-white">
+                このセッションは中止となりました
+              </div>
+            ) : (
+              <div className="text-base text-white line-clamp-4">
+                {talk.abstract && (
+                  <span>
+                    {brand.showAbstractPrefix && 'Abstract: '}
+                    {talk.abstract}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
