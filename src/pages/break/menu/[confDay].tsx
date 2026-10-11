@@ -153,7 +153,10 @@ function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
         query,
       }}
     >
-      <div className="mb-1 text-[10px] text-neutral-500">#{talk.id}</div>
+      <div className="mb-1 text-[10px] text-neutral-500">
+        #{talk.id}
+        {talk.cancelled && <span className="ml-2 text-red-400">中止</span>}
+      </div>
       <div className="mb-1 text-xs font-medium leading-tight text-white group-hover:text-blue-300 transition-colors">
         {talk.title}
       </div>

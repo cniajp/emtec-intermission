@@ -13,6 +13,8 @@ export type Talk = {
   talkCategory?: string | undefined
   conferenceDayId?: (number | null) | undefined
   showOnTimetable?: boolean | undefined
+  // 中止になったトーク。タイムテーブルには残したまま「中止」と表示する
+  cancelled?: boolean | undefined
 }
 
 export type Track = {

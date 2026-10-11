@@ -173,6 +173,8 @@ export const talks: Talk[] = [
     talkCategory: '',
     conferenceDayId: 1,
     showOnTimetable: true,
+    // 2026-10-11 登壇キャンセル
+    cancelled: true,
   },
   {
     id: 108,

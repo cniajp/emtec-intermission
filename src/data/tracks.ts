@@ -6,11 +6,11 @@ export const tracks: Track[] = [
   {
     id: 1,
     name: 'User',
-    hashTag: 'honoconf',
+    hashTag: 'honoconf_user',
   },
   {
     id: 2,
     name: 'Deep',
-    hashTag: 'honoconf',
+    hashTag: 'honoconf_deep',
   },
 ]

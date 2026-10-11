@@ -8,6 +8,7 @@ import {
   ANIMATION_DURATION_SEC,
 } from '@/components/hooks/useAvatarSlider'
 import { RollingAvatar } from '@/components/avatar/RollingAvatar'
+import { CancelledBadge } from '../CancelledBadge'
 
 export { AvatarPreLoader } from './AvatarPreLoader'
 export { Page3ImagePreLoader } from './Page3ImagePreLoader'
@@ -121,9 +122,19 @@ function TrackRow({ talk, track, speakers, bgColor }: TrackProps) {
         >
           {currentSpeaker?.company}
         </div>
-        <div className="text-lg font-semibold leading-relaxed line-clamp-3">
+        <div
+          className={`text-lg font-semibold leading-relaxed line-clamp-3 ${talk.cancelled ? 'line-through opacity-60' : ''}`}
+        >
           {talk.title}
         </div>
+        {talk.cancelled && (
+          <div className="mt-2">
+            <CancelledBadge className="text-base" />
+            <span className="ml-2 text-base font-semibold">
+              このセッションは中止となりました
+            </span>
+          </div>
+        )}
       </div>
       <style jsx>{`
         .speaker-fade {
