@@ -13,6 +13,7 @@
 | Page4中 | フェードせず即座に一時停止する（クロスフェード中なら前の曲はそこで止める）。Page1に戻ったら今の曲の続きから再開 |
 | CM前 | `base.audioFadeOutBeforeCm: true`なら、次がPage4のとき今のページの終わり3秒でフェードアウトする。各ページが終了予定時刻を`PageCtx.pageEndsAt`で知らせる（Page4自体は動画長で決まるので知らせない） |
 | CM明け | Page4から戻って再開するときは、設定によらず必ず3秒でフェードインする（`CM_FADE_SECONDS`） |
+| CMなし | `page4.playlist`が空ならPage4は即スキップされるので、BGMの停止・CM前フェードアウト・CM明けフェードインはどれもしない |
 | 実装 | `src/components/media/AudioPlayer.tsx`。クロスフェード用に`<audio>`を2つ交互に使う。`loop`は付けない |
 | ファイル | `public/<event>/bgm/NN-name.mp3`。英数字名、mp3 |
 

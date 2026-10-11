@@ -85,11 +85,16 @@ function Pages() {
     audioFadeOutBeforeCm,
   } = activeBrand.base
 
-  const shouldPlayAudio = pages[current].name !== 'Page4'
+  // CM 動画が無いと Page4 は即スキップされるので、BGM を止めない
+  // （止めると Page1 に戻るたびに CM 明けのフェードインが入る）
+  const hasCm = activeBrand.page4.playlist.length > 0
+  const shouldPlayAudio = !(hasCm && pages[current].name === 'Page4')
   // 次が Page4（CM）なら、今のページの終わりに向けて BGM をフェードアウトする
   const nextPageName = pages[(current + 1) % pages.length].name
   const fadeOutBeforeCmAt =
-    audioFadeOutBeforeCm && nextPageName === 'Page4' ? pageEndsAt : null
+    audioFadeOutBeforeCm && hasCm && nextPageName === 'Page4'
+      ? pageEndsAt
+      : null
 
   return (
     <>
