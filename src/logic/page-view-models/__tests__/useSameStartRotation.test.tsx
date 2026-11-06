@@ -21,7 +21,8 @@ function makeView() {
   return new TalkView(talks[1], talks, tracks, [makeSpeaker()])
 }
 
-const firstId = (v: TalkView | null | undefined) => v?.talksLeftInSameTrack()[0]?.id
+const firstId = (v: TalkView | null | undefined) =>
+  v?.talksLeftInSameTrack()[0]?.id
 
 describe('TalkView の同時刻トークの切り替え', () => {
   it('rotation に応じて同時刻のトーク群の先頭が入れ替わり、後続は変わらない', () => {
