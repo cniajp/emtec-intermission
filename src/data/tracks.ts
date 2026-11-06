@@ -1,16 +1,10 @@
 import { Track } from './types'
 
-// 公式の名称は「ユーザートラック」「ディープトラック」。ヘッダのトラック欄
-// (幅 約213px・text-4xl) では日本語名が折り返すため英語の短縮名にしている
+// 自鯖缶 2026 は1トラック（公式に部屋名の記載なし）
 export const tracks: Track[] = [
   {
     id: 1,
-    name: 'User',
-    hashTag: 'honoconf_user',
-  },
-  {
-    id: 2,
-    name: 'Deep',
-    hashTag: 'honoconf_deep',
+    name: 'Main',
+    hashTag: 'jisabakan',
   },
 ]

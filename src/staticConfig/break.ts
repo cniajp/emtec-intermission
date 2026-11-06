@@ -1,7 +1,7 @@
 import { toPlaylist, type Playlist } from '../components/media/playlist'
 import type { TrackImageInserts } from './shared'
 
-// TODO: 告知画像が届いたら public/honoconf2026/info/ に置いて列挙する
+// TODO: 告知画像が届いたら public/jisaba2026/info/ に置いて列挙する
 // (空の間は Page3 をスキップして次のページへ進む)
 const breakImages: string[] = []
 
@@ -17,43 +17,46 @@ const breakPlaylist: Playlist = toPlaylist([])
 
 export const breakConfig = {
   base: {
-    eventAbbr: 'honoconf2026',
-    loadingIconSrc: '/honoconf2026/logo.png',
+    eventAbbr: 'jisaba2026',
+    loadingIconSrc: '/jisaba2026/logo.png',
     loadingEnabled: true,
     loadingLogoShape: 'circle',
-    // 公式サイト https://honoconf.dev/2026 の背景
-    backgroundSrc: '/honoconf2026/background.png',
-    // Go Conference 2026 と同じ BGM (public/gocon2026 からコピー)
+    // TODO: 公式の背景画像が届いたら差し替える
+    // (仮: 公式サイトの navy-800 → navy-900 のグラデーション)
+    backgroundSrc: '/jisaba2026/background.png',
+    // TODO: 自鯖缶用の BGM が届いたら public/jisaba2026/bgm/ に置いて差し替える
+    // (仮: Hono Conf 2026 の BGM を流用)
     audioSrcs: ['/honoconf2026/bgm/gocon2026_bgm.mp3'],
     audioShuffle: true,
     audioFadeSeconds: 0,
     audioFadeOutBeforeCm: true,
     hashTag: {
-      all: 'honoconf',
+      all: 'jisabakan',
       break: '',
     },
     useHashTagAsTrackName: false,
-    defaultAvatarSrc: '/honoconf2026/logo.png',
+    defaultAvatarSrc: '/jisaba2026/logo.png',
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
-    // 公式サイトのロゴタイプ (白文字なので暗い背景色と組み合わせる)
-    headerLogoSrc: '/honoconf2026/title.png',
+    // 公式サイトの横長ロゴ (198x64。TODO: 高解像度版が届いたら差し替える)
+    headerLogoSrc: '/jisaba2026/title.png',
     headerLogoShadow: false,
-    headerBackgroundColor: '#000000',
+    // 公式サイトの cream-100
+    headerBackgroundColor: '#fbf6ef',
   },
   page1: {
     seconds: 32.5,
-    // 公式サイトのアクセントカラー
-    cardBackgroundColor: '#ff0006',
+    // 公式サイトのアクセントカラー (orange-500)
+    cardBackgroundColor: '#ea7b24',
     cardTextColor: '#ffffff',
   },
   page2: {
     seconds: 32.5,
-    // ユーザートラック=赤 / ディープトラック=ロゴの淡い赤
-    trackColors: ['#ff0006', '#f77d83'],
+    // 1トラック。公式サイトの orange-500
+    trackColors: ['#ea7b24'],
   },
   page3: {
-    alias: 'honoconf2026/info',
+    alias: 'jisaba2026/info',
     images: breakImages,
     trackImages: breakTrackImages,
     secondsPerImage: 10,
