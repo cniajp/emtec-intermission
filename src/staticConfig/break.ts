@@ -38,10 +38,10 @@ export const breakConfig = {
     defaultAvatarSrc: '/jisaba2026/logo.png',
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
-    // 公式サイトの横長ロゴ (198x64。TODO: 高解像度版が届いたら差し替える)
+    // 公式サイトの横長ロゴ (198x64) を拡大して cream-100 の角丸プレートに載せたもの
+    // (ロゴが紺色で背景に沈むため。TODO: 高解像度版が届いたら差し替える)
     headerLogoSrc: '/jisaba2026/title.png',
     headerLogoShadow: false,
-    // 公式サイトの cream-100
     headerBackgroundColor: '#fbf6ef',
   },
   page1: {

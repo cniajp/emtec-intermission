@@ -52,7 +52,8 @@ function Body({
       <div className="grid grid-cols-2 gap-6 justify-items-center">
         {rows.map((row) => (
           <TrackRow
-            key={row.track.id}
+            // 同時刻セッションの切り替えで登壇者が変わるので talk ごとに作り直す
+            key={`${row.track.id}-${row.talk.id}`}
             talk={row.talk}
             track={row.track}
             speakers={row.speakers}
