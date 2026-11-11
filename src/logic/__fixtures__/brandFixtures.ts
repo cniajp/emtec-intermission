@@ -26,6 +26,7 @@ export function makeBrand(overrides?: {
       defaultAvatarSrc: '',
       headerLogoSrc: '',
       headerLogoShadow: false,
+      headerTextColor: '#ffffff',
       headerBackgroundColor: '',
     },
     page1: { seconds: 10, cardBackgroundColor: '', cardTextColor: '' },

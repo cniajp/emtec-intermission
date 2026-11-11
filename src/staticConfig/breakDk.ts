@@ -49,6 +49,7 @@ export const breakDkConfig = {
     // 横長のタイトル画像を指定すること
     headerLogoSrc: '/kinoko2026/title.png',
     headerLogoShadow: false,
+    headerTextColor: '#ffffff',
     headerBackgroundColor: '#763F03',
   },
   page1: {

@@ -30,6 +30,8 @@ export interface Brand {
     headerLogoSrc: string
     // ヘッダロゴに drop-shadow を付けるか (背景とロゴの色が近く輪郭が埋もれるとき用)
     headerLogoShadow: boolean
+    // Page ヘッダの文字色（時計・トラック名・ハッシュタグ）。背景が明るいイベントは濃い色にする
+    headerTextColor: string
     // Page ヘッダの帯背景色 (Tailwind 経由できないので raw で持つ)
     headerBackgroundColor: string
   }

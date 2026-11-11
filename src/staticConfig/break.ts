@@ -21,8 +21,7 @@ export const breakConfig = {
     loadingIconSrc: '/jisaba2026/logo.png',
     loadingEnabled: true,
     loadingLogoShape: 'circle',
-    // TODO: 公式の背景画像が届いたら差し替える
-    // (仮: 公式サイトの navy-800 → navy-900 のグラデーション)
+    // 公式提供の背景（クリーム色のドット地＋下端に紺の帯）
     backgroundSrc: '/jisaba2026/background.png',
     // TODO: 自鯖缶用の BGM が届いたら public/jisaba2026/bgm/ に置いて差し替える
     // (仮: Hono Conf 2026 の BGM を流用)
@@ -38,10 +37,11 @@ export const breakConfig = {
     defaultAvatarSrc: '/jisaba2026/logo.png',
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
-    // 公式サイトの横長ロゴ (198x64) を拡大して cream-100 の角丸プレートに載せたもの
-    // (ロゴが紺色で背景に沈むため。TODO: 高解像度版が届いたら差し替える)
+    // 公式サイトの横長ロゴ (198x64 の透過画像を4倍に拡大。TODO: 高解像度版が届いたら差し替える)
     headerLogoSrc: '/jisaba2026/title.png',
     headerLogoShadow: false,
+    // 背景がクリーム色なので公式サイトの navy-800
+    headerTextColor: '#0e223d',
     headerBackgroundColor: '#fbf6ef',
   },
   page1: {
