@@ -12,8 +12,13 @@ const breakTrackImages: TrackImageInserts = {
   // 2: [{ position: 2, src: 'info_003.jpg' }],
 }
 
-// TODO: CM 動画が届いたら追加する
-const breakPlaylist: Playlist = toPlaylist([])
+// セッション紹介動画（午前）
+const breakPlaylist: Playlist = toPlaylist([
+  {
+    src: 'https://im-file.emtec.tv/jisabakan2026/jisabakan_session_intro_am.mp4',
+    type: 'video/mp4',
+  },
+])
 
 export const breakConfig = {
   base: {
