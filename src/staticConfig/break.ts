@@ -12,10 +12,10 @@ const breakTrackImages: TrackImageInserts = {
   // 2: [{ position: 2, src: 'info_003.jpg' }],
 }
 
-// セッション紹介動画（午前）
+// 自鯖缶 CM
 const breakPlaylist: Playlist = toPlaylist([
   {
-    src: 'https://im-file.emtec.tv/jisabakan2026/jisabakan_session_intro_am.mp4',
+    src: 'https://im-file.emtec.tv/jisabakan2026/jisabakan_cm.mp4',
     type: 'video/mp4',
   },
 ])
