@@ -41,7 +41,7 @@ export const breakConfig = {
     defaultAvatarSrc: '/jisaba2026/logo.png',
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
-    // 公式サイトの横長ロゴ (198x64 の透過画像を4倍に拡大。TODO: 高解像度版が届いたら差し替える)
+    // 公式サイトの横長ロゴの原本 (2259x728 の透過 PNG) を高さ 440px に縮小したもの
     headerLogoSrc: '/jisaba2026/title.png',
     headerLogoShadow: false,
     // 背景がクリーム色なので公式サイトの navy-800
