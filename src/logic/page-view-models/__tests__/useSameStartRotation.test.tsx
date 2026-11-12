@@ -38,6 +38,9 @@ describe('TalkView の同時刻トークの切り替え', () => {
         .map((t) => t.id)
     ).toEqual([12, 13, 11, 21])
     expect(view.withRotation(2).talksInNextSlot()['A'].id).toBe(13)
+    // 枠内の順番は rotation に関係なく固定
+    const third = view.allTalks.find((t) => t.id === 13)!
+    expect(view.withRotation(2).sameStartIndexOf(third)).toBe(2)
   })
 })
 

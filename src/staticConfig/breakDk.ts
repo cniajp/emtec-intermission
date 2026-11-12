@@ -55,6 +55,7 @@ export const breakDkConfig = {
   page1: {
     seconds: 32.5,
     cardBackgroundColor: '#387c61',
+    cardRotationBackgroundColors: [],
     cardTextColor: '#ffffff',
   },
   page2: {

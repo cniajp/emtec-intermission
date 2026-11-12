@@ -29,7 +29,12 @@ export function makeBrand(overrides?: {
       headerTextColor: '#ffffff',
       headerBackgroundColor: '',
     },
-    page1: { seconds: 10, cardBackgroundColor: '', cardTextColor: '' },
+    page1: {
+      seconds: 10,
+      cardBackgroundColor: '',
+      cardRotationBackgroundColors: [],
+      cardTextColor: '',
+    },
     page2: { seconds: 10, trackColors: [] },
     page3: {
       alias: overrides?.alias ?? 'test-alias',

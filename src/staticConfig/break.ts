@@ -52,6 +52,9 @@ export const breakConfig = {
     seconds: 32.5,
     // 公式サイトのアクセントカラー (orange-500)
     cardBackgroundColor: '#ea7b24',
+    // 同じ枠の4本を見分けやすいよう、公式サイトの色を1本ずつ交互に使う
+    // (orange-500 / navy-700 / orange-700 / navy-600。文字は白)
+    cardRotationBackgroundColors: ['#ea7b24', '#1a3355', '#9a3f0b', '#2a4670'],
     cardTextColor: '#ffffff',
   },
   page2: {

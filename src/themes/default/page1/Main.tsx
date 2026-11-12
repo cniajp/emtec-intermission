@@ -28,6 +28,13 @@ export function Main({ view }: Props) {
   }
   const prev = shown.current?.id === talk.id ? shown.prev : shown.current
   const hasMeta = !!(talk.talkCategory || talk.talkDifficulty)
+  // 同時刻セッションはセッションごとに背景色を変える（色は中身と一緒に押し出される）
+  const { cardBackgroundColor, cardRotationBackgroundColors: colors } =
+    brand.page1
+  const bgOf = (t: Talk) =>
+    colors.length > 0
+      ? colors[view.sameStartIndexOf(t) % colors.length]
+      : cardBackgroundColor
 
   return (
     <div className="mt-4 mb-16">
@@ -39,7 +46,7 @@ export function Main({ view }: Props) {
       <div
         className={`top-[55px] left-[120px] w-[1000px] ${hasMeta ? 'h-[668px]' : 'h-[630px]'} relative rounded-lg flex flex-col overflow-hidden`}
         style={{
-          backgroundColor: brand.page1.cardBackgroundColor,
+          backgroundColor: bgOf(talk),
           color: brand.page1.cardTextColor,
         }}
       >
@@ -53,6 +60,7 @@ export function Main({ view }: Props) {
             <div
               key={prev.id}
               className={`absolute inset-0 ${styles.talkPushOut}`}
+              style={{ backgroundColor: bgOf(prev) }}
             >
               <CardBody talk={prev} speakers={view.speakersOf(prev.id)} />
             </div>
@@ -60,6 +68,7 @@ export function Main({ view }: Props) {
           <div
             key={talk.id}
             className={`absolute inset-0 ${prev ? styles.talkPushIn : ''}`}
+            style={{ backgroundColor: bgOf(talk) }}
           >
             <CardBody talk={talk} speakers={view.speakersOf(talk.id)} />
           </div>

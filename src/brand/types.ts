@@ -40,6 +40,9 @@ export interface Brand {
     seconds: number
     // セッション情報カードの背景色・文字色 (Tailwind 経由できないので raw で持つ)
     cardBackgroundColor: string
+    // 同じトラック・同じ開始時刻のセッションを順番に切り替えるとき、セッションごとに使う背景色。
+    // 枠内の順番 % length で循環する。空なら常に cardBackgroundColor
+    cardRotationBackgroundColors: ReadonlyArray<string>
     cardTextColor: string
   }
   page2: {

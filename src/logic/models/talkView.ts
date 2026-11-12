@@ -98,6 +98,17 @@ export class TalkView {
       .length
   }
 
+  // 次に始まる同時刻のトーク群の中での順番（rotation に関係なく固定）。群に無ければ 0
+  sameStartIndexOf(talk: Talk): number {
+    const group = this.leadingSameStartGroup(
+      this.unrotatedTalksLeftInTrack(talk.trackId)
+    )
+    return Math.max(
+      0,
+      group.findIndex((t) => t.id === talk.id)
+    )
+  }
+
   withRotation(rotation: number): TalkView {
     return new TalkView(
       this.selectedTalk,
