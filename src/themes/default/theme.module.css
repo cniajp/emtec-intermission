@@ -122,20 +122,32 @@
   transform-origin: center;
 }
 
-/* Page1: 同時刻セッションの切り替え (カードが右からスライドしながらフェードイン)
+/* Page1: 同時刻セッションの切り替え
+   カードの枠は動かさず、中身だけを左へ押し出して次の中身を右から入れる。
    ShrinkToFit の計測を狂わせないよう scale は使わない */
 
-@keyframes talk-switch-in {
+@keyframes talk-push-in {
   0% {
-    opacity: 0;
-    transform: translateX(80px);
+    transform: translateX(100%);
   }
   100% {
-    opacity: 1;
     transform: translateX(0);
   }
 }
 
-.talkSwitchIn {
-  animation: talk-switch-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+@keyframes talk-push-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.talkPushIn {
+  animation: talk-push-in 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+.talkPushOut {
+  animation: talk-push-out 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
 }
