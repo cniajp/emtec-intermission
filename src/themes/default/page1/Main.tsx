@@ -6,6 +6,7 @@ import { useBrand } from '@/brand/BrandProvider'
 import { PhraseText } from '@/components/common/PhraseText'
 import { ShrinkToFit } from '@/components/common/ShrinkToFit'
 import { CancelledBadge } from '../CancelledBadge'
+import styles from '../theme.module.css'
 
 type Props = { view: Optional<TalkView> }
 
@@ -20,6 +21,8 @@ export function Main({ view }: Props) {
   }
   const speakers = view.speakersOf(talk.id)
   const hasMeta = !!(talk.talkCategory || talk.talkDifficulty)
+  // 同時刻のセッションを順番に切り替えるときだけ、カードを talk ごとに作り直して入場アニメーションを付ける
+  const isRotating = view.sameStartCountInTrack(talk.trackId) > 1
 
   return (
     <div className="mt-4 mb-16">
@@ -29,7 +32,8 @@ export function Main({ view }: Props) {
         </div>
       </div>
       <div
-        className={`top-[55px] left-[120px] w-[1000px] ${hasMeta ? 'h-[668px]' : 'h-[630px]'} relative rounded-lg`}
+        key={isRotating ? talk.id : undefined}
+        className={`top-[55px] left-[120px] w-[1000px] ${hasMeta ? 'h-[668px]' : 'h-[630px]'} relative rounded-lg ${isRotating ? styles.talkSwitchIn : ''}`}
         style={{
           backgroundColor: brand.page1.cardBackgroundColor,
           color: brand.page1.cardTextColor,

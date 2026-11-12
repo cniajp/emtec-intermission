@@ -121,3 +121,21 @@
   animation: spin-ccw 60s linear infinite;
   transform-origin: center;
 }
+
+/* Page1: 同時刻セッションの切り替え (カードが右からスライドしながらフェードイン)
+   ShrinkToFit の計測を狂わせないよう scale は使わない */
+
+@keyframes talk-switch-in {
+  0% {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.talkSwitchIn {
+  animation: talk-switch-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
