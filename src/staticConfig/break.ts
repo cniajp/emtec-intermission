@@ -61,6 +61,8 @@ export const breakConfig = {
     seconds: 32.5,
     // 1トラック。公式サイトの orange-500
     trackColors: ['#ea7b24'],
+    // 1トラックで全カードが同じラベルになるので出さない
+    showTrackLabel: false,
   },
   page3: {
     alias: 'jisaba2026/info',

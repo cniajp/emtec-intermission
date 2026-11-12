@@ -61,6 +61,7 @@ export const breakDkConfig = {
   page2: {
     seconds: 32.5,
     trackColors: ['#f14e35', '#387c61', '#e5b73d'],
+    showTrackLabel: true,
   },
   page3: {
     alias: 'cnk2026/info',

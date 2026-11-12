@@ -35,7 +35,7 @@ export function makeBrand(overrides?: {
       cardRotationBackgroundColors: [],
       cardTextColor: '',
     },
-    page2: { seconds: 10, trackColors: [] },
+    page2: { seconds: 10, trackColors: [], showTrackLabel: true },
     page3: {
       alias: overrides?.alias ?? 'test-alias',
       images: overrides?.images ?? [],

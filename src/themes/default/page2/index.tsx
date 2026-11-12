@@ -114,16 +114,18 @@ function TrackRow({
       // 同時刻セッションの切り替え中は、カード全体を Page1 と同じセッション色にする
       style={rotationColor ? { backgroundColor: rotationColor } : undefined}
     >
-      <span
-        className="absolute top-3 left-4 inline-block px-3 py-1 rounded-full text-sm uppercase tracking-widest font-din-2014 font-bold"
-        style={
-          rotationColor
-            ? { backgroundColor: '#ffffff', color: rotationColor }
-            : { backgroundColor: bgColor, color: '#ffffff' }
-        }
-      >
-        TRACK {track.name}
-      </span>
+      {brand.page2.showTrackLabel && (
+        <span
+          className="absolute top-3 left-4 inline-block px-3 py-1 rounded-full text-sm uppercase tracking-widest font-din-2014 font-bold"
+          style={
+            rotationColor
+              ? { backgroundColor: '#ffffff', color: rotationColor }
+              : { backgroundColor: bgColor, color: '#ffffff' }
+          }
+        >
+          TRACK {track.name}
+        </span>
+      )}
       <div className="basis-1/3 flex justify-center">
         <RollingAvatar
           currentSrc={currentAvatarUrl || defaultAvatar}

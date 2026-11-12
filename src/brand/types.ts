@@ -49,6 +49,8 @@ export interface Brand {
     seconds: number
     // トラックごとのラベル背景色。trackIndex % length で循環して使う
     trackColors: ReadonlyArray<string>
+    // カード左上の「TRACK xxx」ラベルを出すか（1トラックのイベントなどで false にする）
+    showTrackLabel: boolean
   }
   page3: {
     alias: string
