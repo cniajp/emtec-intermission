@@ -28,9 +28,8 @@ export const breakConfig = {
     loadingLogoShape: 'circle',
     // 公式提供の背景（クリーム色のドット地＋下端に紺の帯）
     backgroundSrc: '/jisaba2026/background.png',
-    // TODO: 自鯖缶用の BGM が届いたら public/jisaba2026/bgm/ に置いて差し替える
-    // (仮: Hono Conf 2026 の BGM を流用)
-    audioSrcs: ['/honoconf2026/bgm/gocon2026_bgm.mp3'],
+    // 公式提供の BGM (Homelab_night, 約168秒。末尾で先頭に戻ってループ再生)
+    audioSrcs: ['/jisaba2026/bgm/homelab_night.mp3'],
     audioShuffle: true,
     audioFadeSeconds: 0,
     audioFadeOutBeforeCm: true,
