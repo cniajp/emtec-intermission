@@ -58,6 +58,7 @@ function Body({
             track={row.track}
             speakers={row.speakers}
             bgColor={trackColors[row.trackIndex % trackColors.length]}
+            rotationColor={row.rotationColor}
           />
         ))}
       </div>
@@ -70,9 +71,16 @@ type TrackProps = {
   track: Track
   speakers: Speaker[]
   bgColor: string
+  rotationColor: string | null
 }
 
-function TrackRow({ talk, track, speakers, bgColor }: TrackProps) {
+function TrackRow({
+  talk,
+  track,
+  speakers,
+  bgColor,
+  rotationColor,
+}: TrackProps) {
   const brand = useBrand()
   const defaultAvatar = brand.base.defaultAvatarSrc
   const { currentIndex, prevIndex, isSliding } = useAvatarSlider(
@@ -94,10 +102,18 @@ function TrackRow({ talk, track, speakers, bgColor }: TrackProps) {
   const currentSpeaker = speakers[currentIndex]
 
   return (
-    <div className="relative flex flex-row items-center w-[900px] h-[300px] mt-12 backdrop-blur-xl bg-white/85 border border-white/40 rounded-2xl shadow-2xl text-[#1E1E1E] p-6">
+    <div
+      className={`relative flex flex-row items-center w-[900px] h-[300px] mt-12 backdrop-blur-xl border border-white/40 rounded-2xl shadow-2xl p-6 ${rotationColor ? 'text-white' : 'bg-white/85 text-[#1E1E1E]'}`}
+      // 同時刻セッションの切り替え中は、カード全体を Page1 と同じセッション色にする
+      style={rotationColor ? { backgroundColor: rotationColor } : undefined}
+    >
       <span
-        className="absolute top-3 left-4 inline-block px-3 py-1 rounded-full text-sm uppercase tracking-widest font-din-2014 font-bold text-white"
-        style={{ backgroundColor: bgColor }}
+        className="absolute top-3 left-4 inline-block px-3 py-1 rounded-full text-sm uppercase tracking-widest font-din-2014 font-bold"
+        style={
+          rotationColor
+            ? { backgroundColor: '#ffffff', color: rotationColor }
+            : { backgroundColor: bgColor, color: '#ffffff' }
+        }
       >
         TRACK {track.name}
       </span>
@@ -119,7 +135,7 @@ function TrackRow({ talk, track, speakers, bgColor }: TrackProps) {
         </div>
         <div
           key={`company-${currentIndex}`}
-          className="text-base font-semibold mb-4 text-[#1E1E1E]/60 speaker-fade"
+          className={`text-base font-semibold mb-4 speaker-fade ${rotationColor ? 'text-white/70' : 'text-[#1E1E1E]/60'}`}
         >
           {currentSpeaker?.company}
         </div>

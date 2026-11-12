@@ -16,6 +16,9 @@ export type Page2TrackRow = {
   track: Track
   speakers: Speaker[]
   trackIndex: number
+  // 同時刻セッションを順番に切り替えるときのセッションごとの色（Page1 のカードと同じ色）。
+  // 切り替えが無いトラックは null
+  rotationColor: string | null
 }
 
 export type Page2ViewModel = {
@@ -50,11 +53,17 @@ export function usePage2ViewModel(
   tracksToShow.forEach((track, i) => {
     const talk = nextTalks[track.name]
     if (!talk) return
+    const colors = brand.page1.cardRotationBackgroundColors
+    const rotationColor =
+      colors.length > 0 && view.sameStartCountInTrack(track.id) > 1
+        ? colors[view.sameStartIndexOf(talk) % colors.length]
+        : null
     rows.push({
       talk,
       track,
       speakers: view.speakersOf(talk.id),
       trackIndex: i,
+      rotationColor,
     })
   })
 
