@@ -26,9 +26,14 @@ export type Page2ViewModel = {
   view: Optional<TalkView>
   timeRange: { start: string; end: string } | null
   rows: Page2TrackRow[]
+  // 1トラックのイベントで、同時刻セッションを切り替えずに全部並べているか
+  showsAllSameStart: boolean
 }
 
-const EMPTY = { timeRange: null, rows: [] }
+const EMPTY = { timeRange: null, rows: [], showsAllSameStart: false }
+
+// Page2 に同時に並べられるカードの上限（2列×2段）
+const MAX_ROWS_AT_ONCE = 4
 
 export function usePage2ViewModel(
   originalView: Optional<TalkView>
@@ -36,7 +41,18 @@ export function usePage2ViewModel(
   const brand = useBrand()
   const seconds = config.transTimePage2 ?? brand.page2.seconds
   useTimedPageTransition('Page2', seconds)
-  const trackIds = originalView ? originalView.allTracks.map((t) => t.id) : []
+  // 1トラックだけのイベントは Page2 の枠が空くので、同時刻セッションを切り替えずに全部並べる
+  const onlyTrack =
+    originalView?.allTracks.length === 1 ? originalView.allTracks[0] : null
+  const sameStartTalks = onlyTrack
+    ? originalView!.sameStartTalksInTrack(onlyTrack.id)
+    : []
+  const showsAllSameStart =
+    sameStartTalks.length > 1 && sameStartTalks.length <= MAX_ROWS_AT_ONCE
+  const trackIds =
+    originalView && !showsAllSameStart
+      ? originalView.allTracks.map((t) => t.id)
+      : []
   const view = useSameStartRotation(originalView, seconds, trackIds)
 
   if (!view) return { view, ...EMPTY }
@@ -51,8 +67,16 @@ export function usePage2ViewModel(
 
   const rows: Page2TrackRow[] = []
   tracksToShow.forEach((track, i) => {
-    const talk = nextTalks[track.name]
-    if (!talk) return
+    const talks = showsAllSameStart
+      ? sameStartTalks
+      : nextTalks[track.name]
+        ? [nextTalks[track.name]]
+        : []
+    talks.forEach((talk) => pushRow(track, talk, i))
+  })
+
+  function pushRow(track: Track, talk: Talk, i: number) {
+    if (!view) return
     const colors = brand.page1.cardRotationBackgroundColors
     const rotationColor =
       colors.length > 0 && view.sameStartCountInTrack(track.id) > 1
@@ -65,10 +89,11 @@ export function usePage2ViewModel(
       trackIndex: i,
       rotationColor,
     })
-  })
+  }
 
   return {
     view,
+    showsAllSameStart,
     timeRange: { start: baseTalk.startTime, end: baseTalk.endTime },
     rows,
   }

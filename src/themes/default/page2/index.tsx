@@ -17,12 +17,13 @@ export default function Page2Presenter({
   view,
   timeRange,
   rows,
+  showsAllSameStart,
 }: Page2PresenterProps) {
   return (
     <div>
       <PageHeader view={view} />
       <div className="h-full">
-        <Body timeRange={timeRange} rows={rows} />
+        <Body timeRange={timeRange} rows={rows} compact={showsAllSameStart} />
       </div>
     </div>
   )
@@ -31,9 +32,12 @@ export default function Page2Presenter({
 function Body({
   timeRange,
   rows,
+  compact,
 }: {
   timeRange: Page2PresenterProps['timeRange']
   rows: Page2PresenterProps['rows']
+  // 同時刻セッションを2段に並べるとき、下端が背景の帯にかからないよう上の余白を詰める
+  compact: boolean
 }) {
   const { trackColors } = useBrand().page2
   if (!timeRange || rows.length === 0) {
@@ -59,6 +63,7 @@ function Body({
             speakers={row.speakers}
             bgColor={trackColors[row.trackIndex % trackColors.length]}
             rotationColor={row.rotationColor}
+            compact={compact}
           />
         ))}
       </div>
@@ -72,6 +77,7 @@ type TrackProps = {
   speakers: Speaker[]
   bgColor: string
   rotationColor: string | null
+  compact: boolean
 }
 
 function TrackRow({
@@ -80,6 +86,7 @@ function TrackRow({
   speakers,
   bgColor,
   rotationColor,
+  compact,
 }: TrackProps) {
   const brand = useBrand()
   const defaultAvatar = brand.base.defaultAvatarSrc
@@ -103,7 +110,7 @@ function TrackRow({
 
   return (
     <div
-      className={`relative flex flex-row items-center w-[900px] h-[300px] mt-12 backdrop-blur-xl border border-white/40 rounded-2xl shadow-2xl p-6 ${rotationColor ? 'text-white' : 'bg-white/85 text-[#1E1E1E]'}`}
+      className={`relative flex flex-row items-center w-[900px] h-[300px] ${compact ? 'mt-6' : 'mt-12'} backdrop-blur-xl border border-white/40 rounded-2xl shadow-2xl p-6 ${rotationColor ? 'text-white' : 'bg-white/85 text-[#1E1E1E]'}`}
       // 同時刻セッションの切り替え中は、カード全体を Page1 と同じセッション色にする
       style={rotationColor ? { backgroundColor: rotationColor } : undefined}
     >
