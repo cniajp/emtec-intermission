@@ -19,7 +19,7 @@ const breakPlaylist: Playlist = toPlaylist([
     type: 'video/mp4',
   },
   {
-    src: 'https://im-file.emtec.tv/jisabakan2026/EMTEC_CM_30s_4K_v13.mp4',
+    src: 'https://im-file.emtec.tv/jisabakan2026/EMTEC_CM_30s_FHD_v13.mp4',
     type: 'video/mp4',
   },
 ])
