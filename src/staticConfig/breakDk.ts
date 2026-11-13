@@ -49,16 +49,19 @@ export const breakDkConfig = {
     // 横長のタイトル画像を指定すること
     headerLogoSrc: '/kinoko2026/title.png',
     headerLogoShadow: false,
+    headerTextColor: '#ffffff',
     headerBackgroundColor: '#763F03',
   },
   page1: {
     seconds: 32.5,
     cardBackgroundColor: '#387c61',
+    cardRotationBackgroundColors: [],
     cardTextColor: '#ffffff',
   },
   page2: {
     seconds: 32.5,
     trackColors: ['#f14e35', '#387c61', '#e5b73d'],
+    showTrackLabel: true,
   },
   page3: {
     alias: 'cnk2026/info',

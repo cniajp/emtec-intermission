@@ -10,8 +10,18 @@ export class TalkView {
   readonly allTalks: Talk[]
   readonly allTracks: Track[]
   readonly speakers: Speaker[]
+  // 同じトラックで次に始まるトークが同じ開始時刻で複数あるとき、何番目を先頭にするか。
+  // Page1/Page2 がこの値を進めて、同時刻のセッションを順番に表示する
+  readonly rotation: number
 
-  constructor(talk: Talk, talks: Talk[], tracks: Track[], speakers: Speaker[]) {
+  constructor(
+    talk: Talk,
+    talks: Talk[],
+    tracks: Track[],
+    speakers: Speaker[],
+    rotation = 0
+  ) {
+    this.rotation = rotation
     this.selectedTalk = talk
     this.allTalks = Array.from(talks).sort((a, b) => a.id - b.id)
     this.allTracks = Array.from(tracks).sort((a, b) => a.id - b.id)
@@ -55,10 +65,62 @@ export class TalkView {
     return talks.sort((a, b) => getTime(a.startTime).diff(getTime(b.startTime)))
   }
 
+  // 先頭の「同じ開始時刻のトーク群」は rotation 分だけ回した順で返す
   private talksLeftInTrack(trackId: number): Talk[] {
+    const left = this.unrotatedTalksLeftInTrack(trackId)
+    const group = this.leadingSameStartGroup(left)
+    if (group.length <= 1) return left
+    const n = this.rotation % group.length
+    return [
+      ...group.slice(n),
+      ...group.slice(0, n),
+      ...left.slice(group.length),
+    ]
+  }
+
+  private unrotatedTalksLeftInTrack(trackId: number): Talk[] {
     const afterFrom = getTime(this.selectedTalk.startTime)
     return this.talksInTrack(trackId).filter(
       (t) => getTime(t.startTime) >= afterFrom
+    )
+  }
+
+  private leadingSameStartGroup(talks: Talk[]): Talk[] {
+    const first = talks[0]
+    if (!first) return []
+    const start = getTime(first.startTime)
+    return talks.filter((t) => getTime(t.startTime).isSame(start))
+  }
+
+  // 次に始まる同時刻のトークの本数（1 以下なら切り替え不要）
+  sameStartCountInTrack(trackId: number): number {
+    return this.leadingSameStartGroup(this.unrotatedTalksLeftInTrack(trackId))
+      .length
+  }
+
+  // 次に始まる同時刻のトーク群（rotation に関係なく元の順番）
+  sameStartTalksInTrack(trackId: number): Talk[] {
+    return this.leadingSameStartGroup(this.unrotatedTalksLeftInTrack(trackId))
+  }
+
+  // 次に始まる同時刻のトーク群の中での順番（rotation に関係なく固定）。群に無ければ 0
+  sameStartIndexOf(talk: Talk): number {
+    const group = this.leadingSameStartGroup(
+      this.unrotatedTalksLeftInTrack(talk.trackId)
+    )
+    return Math.max(
+      0,
+      group.findIndex((t) => t.id === talk.id)
+    )
+  }
+
+  withRotation(rotation: number): TalkView {
+    return new TalkView(
+      this.selectedTalk,
+      this.allTalks,
+      this.allTracks,
+      this.speakers,
+      rotation
     )
   }
 

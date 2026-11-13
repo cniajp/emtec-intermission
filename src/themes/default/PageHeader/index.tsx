@@ -29,7 +29,10 @@ export default function Header({ view }: Props) {
       : view.selectedTrack.name
 
   return (
-    <div className="px-[20px] py-[7.5px] flex flex-row items-center w-[1920px] h-[140px] text-[#ffffff] font-din-2014 font-bold text-shadow-xs text-shadow-black/15">
+    <div
+      className="px-[20px] py-[7.5px] flex flex-row items-center w-[1920px] h-[140px] font-din-2014 font-bold text-shadow-xs text-shadow-black/15"
+      style={{ color: brand.base.headerTextColor }}
+    >
       {/* イベントタイトル */}
       <div className="basis-1/3 flex justify-center items-center">
         <Image
@@ -71,7 +74,10 @@ export default function Header({ view }: Props) {
           <div className="text-center text-xs">ハッシュタグ</div>
           <div>
             <div className="text-left text-xl">#{hashTag.all}</div>
-            <div className="text-left text-xl">#{trackHashTag}</div>
+            {/* トラック用タグが空、または全体タグと同じなら1行だけにする */}
+            {trackHashTag && trackHashTag !== hashTag.all && (
+              <div className="text-left text-xl">#{trackHashTag}</div>
+            )}
           </div>
         </div>
       </div>

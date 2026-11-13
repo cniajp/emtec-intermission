@@ -121,3 +121,33 @@
   animation: spin-ccw 60s linear infinite;
   transform-origin: center;
 }
+
+/* Page1: 同時刻セッションの切り替え
+   カードの枠は動かさず、中身だけを左へ押し出して次の中身を右から入れる。
+   ShrinkToFit の計測を狂わせないよう scale は使わない */
+
+@keyframes talk-push-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes talk-push-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.talkPushIn {
+  animation: talk-push-in 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+.talkPushOut {
+  animation: talk-push-out 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+}

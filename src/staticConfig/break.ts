@@ -1,7 +1,7 @@
 import { toPlaylist, type Playlist } from '../components/media/playlist'
 import type { TrackImageInserts } from './shared'
 
-// TODO: 告知画像が届いたら public/honoconf2026/info/ に置いて列挙する
+// TODO: 告知画像が届いたら public/jisaba2026/info/ に置いて列挙する
 // (空の間は Page3 をスキップして次のページへ進む)
 const breakImages: string[] = []
 
@@ -12,48 +12,64 @@ const breakTrackImages: TrackImageInserts = {
   // 2: [{ position: 2, src: 'info_003.jpg' }],
 }
 
-// TODO: CM 動画が届いたら追加する
-const breakPlaylist: Playlist = toPlaylist([])
+// 自鯖缶 CM
+const breakPlaylist: Playlist = toPlaylist([
+  {
+    src: 'https://im-file.emtec.tv/jisabakan2026/jisabakan_cm.mp4',
+    type: 'video/mp4',
+  },
+  {
+    src: 'https://im-file.emtec.tv/jisabakan2026/EMTEC_CM_30s_FHD_v13.mp4',
+    type: 'video/mp4',
+  },
+])
 
 export const breakConfig = {
   base: {
-    eventAbbr: 'honoconf2026',
-    loadingIconSrc: '/honoconf2026/logo.png',
+    eventAbbr: 'jisaba2026',
+    loadingIconSrc: '/jisaba2026/logo.png',
     loadingEnabled: true,
     loadingLogoShape: 'circle',
-    // 公式サイト https://honoconf.dev/2026 の背景
-    backgroundSrc: '/honoconf2026/background.png',
-    // Go Conference 2026 と同じ BGM (public/gocon2026 からコピー)
-    audioSrcs: ['/honoconf2026/bgm/gocon2026_bgm.mp3'],
+    // 公式提供の背景（クリーム色のドット地＋下端に紺の帯）
+    backgroundSrc: '/jisaba2026/background.png',
+    // 公式提供の BGM (Homelab_night, 約168秒。末尾で先頭に戻ってループ再生)
+    audioSrcs: ['/jisaba2026/bgm/homelab_night.mp3'],
     audioShuffle: true,
     audioFadeSeconds: 0,
     audioFadeOutBeforeCm: true,
     hashTag: {
-      all: 'honoconf',
+      all: 'jisabakan',
       break: '',
     },
     useHashTagAsTrackName: false,
-    defaultAvatarSrc: '/honoconf2026/logo.png',
+    defaultAvatarSrc: '/jisaba2026/logo.png',
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
-    // 公式サイトのロゴタイプ (白文字なので暗い背景色と組み合わせる)
-    headerLogoSrc: '/honoconf2026/title.png',
+    // 公式サイトの横長ロゴの原本 (2259x728 の透過 PNG) を高さ 440px に縮小したもの
+    headerLogoSrc: '/jisaba2026/title.png',
     headerLogoShadow: false,
-    headerBackgroundColor: '#000000',
+    // 背景がクリーム色なので公式サイトの navy-800
+    headerTextColor: '#0e223d',
+    headerBackgroundColor: '#fbf6ef',
   },
   page1: {
     seconds: 32.5,
-    // 公式サイトのアクセントカラー
-    cardBackgroundColor: '#ff0006',
+    // 公式サイトのアクセントカラー (orange-500)
+    cardBackgroundColor: '#ea7b24',
+    // 同じ枠の4本を見分けやすいよう、公式サイトの色を1本ずつ交互に使う
+    // (orange-500 / navy-700 / orange-700 / navy-600。文字は白)
+    cardRotationBackgroundColors: ['#ea7b24', '#1a3355', '#9a3f0b', '#2a4670'],
     cardTextColor: '#ffffff',
   },
   page2: {
     seconds: 32.5,
-    // ユーザートラック=赤 / ディープトラック=ロゴの淡い赤
-    trackColors: ['#ff0006', '#f77d83'],
+    // 1トラック。公式サイトの orange-500
+    trackColors: ['#ea7b24'],
+    // 1トラックで全カードが同じラベルになるので出さない
+    showTrackLabel: false,
   },
   page3: {
-    alias: 'honoconf2026/info',
+    alias: 'jisaba2026/info',
     images: breakImages,
     trackImages: breakTrackImages,
     secondsPerImage: 10,

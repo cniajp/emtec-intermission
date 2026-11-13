@@ -1,103 +1,156 @@
 import { Speaker } from './types'
 
 /**
- * Hono Conference in Tokyo 2026 (2026-10-11 / LINEヤフー紀尾井町オフィス)
- * 出典: https://fortee.jp/honoconf-2026/api/timetable と https://honoconf.dev/2026 (2026-10-06 取得)
- * 登壇者画像はすべて public/honoconf2026/speakers/ に保存している
- *   - fortee の登壇者: <X の ID>.<ext>
- *   - ゲスト登壇者: 公式サイトの画像ファイル名
- *   - 画像が無いスポンサー登壇者と id 0 の運営は logo.png
- * fortee には所属が無いため、company は公式サイトに記載のあるゲストのみ
+ * 自鯖缶 2026 (2026-11-15 / docomo R&D OPEN LAB ODAIBA)
+ * 出典: https://jisaba.sh/ と https://jisaba.sh/sessions/* (2026-11-06 取得)
+ * 登壇者画像は public/jisaba2026/speakers/ に保存。ファイル名は公式画像URLの
+ *   - /speakers/<ID>/ の ID の先頭8文字（1人だけがその ID を使っている場合）
+ *   - 画像ファイル名の先頭8文字（複数人が同じ ID を共有している場合。ID は登壇者ごとに一意ではない）
+ * company は公式サイトに所属の記載がある登壇者のみ
  */
 export const speakers: Speaker[] = [
   {
     id: 0,
     name: '運営',
     company: '',
-    avatarUrl: '/honoconf2026/logo.png',
+    avatarUrl: '/jisaba2026/logo.png',
   },
   {
     id: 1,
-    name: 'ばら / bara',
+    name: '内山翼(unchama)',
     company: '',
-    avatarUrl: '/honoconf2026/speakers/EthicalTx.jpg',
+    avatarUrl: '/jisaba2026/speakers/unchama.png',
   },
   {
     id: 2,
-    name: 'mental-space',
+    name: '片瀬拓海',
     company: '',
-    avatarUrl: '/honoconf2026/speakers/9BBLoiWNcz44090.jpg',
+    avatarUrl: '/jisaba2026/speakers/36a0cef5.jpg',
   },
   {
     id: 3,
-    name: 'asahi',
+    name: '大畑誠弥',
     company: '',
-    avatarUrl: '/honoconf2026/speakers/ashunar0.jpg',
+    avatarUrl: '/jisaba2026/speakers/9fe6a32f.jpg',
   },
   {
     id: 4,
-    name: 'Gen Tamura',
+    name: 'ゆーとし',
     company: '',
-    avatarUrl: '/honoconf2026/logo.png',
+    avatarUrl: '/jisaba2026/speakers/f1b80423.jpg',
   },
   {
     id: 5,
-    name: 'kosui',
+    name: 'RYo',
     company: '',
-    avatarUrl: '/honoconf2026/logo.png',
+    avatarUrl: '/jisaba2026/speakers/aa1ab9b0.jpg',
   },
   {
     id: 6,
-    name: '田中博悠',
-    company: '',
-    avatarUrl: '/honoconf2026/speakers/tanahiro2010.jpg',
+    name: '那須理也',
+    company: '株式会社ナレッジワーク',
+    avatarUrl: '/jisaba2026/speakers/192e2483.png',
   },
   {
     id: 7,
-    name: 'cochumo',
+    name: 'はるちろ(牧野)',
     company: '',
-    avatarUrl: '/honoconf2026/speakers/cochumo_1128.jpg',
+    avatarUrl: '/jisaba2026/speakers/2cb37a9c.jpg',
   },
   {
     id: 8,
-    name: 'こまもか/Comamoca',
+    name: '佐藤謙成',
     company: '',
-    avatarUrl: '/honoconf2026/speakers/Comamoca_.png',
+    avatarUrl: '/jisaba2026/speakers/40b4f602.jpg',
   },
   {
     id: 9,
-    name: '影白/KageShiron',
-    company: '',
-    avatarUrl: '/honoconf2026/speakers/KageShiron.jpg',
+    name: '宮田宗幸',
+    company: '株式会社フォーセシステム',
+    avatarUrl: '/jisaba2026/speakers/895e1c12.jpg',
   },
   {
     id: 10,
-    name: 'Kanon',
-    company: '',
-    avatarUrl: '/honoconf2026/speakers/ysknsid25.jpg',
+    name: '暁月 蒼空',
+    company: '名古屋工学院専門学校',
+    avatarUrl: '/jisaba2026/speakers/3ad51801.png',
   },
   {
     id: 11,
-    name: 'Yusuke Wada',
-    company: 'Cloudflare, Inc.',
-    avatarUrl: '/honoconf2026/speakers/yusuke-wada.png',
+    name: '井上 裕介',
+    company: '千葉工業大学',
+    avatarUrl: '/jisaba2026/speakers/c3e222fc.png',
   },
   {
     id: 12,
-    name: 'Taku Amano',
+    name: 'べべさん',
     company: '',
-    avatarUrl: '/honoconf2026/speakers/taku-amano.png',
+    avatarUrl: '/jisaba2026/speakers/5732904a.jpg',
   },
   {
     id: 13,
-    name: 'watany',
-    company: 'NTT',
-    avatarUrl: '/honoconf2026/speakers/watany.png',
+    name: '平地浩一',
+    company: 'おうちクラウド研究部',
+    avatarUrl: '/jisaba2026/speakers/515948eb.jpg',
   },
   {
     id: 14,
-    name: 'Aditya Mathur',
-    company: 'Sentry',
-    avatarUrl: '/honoconf2026/speakers/aditya-mathur.png',
+    name: '宮地 慎',
+    company: '',
+    avatarUrl: '/jisaba2026/speakers/6de8ab73.png',
+  },
+  {
+    id: 15,
+    name: 'AketiMaika',
+    company: '千葉工業大学',
+    avatarUrl: '/jisaba2026/speakers/6481a5bf.png',
+  },
+  {
+    id: 16,
+    name: '間山 翔宇',
+    company: '',
+    avatarUrl: '/jisaba2026/speakers/a92ac42f.jpg',
+  },
+  {
+    id: 17,
+    name: '草間 一人',
+    company: 'PagerDuty',
+    avatarUrl: '/jisaba2026/speakers/b1f67586.png',
+  },
+  {
+    id: 18,
+    name: '冬華 蕐',
+    company: '',
+    avatarUrl: '/jisaba2026/speakers/f1c35819.png',
+  },
+  {
+    id: 19,
+    name: 'じんさん',
+    company: '',
+    avatarUrl: '/jisaba2026/speakers/63111718.png',
+  },
+  {
+    id: 20,
+    name: '滝原航大',
+    company: '',
+    avatarUrl: '/jisaba2026/speakers/03be68f0.png',
+  },
+  {
+    id: 21,
+    name: '滝原雄大',
+    company: '',
+    avatarUrl: '/jisaba2026/speakers/168de362.png',
+  },
+  {
+    id: 22,
+    name: '中楯 直希',
+    company: '株式会社スリーシェイク',
+    avatarUrl: '/jisaba2026/speakers/d171c557.jpg',
+  },
+  {
+    id: 23,
+    name: '佐伯明俊',
+    company: '電気通信大学',
+    avatarUrl: '/jisaba2026/speakers/3feff578.jpg',
   },
 ]

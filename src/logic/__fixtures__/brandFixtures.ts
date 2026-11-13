@@ -26,10 +26,16 @@ export function makeBrand(overrides?: {
       defaultAvatarSrc: '',
       headerLogoSrc: '',
       headerLogoShadow: false,
+      headerTextColor: '#ffffff',
       headerBackgroundColor: '',
     },
-    page1: { seconds: 10, cardBackgroundColor: '', cardTextColor: '' },
-    page2: { seconds: 10, trackColors: [] },
+    page1: {
+      seconds: 10,
+      cardBackgroundColor: '',
+      cardRotationBackgroundColors: [],
+      cardTextColor: '',
+    },
+    page2: { seconds: 10, trackColors: [], showTrackLabel: true },
     page3: {
       alias: overrides?.alias ?? 'test-alias',
       images: overrides?.images ?? [],

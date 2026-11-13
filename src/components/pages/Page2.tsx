@@ -8,7 +8,7 @@ type Props = { view: Optional<TalkView> }
 export default function Page2({ view }: Props) {
   const { Page2: Presenter } = useTheme()
   const vm = usePage2ViewModel(view)
-  return <Presenter view={view} {...vm} />
+  return <Presenter {...vm} />
 }
 
 // route 側でプリロードを配置するため theme から re-export

@@ -30,6 +30,8 @@ export interface Brand {
     headerLogoSrc: string
     // ヘッダロゴに drop-shadow を付けるか (背景とロゴの色が近く輪郭が埋もれるとき用)
     headerLogoShadow: boolean
+    // Page ヘッダの文字色（時計・トラック名・ハッシュタグ）。背景が明るいイベントは濃い色にする
+    headerTextColor: string
     // Page ヘッダの帯背景色 (Tailwind 経由できないので raw で持つ)
     headerBackgroundColor: string
   }
@@ -38,12 +40,17 @@ export interface Brand {
     seconds: number
     // セッション情報カードの背景色・文字色 (Tailwind 経由できないので raw で持つ)
     cardBackgroundColor: string
+    // 同じトラック・同じ開始時刻のセッションを順番に切り替えるとき、セッションごとに使う背景色。
+    // 枠内の順番 % length で循環する。空なら常に cardBackgroundColor
+    cardRotationBackgroundColors: ReadonlyArray<string>
     cardTextColor: string
   }
   page2: {
     seconds: number
     // トラックごとのラベル背景色。trackIndex % length で循環して使う
     trackColors: ReadonlyArray<string>
+    // カード左上の「TRACK xxx」ラベルを出すか（1トラックのイベントなどで false にする）
+    showTrackLabel: boolean
   }
   page3: {
     alias: string

@@ -64,7 +64,10 @@ export default function Header({ view }: Props) {
           <div className="text-center text-xs">ハッシュタグ</div>
           <div>
             <div className="text-left text-xl">#{hashTag.all}</div>
-            <div className="text-left text-xl">#{trackHashTag}</div>
+            {/* トラック用タグが空、または全体タグと同じなら1行だけにする */}
+            {trackHashTag && trackHashTag !== hashTag.all && (
+              <div className="text-left text-xl">#{trackHashTag}</div>
+            )}
           </div>
         </div>
       </div>
