@@ -20,5 +20,21 @@
       "pattern": "im.emtec.tv",
       "custom_domain": true
     }
-  ]
+  ],
+  // プレビュー用の環境。本番とは別の Worker (emtec-intermission-preview) としてデプロイし、
+  // dev-im.emtec.tv を当てる。カスタムドメインは Worker 単位でしか当てられず、
+  // 上の preview_urls が発行するバージョンごとの URL には付けられないため環境を分けている。
+  // デプロイ: npm run deploy:preview (= wrangler deploy --env preview)
+  // routes は環境ごとに上書きされるので、本番の im.emtec.tv はこの環境には付かない
+  "env": {
+    "preview": {
+      "name": "emtec-intermission-preview",
+      "routes": [
+        {
+          "pattern": "dev-im.emtec.tv",
+          "custom_domain": true
+        }
+      ]
+    }
+  }
 }
