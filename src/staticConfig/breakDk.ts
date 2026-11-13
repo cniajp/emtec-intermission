@@ -1,25 +1,27 @@
 import { toPlaylist, type Playlist } from '../components/media/playlist'
 import type { TrackImageInserts } from './shared'
 
-const breakDkImages: string[] = []
+const breakDkImages: string[] = [
+  'info_002.jpg',
+  'info_003.jpg',
+  'info_004.jpg',
+  'info_005.jpg',
+  'info_006.jpg',
+  'info_007.jpg',
+  'info_008.jpg',
+  'info_009.jpg',
+  'info_010.jpg',
+]
 
 const breakDkTrackImages: TrackImageInserts = {}
 
 const breakDkPlaylist: Playlist = toPlaylist([
   {
-    src: 'https://im-file.emtec.tv/cnk2026/grafana_vol-7dB.mp4',
+    src: 'https://im-file.emtec.tv/cndw2026/HireRoo.mp4',
     type: 'video/mp4',
   },
   {
-    src: 'https://im-file.emtec.tv/cnk2026/m3vol-0dB.mp4',
-    type: 'video/mp4',
-  },
-  {
-    src: 'https://im-file.emtec.tv/cnk2026/prairie_vol-11dB.mp4',
-    type: 'video/mp4',
-  },
-  {
-    src: 'https://im-file.emtec.tv/cnk2026/freeevol-3dB.mp4',
+    src: 'https://im-file.emtec.tv/cndw2026/EMTEC_CM_30s_FHD_v13.mp4',
     type: 'video/mp4',
   },
   // {
@@ -30,12 +32,12 @@ const breakDkPlaylist: Playlist = toPlaylist([
 
 export const breakDkConfig = {
   base: {
-    eventAbbr: 'cnk',
-    loadingIconSrc: '/cnk2026/logo.png',
+    eventAbbr: 'cndw2026',
+    loadingIconSrc: '/cndw2026/logo.png',
     loadingEnabled: true,
     loadingLogoShape: 'none',
-    backgroundSrc: '/cnk2026/new/background.jpg',
-    audioSrcs: ['/cnk2026/bgm.mp3'],
+    backgroundSrc: '/cndw2026/new/background.jpg',
+    audioSrcs: ['/cndw2026/bgm.mp3'],
     audioShuffle: true,
     audioFadeSeconds: 3,
     audioFadeOutBeforeCm: true,
@@ -44,10 +46,10 @@ export const breakDkConfig = {
       break: 'cloudnativekaigi_',
     },
     useHashTagAsTrackName: false,
-    defaultAvatarSrc: '/cnk2026/logo.png',
+    defaultAvatarSrc: '/cndw2026/logo.png',
     // NOTE: ヘッダは高さ140px・width:450px/height:auto で描画されるので
     // 横長のタイトル画像を指定すること
-    headerLogoSrc: '/kinoko2026/title.png',
+    headerLogoSrc: '/cndw2026/title.png',
     headerLogoShadow: false,
     headerTextColor: '#ffffff',
     headerBackgroundColor: '#763F03',
@@ -64,7 +66,7 @@ export const breakDkConfig = {
     showTrackLabel: true,
   },
   page3: {
-    alias: 'cnk2026/info',
+    alias: 'cndw2026/info',
     images: breakDkImages,
     trackImages: breakDkTrackImages,
     secondsPerImage: 10,
