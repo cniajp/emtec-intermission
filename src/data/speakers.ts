@@ -3,7 +3,9 @@ import { Speaker } from './types'
 /**
  * 自鯖缶 2026 (2026-11-15 / docomo R&D OPEN LAB ODAIBA)
  * 出典: https://jisaba.sh/ と https://jisaba.sh/sessions/* (2026-11-06 取得)
- * 登壇者画像は public/jisaba2026/speakers/ に保存（ファイル名は公式画像URLの登壇者IDの先頭8文字）
+ * 登壇者画像は public/jisaba2026/speakers/ に保存。ファイル名は公式画像URLの
+ *   - /speakers/<ID>/ の ID の先頭8文字（1人だけがその ID を使っている場合）
+ *   - 画像ファイル名の先頭8文字（複数人が同じ ID を共有している場合。ID は登壇者ごとに一意ではない）
  * company は公式サイトに所属の記載がある登壇者のみ
  */
 export const speakers: Speaker[] = [
@@ -23,13 +25,13 @@ export const speakers: Speaker[] = [
     id: 2,
     name: '片瀬拓海',
     company: '',
-    avatarUrl: '/jisaba2026/speakers/8c5644b6.jpg',
+    avatarUrl: '/jisaba2026/speakers/36a0cef5.jpg',
   },
   {
     id: 3,
     name: '大畑誠弥',
     company: '',
-    avatarUrl: '/jisaba2026/speakers/8c5644b6.jpg',
+    avatarUrl: '/jisaba2026/speakers/9fe6a32f.jpg',
   },
   {
     id: 4,
@@ -89,7 +91,7 @@ export const speakers: Speaker[] = [
     id: 13,
     name: '平地浩一',
     company: 'おうちクラウド研究部',
-    avatarUrl: '/jisaba2026/speakers/f10da039.jpg',
+    avatarUrl: '/jisaba2026/speakers/515948eb.jpg',
   },
   {
     id: 14,
@@ -107,7 +109,7 @@ export const speakers: Speaker[] = [
     id: 16,
     name: '間山 翔宇',
     company: '',
-    avatarUrl: '/jisaba2026/speakers/f10da039.jpg',
+    avatarUrl: '/jisaba2026/speakers/a92ac42f.jpg',
   },
   {
     id: 17,
@@ -131,13 +133,13 @@ export const speakers: Speaker[] = [
     id: 20,
     name: '滝原航大',
     company: '',
-    avatarUrl: '/jisaba2026/speakers/28b762f4.png',
+    avatarUrl: '/jisaba2026/speakers/03be68f0.png',
   },
   {
     id: 21,
     name: '滝原雄大',
     company: '',
-    avatarUrl: '/jisaba2026/speakers/28b762f4.png',
+    avatarUrl: '/jisaba2026/speakers/168de362.png',
   },
   {
     id: 22,
