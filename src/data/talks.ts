@@ -2,10 +2,10 @@ import { Talk } from './types'
 
 /**
  * 自鯖缶 2026 (2026-11-15 / docomo R&D OPEN LAB ODAIBA)
- * 出典 (2026-11-06 取得): https://jisaba.sh/#timetable と https://jisaba.sh/sessions/*
+ * 出典 (2026-11-06 取得、時刻は 2026-11-14 に再確認): https://jisaba.sh/#timetable と https://jisaba.sh/sessions/*
  *   - 1トラック。公式は時間枠ごとに4セッションを並べ、個別の時刻・部屋を出していない
  *     ため、同じ枠の4本は同じ開始・終了時刻にしている（運営判断）
- *   - 10:30 枠は公式表記 10:30–12:00 だが 10:30–11:30 として扱う（運営判断）
+ *   - 第1枠は 11:00–12:00（2026-11-14 に公式が 10:30 開始から変更）
  *   - id 10: Keynote / 1xx〜5xx: 第1〜5枠（枠内は公式表の掲載順）
  *   - id 9001: Opening / 9003: Closing（運営枠）
  *   - talkCategory は使わない（空。Keynote も通常のセッションと同じ表示）
@@ -61,8 +61,8 @@ export const talks: Talk[] = [
         name: '大畑誠弥',
       },
     ],
-    startTime: '2026-11-15T10:30:00+09:00',
-    endTime: '2026-11-15T11:30:00+09:00',
+    startTime: '2026-11-15T11:00:00+09:00',
+    endTime: '2026-11-15T12:00:00+09:00',
     talkCategory: '',
     conferenceDayId: 1,
     showOnTimetable: true,
@@ -80,8 +80,8 @@ export const talks: Talk[] = [
         name: 'ゆーとし',
       },
     ],
-    startTime: '2026-11-15T10:30:00+09:00',
-    endTime: '2026-11-15T11:30:00+09:00',
+    startTime: '2026-11-15T11:00:00+09:00',
+    endTime: '2026-11-15T12:00:00+09:00',
     talkCategory: '',
     conferenceDayId: 1,
     showOnTimetable: true,
@@ -99,8 +99,8 @@ export const talks: Talk[] = [
         name: 'RYo',
       },
     ],
-    startTime: '2026-11-15T10:30:00+09:00',
-    endTime: '2026-11-15T11:30:00+09:00',
+    startTime: '2026-11-15T11:00:00+09:00',
+    endTime: '2026-11-15T12:00:00+09:00',
     talkCategory: '',
     conferenceDayId: 1,
     showOnTimetable: true,
@@ -118,8 +118,8 @@ export const talks: Talk[] = [
         name: '那須理也',
       },
     ],
-    startTime: '2026-11-15T10:30:00+09:00',
-    endTime: '2026-11-15T11:30:00+09:00',
+    startTime: '2026-11-15T11:00:00+09:00',
+    endTime: '2026-11-15T12:00:00+09:00',
     talkCategory: '',
     conferenceDayId: 1,
     showOnTimetable: true,
