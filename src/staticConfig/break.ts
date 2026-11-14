@@ -1,9 +1,12 @@
 import { toPlaylist, type Playlist } from '../components/media/playlist'
 import type { TrackImageInserts } from './shared'
 
-// TODO: 告知画像が届いたら public/jisaba2026/info/ に置いて列挙する
-// (空の間は Page3 をスキップして次のページへ進む)
-const breakImages: string[] = []
+// Page3 で順に表示する告知スライド (public/jisaba2026/info/)。空にすると Page3 をスキップする
+const breakImages: string[] = [
+  // 企業スポンサー → 個人スポンサー
+  'sponsor_corporate.png',
+  'sponsor_individual.png',
+]
 
 // trackId ごとに、共通カルーセル(images)の「N枚目(1始まり)」に差し込む画像
 // 例: { 1: [{ position: 1, src: 'track_a_intro.jpg' }] }
