@@ -19,6 +19,15 @@
     {
       "pattern": "im.emtec.tv",
       "custom_domain": true
+    },
+    // Worker Previews (wrangler preview) 専用のドメイン。本番 (wrangler deploy) には当てない。
+    // プレビューは <preview名>.dev-im.emtec.tv、デプロイごとは <deployment-id>-<preview名>.dev-im.emtec.tv で配信され、
+    // ワイルドカードの DNS レコードと証明書 (*.dev-im.emtec.tv) は Cloudflare が作る
+    {
+      "pattern": "dev-im.emtec.tv",
+      "custom_domain": true,
+      "previews_enabled": true,
+      "enabled": false
     }
   ]
 }
