@@ -18,7 +18,7 @@ const breakTrackImages: TrackImageInserts = {
 // 自鯖缶 CM
 const breakPlaylist: Playlist = toPlaylist([
   {
-    src: 'https://im-file.emtec.tv/jisabakan2026/jisabakan_cm.mp4',
+    src: 'https://im-file.emtec.tv/jisabakan2026/jisabakan_opening_v9.mp4',
     type: 'video/mp4',
   },
   {
