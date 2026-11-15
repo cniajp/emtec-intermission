@@ -5,8 +5,9 @@
   "name": "emtec-intermission",
   "compatibility_date": "2024-12-30",
   "compatibility_flags": ["nodejs_compat"],
-  // wrangler versions upload したバージョンごとに
-  // <version>-emtec-intermission.<subdomain>.workers.dev のプレビューURLを発行する
+  // workers.dev 側のプレビューURLも発行する。
+  // Worker Previews (wrangler preview) は <preview名>-emtec-intermission.<subdomain>.workers.dev、
+  // wrangler versions upload は <version>-emtec-intermission.<subdomain>.workers.dev (Version URL)
   "preview_urls": true,
   "build": {
     "command": "npm run build:cloudflare"
@@ -29,5 +30,9 @@
       "previews_enabled": true,
       "enabled": false
     }
-  ]
+  ],
+  // Worker Previews (wrangler preview) 用の設定。トップレベルは本番、ここはプレビューに効く。
+  // 本番と分けたい vars / bindings が出てきたらここに書く。分けるものが無い間は空でよいが、
+  // ブロック自体は Worker Previews を使うために必要 (Wrangler 4.135.0 以上)
+  "previews": {}
 }

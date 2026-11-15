@@ -55,7 +55,7 @@
     "postcss": "^8.5.26",
     "prettier": "^3.9.6",
     "typescript": "^6.0.3",
-    "wrangler": "^4.127.1"
+    "wrangler": "^4.162.0"
   },
   "volta": {
     "node": "24.20.0"
