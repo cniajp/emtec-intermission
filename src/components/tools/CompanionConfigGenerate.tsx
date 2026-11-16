@@ -88,7 +88,7 @@ const LAYOUT_BUTTONS = [
   { text: 'Futae', macroIndex: 1, dthCode: '03' },
   { text: 'Person', macroIndex: 2, dthCode: '04' },
   { text: 'Logo', macroIndex: 3, dthCode: '00' },
-  { text: 'End', macroIndex: 4, dthCode: '10' },
+  { text: 'End', macroIndex: 4, dthCode: '0A' },
 ]
 
 // 特殊ボタン定義
@@ -109,7 +109,7 @@ const SPECIAL_BUTTONS = {
     text: 'Slido',
     obsScene: OBS_SCENE.separator,
     macroIndex: 6,
-    dthCode: '99',
+    dthCode: '63',
   },
 }
 
@@ -170,14 +170,14 @@ type VR6HDActionKind = keyof typeof VR6HD_ACTION_KINDS
 // VR-6HD用アクション作成（2つのsendコマンドを返す）
 //   1つ目: LAN接続信号 (id_send='0000')
 //   2つ目: DTH:<base>,<dthCode>;  種別に応じてマクロ/シーンメモリー実行
-//   dthCode は 0始まり (例 '00' → No.001)
+//   dthCode は 0始まりの16進2桁 (例 '00' → No.001, '0A' → No.011)
 //   ※ 今イベントはシーンメモリー運用のためデフォルト 'sceneMemory'
 function createVR6HDActions(
   connectionId: string,
   dthCode: string,
   kind: VR6HDActionKind = 'sceneMemory'
 ): object[] {
-  const number = String(parseInt(dthCode, 10) + 1).padStart(3, '0')
+  const number = String(parseInt(dthCode, 16) + 1).padStart(3, '0')
   const { dthBase, label } = VR6HD_ACTION_KINDS[kind]
   return [
     {
