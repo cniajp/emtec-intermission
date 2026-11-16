@@ -87,6 +87,7 @@ function Pages() {
     loadingEnabled,
     loadingLogoShape,
     backgroundSrc,
+    backgroundLayersEnabled,
     audioSrcs,
     audioShuffle,
     audioFadeSeconds,
@@ -134,34 +135,38 @@ function Pages() {
           style={{ objectFit: 'cover' }}
           priority
         />
-        <div className="absolute -z-8 left-[1476px] top-[834px] w-[994px] h-[994px] -translate-x-1/2 -translate-y-1/2">
-          <Image
-            src="/cnk2026/new/layer-1.png"
-            alt="background"
-            className={classes.spinSlowCw}
-            width={994}
-            height={994}
-            priority
-          />
-        </div>
-        <div className="absolute -z-6 left-[388px] top-[675px] w-[529px] h-[458px] -translate-x-1/2 -translate-y-1/2">
-          <Image
-            src="/cnk2026/new/layer-2.png"
-            alt="background"
-            className={classes.spinSlowCcw}
-            width={529}
-            height={458}
-            priority
-          />
-        </div>
-        <Image
-          src="/cnk2026/new/layer-3.png"
-          alt="background"
-          className="-z-4"
-          fill
-          style={{ objectFit: 'cover' }}
-          priority
-        />
+        {backgroundLayersEnabled && (
+          <>
+            <div className="absolute -z-8 left-[1476px] top-[834px] w-[994px] h-[994px] -translate-x-1/2 -translate-y-1/2">
+              <Image
+                src="/cnk2026/new/layer-1.png"
+                alt="background"
+                className={classes.spinSlowCw}
+                width={994}
+                height={994}
+                priority
+              />
+            </div>
+            <div className="absolute -z-6 left-[388px] top-[675px] w-[529px] h-[458px] -translate-x-1/2 -translate-y-1/2">
+              <Image
+                src="/cnk2026/new/layer-2.png"
+                alt="background"
+                className={classes.spinSlowCcw}
+                width={529}
+                height={458}
+                priority
+              />
+            </div>
+            <Image
+              src="/cnk2026/new/layer-3.png"
+              alt="background"
+              className="-z-4"
+              fill
+              style={{ objectFit: 'cover' }}
+              priority
+            />
+          </>
+        )}
         {loadingEnabled ? (
           <>
             {/* ローディング画面 */}
