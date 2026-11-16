@@ -15,6 +15,8 @@ export interface Brand {
     loadingEnabled: boolean
     loadingLogoShape: LoadingLogoShape
     backgroundSrc: string
+    // true なら背景の上に CNK2026 の回転レイヤー (/cnk2026/new/layer-*.png) を重ねる。Dreamkast 版のみ有効
+    backgroundLayersEnabled: boolean
     // BGM。配列の順に再生し、末尾まで来たら先頭に戻る。空なら無音
     audioSrcs: ReadonlyArray<string>
     // true なら audioSrcs をシャッフルして再生する（一周ごとに並べ直す）

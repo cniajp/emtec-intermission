@@ -36,7 +36,9 @@ export const breakDkConfig = {
     loadingIconSrc: '/cndw2026/logo.png',
     loadingEnabled: true,
     loadingLogoShape: 'none',
-    backgroundSrc: '/cndw2026/new/background.jpg',
+    // CNDW2025 と同じ背景（当時は /cndw2024/background.png を使用）
+    backgroundSrc: '/cndw2026/background.png',
+    backgroundLayersEnabled: false,
     audioSrcs: ['/cndw2026/bgm.mp3'],
     audioShuffle: true,
     audioFadeSeconds: 3,
