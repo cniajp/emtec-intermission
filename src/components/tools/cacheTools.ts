@@ -145,10 +145,65 @@ export type CacheEntry = {
   bytes: number | null
 }
 
+// ファイルの種類（アイコンと色、種類別の内訳に使う）
+export type FileKind =
+  | 'image'
+  | 'audio'
+  | 'video'
+  | 'script'
+  | 'style'
+  | 'font'
+  | 'data'
+  | 'page'
+  | 'other'
+
+const KIND_BY_EXTENSION: Record<string, FileKind> = {
+  png: 'image',
+  jpg: 'image',
+  jpeg: 'image',
+  webp: 'image',
+  avif: 'image',
+  gif: 'image',
+  svg: 'image',
+  ico: 'image',
+  mp3: 'audio',
+  m4a: 'audio',
+  wav: 'audio',
+  ogg: 'audio',
+  mp4: 'video',
+  webm: 'video',
+  mov: 'video',
+  js: 'script',
+  mjs: 'script',
+  css: 'style',
+  woff: 'font',
+  woff2: 'font',
+  ttf: 'font',
+  otf: 'font',
+  json: 'data',
+  map: 'data',
+  txt: 'data',
+  webmanifest: 'data',
+  html: 'page',
+}
+
+// ファイル名（クエリ付きでもよい）から種類を決める。拡張子が無いものはページ
+export function fileKind(name: string): FileKind {
+  const base = name.split('?')[0]
+  const dot = base.lastIndexOf('.')
+  if (dot <= 0) return 'page'
+  return KIND_BY_EXTENSION[base.slice(dot + 1).toLowerCase()] ?? 'other'
+}
+
+export type CacheTreeSort = 'name' | 'size'
+
 export type CacheTreeNode = {
   name: string
   // フォルダなら子を持つ。ファイルなら null
   children: CacheTreeNode[] | null
+  // ファイルの種類と、キャッシュ上の URL（フォルダは null）
+  kind: FileKind | null
+  url: string | null
   // ファイルはそのサイズ、フォルダは配下の合計（サイズ不明のファイルは 0 として数える）
   bytes: number
   // 配下のファイル数（ファイル自身は 1）
@@ -198,10 +253,12 @@ function decodeSegment(segment: string): string {
 }
 
 // キャッシュ名 → フォルダ → ファイルのツリーにする。
-// フォルダを先、ファイルを後に、それぞれ名前順で並べる
+// sort が 'name' ならフォルダを先・ファイルを後にそれぞれ名前順、
+// 'size' ならフォルダとファイルを混ぜて大きい順に並べる
 export function buildCacheTree(
   entries: CacheEntry[],
-  origin: string
+  origin: string,
+  sort: CacheTreeSort = 'name'
 ): CacheTreeNode[] {
   const root: CacheTreeNode = folder('')
   for (const entry of entries) {
@@ -218,28 +275,74 @@ export function buildCacheTree(
     node.children!.push({
       name: path[path.length - 1],
       children: null,
+      kind: fileKind(path[path.length - 1]),
+      url: entry.url,
       bytes: entry.bytes ?? 0,
       fileCount: 1,
       hasUnknownSize: entry.bytes === null,
     })
   }
-  summarize(root)
+  summarize(root, sort)
   return root.children!
 }
 
 function folder(name: string): CacheTreeNode {
-  return { name, children: [], bytes: 0, fileCount: 0, hasUnknownSize: false }
+  return {
+    name,
+    children: [],
+    kind: null,
+    url: null,
+    bytes: 0,
+    fileCount: 0,
+    hasUnknownSize: false,
+  }
 }
 
-function summarize(node: CacheTreeNode): void {
+function summarize(node: CacheTreeNode, sort: CacheTreeSort): void {
   if (!node.children) return
-  node.children.forEach(summarize)
-  node.children.sort(
-    (a, b) =>
-      Number(!!b.children) - Number(!!a.children) ||
-      a.name.localeCompare(b.name)
-  )
+  node.children.forEach((child) => summarize(child, sort))
   node.bytes = node.children.reduce((sum, c) => sum + c.bytes, 0)
+  node.children.sort((a, b) =>
+    sort === 'size'
+      ? b.bytes - a.bytes || a.name.localeCompare(b.name)
+      : Number(!!b.children) - Number(!!a.children) ||
+        a.name.localeCompare(b.name)
+  )
   node.fileCount = node.children.reduce((sum, c) => sum + c.fileCount, 0)
   node.hasUnknownSize = node.children.some((c) => c.hasUnknownSize)
+}
+
+// 名前（キャッシュ名・フォルダ名・ファイル名のどこか）に query を含むものだけ残す。
+// 大文字小文字は区別しない。query が空なら全部
+export function filterCacheEntries(
+  entries: CacheEntry[],
+  query: string,
+  origin: string
+): CacheEntry[] {
+  const q = query.trim().toLowerCase()
+  if (!q) return entries
+  return entries.filter((e) =>
+    [e.cache, ...toTreePath(e.url, origin)].join('/').toLowerCase().includes(q)
+  )
+}
+
+export type KindSummary = { kind: FileKind; bytes: number; count: number }
+
+// 種類別の合計サイズと件数（大きい順）
+export function summarizeByKind(
+  entries: CacheEntry[],
+  origin: string
+): KindSummary[] {
+  const byKind = new Map<FileKind, KindSummary>()
+  for (const entry of entries) {
+    const path = toTreePath(entry.url, origin)
+    const kind = fileKind(path[path.length - 1])
+    const summary = byKind.get(kind) ?? { kind, bytes: 0, count: 0 }
+    summary.bytes += entry.bytes ?? 0
+    summary.count += 1
+    byKind.set(kind, summary)
+  }
+  return [...byKind.values()].sort(
+    (a, b) => b.bytes - a.bytes || b.count - a.count
+  )
 }
