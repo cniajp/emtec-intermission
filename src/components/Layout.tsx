@@ -22,7 +22,7 @@ type HeaderProps = {
 
 export function Header({ children }: HeaderProps) {
   return (
-    <header className="border-b border-neutral-800 px-8 py-3">
+    <header className="border-b border-neutral-800 px-4 py-3 sm:px-8">
       <div
         className={`mx-auto max-w-7xl ${children ? 'flex items-center justify-between' : ''}`}
       >
@@ -35,7 +35,7 @@ export function Header({ children }: HeaderProps) {
 
 export function Footer() {
   return (
-    <footer className="border-t border-neutral-800 px-8 py-6">
+    <footer className="border-t border-neutral-800 px-4 py-6 sm:px-8">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <p className="text-sm text-neutral-500">
           &copy; {new Date().getFullYear()} EMTEC
@@ -67,7 +67,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col bg-neutral-900">
       <Header />
-      <main className="flex flex-1 flex-col p-12">{children}</main>
+      {/* スマートフォンでは余白を詰める（sm 以上はこれまでと同じ） */}
+      <main className="flex flex-1 flex-col p-4 sm:p-12">{children}</main>
       <Footer />
     </div>
   )
