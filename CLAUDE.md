@@ -75,6 +75,9 @@ Presenter に渡すだけです。**JSXやTailwindクラスは Presenter 側に�
 - 遷移タイマーは `src/logic/page-flow/usePageTransition.ts`
 - 各ページは設定された時間（`config.transTimePageN`）後に自動遷移
 - BGMの長さと同期するように時間を調整
+- ローディング中は Page1 を透明のままマウントし、背景・ロゴ・アバター・フォントの準備が終わってから
+  フェードインする（`useAssetsReady`、上限5秒）。その間は `PageRunningCtx` が false で、
+  遷移タイマーと同時刻セッションの切り替えは止まっている
 
 ### アニメーション
 

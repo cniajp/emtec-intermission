@@ -1,6 +1,8 @@
 import { act, renderHook } from '@testing-library/react'
+import { PropsWithChildren } from 'react'
 import { TalkView } from '@/logic/models/talkView'
 import { useSameStartRotation } from '@/logic/page-view-models/useSameStartRotation'
+import { PageRunningCtx } from '@/logic/page-flow/PageRunningContext'
 import {
   makeSpeaker,
   makeTalk,
@@ -65,5 +67,30 @@ describe('useSameStartRotation', () => {
     const view = new TalkView(talks[0], talks, tracks, [makeSpeaker()])
     const { result } = renderHook(() => useSameStartRotation(view, 30, [1]))
     expect(result.current).toBe(view)
+  })
+
+  it('ローディング中（PageRunningCtx が false）は切り替えを始めない', () => {
+    const view = makeView()
+    let running = false
+    const { result, rerender } = renderHook(
+      () => useSameStartRotation(view, 30, [1]),
+      {
+        wrapper: ({ children }: PropsWithChildren) => (
+          <PageRunningCtx.Provider value={running}>
+            {children}
+          </PageRunningCtx.Provider>
+        ),
+      }
+    )
+
+    act(() => jest.advanceTimersByTime(25_000))
+    expect(firstId(result.current)).toBe(11)
+
+    running = true
+    rerender()
+    act(() => jest.advanceTimersByTime(9_999))
+    expect(firstId(result.current)).toBe(11)
+    act(() => jest.advanceTimersByTime(1))
+    expect(firstId(result.current)).toBe(12)
   })
 })
