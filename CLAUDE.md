@@ -173,7 +173,8 @@ public/
 - 動画ファイルのキャッシュ管理を行っている
 - OBS用途では動画の事前キャッシュが重要
 - `public/` のプリキャッシュ対象は、`src/staticConfig/*.ts` が参照しているイベントのフォルダと
-  共有フォルダ（`obs-scenes`, `sounds`）だけ。絞り込みは `src/app/serwist/[path]/route.ts`
+  共有フォルダ（`obs-scenes`, `sounds`）だけ。絞り込みは `src/app/serwist/[path]/route.ts`。
+  1ファイル16MiBまでが対象で、BGM もプリキャッシュされる
 - Page4 の動画は、talk ページを開いた数秒後に未キャッシュ分だけ、再生順に1本ずつ自動でキャッシュされる
   （`src/components/hooks/useVideoPrecache.ts`）。取り直したいときは debug の「Update Video Cache」ボタン
 - `/tools/cache`（トップの「ツール」）で、動画キャッシュの確認・事前保存・削除と、全キャッシュの削除ができる。

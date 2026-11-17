@@ -24,7 +24,7 @@
 | --- | --- | --- |
 | Next画像最適化キャッシュ | `next/image`の画像は`.next/dev/cache/images/`（本番は`.next/cache/images/`）にサーバー側で保存される。キーはURL・幅・品質だけで元ファイルの更新時刻を含まないので、期限内は同名で差し替えても古いまま | dev / 本番 |
 | ブラウザHTTPキャッシュ | 本番は`Cache-Control: max-age=<minimumCacheTTL>`。devは`max-age=0`だがNext側のETagが古ければ304で古い画像が残る | 本番 / OBS |
-| Service Workerプリキャッシュ | ビルド時に`public/`配下のうち、`src/staticConfig`が参照しているイベントのフォルダと共有フォルダ（2MiB以下のファイル）がプリキャッシュされる（`<img>`直参照のアバターやPage3画像に影響。`next/image`のURLは対象外）。新しいSWは全タブを閉じるまで待機するので、OBSを開いたままだとデプロイ後も差し替わらない | 本番のみ |
+| Service Workerプリキャッシュ | ビルド時に`public/`配下のうち、`src/staticConfig`が参照しているイベントのフォルダと共有フォルダ（16MiB以下のファイル。BGMも含む）がプリキャッシュされる（`<img>`直参照のアバターやPage3画像に影響。`next/image`のURLは対象外）。新しいSWは全タブを閉じるまで待機するので、OBSを開いたままだとデプロイ後も差し替わらない | 本番のみ |
 
 `minimumCacheTTL`は1層目と2層目の期限を同時に決める。画像は数枚しかないので60秒でも負荷は問題にならない。
 
