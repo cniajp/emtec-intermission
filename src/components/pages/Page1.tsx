@@ -8,5 +8,5 @@ type Props = { view: Optional<TalkView> }
 export default function Page1({ view }: Props) {
   const { Page1: Presenter } = useTheme()
   const vm = usePage1ViewModel(view)
-  return <Presenter view={vm.view} />
+  return <Presenter view={vm.view} isLeaving={vm.isLeaving} />
 }

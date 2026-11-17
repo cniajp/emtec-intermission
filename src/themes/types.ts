@@ -9,6 +9,8 @@ import type { Playlist } from '@/components/media/playlist'
 
 export type Page1PresenterProps = {
   view: Optional<TalkView>
+  // 次のページへ切り替わる直前か（要素の退場アニメーション用。使わないテーマは無視してよい）
+  isLeaving: boolean
 }
 
 export type Page2PresenterProps = {

@@ -78,6 +78,9 @@ Presenter に渡すだけです。**JSXやTailwindクラスは Presenter 側に�
 - ローディング中は Page1 を透明のままマウントし、背景・ロゴ・アバター・フォントの準備が終わってから
   フェードインする（`useAssetsReady`、上限5秒）。その間は `PageRunningCtx` が false で、
   遷移タイマーと同時刻セッションの切り替えは止まっている
+- ページ切り替え時は各要素が入場・退場する（default テーマ）。切り替わる 600ms 前から
+  `useTimedPageTransition` の `isLeaving` が true になり、Presenter が退場のクラスを付ける。
+  動きの定義は `src/themes/default/theme.module.css` と `motion.ts`（transform と opacity のみ）
 
 ### アニメーション
 

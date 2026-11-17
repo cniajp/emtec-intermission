@@ -9,10 +9,11 @@ import { PhraseText } from '@/components/common/PhraseText'
 import { ShrinkToFit } from '@/components/common/ShrinkToFit'
 import { CancelledBadge } from '../CancelledBadge'
 import styles from '../theme.module.css'
+import { motion } from '../motion'
 
-type Props = { view: Optional<TalkView> }
+type Props = { view: Optional<TalkView>; isLeaving: boolean }
 
-export function Main({ view }: Props) {
+export function Main({ view, isLeaving }: Props) {
   const brand = useBrand()
   const talk = view?.talksLeftInSameTrack()[0] ?? null
   // 同時刻セッションの切り替えで talk が変わったら、直前の talk を押し出し用に残す
@@ -36,18 +37,26 @@ export function Main({ view }: Props) {
       ? colors[view.sameStartIndexOf(t) % colors.length]
       : cardBackgroundColor
 
+  // ラベルは左から、カードは下から入る（退場は逆向き）
+  const label = motion('left', isLeaving, 0)
+  const card = motion('up', isLeaving, 1)
+
   return (
     <div className="mt-4 mb-16">
-      <div className="text-left w-[500px] pr-10 py-10 bg-[#ffffff] bg-cover bg-center rounded-r-2xl">
+      <div
+        className={`text-left w-[500px] pr-10 py-10 bg-[#ffffff] bg-cover bg-center rounded-r-2xl ${label.className}`}
+        style={label.style}
+      >
         <div className="text-right text-[#1E1E1E] font-bold font-din-2014 tracking-wide text-2xl">
           UPCOMING SESSION
         </div>
       </div>
       <div
-        className={`top-[55px] left-[120px] w-[1000px] ${hasMeta ? 'h-[668px]' : 'h-[630px]'} relative rounded-lg flex flex-col overflow-hidden`}
+        className={`top-[55px] left-[120px] w-[1000px] ${hasMeta ? 'h-[668px]' : 'h-[630px]'} relative rounded-lg flex flex-col overflow-hidden ${card.className}`}
         style={{
           backgroundColor: bgOf(talk),
           color: brand.page1.cardTextColor,
+          ...card.style,
         }}
       >
         <div className="text-center py-2 text-2xl text-white bg-[#1E1E1E] font-din-2014 font-medium">

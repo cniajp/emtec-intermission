@@ -151,3 +151,105 @@
 .talkPushOut {
   animation: talk-push-out 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
 }
+
+/* ページ切り替え時の要素の入場・退場（motion.ts から使う）
+   - 動かすのは transform と opacity だけ（レイアウトを変えず、ShrinkToFit の計測に影響しない）
+   - --motion-index が大きい要素ほど遅れて動く
+   - 退場の長さは usePageTransition.ts の PAGE_EXIT_MS（600ms）に収める:
+     0.4s + 40ms × 最大5要素 */
+
+@keyframes enter-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes enter-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes enter-from-below {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes exit-to-left {
+  to {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+}
+
+@keyframes exit-to-right {
+  to {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+}
+
+@keyframes exit-to-below {
+  to {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+}
+
+.enterFromLeft,
+.enterFromRight,
+.enterFromBelow {
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+  animation-delay: calc(var(--motion-index, 0) * 90ms);
+}
+
+.enterFromLeft {
+  animation-name: enter-from-left;
+}
+
+.enterFromRight {
+  animation-name: enter-from-right;
+}
+
+.enterFromBelow {
+  animation-name: enter-from-below;
+}
+
+.exitToLeft,
+.exitToRight,
+.exitToBelow {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
+  animation-fill-mode: both;
+  animation-delay: calc(var(--motion-index, 0) * 40ms);
+}
+
+.exitToLeft {
+  animation-name: exit-to-left;
+}
+
+.exitToRight {
+  animation-name: exit-to-right;
+}
+
+.exitToBelow {
+  animation-name: exit-to-below;
+}
