@@ -3,7 +3,7 @@
 // 変換先フォーマット: src/data/xxx.ts (Track, Speaker, Talk)
 // 実行コマンド: just o11yconjp2025
 // もしくは
-// 実行コマンド: npx tsx ./script/o11yconjp2025/convert.ts -y && npm run fmt
+// 実行コマンド: pnpm dlx tsx ./script/o11yconjp2025/convert.ts -y && pnpm run fmt
 
 import * as fs from 'fs'
 import path from 'path'

@@ -7,18 +7,18 @@
 ### 必要要件
 
 - Node.js 24.20.0（`.node-version` / `volta.node` で固定。CI と Docker も同じバージョン）
-- npm
+- pnpm 10（`package.json` の `packageManager` で固定。`corepack enable` すれば自動でそのバージョンが使われる）
 
 ### インストール
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 開発サーバーの起動
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 [http://localhost:3000](http://localhost:3000) をブラウザで開いてください。
@@ -153,7 +153,7 @@ Tailwind v4 には `content` 設定がなく、リポジトリ全体を自動で
 変更したら、生成CSSにクラスが出ているかを確認してください：
 
 ```bash
-npm run build
+pnpm run build
 cat .next/static/chunks/*.css | grep -c 'font-ryo-gothic-plusn'   # 0 なら @theme が壊れている
 ```
 
@@ -177,14 +177,14 @@ cat .next/static/chunks/*.css | grep -c 'font-ryo-gothic-plusn'   # 0 なら @th
 ## API型定義の自動生成
 
 ```bash
-npm run rtk-query-codegen
+pnpm run rtk-query-codegen
 ```
 
 ## ビルド
 
 ```bash
-npm run build  # プロダクションビルド
-npm run start  # プロダクションサーバー起動
+pnpm run build  # プロダクションビルド
+pnpm run start  # プロダクションサーバー起動
 ```
 
 ## イベントごとのアセット

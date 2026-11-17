@@ -13,12 +13,15 @@ jobs:
     if: github.event.pusher.name != 'dreamkast-cloudnativedays'
     steps:
       - uses: actions/checkout@v3
+      # バージョンは package.json の packageManager から読まれる
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: '.node-version'
-          cache: 'npm'
-      - name: npm install
-        run: npm install
+          cache: 'pnpm'
+      - name: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: eslint
-        run: npm run lint
+        run: pnpm run lint

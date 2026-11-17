@@ -186,7 +186,7 @@ public/
 Dreamkast APIのTypeScript型定義は自動生成されています：
 
 ```bash
-npm run rtk-query-codegen
+pnpm run rtk-query-codegen
 ```
 
 - 設定: `rtk-query-codegen-openapi.config.js`
@@ -247,7 +247,7 @@ npm run rtk-query-codegen
 ### APIエンドポイントを追加する場合
 
 1. `rtk-query-codegen-openapi.config.js` を更新（必要に応じて）
-2. `npm run rtk-query-codegen` を実行
+2. `pnpm run rtk-query-codegen` を実行
 3. 生成されたフックを使用してコンポーネントを実装
 
 ## トラブルシューティング
@@ -275,17 +275,17 @@ npm run rtk-query-codegen
 ## テスト
 
 ```bash
-npm run test          # テスト実行
-npm run test:update   # スナップショット更新
-npm run test:coverage # カバレッジ取得
+pnpm run test          # テスト実行
+pnpm run test:update   # スナップショット更新
+pnpm run test:coverage # カバレッジ取得
 ```
 
 ## ビルドとデプロイ
 
 ```bash
-npm run dev    # 開発サーバー起動
-npm run build  # プロダクションビルド
-npm run start  # プロダクションサーバー起動
+pnpm run dev    # 開発サーバー起動
+pnpm run build  # プロダクションビルド
+pnpm run start  # プロダクションサーバー起動
 ```
 
 ## その他の重要情報

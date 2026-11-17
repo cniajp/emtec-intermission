@@ -4,7 +4,7 @@
 //   - https://ai-chat.janog57.sakura.ad.jp/api/programs/
 //   - https://ai-chat.janog57.sakura.ad.jp/api/speakers/
 // 変換先フォーマット: src/data/xxx.ts (Track, Speaker, Talk)
-// 実行コマンド: npx tsx ./script/janog/convert.ts && npm run fmt
+// 実行コマンド: pnpm dlx tsx ./script/janog/convert.ts && pnpm run fmt
 
 import { janogProgramItem, janogSpeaker, janogRoom } from './type.js'
 import { Track, Speaker, Talk } from '../../src/data/types.js'

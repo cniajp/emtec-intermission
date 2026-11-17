@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "eslint src",
     "fmt": "prettier --write src",
-    "test": "npm install --frozen-lockfile && jest",
+    "test": "pnpm install --frozen-lockfile && jest",
     "test:update": "jest -u",
     "test:coverage": "jest --collect-coverage",
     "rtk-query-codegen": "rtk-query-codegen-openapi ./rtk-query-codegen-openapi.config.js"
@@ -31,6 +31,7 @@
     "react-dom": "^19.2.8",
     "react-redux": "^9.3.0",
     "serwist": "^9.5.12",
+    "styled-jsx": "5.1.6",
     "tailwindcss": "^4.3.3",
     "video.js": "^8.24.0",
     "videojs-playlist": "^5.2.0"
@@ -45,6 +46,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "baseline-browser-mapping": "^2.11.20",
+    "esbuild": "^0.28.2",
     "esbuild-wasm": "^0.28.1",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.3",
@@ -59,5 +61,6 @@
   },
   "volta": {
     "node": "24.20.0"
-  }
+  },
+  "packageManager": "pnpm@10.34.9"
 }
