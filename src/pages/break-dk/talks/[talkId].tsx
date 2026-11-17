@@ -18,6 +18,7 @@ import { useRouter } from 'next/router'
 import { useContext, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
+import { useVideoPrecache } from '@/components/hooks/useVideoPrecache'
 
 const dataSource = getDataSource('dreamkast')
 const brand = getBrand('dreamkast')
@@ -37,6 +38,9 @@ function Pages() {
   useEffect(() => {
     extendConfig(router.query as Record<string, string>)
   }, [router.query])
+
+  // Page4 の CM 動画を、Page1〜3 を表示している裏でキャッシュしておく
+  useVideoPrecache(dataSource.videoCacheUrls)
 
   const {
     current,

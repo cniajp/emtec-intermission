@@ -17,7 +17,14 @@ serwist.addEventListeners()
 
 const CACHE_NAME = 'video-cache'
 
-async function updateCache(urls) {
+// 取得中の URL。複数のページ（OBS のブラウザソース）から同時に依頼されても
+// 同じ動画を二重に取りに行かない。
+const inFlight = new Set()
+
+// onlyMissing: true なら、すでに video-cache にある URL は取り直さない
+// （ページ表示のたびに送られてくる自動キャッシュ用）。
+// false は debug の「Update Video Cache」ボタン用で、必ず取り直す。
+async function updateCache(urls, { onlyMissing = false } = {}) {
   if (!Array.isArray(urls) || urls.length === 0) {
     console.warn('updateCache: skip — no urls')
     return
@@ -30,35 +37,49 @@ async function updateCache(urls) {
 
   return Promise.all(
     urls.map(async (url) => {
-      console.log('start cache update:', url)
-      // `cache: 'reload'` で HTTP キャッシュを迂回して必ずネットワークから取り直す。
-      // 動画配信元は Origin ヘッダ付きのリクエストにしか CORS ヘッダを返さない。
-      // <video> は crossorigin 無し（no-cors・Origin ヘッダ無し）で取りに行くので、
-      // 一度再生すると ACAO も Vary も持たないレスポンスが HTTP キャッシュに残る。
-      // Vary が無いエントリは後続のどのリクエストにもマッチしてしまうため、
-      // ここで素の fetch を使うとそれを再利用して CORS エラーになる。
-      const response = await fetch(url, { cache: 'reload' }).catch((e) => {
-        console.error('==> failed to fetch video:', e)
-        return
-      })
-      if (!response || !response.ok) {
-        console.error(
-          '==> bad response for cache update:',
-          url,
-          response?.status
-        )
+      if (inFlight.has(url)) {
+        console.log('skip cache update (already in progress):', url)
         return
       }
-
-      // put を await する。await しないと event.waitUntil が書き込み完了前に解決し、
-      // quota 超過などの失敗も未処理の rejection として握り潰されてしまう。
+      inFlight.add(url)
       try {
         const cache = await caches.open(CACHE_NAME)
-        await cache.put(url, response)
-        status[url] = true
-        console.log('==> completed cache update:', url, status)
-      } catch (e) {
-        console.error('==> failed to store video:', url, e)
+        if (onlyMissing && (await cache.match(url))) {
+          console.log('skip cache update (already cached):', url)
+          return
+        }
+
+        console.log('start cache update:', url)
+        // `cache: 'reload'` で HTTP キャッシュを迂回して必ずネットワークから取り直す。
+        // 動画配信元は Origin ヘッダ付きのリクエストにしか CORS ヘッダを返さない。
+        // <video> は crossorigin 無し（no-cors・Origin ヘッダ無し）で取りに行くので、
+        // 一度再生すると ACAO も Vary も持たないレスポンスが HTTP キャッシュに残る。
+        // Vary が無いエントリは後続のどのリクエストにもマッチしてしまうため、
+        // ここで素の fetch を使うとそれを再利用して CORS エラーになる。
+        const response = await fetch(url, { cache: 'reload' }).catch((e) => {
+          console.error('==> failed to fetch video:', e)
+          return
+        })
+        if (!response || !response.ok) {
+          console.error(
+            '==> bad response for cache update:',
+            url,
+            response?.status
+          )
+          return
+        }
+
+        // put を await する。await しないと event.waitUntil が書き込み完了前に解決し、
+        // quota 超過などの失敗も未処理の rejection として握り潰されてしまう。
+        try {
+          await cache.put(url, response)
+          status[url] = true
+          console.log('==> completed cache update:', url, status)
+        } catch (e) {
+          console.error('==> failed to store video:', url, e)
+        }
+      } finally {
+        inFlight.delete(url)
       }
     })
   )
@@ -96,7 +117,9 @@ self.addEventListener('fetch', (event) => {
 self.addEventListener('message', (event) => {
   console.log('message:', event.data)
   if (event.data && event.data.type === 'UPDATE_CACHE') {
-    event.waitUntil(updateCache(event.data.urls))
+    event.waitUntil(
+      updateCache(event.data.urls, { onlyMissing: !!event.data.onlyMissing })
+    )
     return
   }
   console.warn('unknown message: ', event.data)

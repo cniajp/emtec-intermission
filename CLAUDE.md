@@ -166,6 +166,8 @@ public/
 - Service Workerは `src/service-worker.js`
 - 動画ファイルのキャッシュ管理を行っている
 - OBS用途では動画の事前キャッシュが重要
+- Page4 の動画は、talk ページを開いた数秒後に未キャッシュ分だけ自動でキャッシュされる
+  （`src/components/hooks/useVideoPrecache.ts`）。取り直したいときは debug の「Update Video Cache」ボタン
 
 ## API自動生成
 
