@@ -166,6 +166,8 @@ public/
 - Service Workerは `src/service-worker.js`
 - 動画ファイルのキャッシュ管理を行っている
 - OBS用途では動画の事前キャッシュが重要
+- `public/` のプリキャッシュ対象は、`src/staticConfig/*.ts` が参照しているイベントのフォルダと
+  共有フォルダ（`obs-scenes`, `sounds`）だけ。絞り込みは `src/app/serwist/[path]/route.ts`
 
 ## API自動生成
 

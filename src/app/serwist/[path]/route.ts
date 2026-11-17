@@ -3,9 +3,27 @@
 // `/serwist/sw.js`（`Service-Worker-Allowed: /` が付くのでスコープは `/`）。
 // 動的セグメントは `[...path]` ではなく `[path]` である必要がある。
 import { createSerwistRoute } from '@serwist/turbopack'
+import { staticConfig, publicDirsOf, isPrecacheTarget } from '@/staticConfig'
+
+// 既定では public/ 配下が全部プリキャッシュされ、過去イベントの画像まで初回表示時に
+// ダウンロードされる。src/staticConfig が参照しているイベントのフォルダと、
+// イベントに依らない共有フォルダだけに絞る。
+// 対象外のファイルは通常どおりネットワークから取得される（表示はできる）。
+const SHARED_PUBLIC_DIRS = ['obs-scenes', 'sounds']
+const precacheDirs = [
+  ...SHARED_PUBLIC_DIRS,
+  ...publicDirsOf(Object.values(staticConfig)),
+]
 
 export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } =
   createSerwistRoute({
     swSrc: 'src/service-worker.js',
     useNativeEsbuild: true,
+    // この時点の URL はまだ 'public/...' のまま（Serwist 側の書き換えより先に走る）
+    manifestTransforms: [
+      async (entries) => ({
+        manifest: entries.filter((e) => isPrecacheTarget(e.url, precacheDirs)),
+        warnings: [],
+      }),
+    ],
   })
