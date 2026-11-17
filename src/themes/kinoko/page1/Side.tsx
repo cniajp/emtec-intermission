@@ -1,6 +1,7 @@
 import { Optional } from '@/utils/types'
 import { TalkView } from '@/logic/models/talkView'
 import { getTimeStr } from '@/utils/time'
+import { summarizeSpeakerNames } from '@/utils/utils'
 
 type Props = { view: Optional<TalkView> }
 
@@ -62,15 +63,17 @@ export function Side({ view }: Props) {
           className="flex flex-col text-right w-[650px] h-[170px] backdrop-blur-xl bg-white/50 border border-white/20 px-4 pt-3 pb-2 my-3 font-ryo-gothic-plusn rounded-xl shadow-lg"
         >
           <div className="flex flex-row">
-            <div className="text-left basis-1/2 text-base font-din-2014 font-light">
+            <div className="text-left shrink-0 pr-4 text-base font-din-2014 font-light">
               {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
             </div>
-            <div className="basis-1/2 text-base">
-              {talk.speakers.map((t) => t.name).join(', ')}
+            {/* 折り返すとタイトル領域を押し潰すので 1 行に固定する */}
+            <div className="flex-1 min-w-0 text-base truncate">
+              {summarizeSpeakerNames(talk.speakers.map((t) => t.name))}
             </div>
           </div>
-          <div className="flex-1 flex items-center justify-center text-center text-lg font-bold line-clamp-3">
-            {talk.title}
+          <div className="flex-1 min-h-0 flex items-center justify-center text-center text-lg font-bold">
+            {/* line-clamp は display を上書きするので、中央寄せの flex とは別要素に付ける */}
+            <span className="line-clamp-3">{talk.title}</span>
           </div>
         </div>
       ))}
