@@ -19,6 +19,10 @@ export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } =
   createSerwistRoute({
     swSrc: 'src/service-worker.js',
     useNativeEsbuild: true,
+    // 既定の上限は 2MiB で、BGM（1 曲 3〜4MB）が対象から外れて開くたびに取得されていた。
+    // 対象フォルダは下の manifestTransforms で絞ってあるので、上限を上げても
+    // 増えるのは現行イベントの大きなファイル（BGM）だけ
+    maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
     // この時点の URL はまだ 'public/...' のまま（Serwist 側の書き換えより先に走る）
     manifestTransforms: [
       async (entries) => ({
