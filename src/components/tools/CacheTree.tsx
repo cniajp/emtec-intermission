@@ -110,10 +110,10 @@ export function CacheTree({ entries, isLoading, onRefresh }: Props) {
   return (
     <section className="mb-8">
       <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-        <h2 className="text-lg font-semibold">
+        <h2 className="text-[17px] font-semibold">
           保存されているファイル
           {tree && (
-            <span className="ml-3 text-sm font-normal text-neutral-400">
+            <span className="ml-3 text-[13px] font-normal text-neutral-400">
               {totalCount} 件 / {formatBytes(totalBytes)}
               {isFiltering && entries && `（全 ${entries.length} 件中）`}
             </span>
@@ -123,7 +123,7 @@ export function CacheTree({ entries, isLoading, onRefresh }: Props) {
           type="button"
           onClick={onRefresh}
           disabled={isLoading}
-          className="rounded-sm bg-neutral-700 px-3 py-1 text-sm hover:bg-neutral-600 transition-colors disabled:opacity-50"
+          className="rounded-sm bg-neutral-700 px-3 py-1 text-[13px] hover:bg-neutral-600 transition-colors disabled:opacity-50"
         >
           {isLoading ? '読み込み中...' : '更新'}
         </button>
