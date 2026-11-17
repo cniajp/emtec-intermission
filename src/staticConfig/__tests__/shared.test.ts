@@ -1,4 +1,9 @@
-import { buildPage3Images } from '@/staticConfig'
+import {
+  buildPage3Images,
+  isPrecacheTarget,
+  publicDirsOf,
+  staticConfig,
+} from '@/staticConfig'
 
 describe('buildPage3Images', () => {
   it('inserts が undefined の場合は common をそのまま返す', () => {
@@ -43,5 +48,57 @@ describe('buildPage3Images', () => {
     )
     // position=1 (先) → ['x','a','b','c'], position=3 → index=2 に挿入 → ['x','a','y','b','c']
     expect(result).toEqual(['x.jpg', 'a.jpg', 'y.jpg', 'b.jpg', 'c.jpg'])
+  })
+})
+
+describe('publicDirsOf', () => {
+  const source = {
+    base: {
+      loadingIconSrc: '/ev1/logo.png',
+      backgroundSrc: '/ev1/background.png',
+      audioSrcs: ['/ev1/bgm/a.mp3', '/shared-bgm/b.mp3'],
+      defaultAvatarSrc: '/intermission.png',
+      headerLogoSrc: 'https://example.com/title.png',
+    },
+    page3: { alias: 'ev2/info' },
+  }
+
+  it('アセットが置かれている public/ 直下のフォルダを重複なしで返す', () => {
+    expect(publicDirsOf([source]).sort()).toEqual(['ev1', 'ev2', 'shared-bgm'])
+  })
+
+  it('public/ 直下のファイルと外部 URL は含めない', () => {
+    const dirs = publicDirsOf([source])
+    expect(dirs).not.toContain('intermission.png')
+    expect(dirs).not.toContain('https:')
+    expect(dirs).not.toContain('example.com')
+  })
+
+  it('現在の設定では各イベントのフォルダになる', () => {
+    expect(publicDirsOf(Object.values(staticConfig)).sort()).toEqual(
+      [
+        staticConfig.break.base.eventAbbr,
+        staticConfig.breakDk.base.eventAbbr,
+      ].sort()
+    )
+  })
+})
+
+describe('isPrecacheTarget', () => {
+  const dirs = ['ev1', 'sounds']
+
+  it('対象フォルダのファイルは残す', () => {
+    expect(isPrecacheTarget('public/ev1/info/a.png', dirs)).toBe(true)
+    expect(isPrecacheTarget('public/sounds/a.m4a', dirs)).toBe(true)
+  })
+
+  it('対象外フォルダのファイルは外す（前方一致で誤って残さない）', () => {
+    expect(isPrecacheTarget('public/old/logo.png', dirs)).toBe(false)
+    expect(isPrecacheTarget('public/ev10/logo.png', dirs)).toBe(false)
+  })
+
+  it('public/ 直下のファイルと public/ 以外は常に残す', () => {
+    expect(isPrecacheTarget('public/manifest.json', dirs)).toBe(true)
+    expect(isPrecacheTarget('.next/static/chunks/a.js', dirs)).toBe(true)
   })
 })
