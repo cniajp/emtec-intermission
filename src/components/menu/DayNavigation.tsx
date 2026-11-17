@@ -73,3 +73,16 @@ export function adjacentDays(
     next: after.length ? Math.min(...after) : undefined,
   }
 }
+
+// talks に出てくる conferenceDayId（重複なし・昇順）
+export function menuDays(
+  talks: ReadonlyArray<{ conferenceDayId?: number | null }>
+): number[] {
+  return [
+    ...new Set(
+      talks
+        .map((talk) => talk.conferenceDayId)
+        .filter((id): id is number => id != null)
+    ),
+  ].sort((a, b) => a - b)
+}

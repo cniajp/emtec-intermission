@@ -13,6 +13,11 @@ import ObsExportModal from '@/components/tools/ObsExportModal'
 import CompanionExportModal from '@/components/tools/CompanionExportModal'
 import { TalkMenu } from '@/components/menu/TalkMenu'
 import { DayNavigation, adjacentDays } from '@/components/menu/DayNavigation'
+import { TalkMenuSkeleton } from '@/components/menu/TalkMenuSkeleton'
+import {
+  menuSnapshotKey,
+  useMenuSnapshot,
+} from '@/components/menu/useMenuSnapshot'
 
 export default function Index() {
   const router = useRouter()
@@ -28,32 +33,21 @@ export default function Index() {
     return match ? Number(match[1]) : null
   }, [router.asPath, router.isReady])
 
-  const { view, allDays, isEventLoading } = useGetTalksAndTracksForMenu(
+  const fresh = useGetTalksAndTracksForMenu(
     dkEventAbbr as Optional<string>,
     currentDay !== null ? String(currentDay) : null
   )
+  // API から届くまでは、前回取得したデータがあれば先に出す
+  const { view, allDays, isFromSnapshot } = useMenuSnapshot(
+    currentDay !== null && dkEventAbbr
+      ? menuSnapshotKey(dkEventAbbr, currentDay)
+      : null,
+    fresh
+  )
+  const isLoading = !router.isReady || fresh.isLoading
 
-  // ルーターの準備完了まで、またはイベント情報が取得されるまでローディング
-  // allDaysにデータがある場合はキャッシュがあるのでローディングを表示しない
-  if (
-    !router.isReady ||
-    currentDay === null ||
-    (isEventLoading && allDays.length === 0)
-  ) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-neutral-900">
-        <div className="text-[14px] text-white">Loading...</div>
-        <button
-          onClick={() => router.reload()}
-          className="rounded-sm bg-neutral-700 px-4 py-2 text-[13px] text-white hover:bg-neutral-600 transition-colors"
-        >
-          更新
-        </button>
-      </div>
-    )
-  }
-
-  const { prev, next } = adjacentDays(allDays, currentDay)
+  const { prev, next } =
+    currentDay !== null ? adjacentDays(allDays, currentDay) : {}
   // 表示時間などの上書き（クエリ）は日を切り替えても引き継ぐ
   const query = { ...router.query }
   delete query.confDay
@@ -62,7 +56,11 @@ export default function Index() {
     <div className="flex min-h-screen flex-col bg-neutral-900">
       <Header>
         <DayNavigation
-          label={`${(dkEventAbbr as string).toUpperCase()} Day ${currentDay}`}
+          // 日付はルーターの準備ができてから分かる
+          label={
+            `${(dkEventAbbr as string).toUpperCase()}` +
+            (currentDay !== null ? ` Day ${currentDay}` : '')
+          }
           prevHref={
             prev !== undefined
               ? { pathname: `/break-dk/menu/${prev}`, query }
@@ -77,21 +75,44 @@ export default function Index() {
       </Header>
 
       <main className="flex-1 px-4 py-6 sm:p-8">
-        {view && (
-          <TalkMenu
-            view={view}
-            talkPathname={(id) => `/break-dk/talks/${id}`}
-            renderTrackActions={(track) => (
-              <>
-                <ObsModal confDay={String(currentDay)} track={track} />
-                <CompanionModal
-                  confDay={String(currentDay)}
-                  track={track}
-                  talks={view.allTalks}
-                />
-              </>
+        {view && currentDay !== null ? (
+          <>
+            {isFromSnapshot && (
+              <p className="mx-auto mb-3 flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-neutral-400">
+                {isLoading
+                  ? '前回取得したデータを表示しています（更新中…）'
+                  : '最新のデータを取得できませんでした。前回取得したデータを表示しています。'}
+                {!isLoading && <ReloadButton />}
+              </p>
             )}
-          />
+            <TalkMenu
+              view={view}
+              talkPathname={(id) => `/break-dk/talks/${id}`}
+              renderTrackActions={(track) => (
+                <>
+                  <ObsModal confDay={String(currentDay)} track={track} />
+                  <CompanionModal
+                    confDay={String(currentDay)}
+                    track={track}
+                    talks={view.allTalks}
+                  />
+                </>
+              )}
+            />
+          </>
+        ) : isLoading ? (
+          <>
+            <TalkMenuSkeleton />
+            <div className="mx-auto mt-4 flex max-w-7xl items-center gap-3 text-[12px] text-neutral-500">
+              読み込みに時間がかかる場合は
+              <ReloadButton />
+            </div>
+          </>
+        ) : (
+          <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 py-16 text-[13px] text-neutral-400">
+            タイムテーブルを取得できませんでした。
+            <ReloadButton />
+          </div>
         )}
       </main>
 
@@ -123,8 +144,22 @@ function CompanionModal({ confDay, track, talks }: CompanionModalProps) {
   )
 }
 
+function ReloadButton() {
+  const router = useRouter()
+  return (
+    <button
+      type="button"
+      onClick={() => router.reload()}
+      className="rounded-sm bg-neutral-700 px-3 py-1 text-[12px] text-white hover:bg-neutral-600 transition-colors"
+    >
+      更新
+    </button>
+  )
+}
+
 function ObsModal({ confDay, track }: ObsModalProps) {
-  const tracksResult = useGetTracks()
+  // 取得に失敗してもメニューは落とさない（候補が出ないだけ）
+  const tracksResult = useGetTracks({ throwOnError: false })
   const simulUrlSuggestions = (tracksResult.data || [])
     .filter((t) => t.videoId)
     .map((t) => ({ label: `Track ${t.name}`, url: t.videoId! }))

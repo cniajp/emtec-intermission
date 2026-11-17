@@ -50,6 +50,16 @@
 └── /break/obs                  # 静的データ版OBS用ページ
 ```
 
+### メニューの表示（`/break/menu/*`, `/break-dk/menu/*`）
+
+- **静的データ版**はビルド時に日ごとの HTML へ書き出す（`getStaticPaths` / `getStaticProps`）。
+  `src/data/talks.ts` に無い日は 404。日付は `getTime()`（Asia/Tokyo）で出す
+  （`new Date().getDate()` などはビルド環境とブラウザで結果が変わり、ハイドレーションがずれる）
+- **Dreamkast版**は、API が届くまで骨組み（`TalkMenuSkeleton`）を出す。前回取得したデータが
+  localStorage にあればそれを先に出し、届いたら差し替える（`src/components/menu/useMenuSnapshot.ts`）。
+  登壇者一覧（speakers）は待たない。API の取得に失敗してもページは落とさない
+  （`useGet*` に `{ throwOnError: false }`。ほかのページは従来どおり例外を投げる）
+
 ## 重要なコンポーネント
 
 ### インターミッション表示の構造

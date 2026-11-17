@@ -3,6 +3,8 @@ import { MenuView } from '@/logic/models/talkView'
 import config, { extendConfig } from '@/config'
 import type { Talk, Track } from '@/data/types'
 import { useRouter } from 'next/router'
+import type { GetStaticPaths, GetStaticProps } from 'next'
+import { getTime } from '@/utils/time'
 import { useEffect } from 'react'
 import { talks } from '@/data/talks'
 import { tracks } from '@/data/tracks'
@@ -11,7 +13,20 @@ import { Header, Footer } from '@/components/Layout'
 import ObsExportModal from '@/components/tools/ObsExportModal'
 import CompanionExportModal from '@/components/tools/CompanionExportModal'
 import { TalkMenu } from '@/components/menu/TalkMenu'
-import { DayNavigation, adjacentDays } from '@/components/menu/DayNavigation'
+import {
+  DayNavigation,
+  adjacentDays,
+  menuDays,
+} from '@/components/menu/DayNavigation'
+
+// 日ごとのメニューをビルド時に HTML へ書き出す。データは src/data にあって API を
+// 呼ばないので、JS の読み込みを待たずにタイムテーブルを表示できる
+export const getStaticPaths: GetStaticPaths = () => ({
+  paths: menuDays(talks).map((day) => ({ params: { confDay: String(day) } })),
+  fallback: false,
+})
+
+export const getStaticProps: GetStaticProps = () => ({ props: {} })
 
 export default function Index() {
   const router = useRouter()
@@ -23,14 +38,7 @@ export default function Index() {
 
   const view = MenuView.withoutDk(confDay as string, talks, tracks, speakers)
 
-  // 全てのconferenceDayIdのユニーク値を取得
-  const allDays = [
-    ...new Set(
-      talks
-        .map((talk) => talk.conferenceDayId)
-        .filter((id): id is number => id != null)
-    ),
-  ].sort((a, b) => a - b)
+  const allDays = menuDays(talks)
 
   const currentDay = Number(confDay)
   const { prev, next } = adjacentDays(allDays, currentDay)
@@ -42,12 +50,14 @@ export default function Index() {
   const currentDayTalk = talks.find(
     (t) => t.conferenceDayId === currentDay && t.startTime
   )
-  const currentDate = currentDayTalk?.startTime
-    ? new Date(currentDayTalk.startTime)
-    : null
+  // 日付は会場の時刻（Asia/Tokyo）で出す。new Date() の getDate() などは実行環境の
+  // タイムゾーンに依存し、ビルド時（UTC）とブラウザで結果が変わることがある
   const weekdays = ['日', '月', '火', '水', '木', '金', '土']
+  const currentDate = currentDayTalk?.startTime
+    ? getTime(currentDayTalk.startTime)
+    : null
   const dateStr = currentDate
-    ? `${currentDate.getMonth() + 1}/${currentDate.getDate()}(${weekdays[currentDate.getDay()]})`
+    ? `${currentDate.format('M/D')}(${weekdays[currentDate.day()]})`
     : ''
 
   return (
