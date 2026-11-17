@@ -9,9 +9,9 @@
   // Worker Previews (wrangler preview) は <preview名>-emtec-intermission.<subdomain>.workers.dev、
   // wrangler versions upload は <version>-emtec-intermission.<subdomain>.workers.dev (Version URL)
   "preview_urls": true,
-  "build": {
-    "command": "pnpm run build:cloudflare"
-  },
+  // ビルドは wrangler の外で済ませる (build.command は置かない)。
+  // CD は Workers Builds の Build command、手元は pnpm run deploy / preview がビルドを実行する。
+  // ここにも書くと wrangler deploy が同じビルドをもう一度走らせ、CD が約 19 秒延びる
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
