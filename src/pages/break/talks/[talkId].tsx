@@ -14,7 +14,9 @@ import { ThemeProvider, useTheme } from '@/themes/ThemeProvider'
 import { AvatarPreLoader, Page3ImagePreLoader } from '@/themes/default'
 import config, { extendConfig } from '@/config'
 import { useRouter } from 'next/router'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useRef } from 'react'
+import { useAssetsReady } from '@/components/hooks/useAssetsReady'
+import { PageRunningCtx } from '@/logic/page-flow/PageRunningContext'
 import Image from 'next/image'
 import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 import { useVideoPrecache } from '@/components/hooks/useVideoPrecache'
@@ -54,9 +56,13 @@ function Pages() {
     typeof talkId === 'string' ? talkId : null
   )
 
+  // 背景・ロゴ・Page1 の画像とフォントの準備が終わるまでローディングを続ける
+  const stageRef = useRef<HTMLDivElement>(null)
+  const isAssetsReady = useAssetsReady(stageRef, !!view)
   const { isLoading, showContent, isLogoFadingOut } = useLoadingTransition({
     isDataReady: !!view,
     forceAnimation: true,
+    isAssetsReady,
   })
 
   const pages = [
@@ -123,7 +129,7 @@ function Pages() {
       />
       <AvatarPreLoader view={view} />
       <Page3ImagePreLoader view={view} />
-      <div className="w-[1920px] h-[1080px] relative">
+      <div ref={stageRef} className="w-[1920px] h-[1080px] relative">
         <Image
           src={backgroundSrc}
           alt="background"
@@ -134,7 +140,8 @@ function Pages() {
           priority
         />
         {loadingEnabled ? (
-          <>
+          // ローディング中はページの表示時間を進めない
+          <PageRunningCtx.Provider value={showContent}>
             {/* ローディング画面 */}
             {isLoading && (
               <div className="absolute inset-0 z-10">
@@ -145,16 +152,17 @@ function Pages() {
                 />
               </div>
             )}
-            {/* コンテンツ */}
-            {showContent && (
-              <div className={`absolute inset-0 ${classes.contentFadeIn}`}>
+            {/* コンテンツ。データが揃ったらローディングの裏で透明のままマウントし、
+                レイアウト計算と画像・フォントの読み込みを先に済ませてからフェードインする。
+                同じ要素のクラスだけを切り替える（作り直すと計算をやり直すことになる） */}
+            {(showContent || !!view) && (
+              <div
+                className={`absolute inset-0 ${showContent ? classes.contentFadeIn : 'opacity-0'}`}
+              >
                 {pages[current].component}
               </div>
             )}
-            {!isLoading && !showContent && (
-              <div className="absolute inset-0">{pages[current].component}</div>
-            )}
-          </>
+          </PageRunningCtx.Provider>
         ) : (
           <div className="absolute inset-0">{pages[current].component}</div>
         )}

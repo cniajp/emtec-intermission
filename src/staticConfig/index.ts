@@ -6,5 +6,5 @@ export const staticConfig = {
   breakDk: breakDkConfig,
 } as const
 
-export { buildPage3Images } from './shared'
+export { buildPage3Images, publicDirsOf, isPrecacheTarget } from './shared'
 export type { TrackImageInsert, TrackImageInserts } from './shared'
