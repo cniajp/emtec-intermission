@@ -1,26 +1,18 @@
 import {
-  now,
-  nowAccurate,
-  hasSignificantDrift,
-  startTimeSync,
-} from '@/utils/time'
-import { Dayjs } from 'dayjs'
-import {
   PropsWithChildren,
   createContext,
   useCallback,
-  useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react'
+import { ClockCtxProvider } from './ClockContext'
 
 type PageCtxType = {
   current: number
   totalPage: number
   goNextPage: () => void
   setTotalPage: (totalPage: number) => void
-  now: Dayjs
-  hasTimeDrift: boolean
   isNextVideoAvailable: boolean
   registerNextVideo: (handler: (() => void) | null) => void
   invokeNextVideo: () => void
@@ -35,8 +27,6 @@ export const PageCtx = createContext<PageCtxType>({
   totalPage: 0,
   goNextPage: () => {},
   setTotalPage: () => {},
-  now: now(),
-  hasTimeDrift: false,
   isNextVideoAvailable: false,
   registerNextVideo: () => {},
   invokeNextVideo: () => {},
@@ -47,8 +37,6 @@ export const PageCtx = createContext<PageCtxType>({
 export const PageCtxProvider = (props: PropsWithChildren) => {
   const [current, setCurrent] = useState<number>(0)
   const [totalPage, setTotalPage] = useState<number>(0)
-  const [currentTime, setCurrentTime] = useState<Dayjs>(now())
-  const [timeDrift, setTimeDrift] = useState<boolean>(false)
   const [isNextVideoAvailable, setIsNextVideoAvailable] = useState(false)
   const nextVideoRef = useRef<(() => void) | null>(null)
   const [pageEndsAt, setPageEndsAt] = useState<number | null>(null)
@@ -66,40 +54,34 @@ export const PageCtxProvider = (props: PropsWithChildren) => {
     nextVideoRef.current?.()
   }, [])
 
-  useEffect(() => {
-    // Start time synchronization process (5-second retries for 30 seconds)
-    startTimeSync()
+  // 現在時刻は ClockCtx 側に分けてある（毎秒の更新でページ全体を再レンダーしないため）。
+  // ここの値はページ遷移などでしか変わらないので、useMemo で参照を保つ。
+  const ctx: PageCtxType = useMemo(
+    () => ({
+      current,
+      totalPage,
+      goNextPage,
+      setTotalPage,
+      isNextVideoAvailable,
+      registerNextVideo,
+      invokeNextVideo,
+      pageEndsAt,
+      setPageEndsAt,
+    }),
+    [
+      current,
+      totalPage,
+      goNextPage,
+      isNextVideoAvailable,
+      registerNextVideo,
+      invokeNextVideo,
+      pageEndsAt,
+    ]
+  )
 
-    const updateTime = () => {
-      const accurateTime = nowAccurate()
-      setCurrentTime(accurateTime)
-      setTimeDrift(hasSignificantDrift())
-    }
-
-    // Initial time update
-    updateTime()
-
-    // Regular updates every second (using cached/calculated time)
-    const timer = setInterval(updateTime, 1000)
-
-    return () => {
-      clearInterval(timer)
-    }
-  }, [])
-
-  const ctx: PageCtxType = {
-    current,
-    totalPage,
-    goNextPage,
-    setTotalPage,
-    now: currentTime,
-    hasTimeDrift: timeDrift,
-    isNextVideoAvailable,
-    registerNextVideo,
-    invokeNextVideo,
-    pageEndsAt,
-    setPageEndsAt,
-  }
-
-  return <PageCtx.Provider value={ctx}>{props.children}</PageCtx.Provider>
+  return (
+    <PageCtx.Provider value={ctx}>
+      <ClockCtxProvider>{props.children}</ClockCtxProvider>
+    </PageCtx.Provider>
+  )
 }

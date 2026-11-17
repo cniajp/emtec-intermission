@@ -12,7 +12,6 @@ import {
   makeTrack,
 } from '@/logic/__fixtures__/talkFixtures'
 import { TalkView } from '@/logic/models/talkView'
-import { now } from '@/utils/time'
 
 function makeWrapper(brand: Brand, goNextPage: jest.Mock) {
   return function Wrapper({ children }: PropsWithChildren) {
@@ -24,8 +23,6 @@ function makeWrapper(brand: Brand, goNextPage: jest.Mock) {
             totalPage: 4,
             goNextPage,
             setTotalPage: jest.fn(),
-            now: now(),
-            hasTimeDrift: false,
             isNextVideoAvailable: false,
             registerNextVideo: jest.fn(),
             invokeNextVideo: jest.fn(),

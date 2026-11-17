@@ -6,7 +6,6 @@ import { PageCtx } from '@/logic/page-flow/PageContext'
 import { usePage4ViewModel } from '@/logic/page-view-models/usePage4ViewModel'
 import { makeBrand } from '@/logic/__fixtures__/brandFixtures'
 import type { Playlist } from '@/components/media/playlist'
-import { now } from '@/utils/time'
 
 function makeWrapper(brand: Brand, goNextPage: jest.Mock) {
   return function Wrapper({ children }: PropsWithChildren) {
@@ -18,8 +17,6 @@ function makeWrapper(brand: Brand, goNextPage: jest.Mock) {
             totalPage: 4,
             goNextPage,
             setTotalPage: jest.fn(),
-            now: now(),
-            hasTimeDrift: false,
             isNextVideoAvailable: false,
             registerNextVideo: jest.fn(),
             invokeNextVideo: jest.fn(),

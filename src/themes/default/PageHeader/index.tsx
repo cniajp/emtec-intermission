@@ -1,7 +1,6 @@
 import { Optional } from '@/utils/types'
 import { TalkView } from '@/logic/models/talkView'
-import { PageCtx } from '@/logic/page-flow/PageContext'
-import { useContext } from 'react'
+import { Clock } from '@/components/common/Clock'
 import Image from 'next/image'
 import { trim } from '@/utils/utils'
 import { useBrand } from '@/brand/BrandProvider'
@@ -10,7 +9,6 @@ type Props = { view: Optional<TalkView> }
 
 export default function Header({ view }: Props) {
   const brand = useBrand()
-  const { now } = useContext(PageCtx)
   if (!view) {
     return <></>
   }
@@ -57,7 +55,7 @@ export default function Header({ view }: Props) {
       {/* 現在時刻 */}
       <div className="basis-1/3 text-center">
         <span className="text-5xl tracking-wider">
-          {now.format('HH:mm:ss')}
+          <Clock />
         </span>
       </div>
 
