@@ -22,6 +22,11 @@ const TOOLS = [
     title: 'PDF変換ツール',
     description: 'PDFファイルを画像に変換するツール',
   },
+  {
+    href: '/tools/cache',
+    title: 'キャッシュ管理',
+    description: '動画キャッシュの確認・事前保存・削除',
+  },
 ] as const
 
 function LinkCard({
