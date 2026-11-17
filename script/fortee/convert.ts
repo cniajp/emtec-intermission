@@ -3,7 +3,7 @@
 // 変換先フォーマット: src/data/xxx.ts (Track, Speaker, Talk)
 // 実行コマンド: just fortee
 // もしくは
-// 実行コマンド: npx tsx ./script/fortee/convert.ts -y && npm run fmt
+// 実行コマンド: pnpm dlx tsx ./script/fortee/convert.ts -y && pnpm run fmt
 //
 // fortee 側にタイムテーブルが入っていないことがある。その場合は
 // script/fortee/src/overrides.json で時刻・トラックを補完する。

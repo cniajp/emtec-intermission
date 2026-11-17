@@ -1,0 +1,9 @@
+# pnpm 10 は依存パッケージの postinstall を既定で実行しない。
+# ネイティブバイナリの取得・検証に postinstall が要るものだけをここで許可する。
+# 新しい依存で "Ignored build scripts" の警告が出たら、必要性を確認してから追記する
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - esbuild
+  - unrs-resolver
+  - workerd
