@@ -1,5 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 import { PropsWithChildren } from 'react'
+import { PageRunningCtx } from '@/logic/page-flow/PageRunningContext'
 import { PageCtx } from '@/logic/page-flow/PageContext'
 import { useTimedPageTransition } from '@/logic/page-flow/usePageTransition'
 
@@ -75,5 +76,38 @@ describe('useTimedPageTransition', () => {
 
     unmount()
     expect(setPageEndsAt).toHaveBeenLastCalledWith(null)
+  })
+
+  it('ローディング中（PageRunningCtx が false）は数え始めず、表示が始まってから N 秒で遷移する', () => {
+    jest.useFakeTimers()
+    const goNextPage = jest.fn()
+    const setPageEndsAt = jest.fn()
+    const Inner = makeWrapper(goNextPage, setPageEndsAt)
+    let running = false
+    const { rerender } = renderHook(() => useTimedPageTransition('Page1', 5), {
+      wrapper: ({ children }: PropsWithChildren) => (
+        <PageRunningCtx.Provider value={running}>
+          <Inner>{children}</Inner>
+        </PageRunningCtx.Provider>
+      ),
+    })
+
+    act(() => {
+      jest.advanceTimersByTime(10_000)
+    })
+    expect(goNextPage).not.toHaveBeenCalled()
+    expect(setPageEndsAt).not.toHaveBeenCalled()
+
+    running = true
+    rerender()
+    expect(setPageEndsAt).toHaveBeenCalledTimes(1)
+    act(() => {
+      jest.advanceTimersByTime(4999)
+    })
+    expect(goNextPage).not.toHaveBeenCalled()
+    act(() => {
+      jest.advanceTimersByTime(1)
+    })
+    expect(goNextPage).toHaveBeenCalledTimes(1)
   })
 })
