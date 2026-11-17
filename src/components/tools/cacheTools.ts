@@ -135,3 +135,111 @@ export async function requestVideoCache(
   worker.postMessage({ type: 'UPDATE_CACHE', urls, onlyMissing: true })
   return true
 }
+
+// ---- ディレクトリツリー表示用 -------------------------------------------------
+
+export type CacheEntry = {
+  cache: string
+  url: string
+  // 保存されているサイズ（バイト）。分からなければ null
+  bytes: number | null
+}
+
+export type CacheTreeNode = {
+  name: string
+  // フォルダなら子を持つ。ファイルなら null
+  children: CacheTreeNode[] | null
+  // ファイルはそのサイズ、フォルダは配下の合計（サイズ不明のファイルは 0 として数える）
+  bytes: number
+  // 配下のファイル数（ファイル自身は 1）
+  fileCount: number
+  // 配下にサイズ不明のファイルがあるか
+  hasUnknownSize: boolean
+}
+
+// すべてのキャッシュの中身を列挙する。
+// サイズは Content-Length を使い、無ければ本体を読んで測る。動画キャッシュは 1 本が
+// 数百 MB あるので本体は読まない（Content-Length が無ければ不明のまま）
+export async function readCacheEntries(): Promise<CacheEntry[]> {
+  const entries: CacheEntry[] = []
+  for (const name of await caches.keys()) {
+    const cache = await caches.open(name)
+    for (const req of await cache.keys()) {
+      const res = await cache.match(req)
+      const length = res?.headers.get('content-length')
+      let bytes: number | null = length ? Number(length) : null
+      if (bytes === null && res && name !== VIDEO_CACHE_NAME) {
+        bytes = (await res.blob()).size
+      }
+      entries.push({ cache: name, url: req.url, bytes })
+    }
+  }
+  return entries
+}
+
+// キャッシュの URL を、ツリー上のパス（フォルダ名の並び + ファイル名）にする。
+// 同じサイトのものはパスだけ、外部のものは先頭にホスト名を付ける。
+// プリキャッシュが付ける版管理用のクエリ（__WB_REVISION__）は落とす
+export function toTreePath(url: string, origin: string): string[] {
+  const u = new URL(url, origin)
+  u.searchParams.delete('__WB_REVISION__')
+  const segments = u.pathname.split('/').filter(Boolean).map(decodeSegment)
+  if (segments.length === 0) segments.push('/')
+  if (u.search) segments[segments.length - 1] += u.search
+  return u.origin === origin ? segments : [u.host, ...segments]
+}
+
+function decodeSegment(segment: string): string {
+  try {
+    return decodeURIComponent(segment)
+  } catch {
+    return segment
+  }
+}
+
+// キャッシュ名 → フォルダ → ファイルのツリーにする。
+// フォルダを先、ファイルを後に、それぞれ名前順で並べる
+export function buildCacheTree(
+  entries: CacheEntry[],
+  origin: string
+): CacheTreeNode[] {
+  const root: CacheTreeNode = folder('')
+  for (const entry of entries) {
+    const path = [entry.cache, ...toTreePath(entry.url, origin)]
+    let node = root
+    for (const name of path.slice(0, -1)) {
+      let child = node.children!.find((c) => c.children && c.name === name)
+      if (!child) {
+        child = folder(name)
+        node.children!.push(child)
+      }
+      node = child
+    }
+    node.children!.push({
+      name: path[path.length - 1],
+      children: null,
+      bytes: entry.bytes ?? 0,
+      fileCount: 1,
+      hasUnknownSize: entry.bytes === null,
+    })
+  }
+  summarize(root)
+  return root.children!
+}
+
+function folder(name: string): CacheTreeNode {
+  return { name, children: [], bytes: 0, fileCount: 0, hasUnknownSize: false }
+}
+
+function summarize(node: CacheTreeNode): void {
+  if (!node.children) return
+  node.children.forEach(summarize)
+  node.children.sort(
+    (a, b) =>
+      Number(!!b.children) - Number(!!a.children) ||
+      a.name.localeCompare(b.name)
+  )
+  node.bytes = node.children.reduce((sum, c) => sum + c.bytes, 0)
+  node.fileCount = node.children.reduce((sum, c) => sum + c.fileCount, 0)
+  node.hasUnknownSize = node.children.some((c) => c.hasUnknownSize)
+}

@@ -176,7 +176,8 @@ public/
   共有フォルダ（`obs-scenes`, `sounds`）だけ。絞り込みは `src/app/serwist/[path]/route.ts`
 - Page4 の動画は、talk ページを開いた数秒後に未キャッシュ分だけ、再生順に1本ずつ自動でキャッシュされる
   （`src/components/hooks/useVideoPrecache.ts`）。取り直したいときは debug の「Update Video Cache」ボタン
-- `/tools/cache`（トップの「ツール」）で、動画キャッシュの確認・事前保存・削除と、全キャッシュの削除ができる。
+- `/tools/cache`（トップの「ツール」）で、動画キャッシュの確認・事前保存・削除、保存されている全ファイルの
+  ツリー表示、全キャッシュの削除ができる。
   対象はそのページを開いたブラウザだけ（OBS のブラウザソースは別）
 
 ## API自動生成

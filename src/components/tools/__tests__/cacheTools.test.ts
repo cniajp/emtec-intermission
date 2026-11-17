@@ -1,6 +1,8 @@
 import {
   VIDEO_CACHE_NAME,
   allVideoUrls,
+  buildCacheTree,
+  toTreePath,
   clearEverything,
   clearVideoCache,
   formatBytes,
@@ -168,5 +170,92 @@ describe('requestVideoCache', () => {
   it('Service Worker が未登録なら何も送らず false を返す', async () => {
     mockServiceWorker(undefined)
     expect(await requestVideoCache([A])).toBe(false)
+  })
+})
+
+describe('toTreePath', () => {
+  const origin = 'https://im.emtec.tv'
+
+  it('同じサイトの URL はパスだけにする', () => {
+    expect(
+      toTreePath('https://im.emtec.tv/jisaba2026/bgm/a.mp3', origin)
+    ).toEqual(['jisaba2026', 'bgm', 'a.mp3'])
+  })
+
+  it('外部の URL は先頭にホスト名を付ける', () => {
+    expect(
+      toTreePath('https://im-file.emtec.tv/ev/opening.mp4', origin)
+    ).toEqual(['im-file.emtec.tv', 'ev', 'opening.mp4'])
+  })
+
+  it('版管理用のクエリは落とし、それ以外のクエリは残す', () => {
+    expect(
+      toTreePath('https://im.emtec.tv/ev/logo.png?__WB_REVISION__=abc', origin)
+    ).toEqual(['ev', 'logo.png'])
+    expect(
+      toTreePath('https://im.emtec.tv/_next/image?url=x&w=640', origin)
+    ).toEqual(['_next', 'image?url=x&w=640'])
+  })
+
+  it('エンコードされた名前は読める形に戻す', () => {
+    expect(
+      toTreePath('https://im.emtec.tv/ev/%E8%83%8C%E6%99%AF.png', origin)
+    ).toEqual(['ev', '背景.png'])
+  })
+
+  it('トップページは "/" として表示する', () => {
+    expect(toTreePath('https://im.emtec.tv/', origin)).toEqual(['/'])
+  })
+})
+
+describe('buildCacheTree', () => {
+  const origin = 'https://im.emtec.tv'
+  const tree = buildCacheTree(
+    [
+      { cache: 'precache', url: `${origin}/ev/logo.png`, bytes: 100 },
+      { cache: 'precache', url: `${origin}/ev/bgm/b.mp3`, bytes: 3000 },
+      { cache: 'precache', url: `${origin}/ev/bgm/a.mp3`, bytes: 2000 },
+      { cache: 'precache', url: `${origin}/manifest.json`, bytes: 10 },
+      {
+        cache: VIDEO_CACHE_NAME,
+        url: 'https://im-file.emtec.tv/ev/opening.mp4',
+        bytes: null,
+      },
+    ],
+    origin
+  )
+
+  it('キャッシュ名 → フォルダ → ファイルの階層にする', () => {
+    expect(tree.map((n) => n.name)).toEqual(['precache', VIDEO_CACHE_NAME])
+    const precache = tree[0]
+    // フォルダが先、ファイルが後。それぞれ名前順
+    expect(precache.children!.map((n) => n.name)).toEqual([
+      'ev',
+      'manifest.json',
+    ])
+    const ev = precache.children![0]
+    expect(ev.children!.map((n) => n.name)).toEqual(['bgm', 'logo.png'])
+    expect(ev.children![0].children!.map((n) => n.name)).toEqual([
+      'a.mp3',
+      'b.mp3',
+    ])
+  })
+
+  it('フォルダは配下のファイル数と合計サイズを持つ', () => {
+    const precache = tree[0]
+    expect(precache.fileCount).toBe(4)
+    expect(precache.bytes).toBe(5110)
+    expect(precache.hasUnknownSize).toBe(false)
+    const bgm = precache.children![0].children![0]
+    expect(bgm.fileCount).toBe(2)
+    expect(bgm.bytes).toBe(5000)
+  })
+
+  it('サイズ不明のファイルがあるフォルダには印が付く', () => {
+    const video = tree[1]
+    expect(video.fileCount).toBe(1)
+    expect(video.bytes).toBe(0)
+    expect(video.hasUnknownSize).toBe(true)
+    expect(video.children![0].name).toBe('im-file.emtec.tv')
   })
 })
