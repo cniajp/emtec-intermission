@@ -4,6 +4,9 @@
     "config:base",
   ],
   "labels": ["dependencies"],
+  // pnpm-workspace.yaml の minimumReleaseAge (3 日) と揃える。
+  // 揃っていないと Renovate が提案した版を pnpm が解決できず、lockfile 更新が失敗する
+  "minimumReleaseAge": "3 days",
   "packageRules": [
     {
       "matchManagers": ["dockerfile", "docker-compose"],

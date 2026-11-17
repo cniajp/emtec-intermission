@@ -7,3 +7,8 @@ onlyBuiltDependencies:
   - esbuild
   - unrs-resolver
   - workerd
+
+# クールダウン: 公開から 3 日 (4320 分) 経っていないバージョンは解決対象にしない。
+# 公開直後に見つかって取り下げられる不正パッケージを踏まないため。
+# 緊急の修正をすぐ入れたいときだけ minimumReleaseAgeExclude にパッケージ名を足す
+minimumReleaseAge: 4320
