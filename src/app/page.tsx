@@ -41,17 +41,17 @@ function LinkCard({
   external?: boolean
 }) {
   const className =
-    'group flex items-center justify-between rounded-lg border border-neutral-700 bg-neutral-800/50 px-5 py-4 transition-colors hover:border-neutral-500 hover:bg-neutral-700/50'
+    'group flex items-center justify-between gap-3 rounded-lg border border-neutral-700 bg-neutral-800/50 px-4 py-3 transition-colors hover:border-neutral-500 hover:bg-neutral-700/50'
 
   const content = (
     <>
-      <div>
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
+      <div className="min-w-0">
+        <h3 className="text-[15px] font-semibold text-white">{title}</h3>
         {description && (
-          <p className="mt-1 text-xs text-neutral-400">{description}</p>
+          <p className="mt-0.5 text-[12px] text-neutral-400">{description}</p>
         )}
       </div>
-      <span className="text-neutral-400 transition-transform group-hover:translate-x-1">
+      <span className="shrink-0 text-neutral-400 transition-transform group-hover:translate-x-1">
         &rarr;
       </span>
     </>
@@ -81,27 +81,32 @@ function Section({
   title,
   badge,
   description,
+  columns = false,
   children,
 }: {
   title: string
   badge: string
   description?: string
+  // 広い画面でカードを 2 列に並べるか（日付の一覧用）
+  columns?: boolean
   children: React.ReactNode
 }) {
   return (
-    <section className="w-full max-w-2xl">
-      <div className="mb-4">
-        <div className="flex items-center gap-3">
-          <h2 className="text-xl font-bold text-white">{title}</h2>
-          <span className="rounded-full bg-blue-600/20 px-3 py-1 text-xs font-medium text-blue-400">
+    <section className="w-full">
+      <div className="mb-3">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <h2 className="text-[18px] font-bold text-white">{title}</h2>
+          <span className="rounded-full bg-blue-600/20 px-2.5 py-0.5 text-[11px] font-medium text-blue-400">
             {badge}
           </span>
         </div>
         {description && (
-          <p className="mt-1 text-sm text-neutral-400">{description}</p>
+          <p className="mt-1 text-[12px] text-neutral-400">{description}</p>
         )}
       </div>
-      <div className="flex flex-col gap-3">{children}</div>
+      <div className={`grid gap-2.5 ${columns ? 'sm:grid-cols-2' : ''}`}>
+        {children}
+      </div>
     </section>
   )
 }
@@ -137,13 +142,17 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-neutral-900">
       <Header />
 
-      <main className="flex flex-1 flex-col p-12">
-        <div className="mx-auto flex w-full max-w-5xl flex-1 items-start gap-8">
-          <div className="flex w-3/4 flex-col gap-12">
+      {/* このサイトの文字サイズ表（tailwind.css の @theme）は 1920x1080 の配信画面向けに大きいので、
+          このページの文字サイズは px で直接指定している */}
+      <main className="flex flex-1 flex-col px-4 py-8 text-[14px] sm:p-12">
+        {/* 狭い画面では 1 列、広い画面では「日付の一覧」と「ツール」の 2 列 */}
+        <div className="mx-auto grid w-full max-w-5xl items-start gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:gap-12">
+          <div className="flex flex-col gap-10">
             <Section
               title="Dreamkast API"
               badge={dkEventAbbr}
               description="Dreamkast APIからトーク情報を取得"
+              columns
             >
               <LinkCard href="/break-dk/menu/1" title="Day 1" />
               <LinkCard href="/break-dk/menu/2" title="Day 2" />
@@ -154,6 +163,7 @@ export default function Home() {
                 title="静的TSファイル"
                 badge={eventAbbr}
                 description="src/data/talks.ts からトーク情報を取得"
+                columns
               >
                 {staticDays.map(({ day, date }) => (
                   <LinkCard
@@ -166,7 +176,7 @@ export default function Home() {
             )}
           </div>
 
-          <div className="w-1/4">
+          <div>
             <Section title="ツール" badge="Utilities">
               {TOOLS.map((tool) => (
                 <LinkCard key={tool.href} {...tool} />

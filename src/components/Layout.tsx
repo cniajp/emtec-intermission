@@ -24,7 +24,8 @@ export function Header({ children }: HeaderProps) {
   return (
     <header className="border-b border-neutral-800 px-4 py-3 sm:px-8">
       <div
-        className={`mx-auto max-w-7xl ${children ? 'flex items-center justify-between' : ''}`}
+        // 狭い画面では、ロゴと右側の内容（メニューの日付切り替え）を折り返す
+        className={`mx-auto max-w-7xl ${children ? 'flex flex-wrap items-center justify-between gap-x-4 gap-y-2' : ''}`}
       >
         <Logo />
         {children}
@@ -37,7 +38,7 @@ export function Footer() {
   return (
     <footer className="border-t border-neutral-800 px-4 py-6 sm:px-8">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
-        <p className="text-sm text-neutral-500">
+        <p className="text-[13px] text-neutral-500">
           &copy; {new Date().getFullYear()} EMTEC
         </p>
         <div className="flex gap-6">
@@ -45,7 +46,7 @@ export function Footer() {
             href="https://github.com/cloudnativedaysjp/emtec-intermission"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-neutral-400 hover:text-white transition-colors"
+            className="text-[13px] text-neutral-400 hover:text-white transition-colors"
           >
             GitHub
           </a>
@@ -53,7 +54,7 @@ export function Footer() {
             href="https://emtec.tv/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-neutral-400 hover:text-white transition-colors"
+            className="text-[13px] text-neutral-400 hover:text-white transition-colors"
           >
             EMTEC
           </a>
