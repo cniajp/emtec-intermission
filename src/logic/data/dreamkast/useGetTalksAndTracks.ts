@@ -52,7 +52,9 @@ export const useGetTalksAndTracksForMenu = (
   dkEventAbbr: Optional<string>,
   dayNum: Optional<string>
 ) => {
-  const event = useGetEvent(dkEventAbbr)
+  // メニューは取得に失敗しても落とさない（前回取得したデータや、再読み込みの案内を出す）
+  const options = { throwOnError: false }
+  const event = useGetEvent(dkEventAbbr, options)
   const confDayId = useMemo(() => {
     if (!event.data?.conferenceDays) {
       return null
@@ -69,16 +71,18 @@ export const useGetTalksAndTracksForMenu = (
     }
     return event.data.conferenceDays[index].id
   }, [event.data, dayNum])
-  const talksResult = useGetTalks(confDayId)
-  const tracksResult = useGetTracks()
-  const speakersResult = useGetSpeakers()
+  const talksResult = useGetTalks(confDayId, options)
+  const tracksResult = useGetTracks(options)
+  // メニューは登壇者の一覧を使わない（登壇者名は talks に入っている）ので、届くのを待たない。
+  // 取得自体は続ける: トークのページでは必要なので、ここで取っておくとそのまま使える
+  const speakersResult = useGetSpeakers(options)
 
   const view: Optional<MenuView> = useMemo(() => {
-    if (talksResult.data && tracksResult.data && speakersResult.data) {
+    if (talksResult.data && tracksResult.data) {
       return new MenuView(
         talksResult.data,
         tracksResult.data,
-        speakersResult.data
+        speakersResult.data ?? []
       )
     }
     return null
@@ -94,17 +98,23 @@ export const useGetTalksAndTracksForMenu = (
 
   return {
     isLoading:
-      event.isLoading ||
-      talksResult.isLoading ||
-      tracksResult.isLoading ||
-      speakersResult.isLoading,
+      event.isLoading || talksResult.isLoading || tracksResult.isLoading,
     isEventLoading: event.isLoading,
     view,
     allDays,
   }
 }
 
-export const useGetEvent = (confName: Optional<string>) => {
+type QueryOptions = {
+  // false にすると、取得に失敗しても例外を投げない（data が undefined のまま返る）。
+  // 既定は true で、失敗するとページごとエラーになる
+  throwOnError?: boolean
+}
+
+export const useGetEvent = (
+  confName: Optional<string>,
+  { throwOnError = true }: QueryOptions = {}
+) => {
   const [_, setError] = useState()
 
   const { data, isLoading, isError, error } = useGetApiV1EventsByEventAbbrQuery(
@@ -113,12 +123,12 @@ export const useGetEvent = (confName: Optional<string>) => {
   )
 
   useEffect(() => {
-    if (isError) {
+    if (isError && throwOnError) {
       setError(() => {
         throw error
       })
     }
-  }, [isError, error])
+  }, [isError, error, throwOnError])
 
   return {
     data,
@@ -148,7 +158,10 @@ export const useGetTalk = (talkId: Optional<string>) => {
   }
 }
 
-export const useGetTalks = (conferenceDayId: Optional<number>) => {
+export const useGetTalks = (
+  conferenceDayId: Optional<number>,
+  { throwOnError = true }: QueryOptions = {}
+) => {
   const [_, setError] = useState()
 
   const { data, isLoading, isError, error } = useGetApiV1TalksQuery(
@@ -160,12 +173,12 @@ export const useGetTalks = (conferenceDayId: Optional<number>) => {
   )
 
   useEffect(() => {
-    if (isError) {
+    if (isError && throwOnError) {
       setError(() => {
         throw error
       })
     }
-  }, [isError, error])
+  }, [isError, error, throwOnError])
 
   return {
     data,
@@ -173,7 +186,7 @@ export const useGetTalks = (conferenceDayId: Optional<number>) => {
   }
 }
 
-export const useGetTracks = () => {
+export const useGetTracks = ({ throwOnError = true }: QueryOptions = {}) => {
   const [_, setError] = useState()
 
   const { data, isLoading, isError, error } = useGetApiV1TracksQuery({
@@ -181,12 +194,12 @@ export const useGetTracks = () => {
   })
 
   useEffect(() => {
-    if (isError) {
+    if (isError && throwOnError) {
       setError(() => {
         throw error
       })
     }
-  }, [isError, error])
+  }, [isError, error, throwOnError])
 
   return {
     data,
@@ -194,7 +207,7 @@ export const useGetTracks = () => {
   }
 }
 
-export const useGetSpeakers = () => {
+export const useGetSpeakers = ({ throwOnError = true }: QueryOptions = {}) => {
   const [_, setError] = useState()
 
   const { data, isLoading, isError, error } = useGetApiV1SpeakersQuery(
@@ -203,12 +216,12 @@ export const useGetSpeakers = () => {
   )
 
   useEffect(() => {
-    if (isError) {
+    if (isError && throwOnError) {
       setError(() => {
         throw error
       })
     }
-  }, [isError, error])
+  }, [isError, error, throwOnError])
 
   return {
     data,

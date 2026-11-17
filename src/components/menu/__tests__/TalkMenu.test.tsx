@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import { TalkMenu } from '@/components/menu/TalkMenu'
-import { adjacentDays } from '@/components/menu/DayNavigation'
+import { adjacentDays, menuDays } from '@/components/menu/DayNavigation'
 import { MenuView } from '@/logic/models/talkView'
 import type { Talk, Track } from '@/data/types'
 
@@ -107,5 +107,19 @@ describe('adjacentDays', () => {
     expect(adjacentDays([1, 2, 4], 1)).toEqual({ prev: undefined, next: 2 })
     expect(adjacentDays([1, 2, 4], 4)).toEqual({ prev: 2, next: undefined })
     expect(adjacentDays([], 1)).toEqual({ prev: undefined, next: undefined })
+  })
+})
+
+describe('menuDays', () => {
+  it('talks に出てくる日を重複なし・昇順で返す（日が無いトークは除く）', () => {
+    expect(
+      menuDays([
+        { conferenceDayId: 2 },
+        { conferenceDayId: 1 },
+        { conferenceDayId: 2 },
+        { conferenceDayId: null },
+        {},
+      ])
+    ).toEqual([1, 2])
   })
 })
