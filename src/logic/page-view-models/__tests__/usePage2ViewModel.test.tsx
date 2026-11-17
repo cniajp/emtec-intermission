@@ -11,7 +11,6 @@ import {
   makeTrack,
 } from '@/logic/__fixtures__/talkFixtures'
 import { TalkView } from '@/logic/models/talkView'
-import { now } from '@/utils/time'
 
 function wrapper({ children }: PropsWithChildren) {
   return (
@@ -22,8 +21,6 @@ function wrapper({ children }: PropsWithChildren) {
           totalPage: 4,
           goNextPage: jest.fn(),
           setTotalPage: jest.fn(),
-          now: now(),
-          hasTimeDrift: false,
           isNextVideoAvailable: false,
           registerNextVideo: jest.fn(),
           invokeNextVideo: jest.fn(),

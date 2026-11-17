@@ -2,7 +2,6 @@ import { act, renderHook } from '@testing-library/react'
 import { PropsWithChildren } from 'react'
 import { PageCtx } from '@/logic/page-flow/PageContext'
 import { useTimedPageTransition } from '@/logic/page-flow/usePageTransition'
-import { now } from '@/utils/time'
 
 function makeWrapper(goNextPage: jest.Mock, setPageEndsAt = jest.fn()) {
   return function Wrapper({ children }: PropsWithChildren) {
@@ -13,8 +12,6 @@ function makeWrapper(goNextPage: jest.Mock, setPageEndsAt = jest.fn()) {
           totalPage: 4,
           goNextPage,
           setTotalPage: jest.fn(),
-          now: now(),
-          hasTimeDrift: false,
           isNextVideoAvailable: false,
           registerNextVideo: jest.fn(),
           invokeNextVideo: jest.fn(),

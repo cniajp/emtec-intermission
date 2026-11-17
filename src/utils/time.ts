@@ -96,11 +96,21 @@ export function isTimeSynced(): boolean {
 }
 
 export function getTimeStr(time: string): string {
-  return dayjs(time).tz().format('HH:mm')
+  return getTime(time).format('HH:mm')
 }
 
-export function getTime(time: string) {
-  return dayjs(time).tz()
+// dayjs(time).tz() は 1 回あたり数十 µs かかり、TalkView の絞り込み・並べ替えから
+// 1 レンダーで数千回呼ばれる。トークの時刻文字列は種類が限られ、Dayjs は不変なので、
+// 文字列ごとに結果を使い回す。
+const timeCache = new Map<string, Dayjs>()
+
+export function getTime(time: string): Dayjs {
+  let parsed = timeCache.get(time)
+  if (!parsed) {
+    parsed = dayjs(time).tz()
+    timeCache.set(time, parsed)
+  }
+  return parsed
 }
 
 export function now(): Dayjs {
