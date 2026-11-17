@@ -2,7 +2,10 @@ import { act, renderHook } from '@testing-library/react'
 import { PropsWithChildren } from 'react'
 import { PageRunningCtx } from '@/logic/page-flow/PageRunningContext'
 import { PageCtx } from '@/logic/page-flow/PageContext'
-import { useTimedPageTransition } from '@/logic/page-flow/usePageTransition'
+import {
+  PAGE_EXIT_MS,
+  useTimedPageTransition,
+} from '@/logic/page-flow/usePageTransition'
 
 function makeWrapper(goNextPage: jest.Mock, setPageEndsAt = jest.fn()) {
   return function Wrapper({ children }: PropsWithChildren) {
@@ -105,6 +108,49 @@ describe('useTimedPageTransition', () => {
       jest.advanceTimersByTime(4999)
     })
     expect(goNextPage).not.toHaveBeenCalled()
+    act(() => {
+      jest.advanceTimersByTime(1)
+    })
+    expect(goNextPage).toHaveBeenCalledTimes(1)
+  })
+
+  it('切り替わる PAGE_EXIT_MS 前から isLeaving が true になる', () => {
+    jest.useFakeTimers()
+    const goNextPage = jest.fn()
+    const { result } = renderHook(() => useTimedPageTransition('Page1', 5), {
+      wrapper: makeWrapper(goNextPage),
+    })
+    expect(result.current.isLeaving).toBe(false)
+
+    act(() => {
+      jest.advanceTimersByTime(5000 - PAGE_EXIT_MS - 1)
+    })
+    expect(result.current.isLeaving).toBe(false)
+
+    act(() => {
+      jest.advanceTimersByTime(1)
+    })
+    expect(result.current.isLeaving).toBe(true)
+    expect(goNextPage).not.toHaveBeenCalled()
+
+    act(() => {
+      jest.advanceTimersByTime(PAGE_EXIT_MS)
+    })
+    expect(goNextPage).toHaveBeenCalledTimes(1)
+  })
+
+  it('表示時間が退場より短いページでは isLeaving にならずに遷移する', () => {
+    jest.useFakeTimers()
+    const goNextPage = jest.fn()
+    const { result } = renderHook(
+      () => useTimedPageTransition('Page1', PAGE_EXIT_MS / 1000 / 2),
+      { wrapper: makeWrapper(goNextPage) }
+    )
+
+    act(() => {
+      jest.advanceTimersByTime(PAGE_EXIT_MS / 2 - 1)
+    })
+    expect(result.current.isLeaving).toBe(false)
     act(() => {
       jest.advanceTimersByTime(1)
     })

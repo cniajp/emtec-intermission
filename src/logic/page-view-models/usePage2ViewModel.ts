@@ -28,6 +28,8 @@ export type Page2ViewModel = {
   rows: Page2TrackRow[]
   // 1トラックのイベントで、同時刻セッションを切り替えずに全部並べているか
   showsAllSameStart: boolean
+  // 次のページへ切り替わる直前か（要素の退場アニメーション用）
+  isLeaving: boolean
 }
 
 const EMPTY = { timeRange: null, rows: [], showsAllSameStart: false }
@@ -40,7 +42,7 @@ export function usePage2ViewModel(
 ): Page2ViewModel {
   const brand = useBrand()
   const seconds = config.transTimePage2 ?? brand.page2.seconds
-  useTimedPageTransition('Page2', seconds)
+  const { isLeaving } = useTimedPageTransition('Page2', seconds)
   // 1トラックだけのイベントは Page2 の枠が空くので、同時刻セッションを切り替えずに全部並べる
   const onlyTrack =
     originalView?.allTracks.length === 1 ? originalView.allTracks[0] : null
@@ -55,10 +57,10 @@ export function usePage2ViewModel(
       : []
   const view = useSameStartRotation(originalView, seconds, trackIds)
 
-  if (!view) return { view, ...EMPTY }
+  if (!view) return { view, ...EMPTY, isLeaving }
   const nextTalks = getOverlappingTalks(view)
   const baseTalk = Object.values(nextTalks)[0]
-  if (!baseTalk) return { view, ...EMPTY }
+  if (!baseTalk) return { view, ...EMPTY, isLeaving }
 
   const hideOthers = HIDE_OTHER_TRACKS_TALK_IDS.includes(view.selectedTalk.id)
   const tracksToShow = hideOthers
@@ -94,6 +96,7 @@ export function usePage2ViewModel(
   return {
     view,
     showsAllSameStart,
+    isLeaving,
     timeRange: { start: baseTalk.startTime, end: baseTalk.endTime },
     rows,
   }

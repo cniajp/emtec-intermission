@@ -9,6 +9,7 @@ import {
 } from '@/components/hooks/useAvatarSlider'
 import { RollingAvatar } from '@/components/avatar/RollingAvatar'
 import { CancelledBadge } from '../CancelledBadge'
+import { motion } from '../motion'
 
 export { AvatarPreLoader } from './AvatarPreLoader'
 export { Page3ImagePreLoader } from './Page3ImagePreLoader'
@@ -18,12 +19,18 @@ export default function Page2Presenter({
   timeRange,
   rows,
   showsAllSameStart,
+  isLeaving,
 }: Page2PresenterProps) {
   return (
     <div>
       <PageHeader view={view} />
       <div className="h-full">
-        <Body timeRange={timeRange} rows={rows} compact={showsAllSameStart} />
+        <Body
+          timeRange={timeRange}
+          rows={rows}
+          compact={showsAllSameStart}
+          isLeaving={isLeaving}
+        />
       </div>
     </div>
   )
@@ -33,9 +40,11 @@ function Body({
   timeRange,
   rows,
   compact,
+  isLeaving,
 }: {
   timeRange: Page2PresenterProps['timeRange']
   rows: Page2PresenterProps['rows']
+  isLeaving: boolean
   // 同時刻セッションを2段に並べるとき、下端が背景の帯にかからないよう上の余白を詰める
   compact: boolean
 }) {
@@ -43,9 +52,14 @@ function Body({
   if (!timeRange || rows.length === 0) {
     return <></>
   }
+  // ラベルは左から入る（退場は逆向き）
+  const label = motion('left', isLeaving, 0)
   return (
     <div className=" mt-10 font-ryo-gothic-plusn">
-      <div className="text-left w-[450px] pr-10 py-10 bg-[#ffffff] bg-cover bg-center rounded-r-2xl">
+      <div
+        className={`text-left w-[450px] pr-10 py-10 bg-[#ffffff] bg-cover bg-center rounded-r-2xl ${label.className}`}
+        style={label.style}
+      >
         <div className="text-right text-[#1E1E1E] font-bold font-din-2014 tracking-wide text-1.5xl">
           UPCOMING SESSIONS
         </div>
@@ -54,7 +68,7 @@ function Body({
         </div>
       </div>
       <div className="grid grid-cols-2 gap-6 justify-items-center">
-        {rows.map((row) => (
+        {rows.map((row, i) => (
           <TrackRow
             // 同時刻セッションの切り替えで登壇者が変わるので talk ごとに作り直す
             key={`${row.track.id}-${row.talk.id}`}
@@ -64,6 +78,8 @@ function Body({
             bgColor={trackColors[row.trackIndex % trackColors.length]}
             rotationColor={row.rotationColor}
             compact={compact}
+            // カードは下から、並び順に入る
+            motion={motion('up', isLeaving, i + 1)}
           />
         ))}
       </div>
@@ -78,6 +94,7 @@ type TrackProps = {
   bgColor: string
   rotationColor: string | null
   compact: boolean
+  motion: ReturnType<typeof motion>
 }
 
 function TrackRow({
@@ -87,6 +104,7 @@ function TrackRow({
   bgColor,
   rotationColor,
   compact,
+  motion: m,
 }: TrackProps) {
   const brand = useBrand()
   const defaultAvatar = brand.base.defaultAvatarSrc
@@ -110,9 +128,12 @@ function TrackRow({
 
   return (
     <div
-      className={`relative flex flex-row items-center w-[900px] h-[300px] ${compact ? 'mt-6' : 'mt-12'} backdrop-blur-xl border border-white/40 rounded-2xl shadow-2xl p-6 ${rotationColor ? 'text-white' : 'bg-white/85 text-[#1E1E1E]'}`}
+      className={`relative flex flex-row items-center w-[900px] h-[300px] ${compact ? 'mt-6' : 'mt-12'} backdrop-blur-xl border border-white/40 rounded-2xl shadow-2xl p-6 ${rotationColor ? 'text-white' : 'bg-white/85 text-[#1E1E1E]'} ${m.className}`}
       // 同時刻セッションの切り替え中は、カード全体を Page1 と同じセッション色にする
-      style={rotationColor ? { backgroundColor: rotationColor } : undefined}
+      style={{
+        ...(rotationColor ? { backgroundColor: rotationColor } : {}),
+        ...m.style,
+      }}
     >
       {brand.page2.showTrackLabel && (
         <span
