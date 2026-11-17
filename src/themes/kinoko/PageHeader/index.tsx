@@ -39,6 +39,8 @@ export default function Header({ view }: Props) {
              横長のロゴが枠を食い潰さないよう maxWidth も入れておく */
           style={{ height: '110px', width: 'auto', maxWidth: '450px' }}
           priority
+          // 元ファイルを直接配信する（Service Worker のプリキャッシュが効く）
+          unoptimized
         />
       </div>
 

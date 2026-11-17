@@ -24,6 +24,8 @@ export default function Loading({
           height={100}
           className={`${classes.loadingLogo} ${isFadingOut ? classes.loadingLogoFadeOut : ''} ${classes.logoShape[logoShape]}`}
           priority
+          // 背景と同じく元ファイルを直接配信する（Service Worker のプリキャッシュが効く）
+          unoptimized
         />
       </div>
     </div>
