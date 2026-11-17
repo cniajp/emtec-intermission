@@ -44,8 +44,8 @@ export const breakDkConfig = {
     audioFadeSeconds: 3,
     audioFadeOutBeforeCm: true,
     hashTag: {
-      all: 'cloudnativekaigi',
-      break: 'cloudnativekaigi_',
+      all: 'CNDW2026',
+      break: 'CNDW2026_',
     },
     useHashTagAsTrackName: false,
     defaultAvatarSrc: '/cndw2026/logo.png',
