@@ -49,6 +49,8 @@ export default function Header({ view }: Props) {
               : undefined
           }
           priority
+          // 元ファイルを直接配信する（Service Worker のプリキャッシュが効く）
+          unoptimized
         />
       </div>
 

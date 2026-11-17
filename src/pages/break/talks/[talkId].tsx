@@ -18,6 +18,7 @@ import { useContext, useEffect, useRef } from 'react'
 import { useAssetsReady } from '@/components/hooks/useAssetsReady'
 import { PageRunningCtx } from '@/logic/page-flow/PageRunningContext'
 import Image from 'next/image'
+import Head from 'next/head'
 import { useLoadingTransition } from '@/components/hooks/useLoadingTransition'
 import { useVideoPrecache } from '@/components/hooks/useVideoPrecache'
 
@@ -108,6 +109,11 @@ function Pages() {
 
   return (
     <>
+      <Head>
+        {/* ヘッダーロゴは Page1 がマウントされるまで <img> が出てこないので、
+            HTML の時点で取得を始めておく（背景・ローディングアイコンは priority で先読み済み） */}
+        <link rel="preload" as="image" href={activeBrand.base.headerLogoSrc} />
+      </Head>
       <div>
         <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css" />
       </div>
@@ -127,17 +133,25 @@ function Pages() {
         fadeOutAt={fadeOutBeforeCmAt}
         shouldPlay={shouldPlayAudio}
       />
-      <AvatarPreLoader view={view} />
-      <Page3ImagePreLoader view={view} />
+      {/* Page2 / Page3 用の先読みは、最初の表示が始まってから行う。
+          開いた直後に始めると、背景や Page1 の画像と帯域を取り合う */}
+      {(!loadingEnabled || showContent) && (
+        <>
+          <AvatarPreLoader view={view} />
+          <Page3ImagePreLoader view={view} />
+        </>
+      )}
       <div ref={stageRef} className="w-[1920px] h-[1080px] relative">
         <Image
           src={backgroundSrc}
           alt="background"
           className="-z-10"
           fill
-          quality={100}
           style={{ objectFit: 'cover' }}
           priority
+          // 元ファイルをそのまま配信する。1920x1080 で用意してあるので最適化しても小さくならず、
+          // /_next/image 経由だとサーバー処理を毎回通るうえ Service Worker のプリキャッシュ対象外になる
+          unoptimized
         />
         {loadingEnabled ? (
           // ローディング中はページの表示時間を進めない
