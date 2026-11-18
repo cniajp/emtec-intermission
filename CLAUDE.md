@@ -45,12 +45,23 @@
 ├── /break-dk/menu/[confDay]   # Dreamkast版メニュー（Day 0, 1, 2...）
 ├── /break-dk/talks/[talkId]   # Dreamkast版インターミッション表示
 ├── /break-dk/obs               # Dreamkast版OBS用ページ
-├── /break-dk/cm                # Dreamkast版 CM だけを繰り返し流すページ（APIは呼ばない）
+├── /break-dk/cm                # Dreamkast版 Page3・Page4（告知とCM）だけを流すページ。APIは呼ばない
 ├── /break/menu/[confDay]       # 静的データ版メニュー
 ├── /break/talks/[talkId]       # 静的データ版インターミッション表示
 ├── /break/obs                  # 静的データ版OBS用ページ
-└── /break/cm                   # 静的データ版 CM だけを繰り返し流すページ
+└── /break/cm                   # 静的データ版 Page3・Page4（告知とCM）だけを流すページ
 ```
+
+### 告知・CM だけのページ（`/break/cm`, `/break-dk/cm`）
+
+- セッション情報（Page1・Page2）を出さず、Page3（告知スライド）→ Page4（CM）を繰り返す。
+  中身は共通の `src/components/media/CmOnlyPage.tsx`
+- 表示内容は `src/staticConfig/*.ts` とクエリだけで決まる。**Dreamkast版も API は呼ばない**
+  （データソース `src/logic/data/*` を import しないこと）
+- `?trackName=` がヘッダーのトラック名になる。`?trackId=` を付けるとトラック別の Page3 画像
+  （`page3.trackImages`）も差し込む。トーク情報の代わりに `makeTrackOnlyView()`
+  （`src/logic/models/trackOnlyView.ts`）で作った仮の `TalkView` を Page3 に渡している
+- BGM は Page3 の間だけ流れる（talk ページと同じく CM 中は止まる）
 
 ### メニューの表示（`/break/menu/*`, `/break-dk/menu/*`）
 

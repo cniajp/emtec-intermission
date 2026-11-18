@@ -158,8 +158,8 @@ export default function Home() {
               <LinkCard href="/break-dk/menu/2" title="Day 2" />
               <LinkCard
                 href="/break-dk/cm"
-                title="CM のみ"
-                description="CM 動画だけを繰り返し再生"
+                title="告知・CM のみ"
+                description="Page3・Page4 だけを繰り返し表示（?trackName= でトラック名）"
               />
             </Section>
 
@@ -179,8 +179,8 @@ export default function Home() {
                 ))}
                 <LinkCard
                   href="/break/cm"
-                  title="CM のみ"
-                  description="CM 動画だけを繰り返し再生"
+                  title="告知・CM のみ"
+                  description="Page3・Page4 だけを繰り返し表示（?trackName= でトラック名）"
                 />
               </Section>
             )}
