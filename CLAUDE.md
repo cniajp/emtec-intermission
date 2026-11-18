@@ -305,6 +305,8 @@ pnpm run start  # プロダクションサーバー起動
 - `/break-dk/obs` や `/break/obs` ページはOBS用
 - クエリパラメータで `trackId`, `trackName`, `confDay` を指定
 - 自動的にそのトラックの次のセッション情報を表示
+- メニューの「全トラックまとめて」は `trackId=all` で生成ページ（`/break*/obs`, `/break*/companion`）を開き、
+  その日にトークがある全トラック分を ZIP 1つでダウンロードする（設定は全トラック共通。`src/components/tools/exportAll.ts`）
 
 ### クエリパラメータでの設定上書き
 

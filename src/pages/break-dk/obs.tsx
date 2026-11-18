@@ -1,6 +1,13 @@
-import ObsSceneGenerate, {
+import {
+  buildObsSceneFile,
+  obsSceneZipName,
   parseVolumeDb,
 } from '@/components/tools/ObsSceneGenerate'
+import {
+  downloadExportFiles,
+  isAllTracks,
+  tracksWithTalks,
+} from '@/components/tools/exportAll'
 import { sceneTimeOf } from '@/components/tools/obsSceneNames'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
@@ -19,6 +26,7 @@ export default function ObsPage() {
   const done = useRef(false)
   const {
     confDay,
+    trackId,
     trackName,
     includeAttack,
     includeBackground,
@@ -33,6 +41,8 @@ export default function ObsPage() {
     simulVolumeDb,
   } = router.query
   const { dkEventAbbr } = config
+  // trackId=all のときは、その日にトークがある全トラックを ZIP にまとめる
+  const all = isAllTracks(trackId)
 
   useEffect(() => {
     setIsClient(true)
@@ -76,7 +86,7 @@ export default function ObsPage() {
       return
     }
 
-    if (!apiTrackId) {
+    if (!all && !apiTrackId) {
       alert('Track not found')
       router.push(`/break-dk/menu/${confDay}`)
       return
@@ -88,64 +98,71 @@ export default function ObsPage() {
       return
     }
 
-    if (
-      !dkEventAbbr ||
-      !confDay ||
-      !apiConfDayId ||
-      !apiTrackId ||
-      !trackName ||
-      !talkResult.data
-    ) {
+    if (!dkEventAbbr || !confDay || !apiConfDayId || !talkResult.data) {
       return
     }
 
-    const talks: Talk[] = talkResult.data
-
-    // 開始時刻、talk_idを取得する
-    let talkList: Talk[] = talks.filter(
-      (talk) =>
-        talk.conferenceDayId === apiConfDayId && talk.trackId === apiTrackId
+    const dayTalks: Talk[] = talkResult.data.filter(
+      (talk) => talk.conferenceDayId === apiConfDayId
     )
+    const targets = all
+      ? tracksWithTalks(trackResult.data, dayTalks)
+      : [{ id: apiTrackId as number, name: String(trackName) }]
 
-    talkList = talkList.sort((a, b) => {
-      if (a.startTime < b.startTime) return -1
-      if (a.startTime > b.startTime) return 1
-      return 0
-    })
+    Promise.all(
+      targets.map((track) => {
+        // 開始時刻、talk_idを取得する
+        const talkList = dayTalks
+          .filter((talk) => talk.trackId === track.id)
+          .sort((a, b) => {
+            if (a.startTime < b.startTime) return -1
+            if (a.startTime > b.startTime) return 1
+            return 0
+          })
 
-    const template: { name: string; url_path: string }[] = talkList.map(
-      (talk) => ({
-        name: sceneTimeOf(talk.startTime),
-        url_path: `/break-dk/talks/${talk.id}`,
+        const template: { name: string; url_path: string }[] = talkList.map(
+          (talk) => ({
+            name: sceneTimeOf(talk.startTime),
+            url_path: `/break-dk/talks/${talk.id}`,
+          })
+        )
+
+        if (nextDayId) {
+          // 次の日の最初のトークの時間も追加する
+          template.push({
+            name: 'NextDayTalk',
+            url_path: `/break-dk/talks/2764`, // ハードコーディング
+          })
+        }
+
+        return buildObsSceneFile({
+          eventAbbr: dkEventAbbr,
+          confDay,
+          trackName: track.name,
+          template,
+          includeAttack: includeAttack === 'true',
+          includeBackground: includeBackground === 'true',
+          includeCountdown: includeCountdown === 'true',
+          includeSimul: includeSimul === 'true',
+          simulType: simulType === 'browser' ? 'browser' : 'vlc',
+          simulUrl: (simulUrl as string) || undefined,
+          os: (os as 'windows' | 'mac') || 'windows',
+          username: (username as string) || 'emtec',
+          talkVolumeDb: parseVolumeDb(talkVolumeDb),
+          countdownVolumeDb: parseVolumeDb(countdownVolumeDb),
+          simulVolumeDb: parseVolumeDb(simulVolumeDb),
+        })
       })
     )
-
-    if (nextDayId) {
-      // 次の日の最初のトークの時間も追加する
-      template.push({
-        name: 'NextDayTalk',
-        url_path: `/break-dk/talks/2764`, // ハードコーディング
+      .then((files) =>
+        downloadExportFiles(
+          files,
+          obsSceneZipName(dkEventAbbr, String(confDay))
+        )
+      )
+      .catch((error) => {
+        console.error('Error generating OBS config:', error)
       })
-    }
-
-    // obsSceneGenerate.tsxを実行
-    ObsSceneGenerate({
-      eventAbbr: dkEventAbbr,
-      confDay,
-      trackName,
-      template,
-      includeAttack: includeAttack === 'true',
-      includeBackground: includeBackground === 'true',
-      includeCountdown: includeCountdown === 'true',
-      includeSimul: includeSimul === 'true',
-      simulType: simulType === 'browser' ? 'browser' : 'vlc',
-      simulUrl: (simulUrl as string) || undefined,
-      os: (os as 'windows' | 'mac') || 'windows',
-      username: (username as string) || 'emtec',
-      talkVolumeDb: parseVolumeDb(talkVolumeDb),
-      countdownVolumeDb: parseVolumeDb(countdownVolumeDb),
-      simulVolumeDb: parseVolumeDb(simulVolumeDb),
-    })
 
     // menuページにリダイレクト
     router.push(`/break-dk/menu/${confDay}`)
@@ -161,6 +178,7 @@ export default function ObsPage() {
     confDay,
     apiConfDayId,
     apiTrackId,
+    all,
     trackName,
     router,
     nextDayId,
@@ -172,7 +190,8 @@ export default function ObsPage() {
 
   return (
     <div className="text-white text-center w-full my-5">
-      Generating JSON for Track {trackName}... Redirecting to menu...
+      Generating JSON for {all ? 'all tracks' : `Track ${trackName}`}...
+      Redirecting to menu...
     </div>
   )
 }
