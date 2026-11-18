@@ -7,11 +7,6 @@ import { talks } from '@/data/talks'
 
 const TOOLS = [
   {
-    href: '/break-dk/monitor',
-    title: 'Monitor',
-    description: '全トラックの状態を監視 (Dreamkast専用)',
-  },
-  {
     href: 'https://short.emtec.tv/',
     title: '短縮URL',
     description: 'EMTEC専用短縮URLサービス',
