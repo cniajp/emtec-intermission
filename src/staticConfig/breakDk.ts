@@ -2,6 +2,7 @@ import { toPlaylist, type Playlist } from '../components/media/playlist'
 import type { TrackImageInserts } from './shared'
 
 const breakDkImages: string[] = [
+  // 'info_001.jpg',
   'info_002.jpg',
   'info_003.jpg',
   'info_004.jpg',
