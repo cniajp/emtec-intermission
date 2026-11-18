@@ -1,5 +1,6 @@
 import { OBS_SCENE, attackSceneName, talkSceneName } from './obsSceneNames'
 import type { ParsedUrlQuery } from 'querystring'
+import { downloadExportFiles, type ExportFile } from './exportAll'
 
 // エクスポート画面で選ぶ項目。URL (`/break/companion?...`) でも同じものを受け渡す
 export type CompanionOptions = {
@@ -706,21 +707,36 @@ function extractPreviewGrid(
   return grid
 }
 
+type ExportTarget = { eventAbbr: string; confDay: string; trackName: string }
+
 /**
- * ダウンロードする。ファイル名は OBS 側 (obs_scene_{event}_day{N}_track{name}.json) と揃える
+ * ダウンロードするファイル。ファイル名は OBS 側 (obs_scene_{event}_day{N}_track{name}.json) と揃える
  */
+export function companionConfigFile(
+  config: CompanionConfig,
+  target: ExportTarget
+): ExportFile {
+  return {
+    name: `companion_${target.eventAbbr}_day${target.confDay}_track${target.trackName}_${config.device}.companionconfig`,
+    text: JSON.stringify(config.json, null, 2),
+  }
+}
+
+/**
+ * 全トラック分をまとめたときの ZIP のファイル名
+ */
+export function companionZipName(
+  eventAbbr: string,
+  confDay: string,
+  device: CompanionOptions['device']
+) {
+  return `companion_${eventAbbr}_day${confDay}_all_${device}.zip`
+}
+
 export function downloadCompanionConfig(
   config: CompanionConfig,
-  target: { eventAbbr: string; confDay: string; trackName: string }
+  target: ExportTarget
 ) {
-  const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
-    JSON.stringify(config.json, null, 2)
-  )}`
-  const link = document.createElement('a')
-  link.href = jsonString
-  link.download = `companion_${target.eventAbbr}_day${target.confDay}_track${target.trackName}_${config.device}.companionconfig`
-
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
+  const file = companionConfigFile(config, target)
+  downloadExportFiles([file], file.name)
 }

@@ -1,4 +1,5 @@
 import { OBS_SCENE, attackSceneName, talkSceneName } from './obsSceneNames'
+import { downloadExportFiles, type ExportFile } from './exportAll'
 
 type Props = {
   eventAbbr: string | string[]
@@ -715,27 +716,32 @@ async function loadFixedSources(): Promise<object[]> {
 }
 
 /**
- * OBSシーン設定を生成してダウンロード
+ * OBS シーンコレクション (JSON) を1トラック分組み立てる。
+ * origin はブラウザソースの URL の先頭 (`https://example.com`)
  */
-export default function ObsSceneGenerate({
-  eventAbbr,
-  confDay,
-  trackName: _trackName,
-  template,
-  includeAttack = false,
-  includeBackground = false,
-  includeCountdown = false,
-  includeSimul = false,
-  simulType = 'vlc',
-  simulUrl = DEFAULT_SIMUL_URL,
-  os = 'windows',
-  username = 'emtec',
-  talkVolumeDb = 0,
-  countdownVolumeDb = 0,
-  simulVolumeDb = 0,
-}: Props) {
-  const host = window.location.host
-  const protocol = window.location.protocol
+export async function buildObsSceneFile(
+  {
+    eventAbbr,
+    confDay,
+    trackName: _trackName,
+    template: _template,
+    includeAttack = false,
+    includeBackground = false,
+    includeCountdown = false,
+    includeSimul = false,
+    simulType = 'vlc',
+    simulUrl = DEFAULT_SIMUL_URL,
+    os = 'windows',
+    username = 'emtec',
+    talkVolumeDb = 0,
+    countdownVolumeDb = 0,
+    simulVolumeDb = 0,
+  }: Props,
+  origin: string = window.location.origin
+): Promise<ExportFile> {
+  const [protocol, host] = origin.split('//')
+  // Slido を先頭に足すことがあるので、呼び出し元の配列は書き換えない
+  const template = [..._template]
 
   // 値を正規化
   const abbr = normalizeValue(eventAbbr)
@@ -745,8 +751,7 @@ export default function ObsSceneGenerate({
   // イベント名を構築
   const eventName = `${abbr}_Day${day}_Track${tName}`
 
-  // 非同期でOBS設定を生成
-  const generateObsConfig = async () => {
+  {
     // シーン順序を構築
     const sceneOrder: { name: string }[] = [
       { name: OBS_SCENE.futa },
@@ -993,22 +998,27 @@ export default function ObsSceneGenerate({
       sources: sources,
     }
 
-    // JSONをエンコードしてダウンロード
-    const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
-      JSON.stringify(obsConfig, null, 2)
-    )}`
-    const link = document.createElement('a')
-    link.href = jsonString
-    link.download = `obs_scene_${abbr}_day${day}_track${tName}.json`
-
-    // ダウンロードをトリガー
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+    return {
+      name: `obs_scene_${abbr}_day${day}_track${tName}.json`,
+      text: JSON.stringify(obsConfig, null, 2),
+    }
   }
+}
 
-  // 非同期処理を実行
-  generateObsConfig().catch((error) => {
-    console.error('Error generating OBS config:', error)
-  })
+/**
+ * 全トラック分をまとめたときの ZIP のファイル名
+ */
+export function obsSceneZipName(eventAbbr: string, confDay: string) {
+  return `obs_scene_${eventAbbr}_day${confDay}_all.zip`
+}
+
+/**
+ * OBSシーン設定を生成してダウンロード
+ */
+export default function ObsSceneGenerate(props: Props) {
+  buildObsSceneFile(props)
+    .then((file) => downloadExportFiles([file], file.name))
+    .catch((error) => {
+      console.error('Error generating OBS config:', error)
+    })
 }

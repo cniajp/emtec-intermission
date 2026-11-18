@@ -88,6 +88,21 @@ export default function Index() {
             <TalkMenu
               view={view}
               talkPathname={(id) => `/break-dk/talks/${id}`}
+              renderAllTracksActions={(exportTracks) => (
+                <>
+                  <ObsModal
+                    confDay={String(currentDay)}
+                    allTracks={exportTracks}
+                  />
+                  <CompanionExportModal
+                    companionPathname="/break-dk/companion"
+                    eventAbbr={config.dkEventAbbr}
+                    confDay={String(currentDay)}
+                    allTracks={exportTracks}
+                    talks={view.allTalks}
+                  />
+                </>
+              )}
               renderTrackActions={(track) => (
                 <>
                   <ObsModal confDay={String(currentDay)} track={track} />
@@ -123,7 +138,9 @@ export default function Index() {
 
 type ObsModalProps = {
   confDay: string
-  track: Track
+  // track か allTracks のどちらか一方
+  track?: Track
+  allTracks?: Track[]
 }
 
 type CompanionModalProps = {
@@ -157,7 +174,7 @@ function ReloadButton() {
   )
 }
 
-function ObsModal({ confDay, track }: ObsModalProps) {
+function ObsModal({ confDay, track, allTracks }: ObsModalProps) {
   // 取得に失敗してもメニューは落とさない（候補が出ないだけ）
   const tracksResult = useGetTracks({ throwOnError: false })
   const simulUrlSuggestions = (tracksResult.data || [])
@@ -169,6 +186,7 @@ function ObsModal({ confDay, track }: ObsModalProps) {
       eventAbbr={config.dkEventAbbr}
       confDay={confDay}
       track={track}
+      allTracks={allTracks}
       simulUrlSuggestions={simulUrlSuggestions}
     />
   )

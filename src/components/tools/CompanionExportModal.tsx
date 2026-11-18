@@ -3,12 +3,14 @@ import { useBodyScrollLock } from '@/components/hooks/useBodyScrollLock'
 import type { Talk } from '@/data/types'
 import {
   buildCompanionConfig,
+  companionConfigFile,
   companionOptionsToQuery,
-  downloadCompanionConfig,
+  companionZipName,
   type CompanionConfig,
   type CompanionOptions,
 } from './CompanionConfigGenerate'
 import CompanionPreview from './CompanionPreview'
+import { ALL_TRACKS, downloadExportFiles } from './exportAll'
 import {
   OBS_SCENE,
   attackSceneName,
@@ -36,7 +38,10 @@ type Props = {
   // ファイル名に使う
   eventAbbr: string
   confDay: string
-  track: { id: number; name: string }
+  // 1トラック分を出すときの対象。allTracks とどちらか一方を渡す
+  track?: { id: number; name: string }
+  // 全トラック分をまとめて (ZIP で) 出すときの対象。同じ設定を全トラックに使う
+  allTracks?: ReadonlyArray<{ id: number; name: string }>
   talks: Talk[]
 }
 
@@ -54,11 +59,17 @@ export default function CompanionExportModal({
   eventAbbr,
   confDay,
   track,
+  allTracks,
   talks,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   useBodyScrollLock(isOpen)
-  const [preview, setPreview] = useState<CompanionConfig | null>(null)
+  // 対象トラックごとのプレビュー (1トラックのときは1件)
+  const [previews, setPreviews] = useState<
+    { trackName: string; config: CompanionConfig }[] | null
+  >(null)
+  const [previewIndex, setPreviewIndex] = useState(0)
+  const preview = previews?.[previewIndex]?.config ?? null
   const [device, setDevice] = useState<Device>('gostream')
   const [includeCount, setIncludeCount] = useState(true)
   const [includeTrackA, setIncludeTrackA] = useState(false)
@@ -67,8 +78,14 @@ export default function CompanionExportModal({
 
   const closeModal = () => {
     setIsOpen(false)
-    setPreview(null)
+    setPreviews(null)
   }
+
+  const isAll = !track
+  const targets = track ? [track] : (allTracks ?? [])
+  const subtitle = track
+    ? `Track ${track.name}`
+    : `全トラック (${targets.map((t) => t.name).join(' / ')})`
 
   const options: CompanionOptions = {
     device,
@@ -85,8 +102,9 @@ export default function CompanionExportModal({
       pathname={companionPathname}
       query={{
         confDay,
-        trackId: track.id,
-        trackName: track.name,
+        ...(track
+          ? { trackId: track.id, trackName: track.name }
+          : { trackId: ALL_TRACKS }),
         ...companionOptionsToQuery(options),
       }}
       className="mr-auto"
@@ -94,19 +112,32 @@ export default function CompanionExportModal({
   )
 
   const handleBuildPreview = () => {
-    const times = sceneTimesOf(
-      talks.filter((talk) => talk.trackId === track.id)
+    setPreviews(
+      targets.map((target) => ({
+        trackName: target.name,
+        config: buildCompanionConfig({
+          ...options,
+          times: sceneTimesOf(
+            talks.filter((talk) => talk.trackId === target.id)
+          ),
+        }),
+      }))
     )
-    setPreview(buildCompanionConfig({ ...options, times }))
+    setPreviewIndex(0)
   }
 
   const handleExport = () => {
-    if (!preview) return
-    downloadCompanionConfig(preview, {
-      eventAbbr,
-      confDay,
-      trackName: track.name,
-    })
+    if (!previews) return
+    downloadExportFiles(
+      previews.map((p) =>
+        companionConfigFile(p.config, {
+          eventAbbr,
+          confDay,
+          trackName: p.trackName,
+        })
+      ),
+      companionZipName(eventAbbr, confDay, device)
+    )
     closeModal()
   }
 
@@ -114,6 +145,11 @@ export default function CompanionExportModal({
     <>
       <button
         onClick={() => setIsOpen(true)}
+        title={
+          isAll
+            ? '全トラックの Companion 設定をまとめてダウンロード'
+            : undefined
+        }
         className="rounded-sm bg-green-600/20 px-2 py-1 text-xs text-green-400 hover:bg-green-600/30 transition-colors"
       >
         Companion
@@ -121,7 +157,7 @@ export default function CompanionExportModal({
       {isOpen && !preview && (
         <ToolModal
           title="Companion ボタン設定"
-          subtitle={`Track ${track.name}`}
+          subtitle={subtitle}
           onClose={closeModal}
           help={
             <>
@@ -130,6 +166,8 @@ export default function CompanionExportModal({
                   使うスイッチャーとボタンを選んで <b>Preview</b>{' '}
                   でボタン配置を確認し、<b>Export</b> で{' '}
                   <Code>.companionconfig</Code> をダウンロードする
+                  {isAll &&
+                    ' (全トラック分をトラックごとのファイルにして ZIP 1つにまとめる。設定は全トラック共通)'}
                 </li>
                 <li>
                   Companion の <b>Import / Export → Import</b> で読み込む
@@ -212,20 +250,31 @@ export default function CompanionExportModal({
       {isOpen && preview && (
         <ToolModal
           title="Companion ボタン設定 — プレビュー"
-          subtitle={`Track ${track.name} / ${DEVICE_LABEL[device]}`}
+          subtitle={`${subtitle} / ${DEVICE_LABEL[device]}`}
           widthClass="w-[1100px]"
           onClose={closeModal}
           footer={
             <>
-              <ModalButton onClick={() => setPreview(null)}>← Back</ModalButton>
+              <ModalButton onClick={() => setPreviews(null)}>
+                ← Back
+              </ModalButton>
               {copyUrl}
               <ModalButton onClick={closeModal}>Cancel</ModalButton>
               <ModalButton variant="primary" onClick={handleExport}>
-                Export
+                {previews && previews.length > 1 ? 'Export ZIP' : 'Export'}
               </ModalButton>
             </>
           }
         >
+          {previews && previews.length > 1 && (
+            <Field label="プレビューするトラック">
+              <Segmented
+                value={String(previewIndex)}
+                onChange={(v) => setPreviewIndex(Number(v))}
+                options={previews.map((p, i) => [String(i), p.trackName])}
+              />
+            </Field>
+          )}
           <CompanionPreview config={preview} />
         </ToolModal>
       )}

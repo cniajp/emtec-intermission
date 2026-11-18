@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useBodyScrollLock } from '@/components/hooks/useBodyScrollLock'
 import type { SimulType } from './ObsSceneGenerate'
 import { OBS_SCENE } from './obsSceneNames'
+import { ALL_TRACKS } from './exportAll'
 import {
   Code,
   CopyUrlButton,
@@ -25,7 +26,10 @@ type Props = {
   // ローカルファイルのパス (Desktop/{eventAbbr}/...) の表示に使う
   eventAbbr: string
   confDay: string
-  track: { id: number; name: string }
+  // 1トラック分を出すときの対象。allTracks とどちらか一方を渡す
+  track?: { id: number; name: string }
+  // 全トラック分をまとめて (ZIP で) 出すときの対象。同じ設定を全トラックに使う
+  allTracks?: ReadonlyArray<{ id: number; name: string }>
   // サイマル URL の候補 (Dreamkast 版はトラックの配信 URL)
   simulUrlSuggestions?: ReadonlyArray<{ label: string; url: string }>
 }
@@ -47,6 +51,7 @@ export default function ObsExportModal({
   eventAbbr,
   confDay,
   track,
+  allTracks,
   simulUrlSuggestions = [],
 }: Props) {
   const router = useRouter()
@@ -65,13 +70,21 @@ export default function ObsExportModal({
   const [includeAttack, setIncludeAttack] = useState(false)
   const [includeBackground, setIncludeBackground] = useState(false)
 
+  const isAll = !track
+  const trackNames = (allTracks ?? []).map((t) => t.name)
+  const subtitle = track
+    ? `Track ${track.name}`
+    : `全トラック (${trackNames.join(' / ')})`
+  const listId = `simul-urls-${track ? track.id : ALL_TRACKS}`
+
   const usesLocalFiles = includeAttack || includeBackground || includeCountdown
 
   // Generate JSON と「URL をコピー」で同じクエリを使う
   const query = {
     confDay,
-    trackId: track.id,
-    trackName: track.name,
+    ...(track
+      ? { trackId: track.id, trackName: track.name }
+      : { trackId: ALL_TRACKS }),
     os,
     username,
     talkVolumeDb,
@@ -92,6 +105,11 @@ export default function ObsExportModal({
     <>
       <button
         onClick={() => setIsOpen(true)}
+        title={
+          isAll
+            ? '全トラックの OBS シーン設定をまとめてダウンロード'
+            : undefined
+        }
         className="rounded-sm bg-blue-600/20 px-2 py-1 text-xs text-blue-400 hover:bg-blue-600/30 transition-colors"
       >
         OBS
@@ -99,15 +117,17 @@ export default function ObsExportModal({
       {isOpen && (
         <ToolModal
           title="OBS シーン設定"
-          subtitle={`Track ${track.name}`}
+          subtitle={subtitle}
           onClose={() => setIsOpen(false)}
           help={
             <>
               <HelpSteps>
                 <li>
-                  使うシーンにチェックを入れて <b>Generate JSON</b>{' '}
-                  を押すと、このトラック用のシーンコレクション (JSON)
-                  がダウンロードされる
+                  使うシーンにチェックを入れて{' '}
+                  <b>{isAll ? 'Generate ZIP' : 'Generate JSON'}</b> を押すと、
+                  {isAll
+                    ? '全トラック分のシーンコレクション (トラックごとの JSON) が ZIP 1つでダウンロードされる。設定は全トラック共通'
+                    : 'このトラック用のシーンコレクション (JSON) がダウンロードされる'}
                 </li>
                 <li>
                   OBS の <b>シーンコレクション → インポート</b>{' '}
@@ -135,7 +155,7 @@ export default function ObsExportModal({
               />
               <ModalButton onClick={() => setIsOpen(false)}>Cancel</ModalButton>
               <ModalButton variant="primary" onClick={handleGenerate}>
-                Generate JSON
+                {isAll ? 'Generate ZIP' : 'Generate JSON'}
               </ModalButton>
             </>
           }
@@ -237,14 +257,10 @@ export default function ObsExportModal({
                   value={simulUrl}
                   onChange={setSimulUrl}
                   placeholder="https://..."
-                  list={
-                    simulUrlSuggestions.length > 0
-                      ? `simul-urls-${track.id}`
-                      : undefined
-                  }
+                  list={simulUrlSuggestions.length > 0 ? listId : undefined}
                 />
                 {simulUrlSuggestions.length > 0 && (
-                  <datalist id={`simul-urls-${track.id}`}>
+                  <datalist id={listId}>
                     {simulUrlSuggestions.map((s) => (
                       <option key={s.url} value={s.url}>
                         {s.label}
@@ -272,7 +288,7 @@ export default function ObsExportModal({
                 path={desktopPath(
                   os,
                   username,
-                  `${eventAbbr}/${track.name}/{HHMM}.mp4`
+                  `${eventAbbr}/${track ? track.name : '{トラック名}'}/{HHMM}.mp4`
                 )}
               />
             </OptionRow>

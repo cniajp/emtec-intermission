@@ -1,13 +1,20 @@
 import {
   buildCompanionConfig,
+  companionConfigFile,
   companionOptionsFromQuery,
-  downloadCompanionConfig,
+  companionZipName,
 } from '@/components/tools/CompanionConfigGenerate'
+import {
+  downloadExportFiles,
+  isAllTracks,
+  tracksWithTalks,
+} from '@/components/tools/exportAll'
 import { sceneTimesOf } from '@/components/tools/obsSceneNames'
 import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
 import config from '@/config'
 import { talks } from '@/data/talks'
+import { tracks } from '@/data/tracks'
 
 /**
  * 開くと Companion 設定をダウンロードしてメニューに戻る。
@@ -24,21 +31,31 @@ export default function CompanionPage() {
     if (!confDay || !trackId) return
     done.current = true
 
-    const trackTalks = talks.filter(
-      (talk) =>
-        talk.conferenceDayId === Number(confDay) &&
-        talk.trackId === Number(trackId)
+    const dayTalks = talks.filter(
+      (talk) => talk.conferenceDayId === Number(confDay)
     )
-    downloadCompanionConfig(
-      buildCompanionConfig({
-        ...companionOptionsFromQuery(router.query),
-        times: sceneTimesOf(trackTalks),
-      }),
-      {
-        eventAbbr: config.eventAbbr,
-        confDay: String(confDay),
-        trackName: String(trackName ?? trackId),
-      }
+    // trackId=all のときは、その日にトークがある全トラックを ZIP にまとめる
+    const targets = isAllTracks(trackId)
+      ? tracksWithTalks(tracks, dayTalks)
+      : [{ id: Number(trackId), name: String(trackName ?? trackId) }]
+    const options = companionOptionsFromQuery(router.query)
+    downloadExportFiles(
+      targets.map((track) =>
+        companionConfigFile(
+          buildCompanionConfig({
+            ...options,
+            times: sceneTimesOf(
+              dayTalks.filter((talk) => talk.trackId === track.id)
+            ),
+          }),
+          {
+            eventAbbr: config.eventAbbr,
+            confDay: String(confDay),
+            trackName: track.name,
+          }
+        )
+      ),
+      companionZipName(config.eventAbbr, String(confDay), options.device)
     )
 
     router.push(`/break/menu/${confDay}`)
@@ -46,8 +63,11 @@ export default function CompanionPage() {
 
   return (
     <div className="text-white text-center w-full my-5">
-      Generating Companion config for Track {router.query.trackName}...
-      Redirecting to menu...
+      Generating Companion config for{' '}
+      {isAllTracks(router.query.trackId)
+        ? 'all tracks'
+        : `Track ${router.query.trackName}`}
+      ... Redirecting to menu...
     </div>
   )
 }

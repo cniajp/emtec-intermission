@@ -84,6 +84,23 @@ export default function Index() {
           <TalkMenu
             view={view}
             talkPathname={(id) => `/break/talks/${id}`}
+            renderAllTracksActions={(exportTracks) => (
+              <>
+                <ObsExportModal
+                  obsPathname="/break/obs"
+                  eventAbbr={config.eventAbbr}
+                  confDay={confDay as string}
+                  allTracks={exportTracks}
+                />
+                <CompanionExportModal
+                  companionPathname="/break/companion"
+                  eventAbbr={config.eventAbbr}
+                  confDay={confDay as string}
+                  allTracks={exportTracks}
+                  talks={view.allTalks}
+                />
+              </>
+            )}
             renderTrackActions={(track) => (
               <>
                 <ObsModal confDay={confDay as string} track={track} />

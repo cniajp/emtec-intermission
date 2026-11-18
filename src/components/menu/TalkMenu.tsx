@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import type { Talk, Track } from '@/data/types'
 import type { MenuView } from '@/logic/models/talkView'
 import { getTimeStr } from '@/utils/time'
+import { tracksWithTalks } from '@/components/tools/exportAll'
 
 type Props = {
   view: MenuView
@@ -11,6 +12,8 @@ type Props = {
   talkPathname: (talkId: number) => string
   // トラックごとの操作（OBS / Companion のエクスポートボタン）
   renderTrackActions: (track: Track) => ReactNode
+  // 全トラック分をまとめて出す操作。トークのあるトラックが2つ以上のときだけ出す
+  renderAllTracksActions?: (tracks: Track[]) => ReactNode
 }
 
 // PC 幅でトラックがこの数を超えたら、列を詰めずに横スクロールにする
@@ -26,11 +29,17 @@ const TIME_COLUMN = '5.5rem'
  * このサイトの文字サイズ表（tailwind.css の @theme）は 1920x1080 の配信画面向けに大きいので、
  * 文字サイズは px で直接指定している。
  */
-export function TalkMenu({ view, talkPathname, renderTrackActions }: Props) {
+export function TalkMenu({
+  view,
+  talkPathname,
+  renderTrackActions,
+  renderAllTracksActions,
+}: Props) {
   const tracks = view.allTracks
   const slots = view
     .timeSlots()
     .map((slot) => ({ slot, talks: view.getTalksOnTimeSlot(slot) }))
+  const exportTracks = tracksWithTalks(tracks, view.allTalks)
   const [selected, setSelected] = useState(0)
   // 日を切り替えてトラックが減ったときに、範囲外を指さないようにする
   const selectedIndex = selected < tracks.length ? selected : 0
@@ -46,6 +55,16 @@ export function TalkMenu({ view, talkPathname, renderTrackActions }: Props) {
 
   return (
     <div className="mx-auto max-w-7xl text-[13px] leading-normal text-white">
+      {renderAllTracksActions && exportTracks.length > 1 && (
+        <div className="mb-3 flex items-center justify-end gap-2">
+          <span className="text-[12px] text-neutral-400">
+            全トラックまとめて
+          </span>
+          <div className="flex gap-1">
+            {renderAllTracksActions(exportTracks)}
+          </div>
+        </div>
+      )}
       {/* PC 幅: 時刻 × 全トラックの表 */}
       <div className="hidden overflow-x-auto md:block">
         <div style={{ minWidth: tableMinWidth }}>
