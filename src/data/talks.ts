@@ -4,6 +4,7 @@ import { Talk } from './types'
  * CloudNative Days Winter 2026 (2026-11-18〜19 / 有明)
  * 出典 (2026-11-18 取得): https://cloudnativedays.jp/timetable/day1, /timetable/day2, /sessions/*
  * Dreamkast API を一時的に使えないため、公式サイトから書き起こしたもの
+ *   - 時刻と登壇者の並び順は Dreamkast のトーク一覧 (2026-11-18 受領) に合わせてある
  *   - id は公式サイトのセッション番号 (/sessions/<id>)
  *   - trackId は A=1 / B=2 / C=3 / D=4、conferenceDayId は Day 1=1 / Day 2=2
  *   - talkCategory はキーノートのみ 'Keynote'、ほかは公式サイトのカテゴリ
@@ -96,16 +97,16 @@ export const talks: Talk[] = [
       'KDDIでは、20年近く稼働してきたエンタープライズシステムの設備更改にAI駆動開発を導入しました。つぎはぎを重ねたプログラムを従来手法で刷新すれば、工期・工数ともに膨らみ、競争の激しい通信業界では戦えない――その危機感から、既存システムに精通したHCL社、AI駆動開発に知見を持つRed Hat社とワンチーム体制を組み、新たな開発手法に踏み出しました。本講演では、基幹系ならではの難しさに向き合う開発現場から、商用リリースに向けたAI駆動開発の現在地をご紹介します。',
     speakers: [
       {
-        id: 2442,
-        name: 'Fumiaki Kanayama',
+        id: 2447,
+        name: 'Hirotaka Torigoe',
       },
       {
         id: 2443,
         name: 'Koya Matsuda',
       },
       {
-        id: 2447,
-        name: 'Hirotaka Torigoe',
+        id: 2442,
+        name: 'Fumiaki Kanayama',
       },
     ],
     startTime: '2026-11-18T11:50:00+09:00',
@@ -366,8 +367,8 @@ export const talks: Talk[] = [
         name: 'Kai Makita',
       },
     ],
-    startTime: '2026-11-18T15:40:00+09:00',
-    endTime: '2026-11-18T16:10:00+09:00',
+    startTime: '2026-11-18T16:00:00+09:00',
+    endTime: '2026-11-18T16:30:00+09:00',
     talkDifficulty: '中級者',
     talkCategory: '組織論',
     conferenceDayId: 1,
@@ -385,8 +386,8 @@ export const talks: Talk[] = [
         name: 'Fred Jhang',
       },
     ],
-    startTime: '2026-11-18T15:40:00+09:00',
-    endTime: '2026-11-18T16:10:00+09:00',
+    startTime: '2026-11-18T16:00:00+09:00',
+    endTime: '2026-11-18T16:30:00+09:00',
     talkDifficulty: '中級者',
     talkCategory: 'Application / Development',
     conferenceDayId: 1,
@@ -405,8 +406,8 @@ export const talks: Talk[] = [
         name: 'Daizen Ikehara',
       },
     ],
-    startTime: '2026-11-18T15:40:00+09:00',
-    endTime: '2026-11-18T16:10:00+09:00',
+    startTime: '2026-11-18T16:00:00+09:00',
+    endTime: '2026-11-18T16:30:00+09:00',
     talkDifficulty: '中級者',
     talkCategory: 'Security',
     conferenceDayId: 1,
@@ -425,8 +426,8 @@ export const talks: Talk[] = [
         name: 'Kota Fukuchi',
       },
     ],
-    startTime: '2026-11-18T16:30:00+09:00',
-    endTime: '2026-11-18T17:00:00+09:00',
+    startTime: '2026-11-18T16:40:00+09:00',
+    endTime: '2026-11-18T17:10:00+09:00',
     talkDifficulty: '初級者',
     talkCategory: 'Architecture Design',
     conferenceDayId: 1,
@@ -445,8 +446,8 @@ export const talks: Talk[] = [
         name: 'Shotaro Gotanda',
       },
     ],
-    startTime: '2026-11-18T16:30:00+09:00',
-    endTime: '2026-11-18T17:00:00+09:00',
+    startTime: '2026-11-18T16:40:00+09:00',
+    endTime: '2026-11-18T17:10:00+09:00',
     talkDifficulty: '中級者',
     talkCategory: 'Application / Development',
     conferenceDayId: 1,
@@ -464,8 +465,8 @@ export const talks: Talk[] = [
         name: 'Kenta Goto',
       },
     ],
-    startTime: '2026-11-18T16:30:00+09:00',
-    endTime: '2026-11-18T17:00:00+09:00',
+    startTime: '2026-11-18T16:40:00+09:00',
+    endTime: '2026-11-18T17:10:00+09:00',
     talkDifficulty: '初級者',
     talkCategory: 'Security',
     conferenceDayId: 1,
@@ -484,8 +485,8 @@ export const talks: Talk[] = [
         name: 'Soushi Hiruta',
       },
     ],
-    startTime: '2026-11-18T16:30:00+09:00',
-    endTime: '2026-11-18T17:00:00+09:00',
+    startTime: '2026-11-18T16:40:00+09:00',
+    endTime: '2026-11-18T17:10:00+09:00',
     talkDifficulty: '中級者',
     talkCategory: 'CI / CD',
     conferenceDayId: 1,
@@ -579,12 +580,12 @@ export const talks: Talk[] = [
       '通常のゲーム操作は近くのリージョンで快適に、フレンド交流やプライベートルームでのマルチプレイは地域を越えて。「ホロライブドリームス」で、この要件を両立するデータ配置とKubernetesによるマルチゲーム基盤の設計を解説します。\n前半では、通常処理をユーザーが近いリージョンのRegional APIに閉じ、共有データを日本に配置したGlobal APIで扱う構成を紹介します。データの鮮度と書き込みの許容遅延を整理し、非同期・同期の部分失敗や複数DB更新の複雑さを避ける一方、地域間通信の遅延をどこで受け入れたかを説明します。\n後半では、世界中のプレイヤーが一緒に遊ぶためのAgones・Open Matchを使ったマルチゲーム基盤の紹介と、安全性とメンテナンス性を考慮したマルチリージョンGKEクラスタ構成を紹介します。\n複数地域にサービスを提供するバックエンドエンジニア・SREに向けて、遅延・鮮度・実装の複雑さからデータ配置を判断する視点と、規模が大きくなる中で運用の複雑さを抑えるための考え方を共有します。',
     speakers: [
       {
-        id: 2437,
-        name: 'Takuya Yanase',
-      },
-      {
         id: 2439,
         name: 'Masaya Matsuda',
+      },
+      {
+        id: 2437,
+        name: 'Takuya Yanase',
       },
     ],
     startTime: '2026-11-19T10:30:00+09:00',
@@ -602,12 +603,12 @@ export const talks: Talk[] = [
       '日本のクラウドネイティブコミュニティでは、たくさんの先輩たちが「入口」を作り続けてきました。初心者向けのMeetupは「わからない」ままでも参加できる場を作りました。日本語で学べるUpstream Trainingは、言語の壁を越えてコントリビューションへの道を開きました。手ぶらで参加できるハンズオンは、環境構築の壁を取り除きました。こうした積み重ねのおかげで、クラウドネイティブ技術を学ぶ入口は大きく広がっています。\n\n一方で、入口が開いていても「ここに自分がいていいのかな」とためらう人はまだいます。この見えにくい心理的な壁を越える次の一歩として、私たちはWomen Gathering SIGを立ち上げました。\n\n本セッションでは、これまでのコミュニティ活動から学んだこと、SIG立ち上げの経緯、そしてこれから目指す姿をお話しします。コミュニティ全体の裾野を広げ、「Scaling Together」を一緒に実現していきましょう。',
     speakers: [
       {
-        id: 2469,
-        name: 'Aoi Takahashi',
-      },
-      {
         id: 2470,
         name: 'Sunyanan Choochotkaew',
+      },
+      {
+        id: 2469,
+        name: 'Aoi Takahashi',
       },
     ],
     startTime: '2026-11-19T11:00:00+09:00',
@@ -764,12 +765,12 @@ export const talks: Talk[] = [
       'AI にコードを書かせることが当たり前になった今、増え続けるテストが CI の実行時間と費用を押し上げています。エージェントへの指示を改善し、テストを削減することが王道のアプローチですが、テスト設計の知識をチーム全体へ浸透させるには、教育にも時間と労力がかかります。\n\nヌーラボはこの課題に対して、CI/CD パイプラインとテスト実行のオブザーバビリティを整備することからアプローチしました。そのうえで、個々の開発者の工夫だけに依存せず、プラットフォームとしてアウターループを最適化する手段として、Datadog の CI/CD Optimization の一機能である Test Impact Analysis（TIA）に注目しました。コードカバレッジと変更差分から、影響を受けないテストをスキップし、実行負担を減らします。\n\n本セッションでは、Datadog とヌーラボが、TIA の原理とメリット、導入の背景、時間と費用の削減に向けた実践事例と今後の展望を共有します。',
     speakers: [
       {
-        id: 2441,
-        name: 'Keisuke Sakasai',
-      },
-      {
         id: 2448,
         name: 'Yuki Yoshiiwa',
+      },
+      {
+        id: 2441,
+        name: 'Keisuke Sakasai',
       },
     ],
     startTime: '2026-11-19T14:00:00+09:00',
@@ -867,24 +868,24 @@ export const talks: Talk[] = [
       '「AI時代のクラウドネイティブ」をテーマに、会社の規模や事業領域が異なるエンジニアが集まり、同じ技術・課題への向き合い方の違いを語ります。話すのは、OSSを何を基準に選ぶか、脆弱性対応やupstreamへの還元を含めOSSを誰がどう維持するか、クラウド・オンプレ・閉域網のどれで何を動かすか、の3つです。技術選定や運用方針を決める立場のエンジニア・SREに向けたセッションです。自社とは前提の違う組織が何を決め手にしているかを知り、自分たちの判断軸を見直すきっかけを持ち帰っていただけます。',
     speakers: [
       {
-        id: 2331,
-        name: 'Kohei Hayama',
-      },
-      {
-        id: 2385,
-        name: 'Atsushi Umakatsu',
-      },
-      {
-        id: 2405,
-        name: 'Hiroshi Hayakawa',
+        id: 2460,
+        name: 'Daiki Takasao',
       },
       {
         id: 2451,
         name: 'Keita Mochizuki',
       },
       {
-        id: 2460,
-        name: 'Daiki Takasao',
+        id: 2405,
+        name: 'Hiroshi Hayakawa',
+      },
+      {
+        id: 2385,
+        name: 'Atsushi Umakatsu',
+      },
+      {
+        id: 2331,
+        name: 'Kohei Hayama',
       },
     ],
     startTime: '2026-11-19T15:40:00+09:00',
@@ -902,24 +903,24 @@ export const talks: Talk[] = [
       'CloudNative Days 学生スカラシップに採択された 5 名の学生が、ショートセッションをリレー形式で発表します。ネットワークの低レイヤからアプリケーションの設計、インフラの運用と自動化、そしてソフトウェアサプライチェーンの研究まで。それぞれが自分の手で作り、動かし、つまずいた経験から得た学びを持ち寄ります。クラウドネイティブを学び始めた方はもちろん、次の世代がどんな挑戦をしているのかを知りたい方にもおすすめです。',
     speakers: [
       {
-        id: 2452,
-        name: 'WAKATO NAKATA',
-      },
-      {
-        id: 2453,
-        name: 'Itsuki Baba',
-      },
-      {
-        id: 2459,
-        name: 'Takaharu Nakamura',
+        id: 2468,
+        name: 'Yusuke Moriwaki',
       },
       {
         id: 2463,
         name: 'Kenta Hirano',
       },
       {
-        id: 2468,
-        name: 'Yusuke Moriwaki',
+        id: 2459,
+        name: 'Takaharu Nakamura',
+      },
+      {
+        id: 2453,
+        name: 'Itsuki Baba',
+      },
+      {
+        id: 2452,
+        name: 'WAKATO NAKATA',
       },
     ],
     startTime: '2026-11-19T15:40:00+09:00',
@@ -937,24 +938,24 @@ export const talks: Talk[] = [
       'クラウドネイティブ技術に新しく挑戦した初心者エンジニアたちが、実際に触って得られた学びや発見をお届けします！\n\n初めてだからこそ直面したつまずきや、試行錯誤の中で気づいたことなど、等身大の体験談が盛りだくさん。\n\nこれから新しい技術に挑戦したい方も、同じような経験をしたことがある方も、きっと共感や新たな発見があるはずです。\n\n登壇者たちの挑戦を、ぜひ会場で応援してください！\n\n登壇タイトル：\n1. Sandbox基盤のLLM Proxy選び！LiteLLMとagentgatewayを試して分かったこと（辻田 美咲）\n\n2. Headlampから学ぶ、KubernetesのOIDC認証とコントリビューションの面白さ（山崎 祐輝）\n\n3. 15時間ずっと「進行中」！？新卒エンジニアがGitHub Actionsの最新機能に挑んでハマった話（松浦 麗）\n\n4. TLS共通化から始まったIstio Fault Injectionへの挑戦（岩鶴 京也）\n\n5. 複数ノードになった自宅k8sのデータの扱い方 ― NFS・Longhorn・Garageを比べる（菅家孝太郎）',
     speakers: [
       {
-        id: 2454,
-        name: 'Kotaro Kanke',
-      },
-      {
-        id: 2457,
-        name: 'Kyoya Iwatsuru',
-      },
-      {
-        id: 2462,
-        name: 'Misaki Tsujita',
+        id: 2466,
+        name: 'Rei Matsuura',
       },
       {
         id: 2464,
         name: 'Yuki Yamasaki',
       },
       {
-        id: 2466,
-        name: 'Rei Matsuura',
+        id: 2462,
+        name: 'Misaki Tsujita',
+      },
+      {
+        id: 2457,
+        name: 'Kyoya Iwatsuru',
+      },
+      {
+        id: 2454,
+        name: 'Kotaro Kanke',
       },
     ],
     startTime: '2026-11-19T15:40:00+09:00',
@@ -972,24 +973,24 @@ export const talks: Talk[] = [
       '技術導入での思わぬ落とし穴や、障害対応の裏側、いまだからこそ話せる失敗談など、登壇者たちのリアルな「しくじり」をお届けします！\n\nこのLTは配信なしの会場限定企画。普段はなかなか表に出てこない、ここだけのぶっちゃけ話が飛び出すかもしれません。\n\n成功談だけでは見えてこない学びや、思わず共感してしまうエピソードが盛りだくさん。\n\nここでしか聞けない貴重な体験談を、ぜひ会場でお楽しみください！\n\n登壇タイトル：\n1. ログが6週間消えていたのに誰も気づかなかった話 〜オブザーバビリティの設計判断にしくじりが答えをくれた〜（國本 裕哉）\n\n2. え、塩漬けだったAWSアカウントのコスト、見直すだけでこんなに減るんですか？（中村 昴）\n\n3. 俺のCIDRがこんなに一致しないわけがない 〜ALB Controller 無限Reconcile編〜（じぇまき）\n\n4. Kubernetes (GKE) クラスターの載せ替えに失敗した話（山口 健太）\n\n5. 社内開発者プラットフォームの品質を追求したらGitHub Actionsが止まった話（鈴木 敦）',
     speakers: [
       {
-        id: 2391,
-        name: 'Jumpei Maki',
-      },
-      {
-        id: 2455,
-        name: 'Atsushi Suzuki',
-      },
-      {
-        id: 2456,
-        name: 'Yuya Kunimoto',
+        id: 2465,
+        name: 'Kenta Yamaguchi',
       },
       {
         id: 2461,
         name: 'Subaru Nakamura',
       },
       {
-        id: 2465,
-        name: 'Kenta Yamaguchi',
+        id: 2456,
+        name: 'Yuya Kunimoto',
+      },
+      {
+        id: 2455,
+        name: 'Atsushi Suzuki',
+      },
+      {
+        id: 2391,
+        name: 'Jumpei Maki',
       },
     ],
     startTime: '2026-11-19T15:40:00+09:00',
