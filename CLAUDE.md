@@ -45,9 +45,11 @@
 ├── /break-dk/menu/[confDay]   # Dreamkast版メニュー（Day 0, 1, 2...）
 ├── /break-dk/talks/[talkId]   # Dreamkast版インターミッション表示
 ├── /break-dk/obs               # Dreamkast版OBS用ページ
+├── /break-dk/cm                # Dreamkast版 CM だけを繰り返し流すページ（APIは呼ばない）
 ├── /break/menu/[confDay]       # 静的データ版メニュー
 ├── /break/talks/[talkId]       # 静的データ版インターミッション表示
-└── /break/obs                  # 静的データ版OBS用ページ
+├── /break/obs                  # 静的データ版OBS用ページ
+└── /break/cm                   # 静的データ版 CM だけを繰り返し流すページ
 ```
 
 ### メニューの表示（`/break/menu/*`, `/break-dk/menu/*`）

@@ -156,6 +156,11 @@ export default function Home() {
             >
               <LinkCard href="/break-dk/menu/1" title="Day 1" />
               <LinkCard href="/break-dk/menu/2" title="Day 2" />
+              <LinkCard
+                href="/break-dk/cm"
+                title="CM のみ"
+                description="CM 動画だけを繰り返し再生"
+              />
             </Section>
 
             {staticDays.length > 0 && (
@@ -172,6 +177,11 @@ export default function Home() {
                     title={`Day ${day}${date ? ` : ${date}` : ''}`}
                   />
                 ))}
+                <LinkCard
+                  href="/break/cm"
+                  title="CM のみ"
+                  description="CM 動画だけを繰り返し再生"
+                />
               </Section>
             )}
           </div>
