@@ -62,6 +62,9 @@
   （`page3.trackImages`）も差し込む。トーク情報の代わりに `makeTrackOnlyView()`
   （`src/logic/models/trackOnlyView.ts`）で作った仮の `TalkView` を Page3 に渡している
 - BGM は Page3 の間だけ流れる（talk ページと同じく CM 中は止まる）
+- ローディング画面は出さない。ヘッダーロゴと1枚目のスライドは HTML の `<link rel="preload">` で
+  先に取りに行き、背景・ロゴ・1枚目・フォントがそろうまで中身を透明にして待つ（上限5秒、
+  その間 Page3 の表示時間は進めない）。2枚目以降の先読みは表示が始まってから
 
 ### メニューの表示（`/break/menu/*`, `/break-dk/menu/*`）
 
