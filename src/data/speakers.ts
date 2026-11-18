@@ -4,22 +4,11 @@ import { Speaker } from './types'
  * CloudNative Days Winter 2026 (2026-11-18〜19 / 有明)
  * 出典 (2026-11-18 取得): https://cloudnativedays.jp/timetable/day1, /timetable/day2, /sessions/*
  * Dreamkast API を一時的に使えないため、公式サイトから書き起こしたもの
- *   - id は公式サイトの登壇者画像の番号。画像の無い登壇者は「セッション番号×100＋並び順」
+ *   - id・名前・所属は Dreamkast の登壇者一覧 (2026-11-18 受領) に合わせてある
+ *   - 画像は Dreamkast 側 (S3) が外部から取得できないため、公式サイトのものを使う
  *   - 登壇者画像は public/cndw2026/speakers/<id>.<拡張子> に保存
  */
 export const speakers: Speaker[] = [
-  {
-    id: 2213,
-    name: 'Subaru Nakamura',
-    company: 'AUDER株式会社',
-    avatarUrl: '/cndw2026/speakers/2213.jpg',
-  },
-  {
-    id: 2315,
-    name: 'Yoshi Yamaguchi',
-    company: 'Grafana Labs',
-    avatarUrl: '/cndw2026/speakers/2315.png',
-  },
   {
     id: 2330,
     name: 'Kazato Hiei',
@@ -99,6 +88,18 @@ export const speakers: Speaker[] = [
     avatarUrl: '/cndw2026/speakers/2358.png',
   },
   {
+    id: 2364,
+    name: 'Mikio Fujita',
+    company: '株式会社はてな',
+    avatarUrl: '',
+  },
+  {
+    id: 2365,
+    name: 'Yoshi Yamaguchi',
+    company: 'Grafana Labs',
+    avatarUrl: '/cndw2026/speakers/2365.png',
+  },
+  {
     id: 2367,
     name: 'Shun Kittaka',
     company: '株式会社TOKIUM',
@@ -151,6 +152,12 @@ export const speakers: Speaker[] = [
     name: 'Atsushi Umakatsu',
     company: '株式会社ヘンリー',
     avatarUrl: '/cndw2026/speakers/2385.webp',
+  },
+  {
+    id: 2386,
+    name: 'Kota Fukuchi',
+    company: '三井住友カード株式会社',
+    avatarUrl: '',
   },
   {
     id: 2389,
@@ -209,7 +216,7 @@ export const speakers: Speaker[] = [
   {
     id: 2413,
     name: 'Tayzar',
-    company: 'グーグル・クラウド・ジャパン合同会社',
+    company: '(秘密)',
     avatarUrl: '/cndw2026/speakers/2413.jpeg',
   },
   {
@@ -265,6 +272,12 @@ export const speakers: Speaker[] = [
     name: 'Masaya Matsuda',
     company: '株式会社サイバーエージェント',
     avatarUrl: '/cndw2026/speakers/2439.webp',
+  },
+  {
+    id: 2440,
+    name: 'Yuko Mori',
+    company: 'アカマイ・テクノロジーズ合同会社',
+    avatarUrl: '',
   },
   {
     id: 2441,
@@ -363,6 +376,12 @@ export const speakers: Speaker[] = [
     avatarUrl: '/cndw2026/speakers/2456.webp',
   },
   {
+    id: 2457,
+    name: 'Kyoya Iwatsuru',
+    company: 'パナソニックエレクトリックワークス株式会社',
+    avatarUrl: '',
+  },
+  {
     id: 2458,
     name: 'Norihito Yamamoto',
     company: 'デジタル庁',
@@ -379,6 +398,12 @@ export const speakers: Speaker[] = [
     name: 'Daiki Takasao',
     company: '株式会社野村総合研究所',
     avatarUrl: '/cndw2026/speakers/2460.webp',
+  },
+  {
+    id: 2461,
+    name: 'Subaru Nakamura',
+    company: 'AUDER株式会社',
+    avatarUrl: '/cndw2026/speakers/2461.jpg',
   },
   {
     id: 2462,
@@ -405,6 +430,12 @@ export const speakers: Speaker[] = [
     avatarUrl: '/cndw2026/speakers/2465.webp',
   },
   {
+    id: 2466,
+    name: 'Rei Matsuura',
+    company: '株式会社ディー・エヌ・エー',
+    avatarUrl: '',
+  },
+  {
     id: 2467,
     name: 'Satoshi Hara',
     company: '株式会社アシュアード',
@@ -427,35 +458,5 @@ export const speakers: Speaker[] = [
     name: 'Sunyanan Choochotkaew',
     company: 'IBM',
     avatarUrl: '/cndw2026/speakers/2470.webp',
-  },
-  {
-    id: 322000,
-    name: 'Kota Fukuchi',
-    company: '三井住友カード株式会社',
-    avatarUrl: '',
-  },
-  {
-    id: 327500,
-    name: 'Mikio Fujita',
-    company: '株式会社はてな',
-    avatarUrl: '',
-  },
-  {
-    id: 328300,
-    name: 'Yuko Mori',
-    company: 'アカマイ・テクノロジーズ合同会社',
-    avatarUrl: '',
-  },
-  {
-    id: 329301,
-    name: 'Kyoya Iwatsuru',
-    company: 'パナソニックエレクトリックワークス株式会社',
-    avatarUrl: '',
-  },
-  {
-    id: 329304,
-    name: 'Rei Matsuura',
-    company: '株式会社ディー・エヌ・エー',
-    avatarUrl: '',
   },
 ]
