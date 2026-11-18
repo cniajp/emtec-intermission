@@ -76,9 +76,12 @@ describe('publicDirsOf', () => {
 
   it('現在の設定では各イベントのフォルダになる', () => {
     expect(publicDirsOf(Object.values(staticConfig)).sort()).toEqual(
+      // 両方が同じイベントを指すこともあるので重複を除く
       [
-        staticConfig.break.base.eventAbbr,
-        staticConfig.breakDk.base.eventAbbr,
+        ...new Set([
+          staticConfig.break.base.eventAbbr,
+          staticConfig.breakDk.base.eventAbbr,
+        ]),
       ].sort()
     )
   })
