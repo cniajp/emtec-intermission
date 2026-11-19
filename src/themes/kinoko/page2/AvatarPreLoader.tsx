@@ -11,7 +11,7 @@ export function AvatarPreLoader({ view }: Props) {
   if (!view) {
     return <></>
   }
-  const nextTalks = getOverlappingTalks(view)
+  const nextTalks = getOverlappingTalks(view, brand.page2)
   const talk = Object.values(nextTalks)[0]
   if (!talk) {
     return <></>

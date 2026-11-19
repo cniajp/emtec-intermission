@@ -58,7 +58,7 @@ export function usePage2ViewModel(
   const view = useSameStartRotation(originalView, seconds, trackIds)
 
   if (!view) return { view, ...EMPTY, isLeaving }
-  const nextTalks = getOverlappingTalks(view)
+  const nextTalks = getOverlappingTalks(view, brand.page2)
   const baseTalk = Object.values(nextTalks)[0]
   if (!baseTalk) return { view, ...EMPTY, isLeaving }
 

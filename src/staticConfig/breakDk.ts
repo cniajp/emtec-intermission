@@ -66,6 +66,9 @@ export const breakDkConfig = {
     seconds: 32.5,
     trackColors: ['#f14e35', '#387c61', '#e5b73d'],
     showTrackLabel: true,
+    // CNDW2026 は次の枠のトークだけを出す（後続のトークは出さない）
+    showLaterTalks: false,
+    laterTalksWithinMinutes: 30,
   },
   page3: {
     alias: 'cndw2026/info',

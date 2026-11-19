@@ -3,11 +3,23 @@ import config from '@/config'
 import type { Talk } from '@/data/types'
 import { getTime } from '@/utils/time'
 
-// 選択されたトークの時間帯に重なるトークを各トラックごとに取得
-export function getOverlappingTalks(view: TalkView): Record<string, Talk> {
+export type LaterTalksOptions = {
+  // 次の枠にトークが無いトラックにも、時間が近い後続のトークを出すか
+  showLaterTalks: boolean
+  // 基準トークの終了から何分先までに始まるトークを出すか（0 なら重なるものだけ）
+  laterTalksWithinMinutes: number
+}
+
+// Page2 に出すトークを各トラックごとに取得する。
+// 次の枠のトークに加えて、options.showLaterTalks が true なら時間が近い後続のトークも拾う
+// （brand.page2 をそのまま渡せる）
+export function getOverlappingTalks(
+  view: TalkView,
+  options: LaterTalksOptions
+): Record<string, Talk> {
   const nextTalks = view.talksInNextSlot()
   const baseTalk = Object.values(nextTalks)[0]
-  if (!baseTalk) {
+  if (!baseTalk || !options.showLaterTalks) {
     return nextTalks
   }
 
@@ -54,8 +66,11 @@ export function getOverlappingTalks(view: TalkView): Record<string, Talk> {
       return
     }
 
-    // 重なるトークがない場合、さらに30分先まで検索
-    const extendedSlotEnd = slotEnd.add(30, 'minute')
+    // 重なるトークがない場合、さらに laterTalksWithinMinutes 分先まで検索
+    const extendedSlotEnd = slotEnd.add(
+      Math.max(0, options.laterTalksWithinMinutes),
+      'minute'
+    )
     const extendedOverlappingTalk = remainingTalks.filter((talk) => {
       const talkStart = getTime(talk.startTime)
       const talkEnd = getTime(talk.endTime)
