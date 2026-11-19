@@ -120,6 +120,9 @@ NEXT_PUBLIC_EXCLUDED_TALKS     # 除外するトークID（カンマ区切り）
 - ページ表示時間の**基本値は `src/staticConfig/*.ts`（brand）側**に持つ:
   `page1.seconds` / `page2.seconds` / `page3.secondsPerImage`（1枚あたり秒数）。
   `NEXT_PUBLIC_TRANS_TIME_PAGE*` はビルドせずに一時上書きする用
+- Page2 で、次の枠にトークが無いトラックにも時間が近い後続のトークを出すかは
+  `page2.showLaterTalks`（何分先までかは `page2.laterTalksWithinMinutes`）。
+  false なら次の枠のトークだけを出す（`src/logic/page-view-models/getOverlappingTalks.ts`）
 - イベント略称（`config.eventAbbr` / `config.dkEventAbbr`）も `src/staticConfig/*.ts` の
   `base.eventAbbr` が唯一の情報源。環境変数やクエリパラメータでは上書きできない
 

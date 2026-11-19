@@ -53,6 +53,12 @@ export interface Brand {
     trackColors: ReadonlyArray<string>
     // カード左上の「TRACK xxx」ラベルを出すか（1トラックのイベントなどで false にする）
     showTrackLabel: boolean
+    // 次の枠にトークが無いトラックにも、時間が近い後続のトークを出すか。
+    // false なら次の枠（最も早い開始時刻）のトークだけを出す
+    showLaterTalks: boolean
+    // showLaterTalks が true のとき、基準トークの終了から何分先までに始まるトークを出すか。
+    // 0 なら基準トークと時間が重なるものだけ
+    laterTalksWithinMinutes: number
   }
   page3: {
     alias: string
